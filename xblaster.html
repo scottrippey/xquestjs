@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+
+		<script src="js/lib/mootools-core-1.4.5.js"></script>
+		<script src="js/lib/require-2.1.2.js"></script>
+		<script src="js/lib/processing-1.4.1-api.js"></script>
+
+		<script src="js/src/XBlaster/XBlaster.js"></script>
+	</head>
+	<body>
+
+		<canvas id="XBlasterCanvas"></canvas>
+
+		<script>
+			define(['js/src/XBlaster/XBlaster.js'], function(XBlaster){
+				new XBlaster($('XBlasterCanvas'));
+			});
+		</script>
+
+	</body>
+</html>
