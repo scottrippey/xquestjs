@@ -1,6 +1,8 @@
 define('BrowserInput', function() {
 	var BrowserInput = new Class({
 
+		mode: 'mouse' // Eventually can be 'mouse', 'touch', or 'gravity'
+		,
 		initialize: function(el) {
 			this.document = el.getDocument();
 
