@@ -14,7 +14,7 @@ var EaselJSGraphics = new Class({
 		var background = new createjs.Shape();
 		background.graphics
 			.beginFill(this.variables.backgroundColor)
-			.drawRect(0, 0, this.stage.width, this.stage.height);
+			.drawRect(0, 0, this.canvas.width, this.canvas.height);
 
 		this.addToStage(background);
 	}
