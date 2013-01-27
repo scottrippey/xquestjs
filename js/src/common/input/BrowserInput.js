@@ -1,30 +1,34 @@
-define('BrowserInput', function() {
-	var BrowserInput = new Class({
+var BrowserInput = new Class({
 
-		mode: 'mouse' // Eventually can be 'mouse', 'touch', or 'gravity'
-		,
-		initialize: function(el) {
-			this.document = el.getDocument();
 
-			this._setupEvents();
-		}
-		,
-		_setupEvents: function(){
-			$(this.document.body).addEvents({
-				'mousedown': this._onMouseDown.bind(this)
-				,'mouseup': this._onMouseUp.bind(this)
-			});
-		}
-		,
-		_onMouseDown: function() {
+	initialize: function(canvas) {
+		this.canvas = canvas;
+		this.document = canvas.getDocument();
 
-		}
-		,
-		_onMouseUp: function() {
+		this._setupEvents();
+	}
+	,
+	_setupEvents: function(){
+		this.canvas.addEvents({
+			'mousedown': this._onMouseDown.bind(this)
+			,'mouseup': this._onMouseUp.bind(this)
+			,'mousemove': this._onMouseMove.bind(this)
+		});
+	}
+	, onInput: function(controlCallback) {
+		this.controlCallback = controlCallback;
+	}
+	,
+	_onMouseDown: function() {
 
-		}
+	}
+	,
+	_onMouseUp: function() {
 
-	});
+	}
+	, _onMouseMove: function(e) {
+		var position = { x: e.event.offsetX, y: e.event.offsetY };
+		this.controlCallback('movePlayer', position);
+	}
 
-	return BrowserInput;
 });
