@@ -13,7 +13,7 @@
 
 
 		<script src="js/src/common/input/BrowserInput.js"></script>
-		<script src="js/src/common/utils/Physics.js"></script>
+		<script src="js/src/common/utils/Point.js"></script>
 
 		<script src="js/src/XBlaster/resources/EaselJS/EaselJSGraphics.js"></script>
 		<script src="js/src/XBlaster/resources/EaselJS/EaselJSTimer.js"></script>
@@ -28,7 +28,10 @@
 		
 		
 		<style type="text/css">
-			#XBlasterCanvas {
+			body {
+				cursor: move;
+			}
+			body.mouse-dragging {
 				cursor: none;
 			}
 		</style>
@@ -38,7 +41,7 @@
 		<h1>XBlaster</h1>
 		<h2>An HTML5 Space Shooter that is free and open-source!</h2>
 
-		<canvas id="XBlasterCanvas" width="320" height="240"></canvas>
+		<canvas id="XBlasterCanvas" width="720" height="405"></canvas>
 
 		<script>
 			new XBlaster($('XBlasterCanvas'));

@@ -17,12 +17,14 @@ var BrowserInput = new Class({
 		});
 	}
 	, _onMouseDown: function(ev) {
+		ev.preventDefault();
 		if (!this.firstDown) {
 			this.firstDown = ev.getMouseButton();
 			this.inputItems.push({ inputType: 'engage' });
 
-			this.document.addEvent('mousemove', this._onMouseDrag);
 			this.dragStart = ev.client;
+			this.document.addEvent('mousemove', this._onMouseDrag);
+			this.document.body.addClass('mouse-dragging');
 		}
 	}
 	, _onMouseUp: function(ev) {
@@ -32,10 +34,11 @@ var BrowserInput = new Class({
 			this.firstDown = null;
 
 			this.document.removeEvent('mousemove', this._onMouseDrag);
+			this.document.body.removeClass('mouse-dragging');
 		}
 	}
 	, _onMouseDrag: function(ev) {
-		var sensitivity = 0.1;
+		var sensitivity = 3;
 		this.inputItems.push({
 			inputType: 'accelerate'
 			// drag distance:

@@ -7,7 +7,13 @@ var EaselJSTimer = function() {
 };
 EaselJSTimer.implement({
 	onTick: function(tickHandler) {
-		createjs.Ticker.addEventListener('tick', tickHandler);
+		createjs.Ticker.addEventListener('tick', function(tickEvent) {
+
+			// Augment the tickEvent:
+			tickEvent.deltaSeconds = tickEvent.delta / 1000;
+
+			tickHandler(tickEvent);
+		});
 	}
 	,
 	pauseGame: function(paused) {

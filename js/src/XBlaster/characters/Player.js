@@ -8,6 +8,8 @@ var Player = new Class({
 	}
 	, _setupPlayerGraphics: function() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
+		this.playerGraphics.moveTo(100, 100);
+
 		this.velocity = { x: 0, y: 0 };
 	}
 
@@ -43,8 +45,10 @@ var Player = new Class({
 	}
 
 	, move: function(tickEvent, game) {
-		Physics.updatePositionAndVelocity(tickEvent.delta, this.playerGraphics, this.velocity, this.inputResults.acceleration);
+		Point.updatePositionFromVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
+		Point.addPoints(this.velocity, this.inputResults.acceleration);
 	}
+
 
 	, act: function(tickEvent, game) {
 
