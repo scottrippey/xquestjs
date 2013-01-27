@@ -24,16 +24,21 @@ PlayerGraphics.implement({
 	}
 	,
 	_setupGraphics: function(){
-		var g = this.graphics;
+		var g = this.graphics, v = this.variables;
 		g.clear();
 
-		g.beginStyle(variables.outerStrokeStyle)
-		 .drawCircle(0, 0, variables.outerDiameter)
+		g.beginStyle(v.outerStrokeStyle)
+		 .drawCircle(0, 0, v.outerDiameter)
 		 .endStroke();
 
-		g.beginStyle(variables.innerStrokeStyle)
-		 .drawPolyStar(0, 0, variables.innerDiameter, variables.innerStarPoints, variables.innerStarSize, variables.innerSpin)
+		g.beginStyle(v.innerStrokeStyle)
+		 .drawPolyStar(0, 0, v.innerDiameter, v.innerStarPoints, v.innerStarSize, v.innerSpin)
 		 .endStroke();
 
+	}
+
+	, moveTo: function(x, y) {
+		this.x = x;
+		this.y = y;
 	}
 });

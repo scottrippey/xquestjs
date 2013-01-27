@@ -6,7 +6,7 @@ var EaselJSTimer = function() {
 
 };
 EaselJSTimer.implement({
-	addTickHandler: function(tickHandler) {
+	onTick: function(tickHandler) {
 		createjs.Ticker.addEventListener('tick', tickHandler);
 	}
 	,

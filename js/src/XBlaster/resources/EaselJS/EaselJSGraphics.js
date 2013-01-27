@@ -13,10 +13,13 @@ var EaselJSGraphics = new Class({
 	}
 	, _setupLayers: function() {
 		this.layers = {
-			background: new Stage(this.canvas)
-			, effects: new Stage(this.canvas)
-			, characters: new Stage(this.canvas)
+			background: new createjs.Stage(this.canvas)
+			, effects: new createjs.Stage(this.canvas)
+			, characters: new createjs.Stage(this.canvas)
 		};
+
+		this.layers.effects.autoClear = false;
+		this.layers.characters.autoClear = false;
 	}
 	, _setupBackground: function() {
 		var background = new createjs.Shape();
@@ -28,13 +31,13 @@ var EaselJSGraphics = new Class({
 	}
 
 	, draw: function(tickEvent, game) {
-		this.layers.background.update();
-		this.layers.effects.update();
-		this.layers.characters.update();
+		this.layers.background.update(tickEvent);
+		this.layers.effects.update(tickEvent);
+		this.layers.characters.update(tickEvent);
 	}
 
 
-	, getPlayerGraphics: function() {
+	, createPlayerGraphics: function() {
 		var playerGraphics = new PlayerGraphics();
 
 		this.layers.characters.addChild(playerGraphics);
