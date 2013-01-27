@@ -1,11 +1,14 @@
 var XBlaster = new Class({
 	initialize: function(canvas) {
 
-		this.gfx = new EaselJSGraphics(canvas);
-		this.input = new BrowserInput(canvas);
 
-		this.game = new ArcadeGame(this.gfx, this.input);
-		this.game.start();
+		// Setup components:
+		var gfx = new EaselJSGraphics(canvas);
+		var timer = new EaselJSTimer();
+		var input = new BrowserInput(canvas);
+
+		// Start the game:
+		var game = new ArcadeGame(gfx, input, timer);
 	}
 
 });
