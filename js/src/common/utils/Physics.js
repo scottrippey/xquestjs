@@ -1,5 +1,5 @@
 var Physics = {
-	updatePositionFromVelocity: function(point, velocity, elapsedSeconds) {
+	applyVelocity: function(point, velocity, elapsedSeconds) {
 		if (velocity.x) {
 			point.x += velocity.x * elapsedSeconds;
 		}
@@ -8,9 +8,19 @@ var Physics = {
 		}
 	}
 	,
-	addPoints: function(result, vector) {
-		result.x += vector.x;
-		result.y += vector.y;
+	applyAcceleration: function(point, acceleration, elapsedSeconds) {
+		if (acceleration.x || acceleration.y) {
+			var oneHalfTSquared = elapsedSeconds * elapsedSeconds / 2;
+			if (acceleration.x)
+				point.x += acceleration.x * oneHalfTSquared;
+			if (acceleration.y)
+				point.y += acceleration.y * oneHalfTSquared;
+		}
+	}
+	,
+	applyAccelerationToVelocity: function(velocity, acceleration) {
+		velocity.x += acceleration.x;
+		velocity.y += acceleration.y;
 	}
 };
 
