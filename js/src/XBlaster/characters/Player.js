@@ -45,8 +45,8 @@ var Player = new Class({
 	}
 
 	, move: function(tickEvent, game) {
-		Point.updatePositionFromVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
-		Point.addPoints(this.velocity, this.inputResults.acceleration);
+		Physics.updatePositionFromVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
+		Physics.addPoints(this.velocity, this.inputResults.acceleration);
 	}
 
 

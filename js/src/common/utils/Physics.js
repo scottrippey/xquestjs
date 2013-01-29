@@ -1,4 +1,4 @@
-var Point = {
+var Physics = {
 	updatePositionFromVelocity: function(point, velocity, elapsedSeconds) {
 		if (velocity.x) {
 			point.x += velocity.x * elapsedSeconds;
