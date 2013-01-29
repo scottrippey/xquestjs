@@ -1,8 +1,13 @@
 var Player = new Class({
 
-	initialize: function(game) {
+	variables: {
+		looseFriction: 0.5
+	}
+
+	, initialize: function(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
+		this.engaged = false;
 
 		this._setupPlayerGraphics();
 	}
@@ -40,6 +45,10 @@ var Player = new Class({
 			}
 			return true;
 		});
+
+		if (this.inputResults.engaged !== this.engaged) {
+			this.engaged = this.inputResults.engaged;
+		}
 	}
 
 	, onMove: function(tickEvent) {
@@ -47,6 +56,9 @@ var Player = new Class({
 		if (this.inputResults.acceleration) {
 			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
 			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
+		}
+		if (!this.engaged) {
+			Physics.applyFrictionToVelocity(this.velocity, this.variables.looseFriction, tickEvent.deltaSeconds);
 		}
 	}
 
