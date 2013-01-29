@@ -23,54 +23,40 @@ var ArcadeGame = new Class({
 		this._startGame();
 	}
 	, _setupEvents: function() {
-		this.onDraw(this.gfx.draw.bind(this.gfx));
+		this.addGameItem(this.gfx);
 	}
 	, _startTimer: function() {
 		this.timer.onTick(this._onTick.bind(this));
 	}
 	, _onTick: function(tickEvent) {
-		var game = this;
+		var executeHandlerWithTickEvent = function(handler) {
+			handler(tickEvent);
+		};
 
-		this.handlers.input.each(function(moveHandler) {
-			moveHandler(tickEvent, game);
-		});
-
-		this.handlers.move.each(function(moveHandler) {
-			moveHandler(tickEvent, game);
-		});
-
-		this.handlers.act.each(function(actHandler) {
-			actHandler(tickEvent, game);
-		});
-
-		this.handlers.draw.each(function(drawHandler) {
-			drawHandler(tickEvent, game);
-		});
-
+		this.handlers.input.each(executeHandlerWithTickEvent);
+		this.handlers.move.each(executeHandlerWithTickEvent);
+		this.handlers.act.each(executeHandlerWithTickEvent);
+		this.handlers.draw.each(executeHandlerWithTickEvent);
 	}
 
-	, onInput: function(inputHandler) {
-		this.handlers.input.push(inputHandler);
+	, addGameItem: function(gameItem) {
+		// Determine which methods the gameItem implements,
+		// and add them to the appropriate queue:
+		if (gameItem.onInput)
+			this.handlers.input.push(gameItem.onInput.bind(gameItem));
+		if (gameItem.onMove)
+			this.handlers.move.push(gameItem.onMove.bind(gameItem));
+		if (gameItem.onAct)
+			this.handlers.act.push(gameItem.onAct.bind(gameItem));
+		if (gameItem.onDraw)
+			this.handlers.draw.push(gameItem.onDraw.bind(gameItem));
 	}
-	, onMove: function(moveHandler) {
-		this.handlers.move.push(moveHandler);
-	}
-	, onAct: function(actHandler) {
-		this.handlers.act.push(actHandler);
-	}
-	, onDraw: function(drawHandler) {
-		this.handlers.draw.push(drawHandler);
-	}
-
 
 	, _startGame: function() {
 		var game = this;
 		var player = new Player(game);
 
-		this.onInput(player.input.bind(player));
-		this.onMove(player.move.bind(player));
-		this.onAct(player.act.bind(player));
-
+		this.addGameItem(player);
 	}
 
 });

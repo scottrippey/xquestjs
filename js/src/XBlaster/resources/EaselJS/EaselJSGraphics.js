@@ -30,7 +30,7 @@ var EaselJSGraphics = new Class({
 		this.layers.background.addChild(background);
 	}
 
-	, draw: function(tickEvent, game) {
+	, onDraw: function(tickEvent) {
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);

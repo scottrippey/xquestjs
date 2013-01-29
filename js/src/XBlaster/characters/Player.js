@@ -2,18 +2,16 @@ var Player = new Class({
 
 	initialize: function(game) {
 		this.game = game;
+		this.velocity = { x: 0, y: 0 };
 
 		this._setupPlayerGraphics();
-
 	}
 	, _setupPlayerGraphics: function() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
 		this.playerGraphics.moveTo(100, 100);
-
-		this.velocity = { x: 0, y: 0 };
 	}
 
-	, input: function(tickEvent, game) {
+	, onInput: function(tickEvent) {
 		var results = this.inputResults = {
 			acceleration: { x: 0, y: 0 }
 			, engaged: this.engaged
@@ -38,19 +36,22 @@ var Player = new Class({
 					results.secondaryWeapon = true;
 					break;
 				default:
-					return false;
+					return false; // unhandled
 			}
-			return true; // Handled
+			return true;
 		});
 	}
 
-	, move: function(tickEvent, game) {
-		Physics.updatePositionFromVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
-		Physics.addPoints(this.velocity, this.inputResults.acceleration);
+	, onMove: function(tickEvent) {
+		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
+		if (this.inputResults.acceleration) {
+			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
+			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
+		}
 	}
 
 
-	, act: function(tickEvent, game) {
+	, onAct: function(tickEvent) {
 
 	}
 });
