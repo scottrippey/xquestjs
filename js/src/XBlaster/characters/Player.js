@@ -2,7 +2,9 @@ var Player = new Class({
 
 	variables: {
 		looseFriction: 0.5
+		, bulletSpeed: 2
 	}
+	, bullets: []
 
 	, initialize: function(game) {
 		this.game = game;
@@ -20,6 +22,7 @@ var Player = new Class({
 		var results = this.inputResults = {
 			acceleration: { x: 0, y: 0 }
 			, engaged: this.engaged
+			, primaryWeapon: 0
 		};
 
 		this.game.input.processInputs(function(inputItem) {
@@ -35,7 +38,7 @@ var Player = new Class({
 					results.engaged = false;
 					break;
 				case 'primaryWeapon':
-					results.primaryWeapon = true;
+					results.primaryWeapon += 1;
 					break;
 				case 'secondaryWeapon':
 					results.secondaryWeapon = true;
@@ -46,9 +49,26 @@ var Player = new Class({
 			return true;
 		});
 
+		this._analyzeInput();
+	}
+	, _analyzeInput: function() {
 		if (this.inputResults.engaged !== this.engaged) {
 			this.engaged = this.inputResults.engaged;
 		}
+
+		var i = this.inputResults.primaryWeapon;
+		while (i--) {
+			this._addBullet(i);
+		}
+	}
+	, _addBullet: function(index) {
+		var bulletGfx = this.game.gfx.createPlayerBullet();
+		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
+		bulletGfx.velocity = {
+			x: this.velocity.x * this.variables.bulletSpeed
+			, y: this.velocity.y * this.variables.bulletSpeed
+		};
+		this.bullets.push(bulletGfx);
 	}
 
 	, onMove: function(tickEvent) {
@@ -60,6 +80,10 @@ var Player = new Class({
 		if (!this.engaged) {
 			Physics.applyFrictionToVelocity(this.velocity, this.variables.looseFriction, tickEvent.deltaSeconds);
 		}
+
+		this.bullets.each(function(bulletGfx) {
+			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
+		});
 	}
 
 

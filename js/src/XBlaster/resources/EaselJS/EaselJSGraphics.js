@@ -39,9 +39,14 @@ var EaselJSGraphics = new Class({
 
 	, createPlayerGraphics: function() {
 		var playerGraphics = new PlayerGraphics();
-
 		this.layers.characters.addChild(playerGraphics);
-
 		return playerGraphics;
 	}
+
+	, createPlayerBullet: function() {
+		var bulletGfx = new BulletGraphics();
+		this.layers.effects.addChild(bulletGfx);
+		return bulletGfx;
+	}
+
 });

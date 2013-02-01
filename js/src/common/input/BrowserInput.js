@@ -14,7 +14,11 @@ var BrowserInput = new Class({
 		this.document.addEvents({
 			'mousedown': this._onMouseDown.bind(this)
 			,'mouseup': this._onMouseUp.bind(this)
+			,'click': this._preventClick.bind(this)
 		});
+	}
+	, _preventClick: function(ev) {
+		ev.preventDefault();
 	}
 	, _onMouseDown: function(ev) {
 		ev.preventDefault();
@@ -25,9 +29,13 @@ var BrowserInput = new Class({
 			this.dragStart = ev.client;
 			this.document.addEvent('mousemove', this._onMouseDrag);
 			this.document.body.addClass('mouse-dragging');
+		} else {
+			this.inputItems.push({ inputType: 'primaryWeapon' });
 		}
 	}
 	, _onMouseUp: function(ev) {
+		ev.preventDefault();
+
 		var button = ev.getMouseButton();
 		if (this.firstDown === button) {
 			this.inputItems.push({ inputType: 'disengage' });
