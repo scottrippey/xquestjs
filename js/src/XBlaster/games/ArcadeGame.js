@@ -54,8 +54,10 @@ var ArcadeGame = new Class({
 
 	, _startGame: function() {
 		var game = this;
-		var player = new Player(game);
 
+		this.level = game.gfx.createLevelGraphics();
+
+		var player = new Player(game);
 		this.addGameItem(player);
 	}
 

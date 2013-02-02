@@ -22,11 +22,7 @@ var EaselJSGraphics = new Class({
 		this.layers.characters.autoClear = false;
 	}
 	, _setupBackground: function() {
-		var background = new createjs.Shape();
-		background.graphics
-			.beginFill(this.variables.backgroundColor)
-			.drawRect(0, 0, this.canvas.width, this.canvas.height);
-
+		var background = new BackgroundGraphics(this.canvas);
 		this.layers.background.addChild(background);
 	}
 
@@ -36,6 +32,11 @@ var EaselJSGraphics = new Class({
 		this.layers.characters.update(tickEvent);
 	}
 
+	, createLevelGraphics: function() {
+		var levelGraphics = new LevelGraphics(this.canvas);
+		this.layers.background.addChild(levelGraphics);
+		return levelGraphics;
+	}
 
 	, createPlayerGraphics: function() {
 		var playerGraphics = new PlayerGraphics();

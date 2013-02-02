@@ -72,6 +72,10 @@ var Player = new Class({
 	}
 
 	, onMove: function(tickEvent) {
+		this._movePlayer(tickEvent);
+		this._moveBullets(tickEvent);
+	}
+	, _movePlayer: function(tickEvent) {
 		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 		if (this.inputResults.acceleration) {
 			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
@@ -81,6 +85,35 @@ var Player = new Class({
 			Physics.applyFrictionToVelocity(this.velocity, this.variables.looseFriction, tickEvent.deltaSeconds);
 		}
 
+		this._bounceOffWalls();
+	}
+	, _bounceOffWalls: function() {
+		var bounds = this.game.level.bounds;
+		var player = this.playerGraphics
+			, velocity = this.velocity
+			, diameter = this.playerGraphics.variables.outerDiameter;
+
+		var leftEdge = (player.x - diameter) - (bounds.x)
+			,rightEdge = (player.x + diameter) - (bounds.x + bounds.width);
+		if (leftEdge < 0) {
+			player.x -= leftEdge*2;
+			velocity.x *= -1;
+		} else if (rightEdge > 0) {
+			player.x -= rightEdge*2;
+			velocity.x *= -1;
+		}
+		var topEdge = (player.y - diameter) - (bounds.y)
+			,bottomEdge = (player.y + diameter) - (bounds.y + bounds.height);
+		if (topEdge < 0) {
+			player.y -= topEdge*2;
+			velocity.y *= -1;
+		} else if (bottomEdge > 0) {
+			player.y -= bottomEdge*2;
+			velocity.y *= -1;
+		}
+
+	}
+	, _moveBullets: function(tickEvent) {
 		this.bullets.each(function(bulletGfx) {
 			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 		});
