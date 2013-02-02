@@ -14,10 +14,12 @@ var BrowserInput = new Class({
 		this.document.addEvents({
 			'mousedown': this._onMouseDown.bind(this)
 			,'mouseup': this._onMouseUp.bind(this)
-			,'click': this._preventClick.bind(this)
+
+			,'click': this._preventDefault
+			,'contextmenu': this._preventDefault
 		});
 	}
-	, _preventClick: function(ev) {
+	, _preventDefault: function(ev) {
 		ev.preventDefault();
 	}
 	, _onMouseDown: function(ev) {
