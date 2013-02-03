@@ -114,9 +114,15 @@ var Player = new Class({
 
 	}
 	, _moveBullets: function(tickEvent) {
-		this.bullets.each(function(bulletGfx) {
+		var bounds = this.game.level.bounds, bullets = this.bullets, i = bullets.length;
+		while (i--) {
+			var bulletGfx = bullets[i];
 			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
-		});
+			if (!Physics.pointIsInBounds(bulletGfx, bounds)) {
+				bulletGfx.destroyBullet();
+				bullets.splice(i, 1);
+			}
+		}
 	}
 
 

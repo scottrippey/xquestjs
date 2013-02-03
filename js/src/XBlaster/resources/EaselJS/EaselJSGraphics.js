@@ -47,7 +47,11 @@ var EaselJSGraphics = new Class({
 	, createPlayerBullet: function() {
 		var bulletGfx = new BulletGraphics();
 		this.layers.effects.addChild(bulletGfx);
+		bulletGfx.destroyBullet = function() {
+			this.layers.effects.removeChild(bulletGfx);
+		}.bind(this);
 		return bulletGfx;
 	}
+
 
 });

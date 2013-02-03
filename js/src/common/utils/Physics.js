@@ -38,5 +38,12 @@ var Physics = {
 			velocity.y *= remainingPercent;
 
 	}
+	,
+	pointIsInBounds: function(point, bounds) {
+		return (bounds.x <= point.x) &&
+			   (point.x <= (bounds.x + bounds.width)) &&
+			   (bounds.y <= point.y) &&
+			   (point.y <= (bounds.y + bounds.height));
+	}
 };
 
