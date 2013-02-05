@@ -15,7 +15,9 @@ var Player = new Class({
 	}
 	, _setupPlayerGraphics: function() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
-		this.playerGraphics.moveTo(100, 100);
+	}
+	, moveTo: function(x, y) {
+		this.playerGraphics.moveTo(x, y);
 	}
 
 	, onInput: function(tickEvent) {

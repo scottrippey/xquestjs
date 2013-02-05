@@ -58,6 +58,11 @@ var ArcadeGame = new Class({
 		this.level = game.gfx.createLevelGraphics();
 
 		var player = new Player(game);
+		var bounds = game.level.bounds, middleOfGame = {
+			x:bounds.x + (bounds.width / 2)
+			,y:bounds.y + (bounds.height / 2)
+		};
+		player.moveTo(middleOfGame.x, middleOfGame.y);
 		this.addGameItem(player);
 	}
 
