@@ -54,4 +54,20 @@ var EaselJSGraphics = new Class({
 	}
 
 
+	, createEnemyGraphics: function(enemyName) {
+		var enemyGraphics = null;
+		switch (enemyName) {
+			case 'Splat':
+				enemyGraphics = new SplatGraphics();
+				break;
+		}
+
+		if (enemyGraphics == null)
+			throw new Error("Unknown enemy: " + enemyName);
+
+		this.layers.characters.addChild(enemyGraphics);
+
+		return enemyGraphics;
+	}
+
 });

@@ -87,33 +87,7 @@ var Player = new Class({
 			Physics.applyFrictionToVelocity(this.velocity, this.variables.looseFriction, tickEvent.deltaSeconds);
 		}
 
-		this._bounceOffWalls();
-	}
-	, _bounceOffWalls: function() {
-		var bounds = this.game.level.bounds;
-		var player = this.playerGraphics
-			, velocity = this.velocity
-			, diameter = this.playerGraphics.variables.outerDiameter;
-
-		var leftEdge = (player.x - diameter) - (bounds.x)
-			,rightEdge = (player.x + diameter) - (bounds.x + bounds.width);
-		if (leftEdge < 0) {
-			player.x -= leftEdge*2;
-			velocity.x *= -1;
-		} else if (rightEdge > 0) {
-			player.x -= rightEdge*2;
-			velocity.x *= -1;
-		}
-		var topEdge = (player.y - diameter) - (bounds.y)
-			,bottomEdge = (player.y + diameter) - (bounds.y + bounds.height);
-		if (topEdge < 0) {
-			player.y -= topEdge*2;
-			velocity.y *= -1;
-		} else if (bottomEdge > 0) {
-			player.y -= bottomEdge*2;
-			velocity.y *= -1;
-		}
-
+		Physics.bounceOffWalls(this.playerGraphics, this.playerGraphics.variables.outerDiameter, this.velocity, this.game.level.bounds);
 	}
 	, _moveBullets: function(tickEvent) {
 		var bounds = this.game.level.bounds, bullets = this.bullets, i = bullets.length;

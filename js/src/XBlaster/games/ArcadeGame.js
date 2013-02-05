@@ -54,9 +54,12 @@ var ArcadeGame = new Class({
 
 	, _startGame: function() {
 		var game = this;
-
 		this.level = game.gfx.createLevelGraphics();
-
+		this._createPlayer();
+		this._createEnemyFactory();
+	}
+	, _createPlayer: function() {
+		var game = this;
 		var player = new Player(game);
 		var bounds = game.level.bounds, middleOfGame = {
 			x:bounds.x + (bounds.width / 2)
@@ -64,6 +67,11 @@ var ArcadeGame = new Class({
 		};
 		player.moveTo(middleOfGame.x, middleOfGame.y);
 		this.addGameItem(player);
+	}
+	, _createEnemyFactory: function() {
+		var game = this;
+		game.enemies = new EnemyFactory(game);
+		this.addGameItem(game.enemies);
 	}
 
 });
