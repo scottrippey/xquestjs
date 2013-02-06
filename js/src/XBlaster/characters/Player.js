@@ -103,6 +103,8 @@ var Player = new Class({
 
 
 	, onAct: function(tickEvent) {
-
+		if (this.bullets.length) {
+			this.game.enemies.checkBullets(this.bullets);
+		}
 	}
 });

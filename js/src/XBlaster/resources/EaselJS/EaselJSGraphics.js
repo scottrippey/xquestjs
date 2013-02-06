@@ -18,6 +18,7 @@ var EaselJSGraphics = new Class({
 			, characters: new createjs.Stage(this.canvas)
 		};
 
+		this.layers.background.autoClear = false;
 		this.layers.effects.autoClear = false;
 		this.layers.characters.autoClear = false;
 	}
@@ -53,7 +54,6 @@ var EaselJSGraphics = new Class({
 		return bulletGfx;
 	}
 
-
 	, createEnemyGraphics: function(enemyName) {
 		var enemyGraphics = null;
 		switch (enemyName) {
@@ -70,4 +70,9 @@ var EaselJSGraphics = new Class({
 		return enemyGraphics;
 	}
 
+	, removeGraphic: function(graphic) {
+		this.layers.background.removeChild(graphic);
+		this.layers.effects.removeChild(graphic);
+		this.layers.characters.removeChild(graphic);
+	}
 });

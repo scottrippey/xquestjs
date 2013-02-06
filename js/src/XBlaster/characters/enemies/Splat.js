@@ -49,4 +49,12 @@ var Splat = new Class({
 		};
 
 	}
+	,
+	setEnemyState: function(state) {
+		switch (state) {
+			case "killed":
+				this.game.gfx.removeGraphic(this.enemyGraphics);
+				break;
+		}
+	}
 });

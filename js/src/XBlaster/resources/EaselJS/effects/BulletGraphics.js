@@ -7,7 +7,7 @@ BulletGraphics.prototype = new createjs.Shape();
 BulletGraphics.implement({
 
 	variables: {
-		diameter: 2
+		bulletDiameter: 2
 		, strokeStyle: {
 			strokeWidth: 2
 			, strokeColor: 'white'
@@ -19,7 +19,7 @@ BulletGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.strokeStyle)
-		 .drawCircle(0, 0, v.diameter)
+		 .drawCircle(0, 0, v.bulletDiameter)
 		 .endStroke();
 
 	}

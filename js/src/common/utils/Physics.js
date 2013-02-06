@@ -68,5 +68,20 @@ var Physics = {
 			   (bounds.y <= point.y) &&
 			   (point.y <= (bounds.y + bounds.height));
 	}
+
+	,
+	distanceTest: function(pointA, pointB, maxDistance) {
+		var dx, dy;
+		dx = Math.abs(pointA.x - pointB.x);
+		if (dx <= maxDistance) {
+			dy = Math.abs(pointA.y - pointB.y);
+			if (dy <= maxDistance) {
+				var realDistance = Math.sqrt(dx * dx + dy * dy);
+				if (realDistance <= maxDistance)
+					return true;
+			}
+		}
+		return false;
+	}
 };
 

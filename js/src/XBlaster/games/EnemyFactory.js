@@ -46,4 +46,22 @@ var EnemyFactory = new Class({
 
 		enemy.moveTo(initialPosition.x, initialPosition.y);
 	}
+	,
+	checkBullets: function(bullets) {
+		var enemies = this._enemies
+			,maxEnemyDistance = 10 + bullets[0].variables.bulletDiameter;
+		enemies.each(function(enemy){
+			var enemyLocation = enemy.enemyGraphics;
+			bullets.each(function(bullet) {
+				if (Physics.distanceTest(enemyLocation, bullet, maxEnemyDistance)) {
+					this.killEnemy(enemy);
+				}
+			}, this);
+		}, this);
+	}
+	,
+	killEnemy: function(enemy) {
+		this._enemies.erase(enemy);
+		enemy.setEnemyState('killed');
+	}
 });
