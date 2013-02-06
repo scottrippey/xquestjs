@@ -26,9 +26,9 @@ var ArcadeGame = new Class({
 		this.addGameItem(this.gfx);
 	}
 	, _startTimer: function() {
-		this.timer.onTick(this._onTick.bind(this));
+		this.timer.addTickHandler(this._tickHandler.bind(this));
 	}
-	, _onTick: function(tickEvent) {
+	, _tickHandler: function(tickEvent) {
 		var executeHandlerWithTickEvent = function(handler) {
 			handler(tickEvent);
 		};
