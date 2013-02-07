@@ -7,20 +7,20 @@ var Balance = {
 		Object.merge(this, {
 			player: {
 				diameter: 12 //px
-				,looseFriction: 0.5
+				,looseFriction: 0.8
 			}
 			,bullets: {
-				diameter: 3 //px
-				,speed: 2 // * player speed
+				diameter: 2 //px
+				,speed: 3 // * player speed
 			}
 			,enemies: {
 				safeDiameter: 15 //px - should be the largest enemy size
 				,spawnRate: dependsOnMode({ // seconds per enemies
-					'default': randomBetween(10,20)
-					,'test': randomBetween(0.5,0.5)
+					'default': randomBetween(10, 20)
+					,'test': randomBetween(0.5, 0.5)
 				})
 				,splat: {
-					diameter: 10 //px
+					diameter: 8 //px
 					,speed: 40 //pps
 					,movementInterval: randomBetween(3, 10) //seconds
 				}
