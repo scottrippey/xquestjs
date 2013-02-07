@@ -16,14 +16,16 @@ var Splat = new Class({
 	,
 	_setupEnemyGraphics: function() {
 		this.enemyGraphics = this.game.gfx.createEnemyGraphics('Splat');
+		this.location = this.enemyGraphics;
+		this.diameter = Balance.enemies.splat.diameter;
 	}
 	, moveTo: function(x, y) {
-		this.enemyGraphics.moveTo(x, y);
+		this.location.moveTo(x, y);
 	}
 	,
 	onMove: function(tickEvent) {
-		Physics.applyVelocity(this.enemyGraphics, this.velocity, tickEvent.deltaSeconds);
-		Physics.bounceOffWalls(this.enemyGraphics, this.enemyGraphics.variables.outerDiameter, this.velocity, this.game.level.bounds);
+		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
+		Physics.bounceOffWalls(this.location, this.diameter, this.velocity, Balance.level.bounds);
 	}
 	,
 	onAct: function(tickEvent) {

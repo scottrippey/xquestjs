@@ -6,23 +6,30 @@ var Balance = {
 		 */
 		Object.merge(this, {
 			player: {
-				diameter: 8 //px
+				diameter: 12 //px
 				,looseFriction: 0.5
 			}
-			, bullets: {
+			,bullets: {
 				diameter: 3 //px
 				,speed: 2 // * player speed
 			}
-			, enemies: {
-				respawnRate: dependsOnMode({ // enemies per second
-					'default': { min: (1/10), max: (1/20) }
-					,'test':   { min: (1/1),  max: (1/1)  }
+			,enemies: {
+				safeDiameter: 15 //px - should be the largest enemy size
+				,spawnRate: dependsOnMode({ // seconds per enemies
+					'default': { min: 10, max: 20 }
+					,'test':   { min: 3,  max: 5  }
 				})
 				,splat: {
 					diameter: 8 //px
 					,speed: dependsOnMode({ 'default': 10, 'test': 30 }) //pps
 				}
 			}
+			,level: {
+				bounds: {
+					x: 10, y: 10, width: 720-10-10, height: 405-10-10
+				}
+			}
+
 		});
 
 		this._valuesChanged();

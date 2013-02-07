@@ -1,19 +1,11 @@
-var LevelGraphics = function(size) {
-	var p = this.variables.padding;
-	this.bounds = {
-		x: p, y: p
-		,width: size.width - p*2
-		,height: size.height - p*2
-	};
+var LevelGraphics = function() {
 	this._setupGraphics();
-
 };
 LevelGraphics.prototype = new createjs.Shape();
 LevelGraphics.implement({
 
 	variables: {
-		padding: 10
-		, cornerRadius: 8
+		cornerRadius: 8
 		, strokeStyle: {
 			strokeWidth: 8
 			, strokeColor: '#999999'
@@ -21,7 +13,7 @@ LevelGraphics.implement({
 	}
 	,
 	_setupGraphics: function(){
-		var g = this.graphics, v = this.variables, bounds = this.bounds;
+		var g = this.graphics, v = this.variables, bounds = Balance.level.bounds;
 		g.clear();
 
 		g.beginStyle(v.strokeStyle)

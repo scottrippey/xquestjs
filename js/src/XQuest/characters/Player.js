@@ -82,10 +82,10 @@ var Player = new Class({
 			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
-		Physics.bounceOffWalls(this.playerGraphics, Balance.player.diameter, this.velocity, this.game.level.bounds);
+		Physics.bounceOffWalls(this.playerGraphics, Balance.player.diameter, this.velocity, Balance.level.bounds);
 	}
 	, _moveBullets: function(tickEvent) {
-		var bounds = this.game.level.bounds, bullets = this.bullets, i = bullets.length;
+		var bounds = Balance.level.bounds, bullets = this.bullets, i = bullets.length;
 		while (i--) {
 			var bulletGfx = bullets[i];
 			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);

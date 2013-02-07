@@ -34,7 +34,7 @@ var EaselJSGraphics = new Class({
 	}
 
 	, createLevelGraphics: function() {
-		var levelGraphics = new LevelGraphics(this.canvas);
+		var levelGraphics = new LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
 		return levelGraphics;
 	}

@@ -61,7 +61,7 @@ var ArcadeGame = new Class({
 	, _createPlayer: function() {
 		var game = this;
 		var player = new Player(game);
-		var bounds = game.level.bounds, middleOfGame = {
+		var bounds = Balance.level.bounds, middleOfGame = {
 			x:bounds.x + (bounds.width / 2)
 			,y:bounds.y + (bounds.height / 2)
 		};

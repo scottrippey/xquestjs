@@ -1,12 +1,4 @@
 var EnemyFactory = new Class({
-
-	variables: {
-		interval: {
-			minimumS: 5
-			,maximumS: 15
-		}
-	}
-	,
 	_enemies: []
 	,
 	_nextEnemySpawn: null
@@ -25,8 +17,7 @@ var EnemyFactory = new Class({
 	}
 	,
 	_calculateNextEnemySpawn: function(runTime) {
-		var interval = this.variables.interval
-			, nextEnemySpawnS = (interval.minimumS + Math.random() * (interval.maximumS - interval.minimumS));
+		var nextEnemySpawnS = (Balance.enemies.spawnRate.min + Math.random() * (Balance.enemies.spawnRate.max - Balance.enemies.spawnRate.min));
 		this._nextEnemySpawn = runTime + nextEnemySpawnS * 1000;
 	}
 	,
@@ -39,7 +30,7 @@ var EnemyFactory = new Class({
 		this._enemies.push(enemy);
 		game.addGameItem(enemy);
 
-		var bounds = this.game.level.bounds, initialPosition = {
+		var bounds = Balance.level.bounds, initialPosition = {
 			x: bounds.x + 4
 			,y: bounds.y + (bounds.height / 2)
 		};
@@ -48,12 +39,12 @@ var EnemyFactory = new Class({
 	}
 	,
 	checkBullets: function(bullets) {
-		var enemies = this._enemies
-			,maxEnemyDistance = 10 + bullets[0].variables.bulletDiameter;
+		var enemies = this._enemies;
 		enemies.each(function(enemy){
-			var enemyLocation = enemy.enemyGraphics;
+			var enemyLocation = enemy.location;
+			var enemyDiameter = enemy.diameter + Balance.bullets.diameter;
 			bullets.each(function(bullet) {
-				if (Physics.distanceTest(enemyLocation, bullet, maxEnemyDistance)) {
+				if (Physics.distanceTest(enemyLocation, bullet, enemyDiameter)) {
 					this.killEnemy(enemy);
 				}
 			}, this);

@@ -7,13 +7,12 @@ PlayerGraphics.prototype = new createjs.Shape();
 PlayerGraphics.implement({
 
 	variables: {
-		outerDiameter: 12
-		, outerStrokeStyle: {
+		outerStrokeStyle: {
 			strokeWidth: 3
 			, strokeColor: 'white'
 		}
 
-		, innerDiameter: 9
+		, innerDiameterRatio: (3/4)
 		, innerStrokeStyle: {
 			strokeWidth: 2
 			, strokeColor: 'yellow'
@@ -28,11 +27,11 @@ PlayerGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.outerStrokeStyle)
-		 .drawCircle(0, 0, v.outerDiameter)
+		 .drawCircle(0, 0, Balance.player.diameter)
 		 .endStroke();
 
 		g.beginStyle(v.innerStrokeStyle)
-		 .drawPolyStar(0, 0, v.innerDiameter, v.innerStarPoints, v.innerStarSize, v.innerSpin)
+		 .drawPolyStar(0, 0, Balance.player.diameter * v.innerDiameterRatio, v.innerStarPoints, v.innerStarSize, v.innerSpin)
 		 .endStroke();
 
 	}
