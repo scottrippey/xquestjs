@@ -1,6 +1,7 @@
 var XQuest = new Class({
 	initialize: function(canvas) {
 
+		Balance.setGameMode('arcade');
 
 		// Setup components:
 		var gfx = new EaselJSGraphics(canvas);
