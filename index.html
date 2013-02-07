@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>XBlaster - an HTML5 Space Shooter that is free and open-source!</title>
+		<title>XQuest - an HTML5 Space Shooter that is free and open-source!</title>
 
 		<script src="js/lib/mootools-core-1.4.5.js"></script>
 		<script src="js/lib/easeljs-NEXT-SR.min.js"></script>
@@ -15,21 +15,20 @@
 		<script src="js/src/common/input/BrowserInput.js"></script>
 		<script src="js/src/common/utils/Physics.js"></script>
 
-		<script src="js/src/XBlaster/resources/EaselJS/EaselJSGraphics.js"></script>
-		<script src="js/src/XBlaster/resources/EaselJS/EaselJSTimer.js"></script>
-		<script src="js/src/XBlaster/resources/EaselJS/characters/PlayerGraphics.js"></script>
-		<script src="js/src/XBlaster/resources/EaselJS/characters/enemies/SplatGraphics.js"></script>
-		<script src="js/src/XBlaster/resources/EaselJS/effects/BulletGraphics.js"></script>
-		<script src="js/src/XBlaster/resources/EaselJS/misc/BackgroundGraphics.js"></script>
-		<script src="js/src/XBlaster/resources/EaselJS/misc/LevelGraphics.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/EaselJSGraphics.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/EaselJSTimer.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/characters/PlayerGraphics.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/characters/enemies/SplatGraphics.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/effects/BulletGraphics.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/misc/BackgroundGraphics.js"></script>
+		<script src="js/src/XQuest/resources/EaselJS/misc/LevelGraphics.js"></script>
 
-		<script src="js/src/XBlaster/characters/Player.js"></script>
-		<script src="js/src/XBlaster/characters/enemies/Splat.js"></script>
-		<script src="js/src/XBlaster/games/ArcadeGame.js"></script>
-		<script src="js/src/XBlaster/games/EnemyFactory.js"></script>
-		<script src="js/src/XBlaster/menus/MainMenu.js"></script>
+		<script src="js/src/XQuest/characters/Player.js"></script>
+		<script src="js/src/XQuest/characters/enemies/Splat.js"></script>
+		<script src="js/src/XQuest/games/ArcadeGame.js"></script>
+		<script src="js/src/XQuest/games/EnemyFactory.js"></script>
 
-		<script src="js/src/XBlaster/XBlaster.js"></script>
+		<script src="js/src/XQuest/XQuest.js"></script>
 		
 		
 		
@@ -44,14 +43,22 @@
 	</head>
 	<body>
 
-		<h1>XBlaster</h1>
-		<h2>An HTML5 Space Shooter that is free and open-source!</h2>
-		<h3> The game is not yet playable ...  please see below for the development progress.</h3>
+		<h1>XQuest JS</h1>
+		<h2>An HTML5 Space Shooter that is <a href="https://github.com/scottrippey/xquestjs">free and open-source!</a></h2>
+		<h3> Instructions </h3>
+		<ul>
+			<li><strong>
+				The game is not yet playable ...  please see below for the development progress.</h3>
+			</strong></li>
+		</ul>
 
-		<canvas id="XBlasterCanvas" width="720" height="405"></canvas>
+		<canvas id="XQuestCanvas" width="720" height="405"></canvas>
 
 		<script>
-			new XBlaster($('XBlasterCanvas'));
+			new XQuest($('XQuestCanvas'));
+
+			// BrowserInput prevents links ... reenable:
+			$$('a').addEvent('click', function(ev) { ev.stopPropagation(); });
 		</script>
 
 		<h2>Development progress</h2>
@@ -96,7 +103,7 @@
 
 		<div class="feature"><label>
 			<input type="checkbox" />  
-			awesome enemies, cool powerups, scores, save states, and who knows?
+			awesome enemies, cool power-ups, scores, save states, and who knows?
 		</label></div>
 
 		<div class="feature"><label>

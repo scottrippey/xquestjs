@@ -1,4 +1,4 @@
-var XBlaster = new Class({
+var XQuest = new Class({
 	initialize: function(canvas) {
 
 
