@@ -17,8 +17,8 @@ var EnemyFactory = new Class({
 	}
 	,
 	_calculateNextEnemySpawn: function(runTime) {
-		var nextEnemySpawnS = (Balance.enemies.spawnRate.min + Math.random() * (Balance.enemies.spawnRate.max - Balance.enemies.spawnRate.min));
-		this._nextEnemySpawn = runTime + nextEnemySpawnS * 1000;
+		var spawnRate = Balance.enemies.spawnRate();
+		this._nextEnemySpawn = runTime + spawnRate * 1000;
 	}
 	,
 	_spawnNextEnemy: function() {

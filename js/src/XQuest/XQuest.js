@@ -3,6 +3,10 @@ var XQuest = new Class({
 
 		Balance.setGameMode('arcade');
 
+		if (window.location.protocol === 'file:') {
+			Balance.setGameMode('test');
+		}
+
 		// Setup components:
 		var gfx = new EaselJSGraphics(canvas);
 		var timer = new EaselJSTimer();

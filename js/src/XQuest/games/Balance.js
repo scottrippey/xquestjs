@@ -16,12 +16,13 @@ var Balance = {
 			,enemies: {
 				safeDiameter: 15 //px - should be the largest enemy size
 				,spawnRate: dependsOnMode({ // seconds per enemies
-					'default': { min: 10, max: 20 }
-					,'test':   { min: 3,  max: 5  }
+					'default': randomBetween(10,20)
+					,'test': randomBetween(0.5,0.5)
 				})
 				,splat: {
-					diameter: 8 //px
-					,speed: dependsOnMode({ 'default': 10, 'test': 30 }) //pps
+					diameter: 10 //px
+					,speed: 40 //pps
+					,movementInterval: randomBetween(3, 10) //seconds
 				}
 			}
 			,level: {
@@ -38,6 +39,13 @@ var Balance = {
 			if (mode in modeValues)
 				return modeValues[mode];
 			return modeValues['default'];
+		}
+
+		/** @return {Function} that returns a random value between min and max (inclusively) */
+		function randomBetween(min, max) {
+			return function() {
+				return min + Math.random() * (max - min);
+			};
 		}
 	}
 	,

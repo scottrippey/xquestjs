@@ -7,11 +7,10 @@ SplatGraphics.prototype = new createjs.Shape();
 SplatGraphics.implement({
 
 	variables: {
-		outerDiameter: 9
-		, outerFillStyle: {
+		outerFillStyle: {
 			fillColor: '#009900'
 		}
-		, innerDiameter: 5
+		, innerDiameterRatio: 5/8
 		, innerFillStyle: {
 			fillColor: '#00DD00'
 		}
@@ -25,13 +24,13 @@ SplatGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.outerFillStyle)
-			.drawCircle(0, 0, v.outerDiameter)
+			.drawCircle(0, 0, Balance.enemies.splat.diameter)
 			.endFill();
 		g.beginStyle(v.innerFillStyle)
 			.drawCircle(0, 0, v.innerDiameter)
 			.endFill()
 			.beginStyle(v.innerStrokeStyle)
-			.drawCircle(0, 0, v.innerDiameter)
+			.drawCircle(0, 0, Balance.enemies.splat.diameter * v.innerDiameterRatio)
 			.endStroke();
 
 	}

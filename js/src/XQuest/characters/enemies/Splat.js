@@ -1,17 +1,8 @@
 var Splat = new Class({
-	variables: {
-		speed: 40
-		, interval: 10
-	}
-	,
-
 	initialize: function(game) {
 		this.game = game;
 		this._setupEnemyGraphics();
-		this.velocity = {
-			x: 0
-			,y: 0
-		}
+		this.velocity = { x: 0, y: 0 };
 	}
 	,
 	_setupEnemyGraphics: function() {
@@ -39,11 +30,11 @@ var Splat = new Class({
 	}
 	,
 	_calculateNextChange: function(runTime) {
-		this.nextChange = runTime + (this.variables.interval * 1000);
+		this.nextChange = runTime + (Balance.enemies.splat.movementInterval() * 1000);
 	}
 	,
 	_changeDirection: function() {
-		var speed = this.variables.speed
+		var speed = Balance.enemies.splat.speed
 			,angle = Math.random() * Math.PI * 2;
 		this.velocity = {
 			x: Math.cos(angle) * speed
