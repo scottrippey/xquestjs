@@ -101,5 +101,8 @@ var Player = new Class({
 		if (this.bullets.length) {
 			this.game.enemies.checkBullets(this.bullets);
 		}
+		// Temp: let the player destroy enemies:
+		this.game.enemies.checkBullets([this.playerGraphics]);
+
 	}
 });

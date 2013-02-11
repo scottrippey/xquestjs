@@ -17,6 +17,15 @@ SplatGraphics.implement({
 		, innerStrokeStyle: {
 			strokeColor: '#000000'
 		}
+		, particles: {
+			speed: 500
+			,style: {
+				fillColor: 'green'
+			}
+			,radius: 2
+			,friction: 0.9
+			,velocity: { x: 0, y: 0 }
+		}
 	}
 	,
 	_setupGraphics: function(){
@@ -38,5 +47,21 @@ SplatGraphics.implement({
 	, moveTo: function(x, y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	,
+	killSplat: function(gfx, velocity) {
+		var enemyGraphics = this;
+		gfx.removeGraphic(enemyGraphics);
+
+		var particleOptions = this.variables.particles;
+		particleOptions.position = enemyGraphics;
+
+		var particleCount = 10, partSpeed = particleOptions.speed;
+		for (var i = 0; i < particleCount; i++) {
+			particleOptions.velocity.x = velocity.x + partSpeed - 2 * partSpeed * Math.random();
+			particleOptions.velocity.y = velocity.y + partSpeed - 2 * partSpeed * Math.random();
+			gfx.addParticle(particleOptions);
+		}
 	}
 });

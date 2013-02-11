@@ -8,8 +8,8 @@ var EaselJSGraphics = new Class({
 		this.canvas = canvas;
 
 		this._setupLayers();
-
 		this._setupBackground();
+		this._setupParticles();
 	}
 	, _setupLayers: function() {
 		this.layers = {
@@ -25,6 +25,13 @@ var EaselJSGraphics = new Class({
 	, _setupBackground: function() {
 		var background = new BackgroundGraphics(this.canvas);
 		this.layers.background.addChild(background);
+	}
+	, _setupParticles: function() {
+		this.particles = new Particles(this);
+	}
+
+	, onAct: function(tickEvent) {
+		this.particles.updateParticles(tickEvent);
 	}
 
 	, onDraw: function(tickEvent) {
@@ -74,5 +81,10 @@ var EaselJSGraphics = new Class({
 		this.layers.background.removeChild(graphic);
 		this.layers.effects.removeChild(graphic);
 		this.layers.characters.removeChild(graphic);
+	}
+
+	, addParticle: function(particleOptions) {
+		var particle = this.particles.createParticle(particleOptions);
+		this.layers.effects.addChild(particle);
 	}
 });

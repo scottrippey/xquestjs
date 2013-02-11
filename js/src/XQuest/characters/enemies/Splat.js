@@ -46,7 +46,7 @@ var Splat = new Class({
 	setEnemyState: function(state) {
 		switch (state) {
 			case "killed":
-				this.game.gfx.removeGraphic(this.enemyGraphics);
+				this.enemyGraphics.killSplat(this.game.gfx, this.velocity);
 				break;
 		}
 	}

@@ -4,7 +4,7 @@ var Balance = {
 		 * px = pixels
 		 * pps = pixels per second
 		 */
-		Object.merge(this, {
+		Object.append(this, {
 			player: {
 				diameter: 12 //px
 				,looseFriction: 0.8
