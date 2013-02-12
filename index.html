@@ -67,7 +67,7 @@
 		<canvas id="XQuestCanvas" width="720" height="405"></canvas>
 
 		<script>
-			new XQuest($('XQuestCanvas'));
+			window.xquest = new XQuest($('XQuestCanvas'));
 
 			// BrowserInput prevents links ... reenable:
 			$$('a').addEvent('click', function(ev) { ev.stopPropagation(); });
