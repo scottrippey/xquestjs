@@ -27,11 +27,11 @@ var EaselJSGraphics = new Class({
 		this.layers.background.addChild(background);
 	}
 	, _setupParticles: function() {
-		this.particles = new Particles(this);
+		this.particleFactory = new ParticleFactory(this);
 	}
 
 	, onAct: function(tickEvent) {
-		this.particles.updateParticles(tickEvent);
+		this.particleFactory.updateParticles(tickEvent);
 	}
 
 	, onDraw: function(tickEvent) {
@@ -84,7 +84,7 @@ var EaselJSGraphics = new Class({
 	}
 
 	, addParticle: function(particleOptions) {
-		var particle = this.particles.createParticle(particleOptions);
+		var particle = this.particleFactory.createParticle(particleOptions);
 		this.layers.effects.addChild(particle);
 	}
 });
