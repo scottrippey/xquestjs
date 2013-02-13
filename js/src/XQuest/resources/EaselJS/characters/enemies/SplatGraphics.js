@@ -11,13 +11,13 @@ SplatGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.outerFillStyle)
-			.drawCircle(0, 0, Graphics.enemies.splat.diameter)
+			.drawCircle(0, 0, v.radius)
 			.endFill();
 		g.beginStyle(v.innerFillStyle)
-			.drawCircle(0, 0, v.innerDiameter)
+			.drawCircle(0, 0, v.innerRadius)
 			.endFill()
 			.beginStyle(v.innerStrokeStyle)
-			.drawCircle(0, 0, Graphics.enemies.splat.diameter * v.innerDiameterRatio)
+			.drawCircle(0, 0, v.innerRadius)
 			.endStroke();
 
 	}

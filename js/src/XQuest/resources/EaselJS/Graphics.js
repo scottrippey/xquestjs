@@ -10,12 +10,12 @@ var Graphics = {
 		 */
 		Object.merge(this, {
 			player: {
-				diameter: Balance.player.diameter
+				radius: Balance.player.radius
 				, outerStrokeStyle: {
 					strokeWidth: 3
 					, strokeColor: 'white'
 				}
-				, innerRadius: Balance.player.diameter * (3/4)
+				, innerRadius: Balance.player.radius * (3/4)
 				, innerStrokeStyle: {
 					strokeWidth: 2
 					, strokeColor: 'yellow'
@@ -25,14 +25,14 @@ var Graphics = {
 				, innerSpin: 0
 			}
 			,bullets: {
-				diameter: Balance.bullets.diameter
+				radius: Balance.bullets.radius
 				, strokeStyle: {
 					strokeWidth: 2
 					, strokeColor: 'white'
 				}
 			}
 			,crystals: {
-				radius: Balance.crystals.diameter / 2
+				radius: Balance.crystals.radius / 2
 				,style: {
 					fillColor: 'yellow'
 				}
@@ -41,11 +41,11 @@ var Graphics = {
 			}
 			,enemies: {
 				splat: {
-					diameter: Balance.enemies.splat.diameter //px
+					radius: Balance.enemies.splat.radius //px
 					, outerFillStyle: {
 						fillColor: '#009900'
 					}
-					, innerDiameterRatio: 5/8
+					, innerRadius: Balance.enemies.splat.radius * (5/8)
 					, innerFillStyle: {
 						fillColor: '#00DD00'
 					}

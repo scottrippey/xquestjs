@@ -11,7 +11,7 @@ BulletGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.strokeStyle)
-		 .drawCircle(0, 0, Graphics.bullets.diameter)
+		 .drawCircle(0, 0, Graphics.bullets.radius)
 		 .endStroke();
 
 	}

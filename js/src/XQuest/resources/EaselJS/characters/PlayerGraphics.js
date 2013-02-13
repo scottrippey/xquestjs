@@ -11,7 +11,7 @@ PlayerGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.outerStrokeStyle)
-		 .drawCircle(0, 0, v.diameter)
+		 .drawCircle(0, 0, v.radius)
 		 .endStroke();
 
 		g.beginStyle(v.innerStrokeStyle)

@@ -7,25 +7,24 @@ Object.append(Balance, {
 		 */
 		Object.merge(this, {
 			player: {
-				diameter: 12 //px
+				radius: 12 //px
 				,looseFriction: 0.8
 			}
 			,bullets: {
-				diameter: 2 //px
+				radius: 2 //px
 				,speed: 3 // * player speed
 			}
 			,crystals: {
-				diameter: 20 //px
+				radius: 20 //px
 				,quantity: randomBetween(10, 20)
 			}
 			,enemies: {
-				safeDiameter: 15 //px - should be the largest enemy size
-				,spawnRate: dependsOnMode({ // seconds per enemies
+				spawnRate: dependsOnMode({ // seconds per enemies
 					'default': randomBetween(10, 20)
 					,'test': randomFloatBetween(0.5, 0.5)
 				})
 				,splat: {
-					diameter: 8 //px
+					radius: 8 //px
 					,speed: 40 //pps
 					,movementInterval: randomBetween(3, 10) //seconds
 				}
