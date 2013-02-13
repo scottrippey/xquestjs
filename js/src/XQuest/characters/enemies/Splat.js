@@ -8,7 +8,7 @@ var Splat = new Class({
 	_setupEnemyGraphics: function() {
 		this.enemyGraphics = this.game.gfx.createEnemyGraphics('Splat');
 		this.location = this.enemyGraphics;
-		this.diameter = Balance.enemies.splat.diameter;
+		this.radius = Balance.enemies.splat.radius;
 	}
 	, moveTo: function(x, y) {
 		this.location.moveTo(x, y);
@@ -16,7 +16,7 @@ var Splat = new Class({
 	,
 	onMove: function(tickEvent) {
 		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-		Physics.bounceOffWalls(this.location, this.diameter, this.velocity, Balance.level.bounds);
+		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
 	}
 	,
 	onAct: function(tickEvent) {

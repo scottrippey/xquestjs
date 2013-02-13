@@ -6,41 +6,19 @@ var SplatGraphics = function() {
 SplatGraphics.prototype = new createjs.Shape();
 SplatGraphics.implement({
 
-	variables: {
-		outerFillStyle: {
-			fillColor: '#009900'
-		}
-		, innerDiameterRatio: 5/8
-		, innerFillStyle: {
-			fillColor: '#00DD00'
-		}
-		, innerStrokeStyle: {
-			strokeColor: '#000000'
-		}
-		, particles: {
-			speed: 500
-			,style: {
-				fillColor: 'green'
-			}
-			,radius: 2
-			,friction: 0.9
-			,velocity: { x: 0, y: 0 }
-		}
-	}
-	,
 	_setupGraphics: function(){
-		var g = this.graphics, v = this.variables;
+		var g = this.graphics, v = Graphics.enemies.splat;
 		g.clear();
 
 		g.beginStyle(v.outerFillStyle)
-			.drawCircle(0, 0, Balance.enemies.splat.diameter)
+			.drawCircle(0, 0, v.radius)
 			.endFill();
 		g.beginStyle(v.innerFillStyle)
-			.drawCircle(0, 0, v.innerDiameter)
+			.drawCircle(0, 0, v.innerRadius)
 			.endFill()
-			.beginStyle(v.innerStrokeStyle)
-			.drawCircle(0, 0, Balance.enemies.splat.diameter * v.innerDiameterRatio)
-			.endStroke();
+			.beginStyle(v.innerStyle)
+			.drawCircle(0, 0, v.innerRadius)
+			.endStyle(v.innerStyle);
 
 	}
 

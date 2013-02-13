@@ -1,26 +1,30 @@
-var Balance = {
+var Balance = new Events();
+Object.append(Balance, {
 	setGameMode: function(mode) {
 		/* Key:
 		 * px = pixels
 		 * pps = pixels per second
 		 */
-		Object.append(this, {
+		Object.merge(this, {
 			player: {
-				diameter: 12 //px
+				radius: 12 //px
 				,looseFriction: 0.8
 			}
 			,bullets: {
-				diameter: 2 //px
-				,speed: 3 // * player speed
+				radius: 2 //px
+				,speed: 2 // * player speed
+			}
+			,crystals: {
+				radius: 10 //px
+				,quantity: randomBetween(10, 20)
 			}
 			,enemies: {
-				safeDiameter: 15 //px - should be the largest enemy size
-				,spawnRate: dependsOnMode({ // seconds per enemies
+				spawnRate: dependsOnMode({ // seconds per enemies
 					'default': randomBetween(10, 20)
-					,'test': randomBetween(0.5, 0.5)
+					,'test': randomFloatBetween(0.5, 0.5)
 				})
 				,splat: {
-					diameter: 8 //px
+					radius: 8 //px
 					,speed: 40 //pps
 					,movementInterval: randomBetween(3, 10) //seconds
 				}
@@ -33,17 +37,25 @@ var Balance = {
 
 		});
 
+		this.fireEvent('balanceChanged', [mode]);
+
 		function dependsOnMode(modeValues) {
 			if (mode in modeValues)
 				return modeValues[mode];
 			return modeValues['default'];
 		}
 
-		/** @return {Function} that returns a random value between min and max (inclusively) */
+		/** @return {Function} that returns a random integer between min and max (inclusively) */
 		function randomBetween(min, max) {
 			return function() {
-				return min + Math.random() * (max - min);
+				return Math.floor(min + Math.random() * (max - min + 1));
+			};
+		}
+		/** @return {Function} that returns a random integer between min and max (inclusive, exclusive) */
+		function randomFloatBetween(min, max) {
+			return function() {
+				return (min + Math.random() * (max - min));
 			};
 		}
 	}
-};
+});

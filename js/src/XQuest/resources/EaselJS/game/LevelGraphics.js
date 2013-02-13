@@ -3,17 +3,8 @@ var LevelGraphics = function() {
 };
 LevelGraphics.prototype = new createjs.Shape();
 LevelGraphics.implement({
-
-	variables: {
-		cornerRadius: 8
-		, strokeStyle: {
-			strokeWidth: 8
-			, strokeColor: '#999999'
-		}
-	}
-	,
 	_setupGraphics: function(){
-		var g = this.graphics, v = this.variables, bounds = Balance.level.bounds;
+		var g = this.graphics, v = Graphics.level, bounds = Graphics.level.bounds;
 		g.clear();
 
 		g.beginStyle(v.strokeStyle)

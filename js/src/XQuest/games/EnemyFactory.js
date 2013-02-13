@@ -42,9 +42,9 @@ var EnemyFactory = new Class({
 		var enemies = this._enemies;
 		enemies.each(function(enemy){
 			var enemyLocation = enemy.location;
-			var enemyDiameter = enemy.diameter + Balance.bullets.diameter;
+			var maxDistance = enemy.radius + Balance.bullets.radius;
 			bullets.each(function(bullet) {
-				if (Physics.distanceTest(enemyLocation, bullet, enemyDiameter)) {
+				if (Physics.distanceTest(enemyLocation, bullet, maxDistance)) {
 					this.killEnemy(enemy);
 				}
 			}, this);
