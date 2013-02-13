@@ -38,6 +38,7 @@ var Graphics = {
 				}
 				,sides: 5
 				,pointSize: 0.5
+				,spinRate: 0.1 * 360 //rps
 			}
 			,enemies: {
 				splat: {
