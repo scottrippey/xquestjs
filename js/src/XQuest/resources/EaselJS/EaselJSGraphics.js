@@ -6,6 +6,7 @@ var EaselJSGraphics = new Class({
 		this._setupLayers();
 
 		this._setupBackground();
+		this._setupParticles();
 	}
 	, _setupLayers: function() {
 		this.layers = {
@@ -21,6 +22,13 @@ var EaselJSGraphics = new Class({
 	, _setupBackground: function() {
 		var background = new BackgroundGraphics(this.canvas);
 		this.layers.background.addChild(background);
+	}
+	, _setupParticles: function() {
+		this.particleFactory = new ParticleFactory(this);
+	}
+
+	, onAct: function(tickEvent) {
+		this.particleFactory.updateParticles(tickEvent);
 	}
 
 	, onDraw: function(tickEvent) {
@@ -77,4 +85,9 @@ var EaselJSGraphics = new Class({
 		this.layers.background.addChild(crystal);
 		return crystal;
 	}
+	, addParticle: function(particleOptions) {
+		var particle = this.particleFactory.createParticle(particleOptions);
+		this.layers.effects.addChild(particle);
+	}
+
 });

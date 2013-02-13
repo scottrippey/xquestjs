@@ -32,8 +32,9 @@ SplatGraphics.implement({
 		var enemyGraphics = this;
 		gfx.removeGraphic(enemyGraphics);
 
-		var particleOptions = this.variables.particles;
+		var particleOptions = Graphics.enemies.splat.particles;
 		particleOptions.position = enemyGraphics;
+		particleOptions.velocity = { x: 0, y: 0 };
 
 		var particleCount = 10, partSpeed = particleOptions.speed;
 		for (var i = 0; i < particleCount; i++) {

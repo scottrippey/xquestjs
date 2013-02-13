@@ -54,6 +54,14 @@ var Graphics = {
 					, innerStyle: {
 						strokeColor: '#000000'
 					}
+					, particles: {
+						speed: 500
+						,style: {
+							fillColor: 'green'
+						}
+						,radius: 2
+						,friction: 0.9
+					}
 				}
 			}
 			,level: {
