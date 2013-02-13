@@ -14,14 +14,18 @@ PlayerGraphics.implement({
 		 .drawCircle(0, 0, v.radius)
 		 .endStroke();
 
-		g.beginStyle(v.innerStrokeStyle)
-		 .drawPolyStar(0, 0, v.innerRadius, v.innerStarPoints, v.innerStarSize, v.innerSpin)
-		 .endStroke();
+		g.beginStyle(v.innerStyle)
+		 .drawPolyStar(0, 0, v.innerRadius, v.innerStarPoints, v.innerStarSize, 0)
+		 .endStyle(v.innerStyle);
 
 	}
 
 	, moveTo: function(x, y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	, onTick: function(tickEvent) {
+		this.rotation += (Graphics.player.spinRate * tickEvent.deltaSeconds);
 	}
 });

@@ -15,7 +15,7 @@ Object.append(Balance, {
 				,speed: 3 // * player speed
 			}
 			,crystals: {
-				radius: 20 //px
+				radius: 10 //px
 				,quantity: randomBetween(10, 20)
 			}
 			,enemies: {

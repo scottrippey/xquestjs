@@ -15,14 +15,15 @@ var Graphics = {
 					strokeWidth: 3
 					, strokeColor: 'white'
 				}
-				, innerRadius: Balance.player.radius * (3/4)
-				, innerStrokeStyle: {
-					strokeWidth: 2
-					, strokeColor: 'yellow'
+				, innerRadius: Balance.player.radius - 2
+				, innerStyle: {
+					//strokeWidth: 2
+					//, strokeColor: 'yellow'
+					fillColor: 'yellow'
 				}
-				, innerStarPoints: 5
+				, innerStarPoints: 3
 				, innerStarSize: 0.7
-				, innerSpin: 0
+				, spinRate: 0.3 * 360
 			}
 			,bullets: {
 				radius: Balance.bullets.radius
@@ -32,13 +33,13 @@ var Graphics = {
 				}
 			}
 			,crystals: {
-				radius: Balance.crystals.radius / 2
+				radius: Balance.crystals.radius
 				,style: {
 					fillColor: 'yellow'
 				}
-				,sides: 5
+				,sides: 6
 				,pointSize: 0.5
-				,spinRate: 0.1 * 360 //rps
+				,spinRate: -0.1 * 360 //rps
 			}
 			,enemies: {
 				splat: {
@@ -50,7 +51,7 @@ var Graphics = {
 					, innerFillStyle: {
 						fillColor: '#00DD00'
 					}
-					, innerStrokeStyle: {
+					, innerStyle: {
 						strokeColor: '#000000'
 					}
 				}

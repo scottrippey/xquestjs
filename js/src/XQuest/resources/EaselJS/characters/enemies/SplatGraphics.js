@@ -16,9 +16,9 @@ SplatGraphics.implement({
 		g.beginStyle(v.innerFillStyle)
 			.drawCircle(0, 0, v.innerRadius)
 			.endFill()
-			.beginStyle(v.innerStrokeStyle)
+			.beginStyle(v.innerStyle)
 			.drawCircle(0, 0, v.innerRadius)
-			.endStroke();
+			.endStyle(v.innerStyle);
 
 	}
 
