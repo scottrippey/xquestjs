@@ -14,11 +14,15 @@ Object.append(Balance, {
 				diameter: 2 //px
 				,speed: 3 // * player speed
 			}
+			,crystals: {
+				diameter: 20 //px
+				,quantity: randomBetween(10, 20)
+			}
 			,enemies: {
 				safeDiameter: 15 //px - should be the largest enemy size
 				,spawnRate: dependsOnMode({ // seconds per enemies
 					'default': randomBetween(10, 20)
-					,'test': randomBetween(0.5, 0.5)
+					,'test': randomFloatBetween(0.5, 0.5)
 				})
 				,splat: {
 					diameter: 8 //px
@@ -42,10 +46,16 @@ Object.append(Balance, {
 			return modeValues['default'];
 		}
 
-		/** @return {Function} that returns a random value between min and max (inclusively) */
+		/** @return {Function} that returns a random integer between min and max (inclusively) */
 		function randomBetween(min, max) {
 			return function() {
-				return min + Math.random() * (max - min);
+				return Math.floor(min + Math.random() * (max - min + 1));
+			};
+		}
+		/** @return {Function} that returns a random integer between min and max (inclusive, exclusive) */
+		function randomFloatBetween(min, max) {
+			return function() {
+				return (min + Math.random() * (max - min));
 			};
 		}
 	}

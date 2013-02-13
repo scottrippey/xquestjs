@@ -11,3 +11,12 @@ createjs.Graphics.prototype.beginStyle = function(styles) {
 
 	return this;
 };
+createjs.Graphics.prototype.endStyle = function(styles) {
+	var gfx = this;
+	if (styles.fillColor)
+		gfx.endFill();
+	if (styles.strokeColor)
+		gfx.endStroke();
+
+	return this;
+};

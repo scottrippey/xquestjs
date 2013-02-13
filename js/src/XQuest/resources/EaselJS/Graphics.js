@@ -15,7 +15,7 @@ var Graphics = {
 					strokeWidth: 3
 					, strokeColor: 'white'
 				}
-				, innerDiameterRatio: (3/4)
+				, innerRadius: Balance.player.diameter * (3/4)
 				, innerStrokeStyle: {
 					strokeWidth: 2
 					, strokeColor: 'yellow'
@@ -30,6 +30,14 @@ var Graphics = {
 					strokeWidth: 2
 					, strokeColor: 'white'
 				}
+			}
+			,crystals: {
+				radius: Balance.crystals.diameter / 2
+				,style: {
+					fillColor: 'yellow'
+				}
+				,sides: 5
+				,pointSize: 0.5
 			}
 			,enemies: {
 				splat: {

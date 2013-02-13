@@ -17,9 +17,7 @@ var ArcadeGame = new Class({
 		};
 
 		this._setupEvents();
-
 		this._startTimer();
-
 		this._startGame();
 	}
 	, _setupEvents: function() {
@@ -57,6 +55,7 @@ var ArcadeGame = new Class({
 		this.level = game.gfx.createLevelGraphics();
 		this._createPlayer();
 		this._createEnemyFactory();
+		this._createCrystals();
 	}
 	, _createPlayer: function() {
 		var game = this;
@@ -72,6 +71,10 @@ var ArcadeGame = new Class({
 		var game = this;
 		game.enemies = new EnemyFactory(game);
 		this.addGameItem(game.enemies);
+	}
+	, _createCrystals: function() {
+		this.crystals = new Crystals(this);
+		this.crystals.createCrystals(Balance.crystals.quantity());
 	}
 
 });

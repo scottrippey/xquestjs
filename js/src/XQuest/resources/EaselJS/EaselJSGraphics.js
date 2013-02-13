@@ -71,4 +71,10 @@ var EaselJSGraphics = new Class({
 		this.layers.effects.removeChild(graphic);
 		this.layers.characters.removeChild(graphic);
 	}
+
+	, createCrystalGraphic: function() {
+		var crystal = new CrystalGraphic();
+		this.layers.background.addChild(crystal);
+		return crystal;
+	}
 });

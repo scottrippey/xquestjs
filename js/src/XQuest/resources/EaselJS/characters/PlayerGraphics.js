@@ -11,11 +11,11 @@ PlayerGraphics.implement({
 		g.clear();
 
 		g.beginStyle(v.outerStrokeStyle)
-		 .drawCircle(0, 0, Graphics.player.diameter)
+		 .drawCircle(0, 0, v.diameter)
 		 .endStroke();
 
 		g.beginStyle(v.innerStrokeStyle)
-		 .drawPolyStar(0, 0, Graphics.player.diameter * v.innerDiameterRatio, v.innerStarPoints, v.innerStarSize, v.innerSpin)
+		 .drawPolyStar(0, 0, v.innerRadius, v.innerStarPoints, v.innerStarSize, v.innerSpin)
 		 .endStroke();
 
 	}
