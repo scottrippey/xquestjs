@@ -12,7 +12,7 @@ Object.append(Balance, {
 			}
 			,bullets: {
 				radius: 2 //px
-				,speed: 3 // * player speed
+				,speed: 2 // * player speed
 			}
 			,crystals: {
 				radius: 10 //px
