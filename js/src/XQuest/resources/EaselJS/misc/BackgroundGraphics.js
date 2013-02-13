@@ -11,14 +11,8 @@ var BackgroundGraphics = function(canvas) {
 BackgroundGraphics.prototype = new createjs.Shape();
 BackgroundGraphics.implement({
 
-	variables: {
-		backgroundColor: 'black'
-		, starColors: ['#FFFFFF','#666666','#999999', '#CCCCCC']
-		, starCount: 500
-	}
-	,
 	_setupBackground: function(){
-		var g = this.graphics, v = this.variables, size = this.canvasSize;
+		var g = this.graphics, v = Graphics.background, size = this.canvasSize;
 		g.clear();
 
 		g.beginFill(v.backgroundColor)
@@ -27,7 +21,7 @@ BackgroundGraphics.implement({
 	}
 	,
 	_setupStars: function() {
-		var g = this.graphics, v = this.variables, size = this.canvasSize;
+		var g = this.graphics, v = Graphics.background, size = this.canvasSize;
 		var starColors = v.starColors;
 
 		for (var colorIndex = 0, colorCount = starColors.length; colorIndex < colorCount; colorIndex++) {

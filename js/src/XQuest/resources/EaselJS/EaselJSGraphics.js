@@ -1,10 +1,6 @@
 var EaselJSGraphics = new Class({
 
-	variables: {
-		backgroundColor: 'black'
-	}
-
-	, initialize: function(canvas) {
+	initialize: function(canvas) {
 		this.canvas = canvas;
 
 		this._setupLayers();

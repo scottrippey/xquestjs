@@ -6,19 +6,12 @@ var BulletGraphics = function() {
 BulletGraphics.prototype = new createjs.Shape();
 BulletGraphics.implement({
 
-	variables: {
-		strokeStyle: {
-			strokeWidth: 2
-			, strokeColor: 'white'
-		}
-	}
-	,
 	_setupGraphics: function(){
-		var g = this.graphics, v = this.variables;
+		var g = this.graphics, v = Graphics.bullets;
 		g.clear();
 
 		g.beginStyle(v.strokeStyle)
-		 .drawCircle(0, 0, Balance.bullets.diameter)
+		 .drawCircle(0, 0, Graphics.bullets.diameter)
 		 .endStroke();
 
 	}

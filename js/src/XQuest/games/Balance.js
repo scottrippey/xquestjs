@@ -1,4 +1,5 @@
-var Balance = {
+var Balance = new Events();
+Object.append(Balance, {
 	setGameMode: function(mode) {
 		/* Key:
 		 * px = pixels
@@ -33,7 +34,7 @@ var Balance = {
 
 		});
 
-		this._valuesChanged();
+		this.fireEvent('balanceChanged', [mode]);
 
 		function dependsOnMode(modeValues) {
 			if (mode in modeValues)
@@ -48,37 +49,4 @@ var Balance = {
 			};
 		}
 	}
-	,
-	/**
-	 * Adds a callback
-	 * @param {Function} balanceValuesCallback()
-	 *                   A callback function that will be called when the balance values change.
-	 */
-	onChange: function(balanceValuesCallback) {
-		if (!this.callbacks){
-			this.callbacks = [];
-		}
-		this.callbacks.push(balanceValuesCallback);
-	}
-	,
-	/**
-	 * Removes the callback
-	 */
-	removeChange: function(balanceValuesCallback) {
-		if (this.callbacks) {
-			this.callbacks.erase(balanceValuesCallback);
-		}
-	}
-	,
-	/**
-	 * Fires the callbacks
-	 * @private
-	 */
-	_valuesChanged: function() {
-		if (this.callbacks) {
-			this.callbacks.each(function(balanceValuesCallback) {
-				balanceValuesCallback();
-			}, this);
-		}
-	}
-};
+});

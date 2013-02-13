@@ -6,32 +6,16 @@ var PlayerGraphics = function() {
 PlayerGraphics.prototype = new createjs.Shape();
 PlayerGraphics.implement({
 
-	variables: {
-		outerStrokeStyle: {
-			strokeWidth: 3
-			, strokeColor: 'white'
-		}
-
-		, innerDiameterRatio: (3/4)
-		, innerStrokeStyle: {
-			strokeWidth: 2
-			, strokeColor: 'yellow'
-		}
-		, innerStarPoints: 5
-		, innerStarSize: 0.7
-		, innerSpin: 0
-	}
-	,
 	_setupGraphics: function(){
-		var g = this.graphics, v = this.variables;
+		var g = this.graphics, v = Graphics.player;
 		g.clear();
 
 		g.beginStyle(v.outerStrokeStyle)
-		 .drawCircle(0, 0, Balance.player.diameter)
+		 .drawCircle(0, 0, Graphics.player.diameter)
 		 .endStroke();
 
 		g.beginStyle(v.innerStrokeStyle)
-		 .drawPolyStar(0, 0, Balance.player.diameter * v.innerDiameterRatio, v.innerStarPoints, v.innerStarSize, v.innerSpin)
+		 .drawPolyStar(0, 0, Graphics.player.diameter * v.innerDiameterRatio, v.innerStarPoints, v.innerStarSize, v.innerSpin)
 		 .endStroke();
 
 	}
