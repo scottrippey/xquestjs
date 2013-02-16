@@ -59,13 +59,13 @@ var ArcadeGame = new Class({
 	}
 	, _createPlayer: function() {
 		var game = this;
-		var player = new Player(game);
+		game.player = new Player(game);
 		var bounds = Balance.level.bounds, middleOfGame = {
 			x:bounds.x + (bounds.width / 2)
 			,y:bounds.y + (bounds.height / 2)
 		};
-		player.moveTo(middleOfGame.x, middleOfGame.y);
-		this.addGameItem(player);
+		game.player.moveTo(middleOfGame.x, middleOfGame.y);
+		this.addGameItem(game.player);
 	}
 	, _createEnemyFactory: function() {
 		var game = this;
@@ -74,7 +74,7 @@ var ArcadeGame = new Class({
 	}
 	, _createCrystals: function() {
 		this.crystals = new Crystals(this);
-		this.crystals.createCrystals(Balance.crystals.quantity());
+		this.crystals.createCrystals(Balance.crystals.quantity);
 	}
 
 });

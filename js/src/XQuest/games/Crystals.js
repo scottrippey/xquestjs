@@ -23,5 +23,41 @@ var Crystals = new Class({
 	onAct: function(tickEvent) {
 		// Check for player-collisions:
 
+		var playerGraphics = this.game.player.playerGraphics;
+		var minDistance = Balance.player.radius + Balance.crystals.radius;
+		var i = this._crystals.length;
+		while (i--) {
+			var crystal = this._crystals[i];
+			var dx = crystal.x - playerGraphics.x, dy = crystal.y - playerGraphics.y;
+			var distance = Math.sqrt(dx*dx+dy*dy);
+			if (distance < minDistance) {
+				this.addAnimation(Animate(crystal).moveTo(playerGraphics), Tweens.easeIn(2, 2));
+				this._crystals.splice(i, 1);
+			}
+		}
+
+
+
 	}
+	,
+	onDraw: function(tickEvent) {
+		this.updateAnimations(tickEvent.deltaSeconds);
+
+	}
+
+
+	,
+	addAnimation: function(animation, tween) {
+		if (!this._animations)
+			this._animations = [];
+		this._animations.push({ animation: animation, tween: tween });
+	}
+	,
+	updateAnimations: function(deltaSeconds) {
+		Array.each(this._animations, function(anim) {
+			var pos = anim.tween(deltaSeconds);
+			anim.animation.updateAnimation(pos);
+		});
+	}
+
 });

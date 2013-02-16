@@ -16,7 +16,7 @@ Object.append(Balance, {
 			}
 			,crystals: {
 				radius: 10 //px
-				,quantity: randomBetween(10, 20)
+				,quantity: 10
 			}
 			,enemies: {
 				spawnRate: dependsOnMode({ // seconds per enemies
