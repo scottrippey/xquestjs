@@ -1,5 +1,6 @@
 var Crystals = new Class({
-
+	Implements: [ AnimationQueue ]
+	,
 	initialize: function(game) {
 		this.game = game;
 		this.game.addGameItem(this);
@@ -48,29 +49,4 @@ var Crystals = new Class({
 	onDraw: function(tickEvent) {
 
 	}
-
-
-	,
-	addAnimation: function(animationName, animation) {
-		if (animation === undefined) {
-			animation = animationName;
-			animationName = 'default';
-		}
-
-		if (!this._animations)
-			this._animations = {};
-		if (!this._animations[animationName])
-			this._animations[animationName] = [];
-
-		this._animations[animationName].push(animation);
-	}
-	,
-	updateAnimations: function(deltaSeconds) {
-		Object.each(this._animations, function(animations) {
-			Array.each(animations, function(animation) {
-				animation.updateAnimation(deltaSeconds);
-			});
-		});
-	}
-
 });
