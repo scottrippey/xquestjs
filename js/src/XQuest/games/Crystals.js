@@ -31,32 +31,45 @@ var Crystals = new Class({
 			var dx = crystal.x - playerGraphics.x, dy = crystal.y - playerGraphics.y;
 			var distance = Math.sqrt(dx*dx+dy*dy);
 			if (distance < minDistance) {
-				this.addAnimation(Animate(crystal).moveTo(playerGraphics), Tweens.easeIn(2, 2));
+				this.addAnimation(
+					new Animation()
+					.duration(2).ease()
+					.move({ target: crystal, to: playerGraphics })
+				);
 				this._crystals.splice(i, 1);
 			}
 		}
 
 
+		this.updateAnimations(tickEvent.deltaSeconds);
 
 	}
 	,
 	onDraw: function(tickEvent) {
-		this.updateAnimations(tickEvent.deltaSeconds);
 
 	}
 
 
 	,
-	addAnimation: function(animation, tween) {
+	addAnimation: function(animationName, animation) {
+		if (animation === undefined) {
+			animation = animationName;
+			animationName = 'default';
+		}
+
 		if (!this._animations)
-			this._animations = [];
-		this._animations.push({ animation: animation, tween: tween });
+			this._animations = {};
+		if (!this._animations[animationName])
+			this._animations[animationName] = [];
+
+		this._animations[animationName].push(animation);
 	}
 	,
 	updateAnimations: function(deltaSeconds) {
-		Array.each(this._animations, function(anim) {
-			var pos = anim.tween(deltaSeconds);
-			anim.animation.updateAnimation(pos);
+		Object.each(this._animations, function(animations) {
+			Array.each(animations, function(animation) {
+				animation.updateAnimation(deltaSeconds);
+			});
 		});
 	}
 
