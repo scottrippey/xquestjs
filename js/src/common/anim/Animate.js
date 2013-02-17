@@ -4,17 +4,17 @@ var Animate = function(target) {
 
 var Animation = function(target) {
 	this._target = target;
-	this._updates = [];
+	this._actions = [];
 };
 Animation.prototype = {
 	updateAnimation: function(pos) {
-		for (var i = 0, length = this._updates.length; i < length; i++) {
-			this._updates[i].call(this, pos);
+		for (var i = 0, length = this._actions.length; i < length; i++) {
+			this._actions[i].call(this, pos);
 		}
 	}
 	,
-	onUpdate: function(onUpdate) {
-		this._updates.push(onUpdate);
+	addAction: function(onUpdate) {
+		this._actions.push(onUpdate);
 		return this;
 	}
 	,
@@ -23,7 +23,7 @@ Animation.prototype = {
 			destination = source;
 			source = { x: this._target.x, y: this._target.y };
 		}
-		this.onUpdate(function(pos) {
+		this.addAction(function(pos) {
 			this._target.x = interpolate(source.x, destination.x, pos);
 			this._target.y = interpolate(source.y, destination.y, pos);
 		});
