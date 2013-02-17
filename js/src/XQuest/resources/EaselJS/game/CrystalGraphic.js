@@ -11,10 +11,12 @@ CrystalGraphic.implement({
 			.drawPolyStar(0, 0, v.radius, v.sides, v.pointSize, 0)
 			.endStyle(v.style);
 		this.rotation = 360 * Math.random();
+
+		this.spinRate = Graphics.crystals.spinRate;
 	}
 	,
 	onTick: function(tickEvent) {
-		this.rotation += (Graphics.crystals.spinRate * tickEvent.deltaSeconds);
+		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 
 		this.updateAnimations(tickEvent.deltaSeconds);
 	}
@@ -23,6 +25,12 @@ CrystalGraphic.implement({
 		this.addAnimation(
 			new Animation().duration(Graphics.crystals.gatherDuration).ease()
 				.move({ target: this, to: playerGraphic })
+		);
+		this.addAnimation(
+			new Animation().duration(Graphics.crystals.gatherDuration).easeOut()
+				.addAction(function(anim) {
+					this.spinRate = Animation.interpolate(Graphics.crystals.spinRate, Graphics.crystals.spinRate * -20, anim.position);
+				}.bind(this))
 		);
 
 	}

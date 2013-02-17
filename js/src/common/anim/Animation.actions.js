@@ -18,11 +18,12 @@ Object.append(Animation.prototype, {
 				,from = moveOptions.keyframes[keyframe]
 				,to = moveOptions.keyframes[keyframe + 1];
 
-			target.x = interpolate(from.x, to.x, pos);
-			target.y = interpolate(from.y, to.y, pos);
+			target.x = Animation.interpolate(from.x, to.x, pos);
+			target.y = Animation.interpolate(from.y, to.y, pos);
 		});
 	}
 });
-function interpolate(start, end, pos) {
+
+Animation.interpolate = function(start, end, pos) {
 	return start + pos * (end - start);
-}
+};
