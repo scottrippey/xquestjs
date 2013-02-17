@@ -2,6 +2,7 @@ var CrystalGraphic = function() {
 	this._setupCrystalGraphic();
 };
 CrystalGraphic.prototype = new createjs.Shape();
+CrystalGraphic.implement(AnimationQueue.prototype);
 CrystalGraphic.implement({
 	_setupCrystalGraphic: function() {
 		var g = this.graphics, v = Graphics.crystals;
@@ -14,6 +15,16 @@ CrystalGraphic.implement({
 	,
 	onTick: function(tickEvent) {
 		this.rotation += (Graphics.crystals.spinRate * tickEvent.deltaSeconds);
+
+		this.updateAnimations(tickEvent.deltaSeconds);
+	}
+	,
+	gatherCrystal: function(playerGraphic) {
+		this.addAnimation(
+			new Animation().duration(Graphics.crystals.gatherDuration).ease()
+				.move({ target: this, to: playerGraphic })
+		);
+
 	}
 
 });

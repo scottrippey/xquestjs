@@ -1,6 +1,4 @@
 var Crystals = new Class({
-	Implements: [ AnimationQueue ]
-	,
 	initialize: function(game) {
 		this.game = game;
 		this.game.addGameItem(this);
@@ -32,17 +30,10 @@ var Crystals = new Class({
 			var dx = crystal.x - playerGraphics.x, dy = crystal.y - playerGraphics.y;
 			var distance = Math.sqrt(dx*dx+dy*dy);
 			if (distance < minDistance) {
-				this.addAnimation(
-					new Animation()
-					.duration(2).ease()
-					.move({ target: crystal, to: playerGraphics })
-				);
+				crystal.gatherCrystal(playerGraphics);
 				this._crystals.splice(i, 1);
 			}
 		}
-
-
-		this.updateAnimations(tickEvent.deltaSeconds);
 
 	}
 	,
