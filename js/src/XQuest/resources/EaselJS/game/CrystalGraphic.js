@@ -23,7 +23,8 @@ CrystalGraphic.implement({
 	,
 	gatherCrystal: function(playerGraphic) {
 		this.addAnimation(
-			new Animation().duration(Graphics.crystals.gatherDuration).ease()
+			new Animation()
+				.duration(Graphics.crystals.gatherDuration).ease()
 				.move({ target: this, to: playerGraphic })
 		);
 		this.addAnimation(
