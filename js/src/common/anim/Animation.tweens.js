@@ -14,6 +14,22 @@ Object.append(Animation.prototype, {
 		});
 	}
 	,
+	loop: function(durationS, maxLoops) {
+		return this.addAction(function(anim) {
+			while (anim.position >= durationS) {
+				anim.position -= durationS;
+				anim.loops++;
+			}
+			if (maxLoops !== undefined && anim.loops >= maxLoops) {
+				anim.loops = maxLoops;
+				anim.position = 1;
+				anim.complete = true;
+			} else {
+				anim.position = anim.position / durationS;
+			}
+		})
+	}
+	,
 	ease: function(power) {
 		if (!power) power = defaultEasingPower;
 		return this.addAction(function(anim){

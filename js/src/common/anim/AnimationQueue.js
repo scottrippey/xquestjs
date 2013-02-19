@@ -17,7 +17,7 @@ AnimationQueue.prototype = {
 	updateAnimations: function(deltaSeconds) {
 		Object.each(this._animationQueues, function(animationQueue) {
 			Array.each(animationQueue, function(animation) {
-				animation.updateAnimation(deltaSeconds);
+				var animInfo = animation.updateAnimation(deltaSeconds);
 			});
 		});
 	}
