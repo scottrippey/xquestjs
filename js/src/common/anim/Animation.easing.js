@@ -1,10 +1,27 @@
 /**
  * Animation Easing functions
  */
-var defaultEasingPower = 3;
 Object.append(Animation.prototype, {
-	ease: function(power) {
-		if (!power) power = defaultEasingPower;
+	defaultEasing: 'quint'
+	,
+	ease: function(easing) {
+		easing = Animation.Easing.from(easing || this.defaultEasing);
+		return this.addAction(function(anim){
+			var pos = anim.position;
+			if (pos <= 0){
+				anim.position = 0;
+			} else if (pos >= 1) {
+				anim.position = 1;
+			} else if (pos <= 0.5) {
+				anim.position = easing(pos * 2) / 2;
+			} else {
+				anim.position = 1 - easing((1 - pos) * 2) / 2;
+			}
+		});
+	}
+	,
+	easeIn: function(easing) {
+		easing = Animation.Easing.from(easing || this.defaultEasing);
 		return this.addAction(function(anim){
 			var pos = anim.position;
 			if (pos <= 0){
@@ -12,35 +29,13 @@ Object.append(Animation.prototype, {
 			} else if (pos >= 1) {
 				anim.position = 1;
 			} else {
-				pos = pos * 2;
-				if (pos <= 1) {
-					pos = Math.pow(pos, power) / 2;
-				} else {
-					pos--;
-					pos = 1 - Math.pow(1 - pos, power) / 2;
-				}
-				anim.position = pos;
+				anim.position = easing(pos);
 			}
 		});
 	}
 	,
-	easeIn: function(power) {
-		if (!power) power = defaultEasingPower;
-		return this.addAction(function(anim){
-			var pos = anim.position;
-			if (pos <= 0){
-				anim.position = 0;
-			} else if (pos >= 1) {
-				anim.position = 1;
-			} else {
-				pos = Math.pow(pos, power);
-				anim.position = pos;
-			}
-		});
-	}
-	,
-	easeOut: function(power) {
-		if (!power) power = defaultEasingPower;
+	easeOut: function(easing) {
+		easing = Animation.Easing.from(easing || this.defaultEasing);
 		return this.addAction(function(anim) {
 			var pos = anim.position;
 			if (pos <= 0){
@@ -48,9 +43,53 @@ Object.append(Animation.prototype, {
 			} else if (pos >= 1) {
 				anim.position = 1;
 			} else {
-				pos = 1 - Math.pow(1 - pos, power);
-				anim.position = pos;
+				anim.position = 1 - easing(1 - pos);
 			}
 		});
 	}
 });
+
+Animation.Easing = {
+	/**
+	 * Returns an easing function from the specified string.
+	 * Alternatively, a custom function can be supplied.
+	 *
+	 * @param {String|Function} easing
+	 * @return {Function}
+	 */
+	from: function(easing) {
+		if (typeof easing === 'function') {
+			return easing;
+		} else {
+			return Animation.Easing[easing];
+		}
+	}
+	,
+	linear: function(position) {
+		return position;
+	}
+	,
+	quad: function(position) {
+		return Math.pow(position, 2);
+	}
+	,
+	cube: function(position) {
+		return Math.pow(position, 3);
+	}
+	,
+	quart: function(position) {
+		return Math.pow(position, 4);
+	}
+	,
+	quint: function(position) {
+		return Math.pow(position, 5);
+	}
+	,
+	sine: function(position) {
+		return (Math.cos(position * Math.PI) - 1) / -2;
+	}
+	,
+	swing: function(position) {
+		return position - Math.sin(position * Math.PI * 2);
+	}
+};
