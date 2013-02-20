@@ -3,21 +3,21 @@
  */
 var defaultEasingPower = 3;
 Object.append(Animation.prototype, {
-	duration: function(durationS) {
+	duration: function(duration) {
 		return this.addAction(function(anim){
-			if (anim.position >= durationS) {
+			if (anim.position >= duration) {
 				anim.position = 1;
 				anim.complete = true;
 			} else {
-				anim.position = anim.position / durationS;
+				anim.position = anim.position / duration;
 			}
 		});
 	}
 	,
-	loop: function(durationS, maxLoops) {
+	loop: function(duration, maxLoops) {
 		return this.addAction(function(anim) {
-			while (anim.position >= durationS) {
-				anim.position -= durationS;
+			while (anim.position >= duration) {
+				anim.position -= duration;
 				anim.loops++;
 			}
 			if (maxLoops !== undefined && anim.loops >= maxLoops) {
@@ -25,9 +25,15 @@ Object.append(Animation.prototype, {
 				anim.position = 1;
 				anim.complete = true;
 			} else {
-				anim.position = anim.position / durationS;
+				anim.position = anim.position / duration;
 			}
 		})
+	}
+	,
+	continuous: function(duration) {
+		return this.addAction(function(anim) {
+			anim.position = anim.position / duration;
+		});
 	}
 	,
 	ease: function(power) {
