@@ -83,5 +83,42 @@ var Physics = {
 		}
 		return false;
 	}
+
+	,
+	sortPoints: function(points) {
+		return Sort.smoothSortByProperty(points, 'x');
+	}
+	,
+	detectCollisions: function(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
+		var a = 0, b = 0, lengthA = sortedPointsA.length, lengthB = sortedPointsB.length;
+
+		var pa = sortedPointsA[a];
+		var pb = sortedPointsB[b];
+
+		while (a < lengthA && b < lengthB) {
+			// Rough-compare X:
+			var dx = pa.x - pb.x;
+			if (dx < -maxDistance) {
+				a++;
+				pa = sortedPointsA[a];
+			} else if (maxDistance < dx) {
+				b++;
+				pb = sortedPointsB[b];
+			} else {
+				// Rough-compare Y:
+				var dy = pa.y - pb.y;
+				if (-maxDistance < dy && dy < maxDistance) {
+					// Deep-compare:
+					var distance = Math.sqrt(dx * dx + dy * dy);
+					if (distance < maxDistance) {
+						collisionCallback(pa, pb, distance, a, b);
+					}
+				}
+				b++;
+				pb = sortedPointsB[b];
+			}
+
+		}
+	}
 };
 
