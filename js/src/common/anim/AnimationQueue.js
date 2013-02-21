@@ -30,54 +30,24 @@ AnimationQueue.prototype = {
 	 */
 	updateAnimations: function(deltaSeconds) {
 
-		var completedQueues = null;
-
-		Object.each(this._animationQueues, function(animationQueue, animationQueueName) {
-
+		Object.eliminate(this._animationQueues, function(animationQueue, animationQueueName) {
 			var animations = animationQueue[0];
+			Array.eliminate(animations, function(animation, animIndex) {
 
-			var completedAnimations = null;
-			Array.each(animations, function(animation, animIndex){
-
-				// Here's the 'actual' work:
 				var animInfo = animation.updateAnimation(deltaSeconds);
 
-				if (animInfo.complete) {
-					if (!completedAnimations)
-						completedAnimations = [];
-					completedAnimations.push(animIndex);
-				}
+				var animationIsComplete = (animInfo.complete);
+				return animationIsComplete;
 			});
 
-			// Clean up:
-			if (completedAnimations) {
-				var allAnimationsAreComplete = (completedAnimations.length === animations.length);
-				if (allAnimationsAreComplete) {
-					animationQueue.shift();
-					var animationQueueIsComplete = (animationQueue.length === 0);
-					if (animationQueueIsComplete) {
-						if (!completedQueues) {
-							completedQueues = [];
-						}
-						completedQueues.push(animationQueueName);
-					}
-				} else {
-					var i = completedAnimations.length;
-					while (i--) {
-						var animIndex = completedAnimations[i];
-						animations.splice(animIndex, 1);
-					}
-				}
+			var animationQueueIsComplete = false;
+			var animationsAreComplete = (animations.length === 0);
+			if (animationsAreComplete) {
+				animationQueue.shift();
+				animationQueueIsComplete = (animationQueue.length === 0);
 			}
+			return animationQueueIsComplete;
 		});
-
-		if (completedQueues) {
-			var i = completedQueues.length;
-			while (i--) {
-				var completedQueueName = completedQueues[i];
-				delete this._animationQueues[completedQueueName];
-			}
-		}
 
 	}
 };
