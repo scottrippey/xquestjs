@@ -3,7 +3,8 @@
  * @constructor
  */
 var EaselJSTimer = function() {
-
+	this._paused = false;
+	window.pauseGame = this.pauseGame.bind(this);
 };
 EaselJSTimer.implement({
 	addTickHandler: function(tickHandler) {
@@ -12,6 +13,9 @@ EaselJSTimer.implement({
 		createjs.Ticker.setFPS(60);
 
 		createjs.Ticker.addEventListener('tick', function(tickEvent) {
+			if (tickEvent.paused) {
+				return;
+			}
 
 			// Augment the tickEvent:
 			tickEvent.deltaSeconds = tickEvent.delta / 1000;
@@ -21,6 +25,7 @@ EaselJSTimer.implement({
 	}
 	,
 	pauseGame: function(paused) {
-		createjs.Ticker.setPaused(paused);
+		this._paused = (paused !== undefined) ? paused : !this._paused;
+		createjs.Ticker.setPaused(this._paused);
 	}
 });
