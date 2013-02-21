@@ -107,15 +107,20 @@ var Physics = {
 			} else {
 				// Rough-compare Y:
 				var dy = pa.y - pb.y;
-				if (-maxDistance < dy && dy < maxDistance) {
+				if (-maxDistance <= dy && dy <= maxDistance) {
 					// Deep-compare:
 					var distance = Math.sqrt(dx * dx + dy * dy);
-					if (distance < maxDistance) {
+					if (distance <= maxDistance) {
 						collisionCallback(pa, pb, distance, a, b);
 					}
 				}
-				b++;
-				pb = sortedPointsB[b];
+				if (dx < 0) {
+					a++;
+					pa = sortedPointsA[a];
+				} else {
+					b++;
+					pb = sortedPointsB[b];
+				}
 			}
 
 		}
