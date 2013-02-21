@@ -90,37 +90,43 @@ var Physics = {
 	}
 	,
 	detectCollisions: function(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
-		var a = 0, b = 0, lengthA = sortedPointsA.length, lengthB = sortedPointsB.length;
+		var aIndex = 0, bIndex = 0, lengthA = sortedPointsA.length, lengthB = sortedPointsB.length;
 
-		var pa = sortedPointsA[a];
-		var pb = sortedPointsB[b];
+		var pointA = sortedPointsA[aIndex];
+		var pointB = sortedPointsB[bIndex];
 
-		while (a < lengthA && b < lengthB) {
+		while (aIndex < lengthA && bIndex < lengthB) {
 			// Rough-compare X:
-			var dx = pa.x - pb.x;
+			var dx = pointA.x - pointB.x;
 			if (dx < -maxDistance) {
-				a++;
-				pa = sortedPointsA[a];
+				aIndex++;
+				pointA = sortedPointsA[aIndex];
 			} else if (maxDistance < dx) {
-				b++;
-				pb = sortedPointsB[b];
+				bIndex++;
+				pointB = sortedPointsB[bIndex];
 			} else {
-				// Rough-compare Y:
-				var dy = pa.y - pb.y;
-				if (-maxDistance <= dy && dy <= maxDistance) {
-					// Deep-compare:
-					var distance = Math.sqrt(dx * dx + dy * dy);
-					if (distance <= maxDistance) {
-						collisionCallback(pa, pb, distance, a, b);
+				var bLookahead = bIndex;
+				while (bLookahead < lengthB) {
+					dx = pointA.x - pointB.x;
+					if (maxDistance < dx) {
+						break;
 					}
+					// Rough-compare Y:
+					var dy = pointA.y - pointB.y;
+					if (-maxDistance <= dy && dy <= maxDistance) {
+						// Deep-compare:
+						var distance = Math.sqrt(dx * dx + dy * dy);
+						if (distance <= maxDistance) {
+							collisionCallback(pointA, pointB, aIndex, bIndex, distance);
+						}
+					}
+					bLookahead++;
+					pointB = sortedPointsB[bLookahead];
 				}
-				if (dx < 0) {
-					a++;
-					pa = sortedPointsA[a];
-				} else {
-					b++;
-					pb = sortedPointsB[b];
-				}
+				pointB = sortedPointsB[bIndex];
+
+				aIndex++;
+				pointA = sortedPointsA[aIndex];
 			}
 
 		}
