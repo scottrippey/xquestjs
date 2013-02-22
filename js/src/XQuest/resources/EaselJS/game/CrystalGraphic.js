@@ -26,14 +26,12 @@ CrystalGraphic.implement({
 			new Animation()
 				.duration(Graphics.crystals.gatherDuration).ease()
 				.move({ target: this, to: playerGraphic })
-		);
-		this.addAnimation(
+			,
 			new Animation().duration(Graphics.crystals.gatherDuration).easeOut()
 				.addAction(function(anim) {
-					this.spinRate = Animation.interpolate(Graphics.crystals.spinRate, Graphics.crystals.spinRate * -20, anim.position);
+					this.spinRate = Animation.interpolate(Graphics.crystals.spinRate, Graphics.crystals.spinRateGathered, anim.position);
 				}.bind(this))
 		);
-
 	}
 
 });
