@@ -5,7 +5,7 @@ AnimationQueue.prototype = {
 	 * @param {String} [animationQueueName]
 	 * @param {Animation...} animation
 	 */
-	addAnimation: function(animationQueueName, animation) {
+	queueAnimation: function(animationQueueName, animation) {
 		var animations;
 		if (typeof animationQueueName === 'string') {
 			animations = Array.slice(arguments, 1);
@@ -31,21 +31,26 @@ AnimationQueue.prototype = {
 	updateAnimations: function(deltaSeconds) {
 
 		Object.eliminate(this._animationQueues, function(animationQueue, animationQueueName) {
-			var animations = animationQueue[0];
-			Array.eliminate(animations, function(animation, animIndex) {
+			while (animationQueue.length) {
+				var animations = animationQueue[0];
+				Array.eliminate(animations, function(animation, animIndex) {
 
-				var animInfo = animation.updateAnimation(deltaSeconds);
+					var animInfo = animation.updateAnimation(deltaSeconds);
 
-				var animationIsComplete = (animInfo.complete);
-				return animationIsComplete;
-			});
+					var animationIsComplete = (animInfo.complete);
+					return animationIsComplete;
+				});
 
-			var animationQueueIsComplete = false;
-			var animationsAreComplete = (animations.length === 0);
-			if (animationsAreComplete) {
-				animationQueue.shift();
-				animationQueueIsComplete = (animationQueue.length === 0);
+				var animationQueueIsComplete = false;
+				var animationsAreComplete = (animations.length === 0);
+				if (animationsAreComplete) {
+					animationQueue.shift();
+					continue;
+				}
+				break;
 			}
+			animationQueueIsComplete = (animationQueue.length === 0);
+
 			return animationQueueIsComplete;
 		});
 
