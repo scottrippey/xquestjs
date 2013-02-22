@@ -1,10 +1,7 @@
-Object.append(Animation, {
-	execute: function(callback) {
-		var anim = new Animation();
-		anim.addAction(function(anim) {
-			callback();
+Object.append(Animation.prototype, {
+	complete: function() {
+		return this.addAction(function(anim) {
 			anim.complete = true;
 		});
-		return anim;
 	}
 });
