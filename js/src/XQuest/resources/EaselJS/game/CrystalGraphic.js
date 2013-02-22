@@ -32,8 +32,12 @@ CrystalGraphic.implement({
 				.addAction(function(anim) {
 					this.spinRate = Animation.interpolate(Graphics.crystals.spinRate, Graphics.crystals.spinRateGathered, anim.position);
 				}.bind(this))
-		);
-		this.queueAnimation(
+			,
+			new Animation().duration(Graphics.crystals.gatherDuration).easeOut()
+				.addAction(function(anim) {
+					this.alpha = 1 - anim.position;
+				}.bind(this))
+		).queueAnimation(
 			Animation.execute(function(){
 				this._removeGraphic();
 			}.bind(this))

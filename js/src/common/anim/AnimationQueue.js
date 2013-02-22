@@ -20,6 +20,8 @@ AnimationQueue.prototype = {
 			this._animationQueues[animationQueueName] = [];
 
 		this._animationQueues[animationQueueName].push(animations);
+
+		return this;
 	}
 	,
 
