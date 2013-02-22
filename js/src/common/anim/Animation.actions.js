@@ -2,59 +2,75 @@
  * Animation Actions
  */
 Object.append(Animation.prototype, {
-	move: function(animOptions, updatePosition) {
-
-		var keyframes = animOptions.keyframes
-			,target = animOptions.target;
-		if (!keyframes) {
-			var from = animOptions.from
-				,to = animOptions.to;
-			if (!from)
-				from = { x: target.x, y: target.y };
-			keyframes = [ from, to ];
-		}
-		if (!updatePosition) {
-			updatePosition = function(x, y) {
-				target.x = x;
-				target.y = y;
-			};
-		}
-
-		return this.addAction(function(anim){
-			var keyframeIndex = (anim.keyframe % keyframes.length)
-				,from = keyframes[keyframeIndex]
-				,to = keyframes[keyframeIndex + 1];
-
-			var x = Animation.interpolate(from.x, to.x, anim.position)
-				,y = Animation.interpolate(from.y, to.y, anim.position);
-			updatePosition(x, y);
-		});
+	move: function(moveOptions) {
+		var target = moveOptions.target;
+		if (!moveOptions.keyframes && !moveOptions.from)
+			moveOptions.from = { x: target.x, y: target.y };
+		if (!moveOptions.update)
+			moveOptions.update = function(point) { target.x = point.x; target.y = point.y; };
+		if (!moveOptions.interpolate)
+			moveOptions.interpolate = Animation.interpolatePoints;
+		
+		return this.animate(moveOptions);
 	}
 	,
-	color: function(animOptions, updateColor) {
-		var keyframes = animOptions.keyframes || [animOptions.from, animOptions.to];
+	color: function(colorOptions) {
+		var target = colorOptions.target;
+		if (!colorOptions.keyframes && !colorOptions.from)
+			colorOptions.from = target.color;
+		if (!colorOptions.update)
+			colorOptions.update = function(color) { target.color = color; };
+		if (!colorOptions.map)
+			colorOptions.map = function(color) { return color.hexToRgb(); };
+		if (!colorOptions.interpolate)
+			colorOptions.interpolate = function(from, to, position) { return Animation.interpolateArrays(from, to, position).rgbToHex(); };
 
-		keyframes = Array.map(keyframes, function(color) { return color.hexToRgb(); });
+		return this.animate(colorOptions);
+	}
+	,
+	fade: function(fadeOptions) {
+		var target = fadeOptions.target;
+		if (!fadeOptions.keyframes && !fadeOptions.from)
+			fadeOptions.from = target.alpha;
+		if (!fadeOptions.update)
+			fadeOptions.update = function(alpha) { target.alpha = alpha; };
+
+		return this.animate(fadeOptions);
+	}
+	,
+	animate: function(animOptions) {
+		var keyframes = animOptions.keyframes || [ animOptions.from, animOptions.to ]
+			,update = animOptions.update
+			,interpolate = animOptions.interpolate || Animation.interpolate
+			,map = animOptions.map
+			;
+
+		if (map)
+			keyframes = Array.map(keyframes, map);
+
 		return this.addAction(function(anim) {
-			var keyframeIndex = (anim.keyframe % keyframes.length)
-				,from = keyframes[keyframeIndex]
-				,to = keyframes[keyframeIndex + 1];
+			var from = keyframes[(anim.keyframe) % keyframes.length]
+				,to = keyframes[(anim.keyframe + 1) % keyframes.length];
 
-			var color = Animation.interpolateArrays(from, to, anim.position).rgbToHex();
-			updateColor(color);
+			update(interpolate(from, to, anim.position));
 		});
 	}
-
 });
 
 Animation.interpolate = function(from, to, pos) {
 	return from + pos * (to - from);
 };
 Animation.interpolateArrays = function(from, to, pos) {
-	var result = [];
-	var l = Math.min(from.length, to.length);
+	var result = []
+		,l = Math.min(from.length, to.length);
 	for (var i = 0; i < l; i++) {
 		result.push(Animation.interpolate(from[i], to[i], pos));
 	}
 	return result;
+};
+Animation.interpolatePoints = function(from, to, position) {
+	return {
+		x: Animation.interpolate(from.x, to.x, position)
+		,y: Animation.interpolate(from.y, to.y, position)
+	};
 };
