@@ -70,7 +70,7 @@ Animation.Easing = {
 	}
 	,
 	quad: function(position) {
-		return Math.pow(position, 2);
+		return (position * position);
 	}
 	,
 	cube: function(position) {

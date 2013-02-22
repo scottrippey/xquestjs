@@ -25,18 +25,21 @@ CrystalGraphic.implement({
 	gatherCrystal: function(playerGraphic) {
 		this.queueAnimation(
 			new Animation()
-				.duration(Graphics.crystals.gatherDuration).ease()
+				.duration(Graphics.crystals.gatherDuration)
+				.easeIn()
 				.move({ target: this, to: playerGraphic })
 			,
-			new Animation().duration(Graphics.crystals.gatherDuration).easeOut()
-				.addAction(function(anim) {
-					this.spinRate = Animation.interpolate(Graphics.crystals.spinRate, Graphics.crystals.spinRateGathered, anim.position);
-				}.bind(this))
+			new Animation()
+				.duration(Graphics.crystals.gatherDuration)
+				.easeIn()
+				.fade({ target: this, from: 0.1, to: 0 })
 			,
-			new Animation().duration(Graphics.crystals.gatherDuration).easeOut()
-				.addAction(function(anim) {
-					this.alpha = 1 - anim.position;
-				}.bind(this))
+			new Animation()
+				.duration(Graphics.crystals.gatherDuration)
+				.easeOut()
+				.animate({ from: this.spinRate, to: Graphics.crystals.spinRateGathered, update: function(spinRate) {
+					this.spinRate = spinRate;
+				}.bind(this)})
 		).queueAnimation(
 			Animation.execute(function(){
 				this._removeGraphic();

@@ -40,7 +40,7 @@ var Graphics = {
 				,sides: 6
 				,pointSize: 0.5
 				,spinRate: -0.1 * 360 //rps
-				,spinRateGathered: 2 * 360 //rps
+				,spinRateGathered: 1 * 360 //rps
 				,gatherDuration: 1 //s
 			}
 			,enemies: {
