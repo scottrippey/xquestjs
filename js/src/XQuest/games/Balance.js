@@ -19,7 +19,8 @@ Object.append(Balance, {
 				,quantity: 10
 			}
 			,enemies: {
-				spawnRate: dependsOnMode({ // seconds per enemies
+				maxRadius: 8
+				,spawnRate: dependsOnMode({ // seconds per enemies
 					'default': randomBetween(10, 20)
 					,'test': randomFloatBetween(0.5, 0.5)
 				})

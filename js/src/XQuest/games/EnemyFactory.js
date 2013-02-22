@@ -14,6 +14,9 @@ var EnemyFactory = new Class({
 			this._spawnNextEnemy();
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		}
+		if (this._enemies.length >= 2) {
+			Physics.sortByLocation(this._enemies);
+		}
 	}
 	,
 	_calculateNextEnemySpawn: function(runTime) {
@@ -38,21 +41,21 @@ var EnemyFactory = new Class({
 		enemy.moveTo(initialPosition.x, initialPosition.y);
 	}
 	,
-	checkBullets: function(bullets) {
+	killEnemiesOnCollision: function(sortedItems, maxItemRadius, collisionCallback) {
 		var enemies = this._enemies;
-		enemies.each(function(enemy){
-			var enemyLocation = enemy.location;
-			var maxDistance = enemy.radius + Balance.bullets.radius;
-			bullets.each(function(bullet) {
-				if (Physics.distanceTest(enemyLocation, bullet, maxDistance)) {
-					this.killEnemy(enemy);
-				}
-			}, this);
-		}, this);
+		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
+		Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
+			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
+			if (theseSpecificItemsDidCollide) {
+				this._killEnemy(enemy, ei);
+				if (collisionCallback)
+					collisionCallback(enemy, item, ei, ii, distance);
+			}
+		}.bind(this));
 	}
 	,
-	killEnemy: function(enemy) {
-		this._enemies.erase(enemy);
+	_killEnemy: function(enemy, enemyIndex) {
+		this._enemies.splice(enemyIndex, 1);
 		enemy.setEnemyState('killed');
 	}
 });

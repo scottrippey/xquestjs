@@ -4,12 +4,14 @@ var Player = new Class({
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
-		this.bullets = [];
+		this._bullets = [];
 
 		this._setupPlayerGraphics();
 	}
 	, _setupPlayerGraphics: function() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
+		this.location = this.playerGraphics;
+		this.radius = Balance.player.radius;
 	}
 	, moveTo: function(x, y) {
 		this.playerGraphics.moveTo(x, y);
@@ -65,7 +67,9 @@ var Player = new Class({
 			x: this.velocity.x * Balance.bullets.speed
 			, y: this.velocity.y * Balance.bullets.speed
 		};
-		this.bullets.push(bulletGfx);
+		bulletGfx.location = bulletGfx;
+		bulletGfx.radius = Balance.bullets.radius;
+		this._bullets.push(bulletGfx);
 	}
 
 	, onMove: function(tickEvent) {
@@ -82,27 +86,35 @@ var Player = new Class({
 			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
-		Physics.bounceOffWalls(this.playerGraphics, Balance.player.radius, this.velocity, Balance.level.bounds);
+		Physics.bounceOffWalls(this.playerGraphics, this.radius, this.velocity, Balance.level.bounds);
 	}
 	, _moveBullets: function(tickEvent) {
-		var bounds = Balance.level.bounds, bullets = this.bullets, i = bullets.length;
+		var bounds = Balance.level.bounds, i = this._bullets.length;
 		while (i--) {
-			var bulletGfx = bullets[i];
+			var bulletGfx = this._bullets[i];
 			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 			if (!Physics.pointIsInBounds(bulletGfx, bounds)) {
 				bulletGfx.destroyBullet();
-				bullets.splice(i, 1);
+				this._bullets.splice(i, 1);
 			}
 		}
 	}
 
 
 	, onAct: function(tickEvent) {
-		if (this.bullets.length) {
-			this.game.enemies.checkBullets(this.bullets);
+		if (this._bullets.length) {
+			if (this._bullets.length >= 2) {
+				Physics.sortByLocation(this._bullets);
+			}
+			this.game.enemies.killEnemiesOnCollision(this._bullets, Balance.bullets.radius, function(enemy, bullet, ei, ii, distance){
+				this._destroyBullet(bullet, bi);
+			}.bind(this));
 		}
 		// Temp: let the player destroy enemies:
-		this.game.enemies.checkBullets([this.playerGraphics]);
+		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, null);
+
+	}
+	, _destroyBullet: function(bullet, bulletIndex) {
 
 	}
 });

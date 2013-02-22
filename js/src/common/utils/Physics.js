@@ -85,8 +85,13 @@ var Physics = {
 	}
 
 	,
-	sortPoints: function(points) {
-		return Sort.smoothSortByProperty(points, 'x');
+	sortByLocation: function(points) {
+		return Sort.smoothSort(points, Physics._compareLocations);
+	}
+	,
+	_compareLocations: function(a, b) {
+		a = a.location.x; b = b.location.x;
+		return (a - b);
 	}
 	,
 	detectCollisions: function(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
@@ -97,7 +102,7 @@ var Physics = {
 
 		while (aIndex < lengthA && bIndex < lengthB) {
 			// Rough-compare X:
-			var dx = pointA.x - pointB.x;
+			var dx = pointA.location.x - pointB.location.x;
 			if (dx < -maxDistance) {
 				aIndex++;
 				pointA = sortedPointsA[aIndex];
@@ -107,12 +112,12 @@ var Physics = {
 			} else {
 				var bLookahead = bIndex;
 				while (bLookahead < lengthB) {
-					dx = pointA.x - pointB.x;
+					dx = pointA.location.x - pointB.location.x;
 					if (maxDistance < dx) {
 						break;
 					}
 					// Rough-compare Y:
-					var dy = pointA.y - pointB.y;
+					var dy = pointA.location.y - pointB.location.y;
 					if (-maxDistance <= dy && dy <= maxDistance) {
 						// Deep-compare:
 						var distance = Math.sqrt(dx * dx + dy * dy);
