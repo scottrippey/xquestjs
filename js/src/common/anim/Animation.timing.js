@@ -34,4 +34,22 @@ Object.append(Animation.prototype, {
 			anim.position = anim.position / duration;
 		});
 	}
+	,
+	delay: function(duration) {
+		return this.addAction(function(anim) {
+			anim.position = Math.max(0, anim.position - duration);
+		});
+	}
+	,
+	savePosition: function() {
+		return this.addAction(function(anim) {
+			anim.savedPosition = anim.position;
+		});
+	}
+	,
+	restorePosition: function() {
+		return this.addAction(function(anim) {
+			anim.position = anim.savedPosition;
+		});
+	}
 });
