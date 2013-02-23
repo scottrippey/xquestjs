@@ -1,9 +1,9 @@
 var CrystalGraphic = function(gfx) {
-	this.gfx = gfx;
+	this._gfx = gfx;
+	this._animation = new AnimationQueue();
 	this._setupCrystalGraphic();
 };
 CrystalGraphic.prototype = new createjs.Shape();
-CrystalGraphic.implement(AnimationQueue.prototype);
 CrystalGraphic.implement({
 	_setupCrystalGraphic: function() {
 		var v = Graphics.crystals;
@@ -19,11 +19,11 @@ CrystalGraphic.implement({
 	onTick: function(tickEvent) {
 		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 
-		this.updateAnimations(tickEvent.deltaSeconds);
+		this._animation.update(tickEvent.deltaSeconds);
 	}
 	,
 	gatherCrystal: function(playerLocation) {
-		this.queueAnimation(
+		this._animation.queue(
 			new Animation()
 				.duration(Graphics.crystals.gatherDuration)
 				.easeIn()
@@ -40,15 +40,8 @@ CrystalGraphic.implement({
 				.animate({ from: this.spinRate, to: Graphics.crystals.spinRateGathered, update: function(spinRate) {
 					this.spinRate = spinRate;
 				}.bind(this)})
-		).queueAnimation(
-			Animation.execute(function(){
-				this._removeGraphic();
-			}.bind(this))
-		);
+		).queue(function(anim) {
+			this._gfx.removeGraphic(this);
+		}.bind(this));
 	}
-	,
-	_removeGraphic: function() {
-		this.gfx.removeGraphic(this);
-	}
-
 });

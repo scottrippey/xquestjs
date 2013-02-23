@@ -1,60 +1,63 @@
 var AnimationQueue = function(){};
 AnimationQueue.prototype = {
+	_queue: null
+	,
+	/**
+	 * Clears the animation queue.
+	 */
+	clear: function() {
+		this._queue = null;
+	}
+	,
 	/**
 	 *
-	 * @param {String} [animationQueueName]
-	 * @param {Animation...} animation
+	 * @param {Animation...|Function...} animation
 	 */
-	queueAnimation: function(animationQueueName, animation) {
-		var animations;
-		if (typeof animationQueueName === 'string') {
-			animations = Array.slice(arguments, 1);
+	queue: function(animation) {
+		var animations = Array.map(arguments, function(animation) {
+			if (typeof animation === 'function') {
+				return new Animation().complete().addAction(animation);
+			}
+			return animation;
+		});
+		if (!this._queue) {
+			this._queue = [ animations ];
 		} else {
-			animations = Array.slice(arguments, 0);
-			animationQueueName = 'default';
+			this._queue.push(animations);
 		}
-
-		if (!this._animationQueues)
-			this._animationQueues = {};
-		if (!this._animationQueues[animationQueueName])
-			this._animationQueues[animationQueueName] = [];
-
-		this._animationQueues[animationQueueName].push(animations);
 
 		return this;
 	}
 	,
-
 	/**
 	 * Updates all animations, and clears up finished animations.
 	 *
 	 * @param {Number} deltaSeconds
 	 */
-	updateAnimations: function(deltaSeconds) {
+	update: function(deltaSeconds) {
+		if (!this._queue || !this._queue.length)
+			return true;
 
-		Object.eliminate(this._animationQueues, function(animationQueue, animationQueueName) {
-			while (animationQueue.length) {
-				var animations = animationQueue[0];
-				Array.eliminate(animations, function(animation, animIndex) {
+		var animationQueue = this._queue;
+		while (animationQueue.length) {
+			var animations = animationQueue[0];
+			Array.eliminate(animations, function(animation, animIndex) {
 
-					var animInfo = animation.updateAnimation(deltaSeconds);
+				var animInfo = animation.updateAnimation(deltaSeconds);
 
-					var animationIsComplete = (animInfo.complete);
-					return animationIsComplete;
-				});
+				var animationIsComplete = (animInfo.complete);
+				return animationIsComplete;
+			});
 
-				var animationQueueIsComplete = false;
-				var animationsAreComplete = (animations.length === 0);
-				if (animationsAreComplete) {
-					animationQueue.shift();
-					continue;
-				}
-				break;
+			var animationsAreComplete = (animations.length === 0);
+			if (animationsAreComplete) {
+				animationQueue.shift();
+				continue;
 			}
-			animationQueueIsComplete = (animationQueue.length === 0);
+			break;
+		}
 
-			return animationQueueIsComplete;
-		});
-
+		var animationQueueIsComplete = (animationQueue.length === 0);
+		return animationQueueIsComplete;
 	}
 };
