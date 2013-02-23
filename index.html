@@ -78,7 +78,11 @@
 			</li>
 		</ul>
 
-		<canvas id="XQuestCanvas" width="720" height="405"></canvas>
+		<canvas id="XQuestCanvas" width="800" height="500">
+			Your browser is not compatible with this game.
+			To play the most awesome game ever, please upgrade
+			to a better browser, such as Chrome, Safari, or Firefox.
+		</canvas>
 
 		<script>
 			window.xquest = new XQuest($('XQuestCanvas'));
@@ -106,11 +110,11 @@
 			Level Bounds &amp bouncing
 		</label></div>
 		<div class="feature"><label>
-			<input type="checkbox" />
+			<input type="checkbox" checked="checked" />
 			Scrolling
 		</label></div>
 		<div class="feature"><label>
-			<input type="checkbox" />  
+			<input type="checkbox" checked="checked" />
 			Crystals
 		</label></div>
 		<div class="feature"><label>
@@ -121,15 +125,19 @@
 			<input type="checkbox" checked="checked" />
 			First Enemy
 		</label></div>
-		
 		<div class="feature"><label>
-			<input type="checkbox" />  
+			<input type="checkbox" />
+			Level advancement
+		</label></div>
+
+		<div class="feature"><label>
+			<input type="checkbox" />
 			<strong>Game is playable!</strong>
 		</label></div>
 
 		<div class="feature"><label>
 			<input type="checkbox" />  
-			awesome enemies, cool power-ups, scores, save states, and who knows?
+			Awesome enemies, cool power-ups, scores, save states, and who knows?
 		</label></div>
 
 		<div class="feature"><label>

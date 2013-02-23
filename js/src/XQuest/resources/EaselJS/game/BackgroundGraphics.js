@@ -1,9 +1,9 @@
-var BackgroundGraphics = function(canvas) {
-	this.canvasSize = {
-		width: canvas.width
-		,height: canvas.height
+var BackgroundGraphics = function() {
+	var bounds = Balance.level.bounds;
+	this._size = {
+		width: bounds.x*2 + bounds.width
+		,height: bounds.y*2 + bounds.height
 	};
-
 	this._setupBackground();
 	this._setupStars();
 
@@ -12,7 +12,10 @@ BackgroundGraphics.prototype = new createjs.Shape();
 BackgroundGraphics.implement({
 
 	_setupBackground: function(){
-		var g = this.graphics, v = Graphics.background, size = this.canvasSize;
+		var g = this.graphics
+			,v = Graphics.background
+			,size = this._size;
+
 		g.clear();
 
 		g.beginFill(v.backgroundColor)
@@ -21,7 +24,9 @@ BackgroundGraphics.implement({
 	}
 	,
 	_setupStars: function() {
-		var g = this.graphics, v = Graphics.background, size = this.canvasSize;
+		var g = this.graphics
+			,v = Graphics.background
+			,size = this._size;
 		var starColors = v.starColors;
 
 		for (var colorIndex = 0, colorCount = starColors.length; colorIndex < colorCount; colorIndex++) {

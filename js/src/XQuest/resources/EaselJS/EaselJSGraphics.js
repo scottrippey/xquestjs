@@ -4,7 +4,6 @@ var EaselJSGraphics = new Class({
 		this.canvas = canvas;
 
 		this._setupLayers();
-
 		this._setupBackground();
 		this._setupParticles();
 	}
@@ -20,7 +19,7 @@ var EaselJSGraphics = new Class({
 		this.layers.characters.autoClear = false;
 	}
 	, _setupBackground: function() {
-		var background = new BackgroundGraphics(this.canvas);
+		var background = new BackgroundGraphics();
 		this.layers.background.addChild(background);
 	}
 	, _setupParticles: function() {
@@ -32,9 +31,40 @@ var EaselJSGraphics = new Class({
 	}
 
 	, onDraw: function(tickEvent) {
+		this._followPlayer();
+
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
+	}
+
+	, _followPlayer: function() {
+
+		var width = this.canvas.width
+			,height = this.canvas.height
+			,player = this._playerLocation;
+
+
+		if (!this._maxOffset) {
+
+			var bounds = Graphics.level.bounds;
+			this._maxOffset = {
+				x: bounds.x*2 + bounds.width - width
+				,y: bounds.y*2 + bounds.height - height
+			};
+		}
+
+		var offsetX = Math.min(Math.max(0, player.x - width/2), this._maxOffset.x)
+			,offsetY = Math.min(Math.max(0, player.y - height/2), this._maxOffset.y);
+
+		this.layers.background.x = -offsetX;
+		this.layers.characters.x = -offsetX;
+		this.layers.effects.x = -offsetX;
+
+		this.layers.background.y = -offsetY;
+		this.layers.characters.y = -offsetY;
+		this.layers.effects.y = -offsetY;
+
 	}
 
 	, createLevelGraphics: function() {
@@ -46,6 +76,7 @@ var EaselJSGraphics = new Class({
 	, createPlayerGraphics: function() {
 		var playerGraphics = new PlayerGraphics();
 		this.layers.characters.addChild(playerGraphics);
+		this._playerLocation = playerGraphics;
 		return playerGraphics;
 	}
 

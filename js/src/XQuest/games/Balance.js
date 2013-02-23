@@ -32,7 +32,7 @@ Object.append(Balance, {
 			}
 			,level: {
 				bounds: {
-					x: 10, y: 10, width: 720-10-10, height: 405-10-10
+					x: 40, y: 40, width: 1600-40*2, height: 1000-40*2
 				}
 			}
 
