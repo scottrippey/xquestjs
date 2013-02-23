@@ -26,11 +26,11 @@ var Crystals = new Class({
 	onAct: function(tickEvent) {
 
 		// Check for player-collisions:
-		var player = this.game.player;
+		var player = this.game.player, playerLocation = player.location;
 		var maxDistance = Balance.player.radius + Balance.crystals.radius;
 
 		Physics.detectCollisions(this._crystals, [ player ], maxDistance, function(crystal, player, ci, pi, distance) {
-			crystal.gatherCrystal(player);
+			crystal.gatherCrystal(playerLocation);
 			this._crystals.splice(ci, 1);
 		}.bind(this));
 
