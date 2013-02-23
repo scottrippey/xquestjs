@@ -7,33 +7,46 @@ var Crystals = new Class({
 	,
 	createCrystals: function(count) {
 		var bounds = Balance.level.bounds
-			,randomX = function() { return bounds.x + Math.random() * bounds.width; }
-			,randomY = function() { return bounds.y + Math.random() * bounds.height; };
+			,radius = Balance.crystals.radius
+			,randomX = function() { return bounds.x + radius + Math.random() * (bounds.width - radius * 2); }
+			,randomY = function() { return bounds.y + radius + Math.random() * (bounds.height - radius * 2); };
 
 
 		while (count--) {
 			var crystal = this.game.gfx.createCrystalGraphic();
 			crystal.x = randomX();
 			crystal.y = randomY();
+			crystal.location = crystal;
 			this._crystals.push(crystal);
 		}
+
+		Physics.sortByLocation(this._crystals);
 	}
 	,
 	onAct: function(tickEvent) {
-		// Check for player-collisions:
 
-		var playerGraphics = this.game.player.playerGraphics;
-		var minDistance = Balance.player.radius + Balance.crystals.radius;
+		// Check for player-collisions:
+		var player = this.game.player;
+		var maxDistance = Balance.player.radius + Balance.crystals.radius;
+
+		Physics.detectCollisions(this._crystals, [ player ], maxDistance, function(crystal, player, ci, pi, distance) {
+			crystal.gatherCrystal(player);
+			this._crystals.splice(ci, 1);
+		}.bind(this));
+
+		/*
+
 		var i = this._crystals.length;
 		while (i--) {
 			var crystal = this._crystals[i];
-			var dx = crystal.x - playerGraphics.x, dy = crystal.y - playerGraphics.y;
+			var dx = crystal.x - playerLocation.x, dy = crystal.y - playerLocation.y;
 			var distance = Math.sqrt(dx*dx+dy*dy);
-			if (distance < minDistance) {
-				crystal.gatherCrystal(playerGraphics);
+			if (distance < maxDistance) {
+				crystal.gatherCrystal(playerLocation);
 				this._crystals.splice(i, 1);
 			}
 		}
+		*/
 
 	}
 	,

@@ -6,7 +6,7 @@ CrystalGraphic.prototype = new createjs.Shape();
 CrystalGraphic.implement(AnimationQueue.prototype);
 CrystalGraphic.implement({
 	_setupCrystalGraphic: function() {
-		var g = this.graphics, v = Graphics.crystals;
+		var v = Graphics.crystals;
 		this.graphics
 			.beginStyle(v.style)
 			.drawPolyStar(0, 0, v.radius, v.sides, v.pointSize, 0)
@@ -22,12 +22,12 @@ CrystalGraphic.implement({
 		this.updateAnimations(tickEvent.deltaSeconds);
 	}
 	,
-	gatherCrystal: function(playerGraphic) {
+	gatherCrystal: function(playerLocation) {
 		this.queueAnimation(
 			new Animation()
 				.duration(Graphics.crystals.gatherDuration)
 				.easeIn()
-				.move({ target: this, to: playerGraphic })
+				.move({ target: this, to: playerLocation })
 			,
 			new Animation()
 				.duration(Graphics.crystals.gatherDuration)
