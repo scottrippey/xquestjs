@@ -19,13 +19,13 @@ Object.append(Balance, {
 				,quantity: 10
 			}
 			,enemies: {
-				maxRadius: 8
+				maxRadius: 13
 				,spawnRate: dependsOnMode({ // seconds per enemies
 					'default': randomBetween(10, 20)
 					,'test': randomFloatBetween(0.5, 0.5)
 				})
 				,splat: {
-					radius: 8 //px
+					radius: 13 //px
 					,speed: 40 //pps
 					,movementInterval: randomBetween(3, 10) //seconds
 				}
