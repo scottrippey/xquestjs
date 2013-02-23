@@ -2,7 +2,7 @@
  * Animation Easing functions
  */
 Object.append(Animation.prototype, {
-	defaultEasing: 'quint'
+	defaultEasing: 'swing'
 	,
 	ease: function(easing) {
 		easing = Animation.Easing.from(easing || this.defaultEasing);
@@ -90,6 +90,7 @@ Animation.Easing = {
 	}
 	,
 	swing: function(position) {
-		return position - Math.sin(position * Math.PI * 2);
+		return position - Math.sin(position * Math.TwoPI) / Math.TwoPI;
 	}
 };
+Math.TwoPI = 2 * Math.PI;
