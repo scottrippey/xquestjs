@@ -61,7 +61,7 @@ var Graphics = {
 						,style: {
 							fillColor: '#009900'
 						}
-						,radius: 2
+						,radius: 4
 						,friction: 0.9
 						,getAnimationQueue: function(particle) {
 							return new AnimationQueue().queue(
