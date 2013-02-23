@@ -88,6 +88,9 @@ var EaselJSGraphics = new Class({
 	, addParticle: function(particleOptions) {
 		var particle = this.particleFactory.createParticle(particleOptions);
 		this.layers.effects.addChild(particle);
+		particle.destroy = function() {
+			this.layers.effects.removeChild(particle);
+		}.bind(this);
 	}
 
 });

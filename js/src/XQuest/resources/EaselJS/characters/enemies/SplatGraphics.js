@@ -21,12 +21,11 @@ SplatGraphics.implement({
 			.endStyle(v.innerStyle);
 
 	}
-
-	, moveTo: function(x, y) {
+	,
+	moveTo: function(x, y) {
 		this.x = x;
 		this.y = y;
 	}
-
 	,
 	killSplat: function(gfx, velocity) {
 		var enemyGraphics = this;
