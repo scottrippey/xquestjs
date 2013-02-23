@@ -106,7 +106,7 @@ var Player = new Class({
 			if (this._bullets.length >= 2) {
 				Physics.sortByLocation(this._bullets);
 			}
-			this.game.enemies.killEnemiesOnCollision(this._bullets, Balance.bullets.radius, function(enemy, bullet, ei, ii, distance){
+			this.game.enemies.killEnemiesOnCollision(this._bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
 				this._destroyBullet(bullet, bi);
 			}.bind(this));
 		}
