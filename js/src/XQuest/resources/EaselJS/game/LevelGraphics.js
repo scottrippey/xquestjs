@@ -4,11 +4,14 @@ var LevelGraphics = function() {
 LevelGraphics.prototype = new createjs.Shape();
 LevelGraphics.implement({
 	_setupGraphics: function(){
-		var g = this.graphics, v = Graphics.level, bounds = Graphics.level.bounds;
+		var g = this.graphics
+			, v = Graphics.level
+			, bounds = Graphics.level.bounds
+			, strokeWidth = Graphics.level.strokeStyle.strokeWidth - 2;
 		g.clear();
 
 		g.beginStyle(v.strokeStyle)
-		 .drawRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, v.cornerRadius)
+		 .drawRoundRect(bounds.x - strokeWidth/2, bounds.y - strokeWidth/2, bounds.width + strokeWidth, bounds.height + strokeWidth, v.cornerRadius)
 		 .endStroke();
 
 	}

@@ -45,7 +45,7 @@ var Graphics = {
 			}
 			,enemies: {
 				splat: {
-					radius: Balance.enemies.splat.radius //px
+					radius: Balance.enemies.splat.radius + 1 //px
 					, outerFillStyle: {
 						fillColor: '#009900'
 					}
