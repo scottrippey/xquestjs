@@ -63,13 +63,12 @@ var Graphics = {
 						}
 						,radius: 4
 						,friction: 0.9
-						,getAnimationQueue: function(particle) {
-							return new AnimationQueue().queue(
-								new Animation()
-									.duration(3)
-									.easeOut()
-									.fade({ target: particle, to: 0 })
-							);
+						,getAnimation: function(particle) {
+							return new Animation()
+										.duration(3)
+										.easeOut()
+										.fade({ target: particle, to: 0 })
+							;
 						}
 					}
 				}

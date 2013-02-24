@@ -20,16 +20,16 @@ var ParticleFactory = new Class({
 			,radius: 1
 			,velocity: { x: 0, y: 0 }
 			,friction: 0.1
-			,getAnimationQueue: null
+			,getAnimation: null
 		};
 
 		g.beginStyle(particleOptions.style);
 		g.drawCircle(0, 0, particleOptions.radius);
 		g.endStyle(particleOptions.style);
 
-		if (particleOptions.getAnimationQueue) {
-			particle.animationQueue = particleOptions.getAnimationQueue(particle);
-			particle.animationQueue.queue(function() {
+		if (particleOptions.getAnimation) {
+			particle.animation = particleOptions.getAnimation(particle);
+			particle.animation.queue(function() {
 				particle.destroy();
 			});
 		}
@@ -48,8 +48,8 @@ var ParticleFactory = new Class({
 		var deltaSeconds = tickEvent.deltaSeconds;
 
 		this._particles.each(function(particle) {
-			if (particle.animationQueue) {
-				particle.animationQueue.update(deltaSeconds);
+			if (particle.animation) {
+				particle.animation.update(deltaSeconds);
 			}
 			if (particle.velocity) {
 				Physics.applyVelocity(particle, particle.velocity, deltaSeconds);

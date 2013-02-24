@@ -1,6 +1,6 @@
 var CrystalGraphic = function(gfx) {
 	this._gfx = gfx;
-	this._animation = new AnimationQueue();
+	this._animations = [];
 	this._setupCrystalGraphic();
 };
 CrystalGraphic.prototype = new createjs.Shape();
@@ -19,29 +19,27 @@ CrystalGraphic.implement({
 	onTick: function(tickEvent) {
 		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 
-		this._animation.update(tickEvent.deltaSeconds);
+		Animation.updateAndEliminate(this._animations, tickEvent.deltaSeconds);
 	}
 	,
 	gatherCrystal: function(playerLocation) {
-		this._animation.queue(
-			new Animation()
-				.duration(Graphics.crystals.gatherDuration)
-				.easeIn()
-				.move({ target: this, to: playerLocation })
-			,
-			new Animation()
-				.duration(Graphics.crystals.gatherDuration)
-				.easeIn()
-				.fade({ target: this, from: 0.1, to: 0 })
-			,
-			new Animation()
-				.duration(Graphics.crystals.gatherDuration)
-				.easeOut()
-				.animate({ from: this.spinRate, to: Graphics.crystals.spinRateGathered, update: function(spinRate) {
-					this.spinRate = spinRate;
-				}.bind(this)})
-		).queue(function(anim) {
-			this._gfx.removeGraphic(this);
-		}.bind(this));
+		this._animations.push(new Animation()
+			.duration(Graphics.crystals.gatherDuration)
+
+			.savePosition()
+			.easeIn('quint')
+			.move({ target: this, to: playerLocation })
+			.fade({ target: this, from: 0.15, to: 0 })
+
+			.restorePosition()
+			.easeOut('quint')
+			.animate({ from: this.spinRate, to: Graphics.crystals.spinRateGathered, update: function(spinRate) {
+				this.spinRate = spinRate;
+			}.bind(this)})
+
+			.queue(function(anim) {
+				this._gfx.removeGraphic(this);
+			}.bind(this))
+		);
 	}
 });
