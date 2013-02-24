@@ -33,21 +33,6 @@ var Crystals = new Class({
 			crystal.gatherCrystal(playerLocation);
 			this._crystals.splice(ci, 1);
 		}.bind(this));
-
-		/*
-
-		var i = this._crystals.length;
-		while (i--) {
-			var crystal = this._crystals[i];
-			var dx = crystal.x - playerLocation.x, dy = crystal.y - playerLocation.y;
-			var distance = Math.sqrt(dx*dx+dy*dy);
-			if (distance < maxDistance) {
-				crystal.gatherCrystal(playerLocation);
-				this._crystals.splice(i, 1);
-			}
-		}
-		*/
-
 	}
 	,
 	onDraw: function(tickEvent) {

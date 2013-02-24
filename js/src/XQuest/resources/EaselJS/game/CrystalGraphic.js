@@ -29,7 +29,7 @@ CrystalGraphic.implement({
 			.savePosition()
 			.easeIn('quint')
 			.move({ target: this, to: playerLocation })
-			.fade({ target: this, from: 0.15, to: 0 })
+			.fade({ target: this, from: 0.1, to: 0 })
 
 			.restorePosition()
 			.easeOut('quint')
