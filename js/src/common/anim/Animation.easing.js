@@ -90,7 +90,6 @@ Animation.Easing = {
 	}
 	,
 	swing: function(position) {
-		return position - Math.sin(position * Math.TwoPI) / Math.TwoPI;
+		return position - Math.sin(position * Math.PI) / Math.PI;
 	}
 };
-Math.TwoPI = 2 * Math.PI;
