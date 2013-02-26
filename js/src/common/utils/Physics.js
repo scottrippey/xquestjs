@@ -124,7 +124,7 @@ var Physics = {
 						// Deep-compare:
 						var distance = Math.sqrt(dx * dx + dy * dy);
 						if (distance <= maxDistance) {
-							collisionCallback(pointA, pointB, aIndex, bIndex, distance);
+							collisionCallback(pointA, pointB, aIndex, bLookahead, distance);
 						}
 					}
 					bLookahead--;
