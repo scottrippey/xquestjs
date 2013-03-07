@@ -1,6 +1,0 @@
-Immediate todo list:
-
-Reverse collision detection
-
-Implement Anim.delay
-
