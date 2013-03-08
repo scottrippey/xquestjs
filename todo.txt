@@ -1,0 +1,21 @@
+Player
+	Killable
+		Walls
+		Enemies
+Bullets
+	Destroyed with enemies
+Crystals
+	Respawn after level
+	Cache Graphics
+Background
+	Cache Graphics
+Input
+	"Click here to play" - engage
+	Escape - disengage
+	Charge or Repeat when held?
+Layers
+	Characters <-> Effects
+Powerups
+	Debug - Keyboard activated
+
+
