@@ -36,7 +36,7 @@ var ParticleFactory = new Class({
 
 		particle.x = particleOptions.position.x;
 		particle.y = particleOptions.position.y;
-		particle.velocity = particleOptions.velocity ? Object.clone(particleOptions.velocity) : null;
+		particle.velocity = particleOptions.velocity ? _.clone(particleOptions.velocity) : null;
 		particle.friction = particleOptions.friction || null;
 
 		this._particles.push(particle);

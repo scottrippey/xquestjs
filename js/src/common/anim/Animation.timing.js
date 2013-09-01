@@ -1,7 +1,7 @@
 /**
  * Animation Tweens
  */
-Object.append(Animation.prototype, {
+_.extend(Animation.prototype, {
 	duration: function(duration) {
 		return this.addAction(function(anim){
 			if (anim.position >= duration) {

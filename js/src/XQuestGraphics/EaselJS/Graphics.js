@@ -8,7 +8,7 @@ var Graphics = {
 		 * px = pixels
 		 * pps = pixels per second
 		 */
-		Object.merge(this, {
+		_.merge(this, {
 			player: {
 				radius: Balance.player.radius
 				, outerStrokeStyle: {

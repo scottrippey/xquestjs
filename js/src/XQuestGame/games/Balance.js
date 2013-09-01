@@ -1,11 +1,11 @@
 var Balance = new Events();
-Object.append(Balance, {
+_.extend(Balance, {
 	setGameMode: function(mode) {
 		/* Key:
 		 * px = pixels
 		 * pps = pixels per second
 		 */
-		Object.merge(this, {
+		_.merge(this, {
 			player: {
 				radius: 12 //px
 				,looseFriction: 0.8

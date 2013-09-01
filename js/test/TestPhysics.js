@@ -59,13 +59,13 @@ var TestPhysicsHelper = {
 	}
 	,
 	getPoints: function(arrays) {
-		return Array.map(arrays, function(array) {
+		return _.map(arrays, function(array) {
 			return {location: {x:array[0],y:array[1]} };
 		});
 	}
 	,
 	pointsToString: function(points) {
-		var results = Array.map(points, function(p) {
+		var results = _.map(points, function(p) {
 			return String.substitute("[{x},{y}]", p.location);
 		});
 		return results.join(",");

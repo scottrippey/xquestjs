@@ -1,7 +1,7 @@
 /**
  * Animation Easing functions
  */
-Object.append(Animation.prototype, {
+_.extend(Animation.prototype, {
 	defaultEasing: 'swing'
 	,
 	ease: function(easing) {

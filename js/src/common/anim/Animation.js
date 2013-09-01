@@ -37,7 +37,7 @@ var Animation = function() {
 	};
 
 };
-Object.append(Animation.prototype, {
+_.extend(Animation.prototype, {
 	update: function(deltaSeconds) {
 		this._position += deltaSeconds;
 
@@ -81,9 +81,9 @@ Object.append(Animation.prototype, {
 		});
 	}
 });
-Object.append(Animation, {
+_.extend(Animation, {
 	updateAndEliminate: function(animations, deltaSeconds) {
-		Array.eliminate(animations, function(animation) {
+		_.eliminate(animations, function(animation) {
 			var anim = animation.update(deltaSeconds);
 			return !anim.stillRunning;
 		});

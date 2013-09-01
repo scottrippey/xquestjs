@@ -1,7 +1,7 @@
 /**
  * Animation Actions
  */
-Object.append(Animation.prototype, {
+_.extend(Animation.prototype, {
 	move: function(moveOptions) {
 		var target = moveOptions.target;
 		if (!moveOptions.keyframes && !moveOptions.from)
@@ -46,7 +46,7 @@ Object.append(Animation.prototype, {
 			;
 
 		if (map)
-			keyframes = Array.map(keyframes, map);
+			keyframes = _.map(keyframes, map);
 
 		return this.addAction(function(anim) {
 			var from = keyframes[(anim.keyframe) % keyframes.length]
