@@ -1,1 +1,1 @@
-angular.module("XQuestUI", ['animate','cookies','route','touch']);
+angular.module("XQuestUI", ['ngAnimate','ngCookies','ngRoute','ngTouch']);
