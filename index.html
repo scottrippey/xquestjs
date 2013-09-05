@@ -50,17 +50,17 @@
 		<script src="XQuestUI/input/BrowserInput.js"></script>
 
 		<script src="XQuestUI/Angular/XQuestUI.js"></script>
-		<script src="XQuestUI/Angular/controllers/MainController.js"></script>
+		<script src="XQuestUI/Angular/controllers/XQuestUIController.js"></script>
 		<script src="XQuestUI/Angular/directives/xqArcadeGame.js"></script>
 
 		<style type="text/css">
 			body {
 				cursor: move;
 			}
-			body.mouse-dragging {
+			body.mouse-engaged {
 				cursor: crosshair;
 			}
-			body.mouse-dragging canvas {
+			body.mouse-engaged canvas {
 				cursor: none;
 			}
 		</style>
@@ -73,7 +73,14 @@
 		</script>
 
 	</head>
-	<body ng-app="XQuestUI" ng-controller="MainController">
+	<body ng-app="XQuestUI" ng-controller="XQuestUIController as ui"
+	      ng-mousemove="ui.onMouseMove($event)"
+	      ng-mouseenter="ui.onMouseEnter($event)"
+	      ng-mouseleave="ui.onMouseLeave($event)"
+	      ng-mousedown="ui.onMouseDown($event)"
+	      ng-mouseup="ui.onMouseUp($event)"
+	      ng-class="{ 'mouse-engaged': !!ui.engaged }"
+		>
 
 		<h1>XQuest JS</h1>
 		<h2>An HTML5 Space Shooter that is <a href="https://github.com/scottrippey/xquestjs">free and open-source!</a></h2>
