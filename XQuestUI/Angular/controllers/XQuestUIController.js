@@ -102,10 +102,12 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 
 			}
 
-			, startGame: function() {
+			, registerCanvas: function(canvas) {
+				this.canvas = canvas;
+			}
 
-				// TEMP, until I figure out this whole Angular thing:
-				var canvas = document.getElementById('XQuestCanvas');
+			, startGame: function() {
+				var canvas = this.canvas;
 
 				var xquest = new XQuest(canvas);
 
