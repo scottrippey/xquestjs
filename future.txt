@@ -1,9 +1,11 @@
-Here's some incoherent thoughts and features ...
+Here's some incoherent thoughts and features for the distant future...
 
 Save States, Rewind Feature
 
 Arcade mode, puzzle mode
-
-Powerups
+Bosses
 
 Scale, depending on auto-framerate detection
+
+Windows 8 App
+Touch input
