@@ -12,7 +12,7 @@ _.extend(Balance, {
 			}
 			,bullets: {
 				radius: 2 //px
-				,speed: 2 // * player speed
+				,speed: 3 // * player speed
 			}
 			,crystals: {
 				radius: 10 //px
@@ -21,8 +21,8 @@ _.extend(Balance, {
 			,enemies: {
 				maxRadius: 13
 				,spawnRate: dependsOnMode({ // seconds per enemies
-					'default': randomBetween(10, 20)
-					,'test': randomFloatBetween(0.5, 0.5)
+					'default': randomBetween(3, 8)
+					,'test': randomFloatBetween(1, 1)
 				})
 				,splat: {
 					radius: 13 //px
