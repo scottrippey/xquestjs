@@ -64,8 +64,7 @@
 	</head>
 	<body ng-app="XQuestUI" ng-controller="XQuestUIController as ui"
 	      ng-mousemove="ui.onMouseMove($event)"
-	      ng-mousedown="ui.onMouseDown($event)"
-	      ng-mouseup="ui.onMouseUp($event)"
+	      ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
 	      ng-class="{ 'mouse-engaged': !!ui.engaged }"
 		>
 

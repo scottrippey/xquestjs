@@ -1,8 +1,8 @@
 
 <div class="fill-screen" ng-show="ui.currentGame != null">
 	<div class="canvas-container"
-	     ng-mouseenter="ui.onMouseEnter($event)"
-	     ng-mouseleave="ui.onMouseLeave($event)">
+	     ng-mouseenter="ui.engage()"
+	     ng-mouseleave="ui.disengage()">
 
 		<canvas id="XQuestCanvas" width="800" height="450" xq-init-element="ui.registerCanvas(element)" xq-fill-parent>
 			Uh oh, your browser cannot play this game.
