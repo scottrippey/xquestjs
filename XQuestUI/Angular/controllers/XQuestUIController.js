@@ -76,7 +76,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				}
 			}
 
-			, onMouseEnter: function(event) {
+			, engage: function(event) {
 				if (this.currentGame) {
 					this.currentGame.input.engage();
 					this.engaged = true;
@@ -86,20 +86,18 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this._updateMousePosition(mousePosition);
 			}
 
-			, onMouseLeave: function(event) {
+			, disengage: function(event) {
 				if (this.currentGame) {
 					this.currentGame.input.disengage();
 				}
 
 				this.engaged = false;
+				this.previousMousePosition = null;
 			}
 
-			, onMouseDown: function() {
+			, primaryWeapon: function() {
 				if (this.currentGame)
 					this.currentGame.input.primaryWeapon();
-			}
-			, onMouseUp: function() {
-
 			}
 
 			, registerCanvas: function(canvas) {
