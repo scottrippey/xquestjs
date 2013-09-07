@@ -49,19 +49,10 @@
 		<script src="XQuestUI/Angular/XQuestUI.js"></script>
 		<script src="XQuestUI/Angular/controllers/XQuestUIController.js"></script>
 		<script src="XQuestUI/Angular/directives/xqArcadeGame.js"></script>
+		<script src="XQuestUI/Angular/directives/xqFillParent.js"></script>
 		<script src="XQuestUI/Angular/directives/xqInitElement.js"></script>
 
-		<style type="text/css">
-			body {
-				cursor: move;
-			}
-			body.mouse-engaged {
-				cursor: crosshair;
-			}
-			body.mouse-engaged canvas {
-				cursor: none;
-			}
-		</style>
+		<link rel="stylesheet" href="XQuestUI/css/default.css" />
 
 		<script>
 			window.addEvent('domready', function() {
@@ -73,8 +64,6 @@
 	</head>
 	<body ng-app="XQuestUI" ng-controller="XQuestUIController as ui"
 	      ng-mousemove="ui.onMouseMove($event)"
-	      ng-mouseenter="ui.onMouseEnter($event)"
-	      ng-mouseleave="ui.onMouseLeave($event)"
 	      ng-mousedown="ui.onMouseDown($event)"
 	      ng-mouseup="ui.onMouseUp($event)"
 	      ng-class="{ 'mouse-engaged': !!ui.engaged }"
@@ -85,9 +74,13 @@
 
 		<ng-include src="'XQuestUI/Angular/templates/help/instructions.html'"></ng-include>
 
+		<div ng-show="ui.currentGame == null">
+			When you're ready, <button ng-click="ui.startGame()">Start the game!</button>
+		</div>
+
 		<ng-include src="'XQuestUI/Angular/templates/games/ArcadeGame.html'"></ng-include>
 
-\		<ng-include src="'XQuestUI/Angular/templates/help/development-progress.html'"></ng-include>
+		<ng-include src="'XQuestUI/Angular/templates/help/development-progress.html'"></ng-include>
 
 	</body>
 </html>

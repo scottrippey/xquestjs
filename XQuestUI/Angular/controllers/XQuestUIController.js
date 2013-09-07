@@ -114,6 +114,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this.currentGame = xquest.game;
 
 				this.engaged = true;
+				this.fillscreen = true;
 			}
 
 		});

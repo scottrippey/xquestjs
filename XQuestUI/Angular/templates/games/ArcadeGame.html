@@ -1,12 +1,15 @@
 
-<div ng-if="ui.currentGame == null">
-	When you're ready, <button ng-click="ui.startGame()">Start the game!</button>
+<div class="fill-screen" ng-show="ui.currentGame != null">
+	<div class="canvas-container"
+	     ng-mouseenter="ui.onMouseEnter($event)"
+	     ng-mouseleave="ui.onMouseLeave($event)">
+
+		<canvas id="XQuestCanvas" width="800" height="450" xq-init-element="ui.registerCanvas(element)" xq-fill-parent>
+			Uh oh, your browser cannot play this game.
+			To play the most awesome game ever, please upgrade
+			to a better browser, such as Chrome, Safari, or Firefox.
+			In other words, Internet Explorer sucks.
+		</canvas>
+
+	</div>
 </div>
-
-<canvas id="XQuestCanvas" width="800" height="500" xq-init-element="ui.registerCanvas(element)">
-	Uh oh, your browser cannot play this game.
-	To play the most awesome game ever, please upgrade
-	to a better browser, such as Chrome, Safari, or Firefox.
-	In other words, Internet Explorer sucks.
-</canvas>
-
