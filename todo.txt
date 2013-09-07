@@ -10,12 +10,17 @@ Crystals
 Background
 	Cache Graphics
 Input
-	"Click here to play" - engage
+	x "Click here to play" - engage
 	Escape - disengage
 	Charge or Repeat when held?
 Layers
 	Characters <-> Effects
-Powerups
-	Debug - Keyboard activated
+Powerups:
+	Rapid fire
+	auto-aim
+	invincible
+	bullet bounce
+	shoot the crystals
+	Spread-shot
 
-
+	Nuke
