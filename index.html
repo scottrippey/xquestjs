@@ -47,6 +47,7 @@
 		<script src="XQuestGraphics/EaselJS/game/CrystalGraphic.js"></script>
 		<script src="XQuestGraphics/EaselJS/game/LevelGraphics.js"></script>
 
+
 		<script src="XQuestUI/input/BrowserInput.js"></script>
 
 		<script src="XQuestUI/Angular/XQuestUI.js"></script>
@@ -55,25 +56,21 @@
 		<script src="XQuestUI/Angular/directives/xqFillParent.js"></script>
 		<script src="XQuestUI/Angular/directives/xqInitElement.js"></script>
 
+		<script src="navigation/controllers/NavigationController.js"></script>
+
+
 	</head>
-	<body ng-app="XQuestUI" ng-controller="XQuestUIController as ui"
-	      ng-mousemove="ui.onMouseMove($event)"
-	      ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
-	      ng-class="{ 'mouse-engaged': !!ui.engaged }"
-		>
+	<body ng-app="XQuestUI" ng-controller="NavigationController as nav">
 
 		<h1>XQuest JS</h1>
-		<h2>An HTML5 Space Shooter that is <a ng-click="$event.stopPropagation()" href="https://github.com/scottrippey/xquestjs">free and open-source!</a></h2>
+		<h2>
+			An HTML5 Space Shooter that is
+			<a href="https://github.com/scottrippey/xquestjs">
+				free and open-source!
+			</a>
+		</h2>
 
-		<ng-include src="'XQuestUI/Angular/templates/help/instructions.html'"></ng-include>
-
-		<div ng-show="ui.currentGame == null">
-			When you're ready, <button ng-click="ui.startGame()">Start the game!</button>
-		</div>
-
-		<ng-include src="'XQuestUI/Angular/templates/games/ArcadeGame.html'"></ng-include>
-
-		<ng-include src="'XQuestUI/Angular/templates/help/development-progress.html'"></ng-include>
+		<ng-include src="nav.page"></ng-include>
 
 	</body>
 </html>

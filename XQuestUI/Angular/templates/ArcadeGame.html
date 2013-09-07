@@ -1,0 +1,25 @@
+
+<div class="fill-screen danger-zone"
+     ng-controller="XQuestUIController as ui"
+     ng-mousemove="ui.onMouseMove($event)"
+     ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
+     ng-class="{ 'mouse-engaged': !!ui.engaged }"
+	>
+
+
+	<div class="canvas-container"
+	     ng-mouseenter="ui.engage()"
+	     ng-mouseleave="ui.disengage()">
+
+		<canvas id="XQuestCanvas" width="800" height="450"
+		        xq-init-element="ui.registerCanvas(element); ui.startGame();"
+		        xq-fill-parent
+				>
+			Uh oh, your browser cannot play this game.
+			To play the most awesome game ever, please upgrade
+			to a better browser, such as Chrome, Safari, or Firefox.
+			In other words, Internet Explorer sucks.
+		</canvas>
+
+	</div>
+</div>

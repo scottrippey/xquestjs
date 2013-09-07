@@ -76,14 +76,13 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				}
 			}
 
-			, engage: function(event) {
+			, engage: function() {
 				if (this.currentGame) {
 					this.currentGame.input.engage();
 					this.engaged = true;
 				}
 
-				var mousePosition = { x: event.clientX, y: event.clientY };
-				this._updateMousePosition(mousePosition);
+				this.previousMousePosition = null;
 			}
 
 			, disengage: function(event) {

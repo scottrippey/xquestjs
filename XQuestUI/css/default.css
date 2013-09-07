@@ -1,10 +1,12 @@
-body {
 
+.danger-zone {
+	cursor: no-drop;
 }
-body.mouse-engaged {
-	cursor: crosshair;
+
+.mouse-engaged {
+	cursor: move;
 }
-body.mouse-engaged canvas {
+.mouse-engaged canvas {
 	cursor: none;
 }
 
