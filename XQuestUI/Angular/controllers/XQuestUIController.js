@@ -45,7 +45,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 			}
 			, _adjustForSensitivity: function(delta, mousePosition, windowSize) {
 				var sensitivity = 3
-					, biasSensitivity = 3;
+					, biasSensitivity = 2;
 
 				var distanceFromCenter = {
 					x: 2 * ((mousePosition.x / windowSize.width) - 0.5)
