@@ -78,6 +78,7 @@
     <Content Include="navigation\controllers\NavigationController.js" />
     <Content Include="navigation\templates\help\development-progress.html" />
     <Content Include="navigation\templates\help\instructions.html" />
+    <Content Include="navigation\templates\help\to-do.html" />
     <Content Include="navigation\templates\main.html" />
     <Content Include="test.html" />
     <Content Include="tests\TestPhysics.js" />
