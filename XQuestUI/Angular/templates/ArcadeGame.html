@@ -1,9 +1,10 @@
-
 <div class="fill-screen danger-zone"
      ng-controller="XQuestUIController as ui"
      ng-mousemove="ui.onMouseMove($event)"
      ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
+     common-keydown
+     common-keydown-escape="ui.togglePause()"
 	>
 
 
@@ -12,14 +13,18 @@
 	     ng-mouseleave="ui.disengage()">
 
 		<canvas id="XQuestCanvas" width="800" height="450"
-		        common-init-element="ui.registerCanvas(element); ui.startGame();"
+		        common-init-element="ui.registerCanvas(element)"
 		        common-fill-parent
 				>
 			Uh oh, your browser cannot play this game.
 			To play the most awesome game ever, please upgrade
-			to a better browser, such as Chrome, Safari, or Firefox.
+			to a better browser, such as Chrome, Safari, or FireFox.
 			In other words, Internet Explorer sucks.
 		</canvas>
 
+	</div>
+
+	<div class="hud-container" ng-show="!!ui.hud" ng-include="ui.hud">
+		HUD will go here
 	</div>
 </div>

@@ -1,4 +1,3 @@
-
 angular.module("XQuestUI").controller("XQuestUIController", [
 	'$scope', '$window', '$document', function XQuestUIController($scope, $window, $document) {
 		_.extend(this, {
@@ -6,8 +5,15 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 			, previousMousePosition: null
 			, windowSize: null
 			, engaged: false
+			, paused: false
+			, hud: null
+			, hudPages: {
+				paused: 'XQuestUI/Angular/templates/hud/paused.html'
+				, start: 'XQuestUI/Angular/templates/hud/start.html'
+			}
 			, initialize: function() {
 				this._setupWindowSize();
+				this.hud = this.hudPages.start;
 			}
 			, _setupWindowSize: function() {
 				angular.element($window).bind('resize', this._onWindowResize.bind(this));
@@ -104,6 +110,11 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 			}
 
 			, startGame: function() {
+				if (this.currentGame) {
+					this.togglePause();
+					return;
+				}
+
 				var canvas = this.canvas;
 
 				var xquest = new XQuest(canvas);
@@ -112,6 +123,21 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 
 				this.engaged = true;
 				this.fillscreen = true;
+
+				this.hud = null;
+			}
+
+			, togglePause: function() {
+				if (!this.currentGame) return;
+
+				this.paused = !this.paused;
+				if (this.paused) {
+					this.hud = this.hudPages.paused;
+				} else {
+					this.hud = null;
+				}
+
+				this.currentGame.timer.pauseGame(this.paused);
 			}
 
 		});
