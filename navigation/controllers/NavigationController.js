@@ -7,11 +7,15 @@ angular.module('XQuestUI').controller('NavigationController', [
 				, arcadeGame: 'XQuestUI/Angular/templates/ArcadeGame.html'
 			}
 			, initialize: function() {
-				this.page = this.pages.main;
+				this.goHome();
 			}
 			,
 			startArcadeGame: function() {
 				this.page = this.pages.arcadeGame;
+			}
+			,
+			goHome: function() {
+				this.page = this.pages.main;
 			}
 		});
 

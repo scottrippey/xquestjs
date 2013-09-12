@@ -1,7 +1,7 @@
 var XQuest = new Class({
 	initialize: function(canvas) {
-
-		console.assert(canvas, "You must provide a Canvas element!");
+        if (!canvas)
+		    console.error("You must provide a Canvas element!");
 
 		Balance.setGameMode('arcade');
 

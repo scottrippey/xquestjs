@@ -1,4 +1,4 @@
-angular.module('XQuestUI').directive('xqFillParent', [
+angular.module('common').directive('commonFillParent', [
 	'$window', function($window) {
 		var fill = function(elementWidth, elementHeight, parentWidth, parentHeight) {
 			var elRatio = elementWidth / elementHeight;

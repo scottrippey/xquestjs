@@ -1,1 +1,1 @@
-angular.module("XQuestUI", ['ngAnimate']);
+angular.module("XQuestUI", ['common','ngAnimate']);

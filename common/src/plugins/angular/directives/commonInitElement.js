@@ -1,9 +1,9 @@
-angular.module('XQuestUI').directive('xqInitElement', [
+angular.module('common').directive('commonInitElement', [
 	'$parse', function($parse) {
 
-		return function xqInitElement($scope, $element, $attrs) {
+		return function commonInitElement($scope, $element, $attrs) {
 
-			var expression = $attrs['xqInitElement'];
+			var expression = $attrs['commonInitElement'];
 			var expressionFn = $parse(expression);
 
 			var parameters = {
