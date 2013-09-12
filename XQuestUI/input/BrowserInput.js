@@ -64,7 +64,8 @@ var BrowserInput = new Class({
 		var unhandled = this.inputItems.filter(notHandled);
 		this.inputItems = unhandled;
 
-		console.assert(unhandled.length === 0, "[BrowserInput]", "For now, all inputs should be handled.");
+        if (unhandled.length !== 0)
+		    console.error("[BrowserInput]", "For now, all inputs should be handled.");
 	}
 
 	, engage: function() {

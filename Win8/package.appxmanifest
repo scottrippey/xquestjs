@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="XQuestJS" Version="1.0.0.0" Publisher="CN=Scott" />
+  <Properties>
+    <DisplayName>XQuestJS</DisplayName>
+    <PublisherDisplayName>Scott Rippey</PublisherDisplayName>
+    <Logo>Win8\images\storelogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" StartPage="index-win8.html">
+      <VisualElements DisplayName="XQuestJS" Logo="Win8\images\logo.png" SmallLogo="Win8\images\smalllogo.png" Description="XQuestJS" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" />
+        <SplashScreen Image="Win8\images\splashscreen.png" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
