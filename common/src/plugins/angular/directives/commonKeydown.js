@@ -1,6 +1,12 @@
 angular.module('common').directive('commonKeydown', ['$parse', function($parse) {
 	return function commonKeydown($scope, $element, $attrs) {
 		var parsedCache = {};
+
+		var commonKeydownAttr = $attrs['commonKeydown'];
+		if (commonKeydownAttr === 'document') {
+			$element = angular.element(document);
+		}
+
 		$element.on('keydown', function(event) {
 			var keyName = addKeyName(event)
 				, handler = parsedCache[keyName];

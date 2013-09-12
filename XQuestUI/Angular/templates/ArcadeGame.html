@@ -3,7 +3,7 @@
      ng-mousemove="ui.onMouseMove($event)"
      ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
-     common-keydown
+     common-keydown="document"
      common-keydown-escape="ui.togglePause()"
 	>
 
