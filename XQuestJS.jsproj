@@ -67,6 +67,8 @@
     <Content Include="common\src\plugins\console.js" />
     <Content Include="common\src\plugins\EaselJS.js" />
     <Content Include="common\src\plugins\angular\common.js" />
+    <Content Include="common\src\plugins\angular\directives\commonFillParent.js" />
+    <Content Include="common\src\plugins\angular\directives\commonInitElement.js" />
     <Content Include="common\src\plugins\angular\directives\commonKeydown.js" />
     <Content Include="common\src\plugins\lodash\lodash.eliminate.js" />
     <Content Include="common\src\plugins\mootools\DOMEvent.js" />
@@ -110,8 +112,6 @@
     <Content Include="XQuestGraphics\EaselJS\Graphics.js" />
     <Content Include="XQuestUI\Angular\controllers\XQuestUIController.js" />
     <Content Include="XQuestUI\Angular\directives\xqArcadeGame.js" />
-    <Content Include="XQuestUI\Angular\directives\xqFillParent.js" />
-    <Content Include="XQuestUI\Angular\directives\xqInitElement.js" />
     <Content Include="XQuestUI\Angular\templates\ArcadeGame.html" />
     <Content Include="XQuestUI\Angular\XQuestUI.js" />
     <Content Include="XQuestUI\css\default.css" />
