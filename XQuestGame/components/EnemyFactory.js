@@ -33,10 +33,12 @@ var EnemyFactory = new Class({
 		this._enemies.push(enemy);
 		game.addGameItem(enemy);
 
-		var bounds = Balance.level.bounds, initialPosition = {
-			x: bounds.x + 4
-			,y: bounds.y + (bounds.height / 2)
-		};
+		var bounds = Balance.level.bounds
+			, spawnSide = Math.floor(Math.random() * 2) ? 1 : 2
+			, initialPosition = {
+				x: (spawnSide === 1) ? (bounds.x + enemy.radius) : (bounds.x + bounds.width - 0 - enemy.radius)
+				,y: bounds.y + (bounds.height / 2)
+			};
 
 		enemy.moveTo(initialPosition.x, initialPosition.y);
 	}

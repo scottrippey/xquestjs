@@ -21,7 +21,7 @@ _.extend(Balance, {
 			,enemies: {
 				maxRadius: 13
 				,spawnRate: dependsOnMode({ // seconds per enemies
-					'default': randomBetween(3, 8)
+					'default': randomBetween(3, 6)
 					,'test': randomFloatBetween(1, 1)
 				})
 				,splat: {
