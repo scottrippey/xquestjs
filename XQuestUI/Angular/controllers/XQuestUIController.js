@@ -136,6 +136,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				} else {
 					this.hud = null;
 				}
+				this.previousMousePosition = null;
 
 				this.currentGame.timer.pauseGame(this.paused);
 			}
