@@ -24,7 +24,9 @@
 
 	</div>
 
-	<div class="hud-container" ng-show="!!ui.hud" ng-include="ui.hud">
-		HUD will go here
+	<div class="hud-container" ng-show="!!ui.hud">
+		<div class="hud-contents" ng-include="ui.hud">
+			HUD will go here
+		</div>
 	</div>
 </div>
