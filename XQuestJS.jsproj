@@ -66,6 +66,8 @@
     <Content Include="common\lib\smoothsort.js" />
     <Content Include="common\src\plugins\console.js" />
     <Content Include="common\src\plugins\EaselJS.js" />
+    <Content Include="common\src\plugins\angular\common.js" />
+    <Content Include="common\src\plugins\angular\directives\commonKeydown.js" />
     <Content Include="common\src\plugins\lodash\lodash.eliminate.js" />
     <Content Include="common\src\plugins\mootools\DOMEvent.js" />
     <Content Include="future.txt" />

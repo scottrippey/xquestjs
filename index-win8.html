@@ -18,6 +18,8 @@
 
 		<script src="common/src/plugins/console.js"></script>
 		<script src="common/src/plugins/EaselJS.js"></script>
+		<script src="common/src/plugins/angular/common.js"></script>
+		<script src="common/src/plugins/angular/directives/commonKeydown.js"></script>
 		<script src="common/src/plugins/lodash/lodash.eliminate.js"></script>
 		<script src="common/src/plugins/mootools/DOMEvent.js"></script>
 
@@ -61,7 +63,7 @@
 
 
 	</head>
-	<body ng-app="XQuestUI" ng-controller="NavigationController as nav">
+	<body ng-app="XQuestUI" ng-controller="NavigationController as nav" common-keydown common-keydown-escape="nav.goHome()">
 
 		<h1>XQuest JS</h1>
 		<h2>
