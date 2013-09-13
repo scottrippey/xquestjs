@@ -3,8 +3,33 @@
 	<head>
 		<title>XQuest - an HTML5 Space Shooter that is free and open-source!</title>
 
-		<link rel="stylesheet" href="XQuestUI/css/default.css" />
+		<link rel="stylesheet" href="XQuestUI/css/base.css" />
+		<link rel="stylesheet" href="XQuestUI/css/game.css" />
 
+	</head>
+	<body ng-app="XQuestUI" ng-controller="NavigationController as nav">
+
+		<h1>XQuest JS</h1>
+		<h2>
+			An HTML5 Space Shooter that is
+			<a href="https://github.com/scottrippey/xquestjs">
+				free and open-source!
+			</a>
+		</h2>
+
+		<ng-include src="nav.page">
+			<span>      Loading game assets...   </span>
+		</ng-include>
+
+
+
+
+
+
+
+
+
+		<!-- Scripts -->
 
 		<script src="common/lib/mootools-core-1.4.5.js"></script>
 		<script src="common/lib/easeljs-0.6.1.min.js"></script>
@@ -60,19 +85,6 @@
 
 		<script src="navigation/controllers/NavigationController.js"></script>
 
-
-	</head>
-	<body ng-app="XQuestUI" ng-controller="NavigationController as nav">
-
-		<h1>XQuest JS</h1>
-		<h2>
-			An HTML5 Space Shooter that is
-			<a href="https://github.com/scottrippey/xquestjs">
-				free and open-source!
-			</a>
-		</h2>
-
-		<ng-include src="nav.page"></ng-include>
 
 	</body>
 </html>
