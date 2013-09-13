@@ -35,7 +35,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 
 				var acceleration = this._adjustForSensitivity(delta, mousePosition, this.windowSize);
 
-				this.currentGame.input.accelerate(acceleration);
+				this.accelerate(acceleration);
 			}
 			, _updateMousePosition: function(mousePosition) {
 				var delta = null;
@@ -80,6 +80,10 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				} else {
 					return 1 - distanceFromCenter + (distanceFromCenter / sensitivity);
 				}
+			}
+
+			, accelerate: function(acceleration) {
+				this.currentGame.input.accelerate(acceleration);
 			}
 
 			, engage: function() {
