@@ -1,10 +1,10 @@
-var CrystalGraphic = function(gfx) {
-	this._gfx = gfx;
-	this._animations = [];
-	this._setupCrystalGraphic();
-};
-CrystalGraphic.prototype = new createjs.Shape();
-CrystalGraphic.implement({
+var CrystalGraphic = new Class(new createjs.Shape(), {
+	initialize: function(gfx) {
+		this._gfx = gfx;
+		this._animations = [];
+		this._setupCrystalGraphic();
+	}
+	,
 	_setupCrystalGraphic: function() {
 		var v = Graphics.crystals;
 		this.graphics

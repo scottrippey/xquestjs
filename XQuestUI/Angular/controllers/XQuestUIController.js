@@ -20,8 +20,8 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this._onWindowResize();
 			}
 			, _onWindowResize: function() {
-				var clientArea = $document[0].html;
-				this.windowSize = { width: clientArea.clientWidth, height: clientArea.clientHeight };
+				var clientArea = $document[0];
+				this.windowSize = { width: clientArea.width, height: clientArea.height };
 			}
 
 			, onMouseMove: function(event) {

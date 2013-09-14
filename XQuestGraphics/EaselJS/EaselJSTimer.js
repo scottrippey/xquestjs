@@ -2,11 +2,12 @@
  * This is a wrapper around createjs.Ticker
  * @constructor
  */
-var EaselJSTimer = function() {
-	this._paused = false;
-	window.pauseGame = this.pauseGame.bind(this);
-};
-EaselJSTimer.implement({
+var EaselJSTimer = new Class(new createjs.Shape(), {
+	initialize: function() {
+		this._paused = false;
+		window.pauseGame = this.pauseGame.bind(this);
+	}
+	,
 	addTickHandler: function(tickHandler) {
 		// Configuration:
 		createjs.Ticker.useRAF = true;

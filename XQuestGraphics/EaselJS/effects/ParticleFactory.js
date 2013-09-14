@@ -1,12 +1,9 @@
 var ParticleFactory = new Class({
-
-
 	initialize: function(gfx) {
 		this.gfx = gfx;
 
 		this._particles = [];
 	}
-
 	,
 	createParticle: function(particleOptions) {
 		var particle = new createjs.Shape(), g = particle.graphics;
@@ -47,7 +44,7 @@ var ParticleFactory = new Class({
 	updateParticles: function(tickEvent) {
 		var deltaSeconds = tickEvent.deltaSeconds;
 
-		this._particles.each(function(particle) {
+		_.each(this._particles, function(particle) {
 			if (particle.animation) {
 				particle.animation.update(deltaSeconds);
 			}
@@ -59,5 +56,4 @@ var ParticleFactory = new Class({
 			}
 		});
 	}
-
 });

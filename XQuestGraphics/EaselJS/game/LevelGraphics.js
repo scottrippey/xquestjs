@@ -1,8 +1,8 @@
-var LevelGraphics = function() {
-	this._setupGraphics();
-};
-LevelGraphics.prototype = new createjs.Shape();
-LevelGraphics.implement({
+var LevelGraphics = new Class(new createjs.Shape(), {
+	initialize: function() {
+		this._setupGraphics();
+	}
+	,
 	_setupGraphics: function(){
 		var g = this.graphics
 			, v = Graphics.level
@@ -15,5 +15,4 @@ LevelGraphics.implement({
 		 .endStroke();
 
 	}
-
 });

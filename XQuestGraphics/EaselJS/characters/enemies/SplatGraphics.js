@@ -1,11 +1,8 @@
-var SplatGraphics = function() {
-
-	this._setupGraphics();
-
-};
-SplatGraphics.prototype = new createjs.Shape();
-SplatGraphics.implement({
-
+var SplatGraphics = new Class(new createjs.Shape(), {
+	initialize: function() {
+		this._setupGraphics();
+	}
+	,
 	_setupGraphics: function(){
 		var g = this.graphics, v = Graphics.enemies.splat;
 		g.clear();

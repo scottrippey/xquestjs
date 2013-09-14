@@ -1,5 +1,4 @@
 var EaselJSGraphics = new Class({
-
 	initialize: function(canvas) {
 		this.canvas = canvas;
 
@@ -7,7 +6,8 @@ var EaselJSGraphics = new Class({
 		this._setupBackground();
 		this._setupParticles();
 	}
-	, _setupLayers: function() {
+	,
+	_setupLayers: function() {
 		this.layers = {
 			background: new createjs.Stage(this.canvas)
 			, effects: new createjs.Stage(this.canvas)
@@ -18,27 +18,29 @@ var EaselJSGraphics = new Class({
 		this.layers.effects.autoClear = false;
 		this.layers.characters.autoClear = false;
 	}
-	, _setupBackground: function() {
+	,
+	_setupBackground: function() {
 		var background = new BackgroundGraphics();
 		this.layers.background.addChild(background);
 	}
-	, _setupParticles: function() {
+	,
+	_setupParticles: function() {
 		this.particleFactory = new ParticleFactory(this);
 	}
-
-	, onAct: function(tickEvent) {
+	,
+	onAct: function(tickEvent) {
 		this.particleFactory.updateParticles(tickEvent);
 	}
-
-	, onDraw: function(tickEvent) {
+	,
+	onDraw: function(tickEvent) {
 		this._followPlayer();
 
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
 	}
-
-	, _followPlayer: function() {
+	,
+	_followPlayer: function() {
 
 		var width = this.canvas.width
 			,height = this.canvas.height
@@ -66,21 +68,21 @@ var EaselJSGraphics = new Class({
 		this.layers.effects.y = -offsetY;
 
 	}
-
-	, createLevelGraphics: function() {
+	,
+	createLevelGraphics: function() {
 		var levelGraphics = new LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
 		return levelGraphics;
 	}
-
-	, createPlayerGraphics: function() {
+	,
+	createPlayerGraphics: function() {
 		var playerGraphics = new PlayerGraphics();
 		this.layers.characters.addChild(playerGraphics);
 		this._playerLocation = playerGraphics;
 		return playerGraphics;
 	}
-
-	, createPlayerBullet: function() {
+	,
+	createPlayerBullet: function() {
 		var bulletGfx = new BulletGraphics();
 		this.layers.effects.addChild(bulletGfx);
 		bulletGfx.destroyBullet = function() {
@@ -88,8 +90,8 @@ var EaselJSGraphics = new Class({
 		}.bind(this);
 		return bulletGfx;
 	}
-
-	, createEnemyGraphics: function(enemyName) {
+	,
+	createEnemyGraphics: function(enemyName) {
 		var enemyGraphics = null;
 		switch (enemyName) {
 			case 'Splat':
@@ -104,24 +106,24 @@ var EaselJSGraphics = new Class({
 
 		return enemyGraphics;
 	}
-
-	, removeGraphic: function(graphic) {
+	,
+	removeGraphic: function(graphic) {
 		this.layers.background.removeChild(graphic);
 		this.layers.effects.removeChild(graphic);
 		this.layers.characters.removeChild(graphic);
 	}
-
-	, createCrystalGraphic: function() {
+	,
+	createCrystalGraphic: function() {
 		var crystal = new CrystalGraphic(this);
 		this.layers.background.addChild(crystal);
 		return crystal;
 	}
-	, addParticle: function(particleOptions) {
+	,
+	addParticle: function(particleOptions) {
 		var particle = this.particleFactory.createParticle(particleOptions);
 		this.layers.effects.addChild(particle);
 		particle.destroy = function() {
 			this.layers.effects.removeChild(particle);
 		}.bind(this);
 	}
-
 });

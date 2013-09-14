@@ -1,16 +1,14 @@
-var BackgroundGraphics = function() {
-	var bounds = Balance.level.bounds;
-	this._size = {
-		width: bounds.x*2 + bounds.width
-		,height: bounds.y*2 + bounds.height
-	};
-	this._setupBackground();
-	this._setupStars();
-
-};
-BackgroundGraphics.prototype = new createjs.Shape();
-BackgroundGraphics.implement({
-
+var BackgroundGraphics = new Class(new createjs.Shape(), {
+	initialize: function() {
+		var bounds = Balance.level.bounds;
+		this._size = {
+			width: bounds.x*2 + bounds.width
+			,height: bounds.y*2 + bounds.height
+		};
+		this._setupBackground();
+		this._setupStars();
+	}
+	,
 	_setupBackground: function(){
 		var g = this.graphics
 			,v = Graphics.background
@@ -44,5 +42,4 @@ BackgroundGraphics.implement({
 
 		g.endStroke();
 	}
-
 });

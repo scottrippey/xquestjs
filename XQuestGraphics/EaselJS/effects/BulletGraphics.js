@@ -1,11 +1,8 @@
-var BulletGraphics = function() {
-
-	this._setupGraphics();
-
-};
-BulletGraphics.prototype = new createjs.Shape();
-BulletGraphics.implement({
-
+var BulletGraphics = new Class(new createjs.Shape(), {
+	initialize: function() {
+		this._setupGraphics();
+	}
+	,
 	_setupGraphics: function(){
 		var g = this.graphics, v = Graphics.bullets;
 		g.clear();
@@ -15,8 +12,8 @@ BulletGraphics.implement({
 		 .endStroke();
 
 	}
-
-	, moveTo: function(x, y) {
+	,
+	moveTo: function(x, y) {
 		this.x = x;
 		this.y = y;
 	}

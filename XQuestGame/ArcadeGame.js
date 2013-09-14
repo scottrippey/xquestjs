@@ -31,10 +31,10 @@ var ArcadeGame = new Class({
 			handler(tickEvent);
 		};
 
-		this.handlers.input.each(executeHandlerWithTickEvent);
-		this.handlers.move.each(executeHandlerWithTickEvent);
-		this.handlers.act.each(executeHandlerWithTickEvent);
-		this.handlers.draw.each(executeHandlerWithTickEvent);
+		_.each(this.handlers.input, executeHandlerWithTickEvent);
+		_.each(this.handlers.move, executeHandlerWithTickEvent);
+		_.each(this.handlers.act, executeHandlerWithTickEvent);
+		_.each(this.handlers.draw, executeHandlerWithTickEvent);
 	}
 
 	, addGameItem: function(gameItem) {
