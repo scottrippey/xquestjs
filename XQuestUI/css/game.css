@@ -19,7 +19,7 @@
 
 .canvas-container {
 	position: absolute;
-	top: 2%; right: 2%; bottom: 2%; left: 2%;
+	top: 5px; right: 5px; bottom: 5px; left: 5px;
 }
 
 .canvas-container canvas {
