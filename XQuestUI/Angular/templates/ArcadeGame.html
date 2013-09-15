@@ -3,16 +3,17 @@
      ng-mousemove="ui.onMouseMove($event)"
      ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
-     common-keydown="document"
-     common-keydown-escape="ui.togglePause()"
-     common-keydown-enter="ui.togglePause()"
-     common-keydown-space="ui.primaryWeapon()"
-     common-keydown-up="ui.accelerate({ x: 0, y: -5 })"
-     common-keydown-down="ui.accelerate({ x: 0, y: 5 })"
-     common-keydown-left="ui.accelerate({ x: -5, y: 0 })"
-     common-keydown-right="ui.accelerate({ x: 5, y: 0 })"
-     common-keydown-fire="ui.primaryWeapon()"
-     common-keydown-pause="ui.togglePause()"
+
+     common-keymap="{ fire: 'space', pause: 'enter escape' }"
+     common-keymap-document
+
+     common-keymap-fire-down="ui.primaryWeapon()"
+     common-keymap-pause-down="ui.togglePause()"
+
+     common-keymap-up-repeat="ui.accelerate({ x: 0, y: -5 })"
+     common-keymap-down-repeat="ui.accelerate({ x: 0, y: 5 })"
+     common-keymap-left-repeat="ui.accelerate({ x: -5, y: 0 })"
+     common-keymap-right-repeat="ui.accelerate({ x: 5, y: 0 })"
 	>
 
 
