@@ -116,7 +116,7 @@
     <Content Include="XQuestUI\Angular\templates\ArcadeGame.html" />
     <Content Include="XQuestUI\Angular\XQuestUI.js" />
     <Content Include="XQuestUI\css\default.css" />
-    <Content Include="XQuestUI\input\BrowserInput.js" />
+    <Content Include="XQuestUI\input\GameInput.js" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Win8\package.appxmanifest">
