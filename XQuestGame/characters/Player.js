@@ -86,7 +86,7 @@ var Player = new Class({
 			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
-		Physics.bounceOffWalls(this.playerGraphics, this.radius, this.velocity, Balance.level.bounds);
+		Physics.bounceOffWalls(this.playerGraphics, this.radius, this.velocity, Balance.level.bounds, Balance.player.bounceDampening);
 	}
 	, _moveBullets: function(tickEvent) {
 		var bounds = Balance.level.bounds, i = this._bullets.length;

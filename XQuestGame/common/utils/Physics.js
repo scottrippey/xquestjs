@@ -39,26 +39,40 @@ var Physics = {
 
 	}
 	,
-	bounceOffWalls: function(player, radius, velocity, bounds) {
+	/**
+	 * Inverts the velocity and position when the player hits the bounds.
+	 */
+	bounceOffWalls: function(player, radius, velocity, bounds, dampening) {
+		var bounces = 0;
 		var leftEdge = (player.x - radius) - (bounds.x)
 			,rightEdge = (player.x + radius) - (bounds.x + bounds.width);
 		if (leftEdge < 0) {
 			player.x -= leftEdge*2;
 			velocity.x *= -1;
+			bounces++;
 		} else if (rightEdge > 0) {
 			player.x -= rightEdge*2;
 			velocity.x *= -1;
+			bounces++;
 		}
 		var topEdge = (player.y - radius) - (bounds.y)
 			,bottomEdge = (player.y + radius) - (bounds.y + bounds.height);
 		if (topEdge < 0) {
 			player.y -= topEdge*2;
 			velocity.y *= -1;
+			bounces++;
 		} else if (bottomEdge > 0) {
 			player.y -= bottomEdge*2;
 			velocity.y *= -1;
+			bounces++;
 		}
 
+		if (bounces && dampening) {
+			while (bounces--) {
+				velocity.x *= (1 - dampening);
+				velocity.y *= (1 - dampening);
+			}
+		}
 	}
 
 	,

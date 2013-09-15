@@ -9,6 +9,7 @@ _.extend(Balance, {
 			player: {
 				radius: 12 //px
 				,looseFriction: 0.8
+				,bounceDampening : 0.3
 			}
 			,bullets: {
 				radius: 2 //px
