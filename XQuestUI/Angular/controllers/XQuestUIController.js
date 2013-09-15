@@ -131,10 +131,14 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this.hud = null;
 			}
 
-			, togglePause: function() {
+			, togglePause: function(force) {
 				if (!this.currentGame) return;
 
-				this.paused = !this.paused;
+				if (force === undefined)
+					this.paused = !this.paused;
+				else
+					this.paused = force;
+
 				if (this.paused) {
 					this.hud = this.hudPages.paused;
 				} else {

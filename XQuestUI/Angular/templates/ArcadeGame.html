@@ -2,6 +2,7 @@
      ng-controller="XQuestUIController as ui"
      ng-mousemove="ui.onMouseMove($event)"
      ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
+     ng-mouseleave="ui.togglePause(true)"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
 
      common-keymap="{ fire: 'space', pause: 'enter escape' }"
