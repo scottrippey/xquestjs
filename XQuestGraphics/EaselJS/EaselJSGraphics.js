@@ -94,7 +94,7 @@ var EaselJSGraphics = new Class({
 	createEnemyGraphics: function(enemyName) {
 		var enemyGraphics = null;
 		switch (enemyName) {
-			case 'Splat':
+			case 'Slug':
 				enemyGraphics = new SplatGraphics();
 				break;
 		}

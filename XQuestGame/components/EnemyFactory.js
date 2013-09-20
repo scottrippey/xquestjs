@@ -26,7 +26,7 @@ var EnemyFactory = new Class({
 	,
 	_spawnNextEnemy: function() {
 		// For now, we only have 1 enemy type:
-		var enemyCtor = Splat;
+		var enemyCtor = Slug;
 
 		var game = this.game;
 		var enemy = new enemyCtor(game);

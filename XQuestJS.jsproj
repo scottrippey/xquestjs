@@ -89,7 +89,7 @@
     <Content Include="Win8\images\storelogo.png" />
     <Content Include="Win8\XQuestJS_TemporaryKey.pfx" />
     <Content Include="XQuestGame\ArcadeGame.js" />
-    <Content Include="XQuestGame\characters\enemies\Splat.js" />
+    <Content Include="XQuestGame\characters\enemies\Slug.js" />
     <Content Include="XQuestGame\characters\Player.js" />
     <Content Include="XQuestGame\common\anim\Animation.actions.js" />
     <Content Include="XQuestGame\common\anim\Animation.easing.js" />
