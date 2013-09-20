@@ -9,13 +9,13 @@
 	</head>
 	<body ng-app="XQuestUI" ng-controller="NavigationController as nav">
 
-			<h1>XQuest JS</h1>
-			<h2>
-				An HTML5 Space Shooter that is
-				<a href="https://github.com/scottrippey/xquestjs">
-					free and open-source!
-				</a>
-			</h2>
+		<h1>XQuest JS</h1>
+		<h2>
+			An HTML5 Space Shooter that is
+			<a href="https://github.com/scottrippey/xquestjs">
+				free and open-source!
+			</a>
+		</h2>
 
 		<ng-include src="nav.page">
 			<span>      Loading game assets...   </span>
@@ -31,6 +31,7 @@
 
 		<!-- Scripts -->
 
+		<script src="common/lib/mootools-core-1.4.5.js"></script>
 		<script src="common/lib/easeljs-0.6.1.min.js"></script>
 		<script src="common/lib/lodash.1.3.1.js"></script>
 		<script src="common/lib/smoothsort.js"></script>
@@ -38,14 +39,15 @@
 		<script src="common/lib/angular.1.2.0rc1/angular.js"></script>
 		<script src="common/lib/angular.1.2.0rc1/angular-animate.js"></script>
 
-		<script src="common/src/MooToolsMicro.js"></script>
+
 		<script src="common/src/plugins/console.js"></script>
 		<script src="common/src/plugins/EaselJS.js"></script>
 		<script src="common/src/plugins/angular/common.js"></script>
 		<script src="common/src/plugins/angular/directives/commonFillParent.js"></script>
-		<script src="common/src/plugins/angular/directives/commonInitElement.js"></script>
-		<script src="common/src/plugins/angular/directives/commonKeymap.js"></script>
+		<script src="common/src/plugins/angular/directives/commonInitCanvas.js"></script>
+		<script src="common/src/plugins/angular/directives/commonKeydown.js"></script>
 		<script src="common/src/plugins/lodash/lodash.eliminate.js"></script>
+		<script src="common/src/plugins/mootools/DOMEvent.js"></script>
 
 
 		<script src="XQuestGame/common/anim/Animation.js"></script>
@@ -61,9 +63,7 @@
 		<script src="XQuestGame/characters/enemies/Splat.js"></script>
 		<script src="XQuestGame/components/Crystals.js"></script>
 		<script src="XQuestGame/components/EnemyFactory.js"></script>
-		<script src="XQuestGame/components/GameInput.js"></script>
 		<script src="XQuestGame/options/Balance.js"></script>
-
 
 		<script src="XQuestGraphics/EaselJS/EaselJSGraphics.js"></script>
 		<script src="XQuestGraphics/EaselJS/EaselJSTimer.js"></script>
@@ -77,10 +77,13 @@
 		<script src="XQuestGraphics/EaselJS/game/LevelGraphics.js"></script>
 
 
+		<script src="XQuestUI/input/BrowserInput.js"></script>
+
 		<script src="XQuestUI/Angular/XQuestUI.js"></script>
 		<script src="XQuestUI/Angular/controllers/XQuestUIController.js"></script>
 		<script src="XQuestUI/Angular/directives/xqArcadeGame.js"></script>
-		<script src="XQuestUI/Angular/controllers/NavigationController.js"></script>
+
+		<script src="navigation/controllers/NavigationController.js"></script>
 
 
 	</body>
