@@ -68,7 +68,7 @@
     <Content Include="common\src\plugins\EaselJS.js" />
     <Content Include="common\src\plugins\angular\common.js" />
     <Content Include="common\src\plugins\angular\directives\commonFillParent.js" />
-    <Content Include="common\src\plugins\angular\directives\commonInitElement.js" />
+    <Content Include="common\src\plugins\angular\directives\commonInitCanvas.js" />
     <Content Include="common\src\plugins\angular\directives\commonKeydown.js" />
     <Content Include="common\src\plugins\lodash\lodash.eliminate.js" />
     <Content Include="common\src\plugins\mootools\DOMEvent.js" />
