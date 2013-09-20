@@ -67,31 +67,43 @@ angular.module('common').directive('commonKeymap', [ 'keyCodes', '$parse', funct
 	var commonKeymap = {
 		link: function($scope, $element, $attrs) {
 			// Set up the handlers:
-			var getHandlers = commonKeymap.createGetHandlers($attrs);
+			var getHandlers = commonKeymap._createGetHandlers($attrs);
 
 			// Set up the mapper:
-			var mapper = commonKeymap.createMapper($attrs, $scope);
+			var mapper = commonKeymap._createMapper($attrs, $scope);
 
 			// The common-keymap-document attribute attaches events to the document instead of the element
 			if ('commonKeymapDocument' in $attrs) {
 				$element = angular.element(document);
 			}
+			var preventDefault = ('commonKeymapPreventDefault' in $attrs);
+			var stopPropagation = ('commonKeymapStopPropagation' in $attrs);
 
 			var downButtons = {};
 
 			$element.on('keydown', function(event) {
 				var keyName = keyCodes.getKeyName(event)
-					,mappedKeyName = mapper(keyName)
-					,handlers = getHandlers(mappedKeyName);
+					, mappedKeyName = mapper(keyName)
+					, handlers = getHandlers(mappedKeyName);
+
+				if (!handlers) return;
 
 				if (!(keyName in downButtons)) {
 					downButtons[keyName] = true;
 					if (handlers.down) {
-						handlers.down($scope, { $event: event, keyName: keyName, mappedKeyName: mappedKeyName });
+						$scope.$apply(function() {
+							handlers.down($scope, { $event: event, keyName: keyName, mappedKeyName: mappedKeyName });
+						});
+						if (preventDefault) event.preventDefault();
+						if (stopPropagation) event.stopPropagation();
 					}
 				}
 				if (handlers.repeat) {
-					handlers.repeat($scope, { $event: event, keyName: keyName, mappedKeyName: mappedKeyName });
+					$scope.$apply(function () {
+						handlers.repeat($scope, { $event: event, keyName: keyName, mappedKeyName: mappedKeyName });
+					});
+					if (preventDefault) event.preventDefault();
+					if (stopPropagation) event.stopPropagation();
 				}
 			});
 			$element.on('keyup', function(event) {
@@ -99,31 +111,41 @@ angular.module('common').directive('commonKeymap', [ 'keyCodes', '$parse', funct
 					,mappedKeyName = mapper(keyName)
 					,handlers = getHandlers(mappedKeyName);
 
+				if (!handlers) return;
+
 				delete downButtons[keyName];
 
 				if (handlers.up) {
-					handlers.up($scope, { $event: event, keyName: keyName, mappedKeyName: mappedKeyName });
+					$scope.$apply(function() {
+						handlers.up($scope, { $event: event, keyName: keyName, mappedKeyName: mappedKeyName });
+					});
+					if (preventDefault) event.preventDefault();
+					if (stopPropagation) event.stopPropagation();
 				}
 			});
 		}
 		,
-		createGetHandlers: function($attrs) {
+		_createGetHandlers: function($attrs) {
 			var handlersCache = {};
 			var getHandlers = function(keyName) {
-				if (handlersCache[keyName])
+				if (keyName in handlersCache)
 					return handlersCache[keyName];
 
 				var KeyName = (keyName.charAt(0).toUpperCase()) + (keyName.substr(1))
-					, attrRepeat = $attrs['commonKeymap' + KeyName]
-					, attrRepeat2 = $attrs['commonKeymap' + KeyName + 'Repeat']
-					, attrDown = $attrs['commonKeymap' + KeyName + 'Down']
-					, attrUp = $attrs['commonKeymap' + KeyName + 'Up'];
+					, keyAttr = 'commonKeymap' + KeyName
+					, repeatAttr = $attrs[keyAttr] || $attrs[keyAttr + 'Repeat']
+					, downAttr = $attrs[keyAttr + 'Down']
+					, upAttr = $attrs[keyAttr + 'Up']
+					;
 
-				var handlers = {
-					repeat: attrRepeat && $parse(attrRepeat) || attrRepeat2 && $parse(attrRepeat2)
-					, down: attrDown && $parse(attrDown)
-					, up: attrUp && $parse(attrUp)
-				};
+				var handlers = false;
+				if (repeatAttr || downAttr || upAttr) {
+					handlers = {
+						repeat: $parse(repeatAttr)
+						, down: $parse(downAttr)
+						, up: $parse(upAttr)
+					};
+				}
 
 				handlersCache[keyName] = handlers;
 				return handlers;
@@ -131,7 +153,7 @@ angular.module('common').directive('commonKeymap', [ 'keyCodes', '$parse', funct
 			return getHandlers;
 		}
 		,
-		createMapper: function($attrs, $scope) {
+		_createMapper: function($attrs, $scope) {
 			var mapper;
 			var mapAttr = $attrs['commonKeymap'];
 			if (!mapAttr) {
