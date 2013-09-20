@@ -101,7 +101,7 @@
     <Content Include="XQuestGame\components\EnemyFactory.js" />
     <Content Include="XQuestGame\options\Balance.js" />
     <Content Include="XQuestGame\XQuest.js" />
-    <Content Include="XQuestGraphics\EaselJS\characters\enemies\SplatGraphics.js" />
+    <Content Include="XQuestGraphics\EaselJS\characters\enemies\SlugGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\characters\PlayerGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\EaselJSGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\EaselJSTimer.js" />
