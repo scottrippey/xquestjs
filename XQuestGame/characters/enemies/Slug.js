@@ -10,7 +10,8 @@ var Slug = new Class({
 		this.location = this.enemyGraphics;
 		this.radius = Balance.enemies.splat.radius;
 	}
-	, moveTo: function(x, y) {
+	,
+	moveTo: function(x, y) {
 		this.location.moveTo(x, y);
 	}
 	,

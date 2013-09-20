@@ -1,6 +1,18 @@
+<div class=""
+     ng-controller="TestGraphicsController as test"
+		>
 
-<h1> Test Graphics </h1>
+	<div class="canvas-container">
 
-<p>
-	This page is a testing area for graphics.
-</p>
+		<canvas width="200" height="112" style="border: 1px solid yellow"
+		        common-init-canvas="test.registerCanvas(canvas); test.testSlug();"
+				>
+			Uh oh, your browser cannot play this game.
+			To play the most awesome game ever, please upgrade
+			to a better browser, such as Chrome, Safari, or FireFox.
+			In other words, Internet Explorer sucks.
+		</canvas>
+
+	</div>
+
+</div>

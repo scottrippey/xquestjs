@@ -17,13 +17,12 @@ var ArcadeGame = new Class({
 		};
 
 		this._setupEvents();
-		this._startTimer();
-		this._startGame();
+		this._setupTimer();
 	}
 	, _setupEvents: function() {
 		this.addGameItem(this.gfx);
 	}
-	, _startTimer: function() {
+	, _setupTimer: function() {
 		this.timer.addTickHandler(this._tickHandler.bind(this));
 	}
 	, _tickHandler: function(tickEvent) {
@@ -50,7 +49,7 @@ var ArcadeGame = new Class({
 			this.handlers.draw.push(gameItem.onDraw.bind(gameItem));
 	}
 
-	, _startGame: function() {
+	, startGame: function() {
 		var game = this;
 		this.level = game.gfx.createLevelGraphics();
 		this._createPlayer();

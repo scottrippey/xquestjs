@@ -1,13 +1,15 @@
 angular.module('XQuestUI').controller('NavigationController', [
-	function() {
+	function NavigationController() {
 		_.extend(this, {
 			page: null
-			, pages: {
+			,
+			pages: {
 				main: 'XQuestUI/Angular/templates/help/help.html'
 				, arcadeGame: 'XQuestUI/Angular/templates/ArcadeGame.html'
 				, testGraphics: 'XQuestUI/Angular/templates/test/TestGraphics.html'
 			}
-			, initialize: function() {
+			,
+			initialize: function() {
 				this.goHome();
 			}
 			,

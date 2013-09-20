@@ -12,6 +12,8 @@ var XQuest = new Class({
 
 		// Start the game:
 		this.game = new ArcadeGame(gfx, input, timer);
+
+		this.game.startGame();
 	}
 
 });
