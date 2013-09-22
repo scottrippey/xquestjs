@@ -37,7 +37,7 @@ _.extend(Balance, {
 				}
 			}
 			,gate: {
-				startingWidth: 200
+				startingWidth: 150
 			}
 
 		});
