@@ -20,3 +20,7 @@ createjs.Graphics.prototype.endStyle = function(styles) {
 
 	return this;
 };
+
+createjs.Shape.prototype.moveTo = function(x, y) {
+	this.x = x; this.y = y;
+};

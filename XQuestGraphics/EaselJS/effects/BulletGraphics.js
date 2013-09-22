@@ -12,9 +12,4 @@ var BulletGraphics = new Class(new createjs.Shape(), {
 		 .endStroke();
 
 	}
-	,
-	moveTo: function(x, y) {
-		this.x = x;
-		this.y = y;
-	}
 });

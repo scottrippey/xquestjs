@@ -19,11 +19,6 @@ var SlugGraphics = new Class(new createjs.Shape(), {
 
 	}
 	,
-	moveTo: function(x, y) {
-		this.x = x;
-		this.y = y;
-	}
-	,
 	killSplat: function(gfx, velocity) {
 		var enemyGraphics = this;
 		gfx.removeGraphic(enemyGraphics);

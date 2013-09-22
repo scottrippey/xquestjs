@@ -1,36 +1,52 @@
 angular.module('XQuestUI').controller('TestGraphicsController', [
 	function TestGraphicsController() {
 		_.extend(this, {
-			gfx: null
+			game: null
 			,
 			registerCanvas: function(canvas) {
-
 				this.canvas = canvas;
 
-				this._setupGraphics();
+				this._setupTestGame();
 			}
 			,
-			_setupGraphics: function() {
-				Balance.setGameMode('arcade');
+			_setupTestGame: function() {
+				Balance.setGameMode('test');
 
-				this.gfx = new EaselJSGraphics(this.canvas);
-
-				var playerLocation = this.gfx.createPlayerGraphics();
-				playerLocation.moveTo(100, 100);
+				this.game = new BaseGame();
+				this.game.initializeGame(this.canvas);
 			}
 			,
-			testSlug: function() {
-				var slug = this.gfx.createEnemyGraphics('Slug');
+			testGraphics: function() {
 
-				slug.moveTo(50, 100);
+				this.game.gfx.createLevelGraphics();
 
-				var tickEvent = {};
-				this._tickHandler(tickEvent);
-			}
-			,
-			_tickHandler: function(tickEvent) {
-				this.gfx.onAct(tickEvent);
-				this.gfx.onDraw(tickEvent);
+				this.game.gfx.createPlayerGraphics().moveTo(100, 200);
+				this.game.gfx.createPlayerGraphics().moveTo(100, 250);
+				this.game.gfx.createPlayerGraphics().moveTo(100, 300);
+
+				this.game.gfx.createPlayerBullet().moveTo(120, 200);
+				this.game.gfx.createPlayerBullet().moveTo(130, 200);
+				this.game.gfx.createPlayerBullet().moveTo(140, 200);
+				this.game.gfx.createPlayerBullet().moveTo(150, 200);
+				this.game.gfx.createPlayerBullet().moveTo(160, 200);
+				this.game.gfx.createPlayerBullet().moveTo(170, 200);
+				this.game.gfx.createPlayerBullet().moveTo(180, 200);
+
+				this.game.gfx.createPlayerBullet().moveTo(220, 200);
+				this.game.gfx.createPlayerBullet().moveTo(230, 200);
+				this.game.gfx.createPlayerBullet().moveTo(240, 200);
+				this.game.gfx.createPlayerBullet().moveTo(250, 200);
+				this.game.gfx.createPlayerBullet().moveTo(260, 200);
+				this.game.gfx.createPlayerBullet().moveTo(270, 200);
+				this.game.gfx.createPlayerBullet().moveTo(280, 200);
+
+				this.game.gfx.createCrystalGraphic().moveTo(200, 200);
+				this.game.gfx.createCrystalGraphic().moveTo(200, 250);
+				this.game.gfx.createCrystalGraphic().moveTo(200, 300);
+
+				this.game.gfx.createEnemyGraphics('Slug').moveTo(300, 200);
+				this.game.gfx.createEnemyGraphics('Slug').moveTo(300, 250);
+				this.game.gfx.createEnemyGraphics('Slug').moveTo(300, 300);
 			}
 		});
 	}

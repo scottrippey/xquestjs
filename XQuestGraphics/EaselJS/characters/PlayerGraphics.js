@@ -17,11 +17,6 @@ var PlayerGraphics = new Class(new createjs.Shape(), {
 
 	}
 	,
-	moveTo: function(x, y) {
-		this.x = x;
-		this.y = y;
-	}
-	,
 	onTick: function(tickEvent) {
 		this.rotation += (Graphics.player.spinRate * tickEvent.deltaSeconds);
 	}
