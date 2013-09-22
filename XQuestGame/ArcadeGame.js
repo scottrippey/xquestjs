@@ -1,62 +1,23 @@
-var ArcadeGame = new Class({
+var ArcadeGame = new Class(new BaseGame(), {
+	player: null
+	, level: null
 
-	gfx: null
-	, input: null
-	, timer: null
-
-	, initialize: function(gfx, input, timer) {
-		this.gfx = gfx;
-		this.input = input;
-		this.timer = timer;
-
-		this.handlers = {
-			input: []
-			, move: []
-			, act: []
-			, draw: []
-		};
-
-		this._setupEvents();
-		this._setupTimer();
+	,
+	initialize: function(canvas) {
+		Balance.setGameMode('arcade');
+		this.initializeGame(canvas);
+		this.startGame();
 	}
-	, _setupEvents: function() {
-		this.addGameItem(this.gfx);
-	}
-	, _setupTimer: function() {
-		this.timer.addTickHandler(this._tickHandler.bind(this));
-	}
-	, _tickHandler: function(tickEvent) {
-		var executeHandlerWithTickEvent = function(handler) {
-			handler(tickEvent);
-		};
-
-		_.each(this.handlers.input, executeHandlerWithTickEvent);
-		_.each(this.handlers.move, executeHandlerWithTickEvent);
-		_.each(this.handlers.act, executeHandlerWithTickEvent);
-		_.each(this.handlers.draw, executeHandlerWithTickEvent);
-	}
-
-	, addGameItem: function(gameItem) {
-		// Determine which methods the gameItem implements,
-		// and add them to the appropriate queue:
-		if (gameItem.onInput)
-			this.handlers.input.push(gameItem.onInput.bind(gameItem));
-		if (gameItem.onMove)
-			this.handlers.move.push(gameItem.onMove.bind(gameItem));
-		if (gameItem.onAct)
-			this.handlers.act.push(gameItem.onAct.bind(gameItem));
-		if (gameItem.onDraw)
-			this.handlers.draw.push(gameItem.onDraw.bind(gameItem));
-	}
-
-	, startGame: function() {
+	,
+	startGame: function() {
 		var game = this;
 		this.level = game.gfx.createLevelGraphics();
 		this._createPlayer();
 		this._createEnemyFactory();
 		this._createCrystals();
 	}
-	, _createPlayer: function() {
+	,
+	_createPlayer: function() {
 		var game = this;
 		game.player = new Player(game);
 		var bounds = Balance.level.bounds, middleOfGame = {
@@ -66,12 +27,14 @@ var ArcadeGame = new Class({
 		game.player.moveTo(middleOfGame.x, middleOfGame.y);
 		this.addGameItem(game.player);
 	}
-	, _createEnemyFactory: function() {
+	,
+	_createEnemyFactory: function() {
 		var game = this;
 		game.enemies = new EnemyFactory(game);
 		this.addGameItem(game.enemies);
 	}
-	, _createCrystals: function() {
+	,
+	_createCrystals: function() {
 		this.crystals = new Crystals(this);
 		this.crystals.createCrystals(Balance.crystals.quantity);
 	}

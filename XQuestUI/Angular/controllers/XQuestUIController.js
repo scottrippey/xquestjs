@@ -121,9 +121,9 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 
 				var canvas = this.canvas;
 
-				var xquest = new XQuest(canvas);
+				var game = new ArcadeGame(canvas);
 
-				this.currentGame = xquest.game;
+				this.currentGame = game;
 
 				this.engaged = true;
 				this.fillscreen = true;
