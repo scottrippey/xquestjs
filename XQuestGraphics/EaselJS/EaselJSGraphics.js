@@ -33,31 +33,28 @@ var EaselJSGraphics = new Class({
 	}
 	,
 	onDraw: function(tickEvent) {
-		this._followPlayer();
-
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
 	}
 	,
-	_followPlayer: function() {
+	followPlayer: function(playerLocation) {
 
-		var width = this.canvas.width
-			,height = this.canvas.height
-			,player = this._playerLocation;
+		var visibleWidth = this.canvas.width
+			,visibleHeight = this.canvas.height;
 
 
 		if (!this._maxOffset) {
 
 			var bounds = Graphics.level.bounds;
 			this._maxOffset = {
-				x: bounds.x*2 + bounds.width - width
-				,y: bounds.y*2 + bounds.height - height
+				x: bounds.x*2 + bounds.width - visibleWidth
+				,y: bounds.y*2 + bounds.height - visibleHeight
 			};
 		}
 
-		var offsetX = Math.min(Math.max(0, player.x - width/2), this._maxOffset.x)
-			,offsetY = Math.min(Math.max(0, player.y - height/2), this._maxOffset.y);
+		var offsetX = Math.min(Math.max(0, playerLocation.x - visibleWidth/2), this._maxOffset.x)
+			,offsetY = Math.min(Math.max(0, playerLocation.y - visibleHeight/2), this._maxOffset.y);
 
 		this.layers.background.x = -offsetX;
 		this.layers.characters.x = -offsetX;

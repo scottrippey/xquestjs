@@ -6,6 +6,8 @@ var ArcadeGame = new Class(new BaseGame(), {
 	initialize: function(canvas) {
 		Balance.setGameMode('arcade');
 		this.initializeGame(canvas);
+
+		this.addGameItem(this);
 		this.startGame();
 	}
 	,
@@ -37,6 +39,11 @@ var ArcadeGame = new Class(new BaseGame(), {
 	_createCrystals: function() {
 		this.crystals = new Crystals(this);
 		this.crystals.createCrystals(Balance.crystals.quantity);
+	}
+
+	,
+	onAct: function(tickEvent) {
+		this.gfx.followPlayer(this.player.location);
 	}
 
 });
