@@ -81,6 +81,14 @@ var Graphics = {
 					, strokeColor: '#999999'
 				}
 			}
+			,gate: {
+				strokeStyle: {
+					strokeWidth: 2.5
+					, strokeColor: '#FF0000'
+				}
+				, segments: 9
+				, deviation: 0.2
+			}
 			,background: {
 				backgroundColor: 'black'
 				, starColors: ['#FFFFFF','#666666','#999999', '#CCCCCC']

@@ -18,7 +18,8 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 			,
 			testGraphics: function() {
 
-				this.game.gfx.createLevelGraphics();
+				var levelGraphics = this.game.gfx.createLevelGraphics();
+				levelGraphics.setGateWidth(Balance.gate.startingWidth);
 
 				this.game.gfx.createPlayerGraphics().moveTo(100, 200);
 				this.game.gfx.createPlayerGraphics().moveTo(100, 250);

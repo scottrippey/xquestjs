@@ -152,5 +152,15 @@ var Physics = {
 
 		}
 	}
+
+	,
+	interpolatePoints: function(pointA, pointB, pct) {
+		if (pct === 0) return pointA;
+		if (pct === 1) return pointB;
+		return {
+			x: pointA.x + pct * (pointB.x - pointA.x)
+			,y: pointA.y + pct * (pointB.y - pointA.y)
+		};
+	}
 };
 

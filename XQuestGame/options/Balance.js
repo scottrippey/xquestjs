@@ -36,6 +36,9 @@ _.extend(Balance, {
 					x: 40, y: 40, width: 1000, height: 700
 				}
 			}
+			,gate: {
+				startingWidth: 200
+			}
 
 		});
 
