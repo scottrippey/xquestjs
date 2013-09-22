@@ -31,6 +31,8 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 	}
 	,
 	_drawGate: function() {
+		if (!this.gateStart) return;
+
 		var g = this.graphics
 			, gate = Graphics.gate
 			, gateStart = this.gateStart

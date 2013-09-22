@@ -14,7 +14,7 @@ var ArcadeGame = new Class(new BaseGame(), {
 	startGame: function() {
 		var game = this;
 		this.level = game.gfx.createLevelGraphics();
-		this.level.setGateWidth(Balance.gate.startingWidth);
+		//this.level.setGateWidth(Balance.gate.startingWidth);
 		this._createPlayer();
 		this._createEnemyFactory();
 		this._createCrystals();
