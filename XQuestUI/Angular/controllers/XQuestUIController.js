@@ -1,5 +1,6 @@
 angular.module("XQuestUI").controller("XQuestUIController", [
 	'$scope', '$window', '$document', function XQuestUIController($scope, $window, $document) {
+		$scope.Balance = Balance;
 		_.extend(this, {
 			currentGame: null
 			, previousMousePosition: null

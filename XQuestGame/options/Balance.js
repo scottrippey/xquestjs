@@ -32,9 +32,20 @@ _.extend(Balance, {
 				}
 			}
 			,level: {
-				bounds: {
-					x: 40, y: 40, width: 1000, height: 700
-				}
+				bounds: (function(){
+					var padding = 40
+						, visibleWidth = 800, visibleHeight = 450
+						, levelWidth = visibleWidth * 2, levelHeight = visibleHeight * 2;
+					return {
+						x: padding, y: padding
+						, visibleWidth: visibleWidth
+						, visibleHeight: visibleHeight
+						, width: levelWidth
+						, height: levelHeight
+						, totalWidth: padding + levelWidth + padding
+						, totalHeight: padding + levelHeight + padding
+					};
+				})()
 			}
 			,gate: {
 				startingWidth: 150

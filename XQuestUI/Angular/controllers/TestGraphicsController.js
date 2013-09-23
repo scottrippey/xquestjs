@@ -1,5 +1,6 @@
 angular.module('XQuestUI').controller('TestGraphicsController', [
-	function TestGraphicsController() {
+	'$scope', function TestGraphicsController($scope) {
+		$scope.Balance = Balance;
 		_.extend(this, {
 			game: null
 			,
@@ -17,10 +18,14 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 			}
 			,
 			testGraphics: function() {
-
+				this._testLevel();
+				this._testPlayersAndEnemies();
+			}
+			, _testLevel: function() {
 				var levelGraphics = this.game.gfx.createLevelGraphics();
 				levelGraphics.setGateWidth(Balance.gate.startingWidth);
-
+			}
+			, _testPlayersAndEnemies: function() {
 				this.game.gfx.createPlayerGraphics().moveTo(100, 200);
 				this.game.gfx.createPlayerGraphics().moveTo(100, 250);
 				this.game.gfx.createPlayerGraphics().moveTo(100, 300);

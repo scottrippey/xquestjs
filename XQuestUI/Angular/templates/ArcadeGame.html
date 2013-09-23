@@ -23,7 +23,7 @@
 	     ng-mouseenter="ui.engage()"
 	     ng-mouseleave="ui.disengage()">
 
-		<canvas id="XQuestCanvas" width="800" height="450"
+		<canvas id="XQuestCanvas" width="{{ Balance.level.bounds.visibleWidth }}" height="{{ Balance.level.bounds.visibleHeight }}"
 		        common-init-canvas="ui.registerCanvas(canvas)"
 		        common-fill-parent
 				>

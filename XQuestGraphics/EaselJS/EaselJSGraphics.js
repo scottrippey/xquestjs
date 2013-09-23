@@ -40,21 +40,17 @@ var EaselJSGraphics = new Class({
 	,
 	followPlayer: function(playerLocation) {
 
-		var visibleWidth = this.canvas.width
-			,visibleHeight = this.canvas.height;
-
+		var bounds = Balance.level.bounds;
 
 		if (!this._maxOffset) {
-
-			var bounds = Graphics.level.bounds;
 			this._maxOffset = {
-				x: bounds.x*2 + bounds.width - visibleWidth
-				,y: bounds.y*2 + bounds.height - visibleHeight
+				x: bounds.totalWidth - bounds.visibleWidth
+				,y: bounds.totalHeight - bounds.visibleHeight
 			};
 		}
 
-		var offsetX = Math.min(Math.max(0, playerLocation.x - visibleWidth/2), this._maxOffset.x)
-			,offsetY = Math.min(Math.max(0, playerLocation.y - visibleHeight/2), this._maxOffset.y);
+		var offsetX = Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth/2), this._maxOffset.x)
+			,offsetY = Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight/2), this._maxOffset.y);
 
 		this.layers.background.x = -offsetX;
 		this.layers.characters.x = -offsetX;
