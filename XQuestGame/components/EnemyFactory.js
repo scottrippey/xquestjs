@@ -1,4 +1,4 @@
-var EnemyFactory = new Class({
+var EnemyFactory = Class.create({
 	_enemies: []
 	,
 	_nextEnemySpawn: null

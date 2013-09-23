@@ -1,4 +1,4 @@
-var SlugGraphics = new Class(new createjs.Shape(), {
+var SlugGraphics = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

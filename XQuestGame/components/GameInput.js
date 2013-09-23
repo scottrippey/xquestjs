@@ -1,4 +1,4 @@
-var GameInput = new Class({
+var GameInput = Class.create({
 	initialize: function() {
 		this.inputItems = [];
 	}

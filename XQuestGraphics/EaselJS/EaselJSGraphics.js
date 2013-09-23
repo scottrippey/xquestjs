@@ -1,4 +1,4 @@
-var EaselJSGraphics = new Class({
+var EaselJSGraphics = Class.create({
 	initialize: function(canvas) {
 		this.canvas = canvas;
 

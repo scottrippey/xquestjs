@@ -1,21 +1,24 @@
-
-var Class = function(base, implement) {
-	function constructor() {
-		if (this.initialize) this.initialize.apply(this, arguments);
-	}
-	constructor.prototype = base;
-	if (implement){
-		for (var key in implement) {
-			// Takes the place of checking hasOwnProperty:
-			if (constructor.prototype[key] === implement[key]) continue;
-			constructor.prototype[key] = implement[key];
+var Class = {
+	create: function(base, implement) {
+		var constructor = (implement || base).hasOwnProperty('initialize') && (implement || base)['initialize'];
+		if (!constructor) {
+			constructor = function Class() { };
 		}
-	}
 
-	return constructor;
+		constructor.prototype = base;
+		if (implement){
+			for (var key in implement) {
+				// Takes the place of checking hasOwnProperty:
+				if (constructor.prototype[key] === implement[key]) continue;
+				constructor.prototype[key] = implement[key];
+			}
+		}
+
+		return constructor;
+	}
 };
 
-var Events = Class({
+var Events = Class.create({
 	addEvent: function(eventName, callback) {
 		if (!this.$events) this.$events = {};
 		if (!this.$events[eventName]) this.$events[eventName] = [];

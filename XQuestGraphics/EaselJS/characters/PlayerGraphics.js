@@ -1,4 +1,4 @@
-var PlayerGraphics = new Class(new createjs.Shape(), {
+var PlayerGraphics = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

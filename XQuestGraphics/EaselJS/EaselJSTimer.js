@@ -2,7 +2,7 @@
  * This is a wrapper around createjs.Ticker
  * @constructor
  */
-var EaselJSTimer = new Class(new createjs.Shape(), {
+var EaselJSTimer = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		this._paused = false;
 		window.pauseGame = this.pauseGame.bind(this);

@@ -1,4 +1,4 @@
-var ParticleFactory = new Class({
+var ParticleFactory = Class.create({
 	initialize: function(gfx) {
 		this.gfx = gfx;
 

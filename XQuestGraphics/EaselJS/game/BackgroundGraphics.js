@@ -1,4 +1,4 @@
-var BackgroundGraphics = new Class(new createjs.Shape(), {
+var BackgroundGraphics = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		var bounds = Balance.level.bounds;
 		this._size = {

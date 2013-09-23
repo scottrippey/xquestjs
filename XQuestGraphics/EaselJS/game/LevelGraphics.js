@@ -1,4 +1,4 @@
-var LevelGraphics = new Class(new createjs.Shape(), {
+var LevelGraphics = Class.create(new createjs.Shape(), {
 	gateStart: null, gateEnd: null, gateOpen: false
 	,
 	initialize: function() {

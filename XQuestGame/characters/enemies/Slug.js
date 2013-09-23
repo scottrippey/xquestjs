@@ -1,4 +1,4 @@
-var Slug = new Class({
+var Slug = Class.create({
 	initialize: function(game) {
 		this.game = game;
 		this._setupEnemyGraphics();

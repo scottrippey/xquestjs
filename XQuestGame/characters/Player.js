@@ -1,4 +1,4 @@
-var Player = new Class({
+var Player = Class.create({
 
 	initialize: function(game) {
 		this.game = game;

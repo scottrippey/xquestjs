@@ -1,4 +1,4 @@
-var BulletGraphics = new Class(new createjs.Shape(), {
+var BulletGraphics = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}
