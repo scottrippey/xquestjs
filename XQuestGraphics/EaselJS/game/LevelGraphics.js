@@ -3,23 +3,8 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 
 	}
 	,
-	onTick: function(){
-		var g = this.graphics
-			, v = Graphics.level
-			, bounds = Graphics.level.bounds
-			, strokeWidth = Graphics.level.strokeStyle.strokeWidth - 2;
-		g.clear();
-
-		g.beginStyle(v.strokeStyle)
-		 .drawRoundRect(bounds.x - strokeWidth/2, bounds.y - strokeWidth/2, bounds.width + strokeWidth, bounds.height + strokeWidth, v.cornerRadius)
-		 .endStroke();
-
-		this._drawGate();
-
-	}
-	,
 	setGateWidth: function(gateWidth) {
-		var bounds = Graphics.level.bounds;
+		var bounds = Balance.level.bounds;
 		this.gateStart = {
 			x: bounds.x + (bounds.width - gateWidth) / 2
 			,y: bounds.y
@@ -30,6 +15,47 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 		};
 	}
 	,
+	onTick: function(tickEvent){
+		this.graphics.clear();
+		this._drawBounds();
+		this._drawGate();
+	}
+	,
+	_drawBounds: function() {
+		var g = this.graphics
+			, level = Graphics.level
+			, bounds = Balance.level.bounds
+			, strokeWidth = Graphics.level.strokeStyle.strokeWidth - 2
+			, gateStart = this.gateStart
+			, gateEnd = this.gateEnd;
+
+		// Draw a rounded rectangle with a "gap" for the gate:
+		// TODO: Cache these calculated values:
+		var halfPI = Math.PI / 2
+			,angles = {
+				top: halfPI * 3
+				,right: 0
+				,bottom: halfPI
+				,left: Math.PI
+			}
+			,arcCorners = {
+				left: bounds.x + level.cornerRadius - strokeWidth / 2
+				,right: bounds.x + bounds.width - level.cornerRadius + strokeWidth
+				,top: bounds.y + level.cornerRadius - strokeWidth / 2
+				,bottom: bounds.y + bounds.height - level.cornerRadius + strokeWidth
+			};
+
+		g.beginStyle(level.strokeStyle)
+			.moveTo(gateEnd.x, gateEnd.y)
+			.arc(arcCorners.right, arcCorners.top, level.cornerRadius, angles.top, angles.right)
+			.arc(arcCorners.right, arcCorners.bottom, level.cornerRadius, angles.right, angles.bottom)
+			.arc(arcCorners.left, arcCorners.bottom, level.cornerRadius, angles.bottom, angles.left)
+			.arc(arcCorners.left, arcCorners.top, level.cornerRadius, angles.left, angles.top)
+			.lineTo(gateStart.x, gateStart.y)
+			.endStroke();
+
+	}
+	,
 	_drawGate: function() {
 		if (!this.gateStart) return;
 
@@ -38,7 +64,11 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 			, gateStart = this.gateStart
 			, gateEnd = this.gateEnd;
 
-		g.beginStyle(gate.strokeStyle)
+		this._drawElectricLine(g, gate, gateStart, gateEnd);
+	}
+	,
+	_drawElectricLine: function(graphics, gate, gateStart, gateEnd) {
+		graphics.beginStyle(gate.strokeStyle)
 			.moveTo(gateStart.x, gateStart.y);
 
 		var diff = {
@@ -54,8 +84,8 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 				pos.x += -diff.y * deviation;
 			if (diff.x)
 				pos.y += diff.x * deviation;
-			g.lineTo(pos.x, pos.y);
+			graphics.lineTo(pos.x, pos.y);
 		}
-		g.endStroke();
+		graphics.endStroke();
 	}
 });

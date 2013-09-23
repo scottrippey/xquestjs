@@ -74,8 +74,7 @@ var Graphics = {
 				}
 			}
 			,level: {
-				bounds: Balance.level.bounds
-				, cornerRadius: 8
+				cornerRadius: 16
 				, strokeStyle: {
 					strokeWidth: 8
 					, strokeColor: '#999999'
