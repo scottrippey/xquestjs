@@ -1,4 +1,4 @@
-var ArcadeGame = new Class(new BaseGame(), {
+var ArcadeGame = Class.create(new BaseGame(), {
 	player: null
 	, level: null
 
@@ -19,6 +19,7 @@ var ArcadeGame = new Class(new BaseGame(), {
 		this._createPlayer();
 		this._createEnemyFactory();
 		this._createCrystals();
+		this._setupGameEvents();
 	}
 	,
 	_createPlayer: function() {
@@ -41,6 +42,17 @@ var ArcadeGame = new Class(new BaseGame(), {
 	_createCrystals: function() {
 		this.crystals = new Crystals(this);
 		this.crystals.createCrystals(Balance.crystals.quantity);
+
+	}
+
+	,
+	_setupGameEvents: function() {
+		this.events.onCrystalsGathered(function(crystalCount) {
+			if (crystalCount === 0) {
+				this.level.openGate();
+			}
+		}.bind(this));
+
 	}
 
 	,

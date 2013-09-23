@@ -1,4 +1,4 @@
-var Crystals = new Class({
+var Crystals = Class.create({
 	initialize: function(game) {
 		this.game = game;
 		this.game.addGameItem(this);
@@ -29,10 +29,15 @@ var Crystals = new Class({
 		var player = this.game.player, playerLocation = player.location;
 		var maxDistance = Balance.player.radius + Balance.crystals.radius;
 
+		var crystalsGathered = 0;
 		Physics.detectCollisions(this._crystals, [ player ], maxDistance, function(crystal, player, ci, pi, distance) {
 			crystal.gatherCrystal(playerLocation);
 			this._crystals.splice(ci, 1);
+			crystalsGathered++;
 		}.bind(this));
+
+		if (crystalsGathered)
+			this.game.events.crystalsGathered(this._crystals.length, crystalsGathered);
 	}
 	,
 	onDraw: function(tickEvent) {
