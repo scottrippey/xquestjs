@@ -21,38 +21,37 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 				this._testLevel();
 				this._testPlayersAndEnemies();
 			}
-			, _testLevel: function() {
+			,
+			_testLevel: function() {
 				var levelGraphics = this.game.gfx.createLevelGraphics();
 				levelGraphics.setGateWidth(Balance.gate.startingWidth);
 			}
-			, _testPlayersAndEnemies: function() {
-				this.game.gfx.createPlayerGraphics().moveTo(100, 200);
-				this.game.gfx.createPlayerGraphics().moveTo(100, 250);
-				this.game.gfx.createPlayerGraphics().moveTo(100, 300);
+			,
+			_testPlayersAndEnemies: function() {
+				this._applyEach(function(x, y) {
+					this.game.gfx.createPlayerGraphics().moveTo(x, y);
+				}, [100, 200], [100, 250], [100, 300]);
 
-				this.game.gfx.createPlayerBullet().moveTo(120, 200);
-				this.game.gfx.createPlayerBullet().moveTo(130, 200);
-				this.game.gfx.createPlayerBullet().moveTo(140, 200);
-				this.game.gfx.createPlayerBullet().moveTo(150, 200);
-				this.game.gfx.createPlayerBullet().moveTo(160, 200);
-				this.game.gfx.createPlayerBullet().moveTo(170, 200);
-				this.game.gfx.createPlayerBullet().moveTo(180, 200);
+				this._applyEach(function(x, y) {
+					this.game.gfx.createPlayerBullet().moveTo(x, y);
+				}, [120, 200], [130, 200], [140, 200], [150, 200], [160, 200], [170, 200], [180, 200]
+				 , [220, 200], [230, 200], [240, 200], [250, 200], [260, 200], [270, 200], [280, 200]
+				);
 
-				this.game.gfx.createPlayerBullet().moveTo(220, 200);
-				this.game.gfx.createPlayerBullet().moveTo(230, 200);
-				this.game.gfx.createPlayerBullet().moveTo(240, 200);
-				this.game.gfx.createPlayerBullet().moveTo(250, 200);
-				this.game.gfx.createPlayerBullet().moveTo(260, 200);
-				this.game.gfx.createPlayerBullet().moveTo(270, 200);
-				this.game.gfx.createPlayerBullet().moveTo(280, 200);
+				this._applyEach(function(x, y) {
+					this.game.gfx.createCrystalGraphic().moveTo(x, y);
+				}, [200, 200], [200, 250], [200, 300]);
 
-				this.game.gfx.createCrystalGraphic().moveTo(200, 200);
-				this.game.gfx.createCrystalGraphic().moveTo(200, 250);
-				this.game.gfx.createCrystalGraphic().moveTo(200, 300);
+				this._applyEach(function(enemy, x, y) {
+					this.game.gfx.createEnemyGraphics(enemy).moveTo(x, y);
+				}, ['Slug', 300, 200], ['Slug', 300, 250], ['Slug', 300, 300]);
 
-				this.game.gfx.createEnemyGraphics('Slug').moveTo(300, 200);
-				this.game.gfx.createEnemyGraphics('Slug').moveTo(300, 250);
-				this.game.gfx.createEnemyGraphics('Slug').moveTo(300, 300);
+			}
+			,
+			_applyEach: function(callback, args_) {
+				for (var i = 1, l = arguments.length; i < l; i++) {
+					callback.apply(this, arguments[i]);
+				}
 			}
 		});
 	}
