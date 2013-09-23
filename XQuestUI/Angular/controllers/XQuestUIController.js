@@ -114,7 +114,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this.canvas = canvas;
 			}
 
-			, startGame: function() {
+			, startGame: function(gameMode) {
 				if (this.currentGame) {
 					this.togglePause();
 					return;
@@ -122,6 +122,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 
 				var canvas = this.canvas;
 
+				Balance.setGameMode(gameMode || 'arcade');
 				var game = new ArcadeGame(canvas);
 
 				this.currentGame = game;

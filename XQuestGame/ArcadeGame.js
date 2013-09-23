@@ -4,14 +4,13 @@ var ArcadeGame = Class.create(new BaseGame(), {
 
 	,
 	initialize: function(canvas) {
-		Balance.setGameMode('arcade');
 		this.initializeGame(canvas);
 
 		this.addGameItem(this);
-		this.startGame();
+		this._startGame();
 	}
 	,
-	startGame: function() {
+	_startGame: function() {
 		var game = this;
 		this.level = game.gfx.createLevelGraphics();
 		this.level.setGateWidth(Balance.gate.startingWidth);

@@ -17,7 +17,10 @@ _.extend(Balance, {
 			}
 			,crystals: {
 				radius: 10 //px
-				,quantity: 10
+				,quantity: dependsOnMode({
+					'default': 12
+					,'test': 3
+				})
 			}
 			,enemies: {
 				maxRadius: 13
