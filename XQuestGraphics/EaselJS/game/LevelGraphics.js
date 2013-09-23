@@ -1,4 +1,6 @@
 var LevelGraphics = new Class(new createjs.Shape(), {
+	gateStart: null, gateEnd: null, gateOpen: false
+	,
 	initialize: function() {
 
 	}
@@ -13,7 +15,13 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 			x: this.gateStart.x + gateWidth
 			,y: bounds.y
 		};
+		this.gateOpen = false;
 	}
+	,
+	openGate: function() {
+		this.gateOpen = true;
+	}
+
 	,
 	onTick: function(tickEvent){
 		this.graphics.clear();
@@ -57,7 +65,7 @@ var LevelGraphics = new Class(new createjs.Shape(), {
 	}
 	,
 	_drawGate: function() {
-		if (!this.gateStart) return;
+		if (this.gateOpen) return;
 
 		var g = this.graphics
 			, gate = Graphics.gate
