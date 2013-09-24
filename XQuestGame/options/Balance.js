@@ -28,9 +28,15 @@ _.extend(Balance, {
 					'default': randomBetween(3, 6)
 					,'test': randomFloatBetween(1, 1)
 				})
+				,spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently
 				,splat: {
 					radius: 13 //px
 					,speed: 40 //pps
+					,movementInterval: randomBetween(3, 10) //seconds
+				}
+				,locust: {
+					radius: 10 //px
+					,speed: 70 //pps
 					,movementInterval: randomBetween(3, 10) //seconds
 				}
 			}

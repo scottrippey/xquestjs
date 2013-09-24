@@ -1,10 +1,40 @@
 var EnemyFactory = Class.create({
-	_enemies: []
-	,
-	_nextEnemySpawn: null
+	enemyLineup: null
+	, enemyPool: null
+	, _enemies: []
+	, _nextEnemySpawn: null
 	,
 	initialize: function(game) {
 		this.game = game;
+
+		this._setupEnemyLineup();
+
+		this.game.events.onLevelUp(this._onLevelUp.bind(this));
+		this._onLevelUp();
+	}
+	,
+	_setupEnemyLineup: function() {
+		this.enemyLineup = [
+			Slug
+			,Locust
+		];
+	}
+	,
+	_onLevelUp: function() {
+		var currentLevel = this.game.currentLevel;
+
+		var currentEnemyLineupIndex = Math.floor(currentLevel / 2);
+
+		if (currentEnemyLineupIndex >= this.enemyLineup.length) {
+			// Very high levels include all enemies:
+			this.enemyPool = this.enemyLineup;
+		} else if ((currentLevel % 2) === 0) {
+			// Even levels include a variety of enemies, up to the current level index:
+			this.enemyPool = this.enemyLineup.slice(0, currentEnemyLineupIndex + 1);
+		} else {
+			// Odd levels only include the current enemy:
+			this.enemyPool = [ this.enemyLineup[currentEnemyLineupIndex] ];
+		}
 	}
 	,
 	onAct: function(tickEvent) {
@@ -25,8 +55,15 @@ var EnemyFactory = Class.create({
 	}
 	,
 	_spawnNextEnemy: function() {
-		// For now, we only have 1 enemy type:
-		var enemyCtor = Slug;
+		var enemyCtor;
+		if (this.enemyPool.length === 1) {
+			enemyCtor = this.enemyPool[0];
+		} else {
+			// Prefer to spawn more difficult enemies:
+			var weightedRandom = (1 - Math.pow(Math.random(), Balance.enemies.spawnDifficulty));
+			var randomEnemyIndex = Math.floor(weightedRandom * this.enemyPool.length);
+			enemyCtor = this.enemyPool[randomEnemyIndex];
+		}
 
 		var game = this.game;
 		var enemy = new enemyCtor(game);

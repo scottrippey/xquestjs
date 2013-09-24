@@ -90,6 +90,9 @@ var EaselJSGraphics = Class.create({
 			case 'Slug':
 				enemyGraphics = new SlugGraphics();
 				break;
+			case 'Locust':
+				enemyGraphics = new LocustGraphics();
+				break;
 		}
 
 		if (enemyGraphics == null)

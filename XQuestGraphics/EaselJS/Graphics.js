@@ -57,9 +57,37 @@ var Graphics = {
 						strokeColor: '#000000'
 					}
 					, particles: {
-						speed: 500
+						speed: 150
 						,style: {
 							fillColor: '#009900'
+						}
+						,radius: 4
+						,friction: 0.9
+						,getAnimation: function(particle) {
+							return new Animation()
+										.duration(3)
+										.easeOut()
+										.fade({ target: particle, to: 0 })
+							;
+						}
+					}
+				}
+				,locust: {
+					radius: Balance.enemies.locust.radius + 1 //px
+					, outerFillStyle: {
+						fillColor: '#999900'
+					}
+					, innerRadius: Balance.enemies.locust.radius * (5/8)
+					, innerFillStyle: {
+						fillColor: '#DDDD00'
+					}
+					, innerStyle: {
+						strokeColor: '#000000'
+					}
+					, particles: {
+						speed: 300
+						,style: {
+							fillColor: '#999900'
 						}
 						,radius: 4
 						,friction: 0.9
