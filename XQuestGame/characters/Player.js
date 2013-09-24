@@ -86,7 +86,18 @@ var Player = Class.create({
 			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
-		Physics.bounceOffWalls(this.playerGraphics, this.radius, this.velocity, Balance.level.bounds, Balance.player.bounceDampening);
+		var wallCollision = this.game.level.levelCollision(this.location, this.radius);
+		if (wallCollision) {
+			if (wallCollision.insideGate) {
+				this.game.events.levelUp();
+			} else {
+				if (this.game.powerups.bounceOffWalls) {
+					Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
+				} else {
+					this._killPlayer();
+				}
+			}
+		}
 	}
 	, _moveBullets: function(tickEvent) {
 		var bounds = Balance.level.bounds, i = this._bullets.length;
@@ -116,5 +127,11 @@ var Player = Class.create({
 	}
 	, _destroyBullet: function(bullet, bulletIndex) {
 
+	}
+
+	, _killPlayer: function() {
+		// TEMP: for testing purposes, kill all enemies:
+		this.playerGraphics.killPlayer();
+		this.game.events.playerDied();
 	}
 });

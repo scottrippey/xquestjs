@@ -21,15 +21,19 @@ var LevelGraphics = Class.create(new createjs.Shape(), {
 	openGate: function() {
 		this.gateOpen = true;
 	}
+	,
+	closeGate: function() {
+		this.gateOpen = false;
+	}
 
 	,
 	onTick: function(tickEvent){
 		this.graphics.clear();
-		this._drawBounds();
+		this._drawWalls();
 		this._drawGate();
 	}
 	,
-	_drawBounds: function() {
+	_drawWalls: function() {
 		var g = this.graphics
 			, level = Graphics.level
 			, bounds = Balance.level.bounds
@@ -95,5 +99,37 @@ var LevelGraphics = Class.create(new createjs.Shape(), {
 			graphics.lineTo(pos.x, pos.y);
 		}
 		graphics.endStroke();
+	}
+
+	,
+	/**
+	 * Detects if the location is outside the level's bounds, or if it's inside the gate.
+	 * @param location
+	 * @param radius
+	 * @returns String - Either: null, 'level-wall', 'open-gate', or 'closed-gate'
+	 */
+	levelCollision: function(location, radius) {
+		var bounds = Balance.level.bounds;
+		var wall = Physics.checkBounds(location, radius, bounds);
+
+		if (!wall) return null;
+
+		// Detect collision with the gate:
+		var isWithinGateLimits = (wall.edge === 'top' && (location.x >= this.gateStart.x) && (location.x <= this.gateEnd.x));
+		if (isWithinGateLimits) {
+			if (!this.gateOpen) {
+				wall.touchingGate = true;
+			} else {
+				var touchingGateStart = Physics.distanceTest(location, this.gateStart, radius);
+				var touchingGateEnd = Physics.distanceTest(location, this.gateEnd, radius);
+				if (!touchingGateStart && !touchingGateEnd) {
+					wall.insideGate = true;
+				}
+			}
+
+		}
+
+		return wall;
+
 	}
 });

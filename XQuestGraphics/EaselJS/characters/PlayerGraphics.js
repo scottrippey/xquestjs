@@ -20,4 +20,11 @@ var PlayerGraphics = Class.create(new createjs.Shape(), {
 	onTick: function(tickEvent) {
 		this.rotation += (Graphics.player.spinRate * tickEvent.deltaSeconds);
 	}
+	,
+	killPlayer: function() {
+		// TODO.
+
+		// TEMP:
+		Graphics.player.innerStyle.fillColor = 'red';
+	}
 });

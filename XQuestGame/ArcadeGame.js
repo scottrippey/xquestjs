@@ -1,6 +1,7 @@
 var ArcadeGame = Class.create(new BaseGame(), {
 	player: null
 	, level: null
+	, powerups: null
 
 	,
 	initialize: function(canvas) {
@@ -19,6 +20,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this._createEnemyFactory();
 		this._createCrystals();
 		this._setupGameEvents();
+		this._setupPowerups();
 	}
 	,
 	_createPlayer: function() {
@@ -43,6 +45,12 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.crystals.createCrystals(Balance.crystals.quantity);
 
 	}
+	,
+	_setupPowerups: function() {
+		this.powerups = {
+			bounceOffWalls: true // Temporary, until player can die
+		};
+	}
 
 	,
 	_setupGameEvents: function() {
@@ -51,7 +59,18 @@ var ArcadeGame = Class.create(new BaseGame(), {
 				this.level.openGate();
 			}
 		}.bind(this));
+		this.events.onLevelUp(this._levelUp.bind(this));
 
+	}
+	,
+	_levelUp: function() {
+
+		// TEMP: for now, let's just kill all enemies:
+		this.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
+
+		this.level.closeGate();
+
+		this.crystals.createCrystals(Balance.crystals.quantity);
 	}
 
 	,

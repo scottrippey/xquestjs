@@ -40,38 +40,62 @@ var Physics = {
 	}
 	,
 	/**
-	 * Inverts the velocity and position when the player hits the bounds.
+	 * Inverts the velocity and position when the location hits the bounds.
 	 */
-	bounceOffWalls: function(player, radius, velocity, bounds, dampening) {
-		var bounces = 0;
-		var leftEdge = (player.x - radius) - (bounds.x)
-			,rightEdge = (player.x + radius) - (bounds.x + bounds.width);
-		if (leftEdge < 0) {
-			player.x -= leftEdge*2;
-			velocity.x *= -1;
-			bounces++;
-		} else if (rightEdge > 0) {
-			player.x -= rightEdge*2;
-			velocity.x *= -1;
-			bounces++;
+	bounceOffWalls: function(location, radius, velocity, bounds, dampening) {
+		var wall = this.checkBounds(location, radius, bounds);
+		if (wall) {
+			this.bounceOffWall(wall, location, velocity, dampening);
 		}
-		var topEdge = (player.y - radius) - (bounds.y)
-			,bottomEdge = (player.y + radius) - (bounds.y + bounds.height);
-		if (topEdge < 0) {
-			player.y -= topEdge*2;
-			velocity.y *= -1;
-			bounces++;
-		} else if (bottomEdge > 0) {
-			player.y -= bottomEdge*2;
-			velocity.y *= -1;
-			bounces++;
+		return wall;
+	}
+	,
+	checkBounds: function(location, radius, bounds) {
+		var leftEdge = (location.x - radius) - (bounds.x);
+		if (leftEdge < 0) {
+			return { edge: 'left', distance: leftEdge };
 		}
 
-		if (bounces && dampening) {
-			while (bounces--) {
-				velocity.x *= (1 - dampening);
-				velocity.y *= (1 - dampening);
-			}
+		var rightEdge = (location.x + radius) - (bounds.x + bounds.width);
+		if (rightEdge > 0) {
+			return { edge: 'right', distance: rightEdge };
+		}
+
+		var topEdge = (location.y - radius) - (bounds.y);
+		if (topEdge < 0) {
+			return { edge: 'top', distance: topEdge };
+		}
+
+		var bottomEdge = (location.y + radius) - (bounds.y + bounds.height);
+		if (bottomEdge > 0) {
+			return { edge: 'bottom', distance: bottomEdge };
+		}
+
+		return null;
+	}
+	,
+	bounceOffWall: function(wall, location, velocity, dampening) {
+		switch (wall.edge) {
+			case 'left':
+				location.x -= wall.distance * 2;
+				velocity.x *= -1;
+				break;
+			case 'right':
+				location.x -= wall.distance * 2;
+				velocity.x *= -1;
+				break;
+			case 'top':
+				location.y -= wall.distance * 2;
+				velocity.y *= -1;
+				break;
+			case 'bottom':
+				location.y -= wall.distance * 2;
+				velocity.y *= -1;
+				break;
+		}
+		if (dampening) {
+			velocity.x *= (1 - dampening);
+			velocity.y *= (1 - dampening);
 		}
 	}
 
