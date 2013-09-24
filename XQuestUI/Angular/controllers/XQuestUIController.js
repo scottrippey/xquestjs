@@ -21,13 +21,17 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this._onWindowResize();
 			}
 			, _onWindowResize: function() {
-				var clientArea = $document[0];
-				this.windowSize = { width: clientArea.width, height: clientArea.height };
+				this.windowSize = null;
 			}
 
 			, onMouseMove: function(event) {
 				if (!this.currentGame)
 					return;
+
+				if (this.windowSize === null) {
+					var element = event.currentTarget;
+					this.windowSize = { width: element.clientWidth, height: element.clientHeight };
+				}
 
 				var mousePosition = { x: event.clientX, y: event.clientY };
 				var delta = this._updateMousePosition(mousePosition);
@@ -51,7 +55,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				return delta;
 			}
 			, _adjustForSensitivity: function(delta, mousePosition, windowSize) {
-				var sensitivity = 3
+				var sensitivity = 1
 					, biasSensitivity = 2;
 
 				var distanceFromCenter = {
