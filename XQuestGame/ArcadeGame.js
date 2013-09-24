@@ -1,81 +1,94 @@
 var ArcadeGame = Class.create(new BaseGame(), {
 	player: null
-	, level: null
+	, levelGraphics: null
 	, powerups: null
+	, currentLevel: 0
 
 	,
 	initialize: function(canvas) {
-		this.initializeGame(canvas);
+		// Since all other classes use 'this.game', this will provide consistency:
+		this.game = this;
 
+		this.initializeGame(canvas);
 		this.addGameItem(this);
+
+		this._setupGameEvents();
+		this._setupLevelGraphics();
+		this._setupPlayer();
+		this._setupEnemyFactory();
+		this._setupCrystals();
+		this._setupPowerups();
+
 		this._startGame();
 	}
 	,
 	_startGame: function() {
-		var game = this;
-		this.level = game.gfx.createLevelGraphics();
-		this.level.setGateWidth(Balance.gate.startingWidth);
-
-		this._createPlayer();
-		this._createEnemyFactory();
-		this._createCrystals();
-		this._setupGameEvents();
-		this._setupPowerups();
+		this.currentLevel = 1;
+		this._startLevel();
 	}
 	,
-	_createPlayer: function() {
-		var game = this;
-		game.player = new Player(game);
-		var bounds = Balance.level.bounds, middleOfGame = {
-			x:bounds.x + (bounds.width / 2)
-			,y:bounds.y + (bounds.height / 2)
-		};
-		game.player.moveTo(middleOfGame.x, middleOfGame.y);
-		this.addGameItem(game.player);
+	_setupLevelGraphics: function() {
+		this.game.levelGraphics = this.game.gfx.createLevelGraphics();
 	}
 	,
-	_createEnemyFactory: function() {
-		var game = this;
-		game.enemies = new EnemyFactory(game);
-		this.addGameItem(game.enemies);
+	_setupPlayer: function() {
+		this.game.player = new Player(this.game);
+		this.game.addGameItem(this.game.player);
 	}
 	,
-	_createCrystals: function() {
-		this.crystals = new Crystals(this);
-		this.crystals.createCrystals(Balance.crystals.quantity);
-
+	_setupEnemyFactory: function() {
+		this.game.enemies = new EnemyFactory(this.game);
+		this.addGameItem(this.game.enemies);
+	}
+	,
+	_setupCrystals: function() {
+		this.game.crystals = new Crystals(this.game);
 	}
 	,
 	_setupPowerups: function() {
-		this.powerups = {
+		this.game.powerups = {
 			bounceOffWalls: true // Temporary, until player can die
 		};
 	}
 
 	,
 	_setupGameEvents: function() {
-		this.events.onCrystalsGathered(function(crystalCount) {
+		this.game.events.onCrystalsGathered(function(crystalCount) {
 			if (crystalCount === 0) {
-				this.level.openGate();
+				this.game.levelGraphics.openGate();
 			}
 		}.bind(this));
-		this.events.onLevelUp(this._levelUp.bind(this));
+		this.game.events.onLevelUp(this._levelUp.bind(this));
 
 	}
 	,
 	_levelUp: function() {
 
 		// TEMP: for now, let's just kill all enemies:
-		this.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
+		this.game.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
 
-		this.level.closeGate();
+		this.currentLevel++;
+		this._startLevel();
+	}
+	,
+	_startLevel: function() {
+		this.game.levelGraphics.closeGate();
+		this.game.levelGraphics.setGateWidth(Balance.gate.startingWidth);
 
-		this.crystals.createCrystals(Balance.crystals.quantity);
+		this.game.crystals.createCrystals(Balance.crystals.quantity);
+
+		var bounds = Balance.level.bounds
+			, middleOfGame = {
+				x: bounds.x + (bounds.width / 2)
+				,y: bounds.y + (bounds.height / 2)
+			};
+		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
+		this.game.player.cancelVelocity();
 	}
 
 	,
 	onAct: function(tickEvent) {
-		this.gfx.followPlayer(this.player.location);
+		this.game.gfx.followPlayer(this.game.player.location);
 	}
 
 });

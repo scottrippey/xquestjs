@@ -1,5 +1,10 @@
 var Player = Class.create({
-
+	game: null
+	, velocity: null
+	, engaged: false
+	, _bullets: null
+	, playerGraphics: null
+	,
 	initialize: function(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
@@ -8,16 +13,24 @@ var Player = Class.create({
 
 		this._setupPlayerGraphics();
 	}
-	, _setupPlayerGraphics: function() {
+	,
+	_setupPlayerGraphics: function() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
 		this.location = this.playerGraphics;
 		this.radius = Balance.player.radius;
 	}
-	, moveTo: function(x, y) {
+	,
+	moveTo: function(x, y) {
 		this.playerGraphics.moveTo(x, y);
 	}
+	,
+	cancelVelocity: function() {
+		this.velocity.x = 0;
+		this.velocity.y = 0;
+	}
 
-	, onInput: function(tickEvent) {
+	,
+	onInput: function(tickEvent) {
 		var results = this.inputResults = {
 			acceleration: { x: 0, y: 0 }
 			, engaged: this.engaged
@@ -50,7 +63,8 @@ var Player = Class.create({
 
 		this._analyzeInput();
 	}
-	, _analyzeInput: function() {
+	,
+	_analyzeInput: function() {
 		if (this.inputResults.engaged !== this.engaged) {
 			this.engaged = this.inputResults.engaged;
 		}
@@ -60,7 +74,8 @@ var Player = Class.create({
 			this._addBullet(i);
 		}
 	}
-	, _addBullet: function(index) {
+	,
+	_addBullet: function(index) {
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
 		bulletGfx.velocity = {
@@ -72,11 +87,13 @@ var Player = Class.create({
 		this._bullets.push(bulletGfx);
 	}
 
-	, onMove: function(tickEvent) {
+	,
+	onMove: function(tickEvent) {
 		this._movePlayer(tickEvent);
 		this._moveBullets(tickEvent);
 	}
-	, _movePlayer: function(tickEvent) {
+	,
+	_movePlayer: function(tickEvent) {
 		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 		if (this.inputResults.acceleration) {
 			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
@@ -86,7 +103,7 @@ var Player = Class.create({
 			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
-		var wallCollision = this.game.level.levelCollision(this.location, this.radius);
+		var wallCollision = this.game.levelGraphics.levelCollision(this.location, this.radius);
 		if (wallCollision) {
 			if (wallCollision.insideGate) {
 				this.game.events.levelUp();
@@ -99,7 +116,8 @@ var Player = Class.create({
 			}
 		}
 	}
-	, _moveBullets: function(tickEvent) {
+	,
+	_moveBullets: function(tickEvent) {
 		var bounds = Balance.level.bounds, i = this._bullets.length;
 		while (i--) {
 			var bulletGfx = this._bullets[i];
@@ -112,7 +130,8 @@ var Player = Class.create({
 	}
 
 
-	, onAct: function(tickEvent) {
+	,
+	onAct: function(tickEvent) {
 		if (this._bullets.length) {
 			if (this._bullets.length >= 2) {
 				Physics.sortByLocation(this._bullets);
@@ -125,11 +144,13 @@ var Player = Class.create({
 		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, null);
 
 	}
-	, _destroyBullet: function(bullet, bulletIndex) {
+	,
+	_destroyBullet: function(bullet, bulletIndex) {
 
 	}
 
-	, _killPlayer: function() {
+	,
+	_killPlayer: function() {
 		// TEMP: for testing purposes, kill all enemies:
 		this.playerGraphics.killPlayer();
 		this.game.events.playerDied();
