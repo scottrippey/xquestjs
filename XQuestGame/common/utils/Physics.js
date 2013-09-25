@@ -108,19 +108,52 @@ var Physics = {
 	}
 
 	,
-	distanceTest: function(pointA, pointB, maxDistance) {
+	distanceTest: function(pointA, pointB, testDistance) {
 		var dx, dy;
-		dx = Math.abs(pointA.x - pointB.x);
-		if (dx <= maxDistance) {
-			dy = Math.abs(pointA.y - pointB.y);
-			if (dy <= maxDistance) {
-				var realDistance = Math.sqrt(dx * dx + dy * dy);
-				if (realDistance <= maxDistance)
-					return true;
+		dx = (pointA.x - pointB.x);
+		if (Math.abs(dx) <= testDistance) {
+			dy = (pointA.y - pointB.y);
+			if (Math.abs(dy) <= testDistance) {
+				var delta = { x: dx, y: dy };
+				delta.distance = Physics.hypotenuse(delta);
+				if (delta.distance <= testDistance)
+					return delta;
 			}
 		}
-		return false;
+		return null;
 	}
+	,
+	bounceOffPoint: function(location, velocity, bouncePoint, radius, dampening) {
+		// This algorithm is not too accurate.
+		// It bounces straight away from the bouncePoint,
+		// not taking into account the angle of collision.
+
+		var diff = {
+			x: location.x - bouncePoint.x
+			,y: location.y - bouncePoint.y
+		};
+
+		var hv = Physics.hypotenuse(velocity)
+			,hd = Physics.hypotenuse(diff)
+			,vScale = hv/hd
+			,lScale = radius/hd;
+
+		velocity.x = diff.x * vScale;
+		velocity.y = diff.y * vScale;
+
+		location.x = bouncePoint.x + diff.x * lScale;
+		location.y = bouncePoint.y + diff.y * lScale;
+
+		if (dampening) {
+			velocity.x *= (1 - dampening);
+			velocity.y *= (1 - dampening);
+		}
+	}
+	,
+	hypotenuse: function(point) {
+		return Math.sqrt(point.x * point.x + point.y * point.y);
+	}
+
 
 	,
 	sortByLocation: function(points) {

@@ -106,7 +106,11 @@ var Player = Class.create({
 		var wallCollision = this.game.levelGraphics.levelCollision(this.location, this.radius);
 		if (wallCollision) {
 			if (wallCollision.insideGate) {
-				this.game.events.levelUp();
+				if (wallCollision.insideGateDistance >= this.radius * 2) {
+					this.game.events.levelUp();
+				} else if (wallCollision.touchingGate) {
+					Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
+				}
 			} else {
 				if (this.game.powerups.bounceOffWalls) {
 					Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);

@@ -115,15 +115,16 @@ var LevelGraphics = Class.create(new createjs.Shape(), {
 		if (!wall) return null;
 
 		// Detect collision with the gate:
-		var isWithinGateLimits = (wall.edge === 'top' && (location.x >= this.gateStart.x) && (location.x <= this.gateEnd.x));
-		if (isWithinGateLimits) {
-			if (!this.gateOpen) {
-				wall.touchingGate = true;
-			} else {
-				var touchingGateStart = Physics.distanceTest(location, this.gateStart, radius);
-				var touchingGateEnd = Physics.distanceTest(location, this.gateEnd, radius);
-				if (!touchingGateStart && !touchingGateEnd) {
-					wall.insideGate = true;
+		var insideGate = (wall.edge === 'top' && (location.x >= this.gateStart.x) && (location.x <= this.gateEnd.x));
+		if (insideGate) {
+			if (this.gateOpen) {
+				wall.insideGate = true;
+				wall.insideGateDistance = -wall.distance;
+
+				if (Physics.distanceTest(location, this.gateStart, radius)) {
+					wall.touchingGate = this.gateStart;
+				} else if (Physics.distanceTest(location, this.gateEnd, radius)) {
+					wall.touchingGate = this.gateEnd;
 				}
 			}
 
