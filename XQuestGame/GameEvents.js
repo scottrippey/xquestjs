@@ -18,12 +18,4 @@ var GameEvents = Class.create({
 	onLevelUp: function(callback) {
 		this._events.addEvent('levelUp', callback);
 	}
-	,
-	playerDied: function() {
-		this._events.fireEvent('playerDied', arguments);
-	}
-	,
-	onPlayerDied: function(callback) {
-		this._events.addEvent('playerDied', callback);
-	}
 });

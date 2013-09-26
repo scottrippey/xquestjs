@@ -115,7 +115,7 @@ var Player = Class.create({
 				if (this.game.powerups.bounceOffWalls) {
 					Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
 				} else {
-					this._killPlayer();
+					this.game.killPlayer('wall');
 				}
 			}
 		}
@@ -154,9 +154,7 @@ var Player = Class.create({
 	}
 
 	,
-	_killPlayer: function() {
-		// TEMP: for testing purposes, kill all enemies:
-		this.playerGraphics.killPlayer();
-		this.game.events.playerDied();
+	killPlayerGraphics: function() {
+		this.playerGraphics.killPlayerGraphics();
 	}
 });

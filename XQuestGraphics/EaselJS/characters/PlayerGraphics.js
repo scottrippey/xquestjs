@@ -21,7 +21,7 @@ var PlayerGraphics = Class.create(new createjs.Shape(), {
 		this.rotation += (Graphics.player.spinRate * tickEvent.deltaSeconds);
 	}
 	,
-	killPlayer: function() {
+	killPlayerGraphics: function() {
 		// TODO.
 
 		// TEMP:

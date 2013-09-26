@@ -91,4 +91,10 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.game.gfx.followPlayer(this.game.player.location);
 	}
 
+
+	,
+	killPlayer: function(reason) {
+		this.player.killPlayerGraphics();
+	}
+
 });
