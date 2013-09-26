@@ -52,14 +52,6 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	}
 
 	,
-	_setupGameEvents: function() {
-		this.game.events.onCrystalsGathered(function(crystalCount) {
-			if (crystalCount === 0) {
-				this.game.levelGraphics.openGate();
-			}
-		}.bind(this));
-	}
-	,
 	_startLevel: function() {
 		this.game.levelGraphics.closeGate();
 		this.game.levelGraphics.setGateWidth(Balance.gate.startingWidth);
@@ -87,7 +79,8 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.player.killPlayerGraphics();
 	}
 
-	, levelUp: function() {
+	,
+	levelUp: function() {
 		// TEMP: for now, let's just kill all enemies:
 		this.game.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
 
@@ -95,4 +88,11 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this._startLevel();
 	}
 
-});
+	,
+	crystalsGathered: function(remainingCrystals, gatheredCrystals) {
+		if (remainingCrystals === 0) {
+			this.game.levelGraphics.openGate();
+		}
+	}
+
+	});

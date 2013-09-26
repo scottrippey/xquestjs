@@ -36,8 +36,9 @@ var Crystals = Class.create({
 			crystalsGathered++;
 		}.bind(this));
 
-		if (crystalsGathered)
-			this.game.events.crystalsGathered(this._crystals.length, crystalsGathered);
+		if (crystalsGathered) {
+			this.game.crystalsGathered(this._crystals.length, crystalsGathered);
+		}
 	}
 	,
 	onDraw: function(tickEvent) {

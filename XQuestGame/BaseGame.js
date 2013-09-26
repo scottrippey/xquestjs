@@ -2,21 +2,15 @@ var BaseGame = Class.create(new Events(), {
 	gfx: null
 	, input: null
 	, timer: null
-	, events: null
 	,
 	initializeGame: function(canvas) {
 		if (!canvas)
 			console.error("You must provide a Canvas element!");
 
-		this._setupBaseEvents();
 		this._setupHandlers();
 		this._setupGraphics(canvas);
 		this._setupInput();
 		this._setupTimer();
-	}
-	,
-	_setupBaseEvents: function() {
-		this.events = new GameEvents();
 	}
 	,
 	_setupHandlers: function() {
