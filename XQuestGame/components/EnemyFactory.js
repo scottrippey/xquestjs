@@ -1,11 +1,7 @@
 var EnemyFactory = Class.create({
-	enemyLineup: null
-	, enemyPool: null
-	, _enemies: []
-	, _nextEnemySpawn: null
-	,
 	initialize: function(game) {
 		this.game = game;
+		this.enemies = [];
 
 		this._setupEnemyLineup();
 	}
@@ -33,20 +29,20 @@ var EnemyFactory = Class.create({
 	}
 	,
 	onAct: function(tickEvent) {
-		if (this._nextEnemySpawn == null) {
+		if (this.nextEnemySpawn == null) {
 			this._calculateNextEnemySpawn(tickEvent.runTime);
-		} else if (this._nextEnemySpawn <= tickEvent.runTime) {
+		} else if (this.nextEnemySpawn <= tickEvent.runTime) {
 			this._spawnNextEnemy();
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		}
-		if (this._enemies.length >= 2) {
-			Physics.sortByLocation(this._enemies);
+		if (this.enemies.length >= 2) {
+			Physics.sortByLocation(this.enemies);
 		}
 	}
 	,
 	_calculateNextEnemySpawn: function(runTime) {
 		var spawnRate = Balance.enemies.spawnRate();
-		this._nextEnemySpawn = runTime + spawnRate * 1000;
+		this.nextEnemySpawn = runTime + spawnRate * 1000;
 	}
 	,
 	_spawnNextEnemy: function() {
@@ -62,7 +58,7 @@ var EnemyFactory = Class.create({
 
 		var game = this.game;
 		var enemy = new enemyCtor(game);
-		this._enemies.push(enemy);
+		this.enemies.push(enemy);
 		game.addGameItem(enemy);
 
 		var bounds = Balance.level.bounds
@@ -76,7 +72,7 @@ var EnemyFactory = Class.create({
 	}
 	,
 	killEnemiesOnCollision: function(sortedItems, maxItemRadius, collisionCallback) {
-		var enemies = this._enemies;
+		var enemies = this.enemies;
 		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
 		Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
@@ -89,7 +85,7 @@ var EnemyFactory = Class.create({
 	}
 	,
 	_killEnemy: function(enemy, enemyIndex) {
-		this._enemies.splice(enemyIndex, 1);
+		this.enemies.splice(enemyIndex, 1);
 		enemy.setEnemyState('killed');
 	}
 });

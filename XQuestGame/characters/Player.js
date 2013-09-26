@@ -1,15 +1,11 @@
 var Player = Class.create({
-	game: null
-	, velocity: null
-	, engaged: false
-	, _bullets: null
-	, playerGraphics: null
+	location: null
 	,
 	initialize: function(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
-		this._bullets = [];
+		this.bullets = [];
 
 		this._setupPlayerGraphics();
 	}
@@ -84,7 +80,7 @@ var Player = Class.create({
 		};
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = Balance.bullets.radius;
-		this._bullets.push(bulletGfx);
+		this.bullets.push(bulletGfx);
 	}
 
 	,
@@ -122,13 +118,13 @@ var Player = Class.create({
 	}
 	,
 	_moveBullets: function(tickEvent) {
-		var bounds = Balance.level.bounds, i = this._bullets.length;
+		var bounds = Balance.level.bounds, i = this.bullets.length;
 		while (i--) {
-			var bulletGfx = this._bullets[i];
+			var bulletGfx = this.bullets[i];
 			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 			if (!Physics.pointIsInBounds(bulletGfx, bounds)) {
 				bulletGfx.destroyBullet();
-				this._bullets.splice(i, 1);
+				this.bullets.splice(i, 1);
 			}
 		}
 	}
@@ -136,11 +132,11 @@ var Player = Class.create({
 
 	,
 	onAct: function(tickEvent) {
-		if (this._bullets.length) {
-			if (this._bullets.length >= 2) {
-				Physics.sortByLocation(this._bullets);
+		if (this.bullets.length) {
+			if (this.bullets.length >= 2) {
+				Physics.sortByLocation(this.bullets);
 			}
-			this.game.enemies.killEnemiesOnCollision(this._bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
+			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
 				this._destroyBullet(bullet, bi);
 			}.bind(this));
 		}

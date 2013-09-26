@@ -2,7 +2,6 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	player: null
 	, levelGraphics: null
 	, powerups: null
-	, currentLevel: 0
 
 	,
 	initialize: function(canvas) {
@@ -12,7 +11,6 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.initializeGame(canvas);
 		this.addGameItem(this);
 
-		this._setupGameEvents();
 		this._setupLevelGraphics();
 		this._setupPlayer();
 		this._setupEnemyFactory();
@@ -28,25 +26,25 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	}
 	,
 	_setupLevelGraphics: function() {
-		this.game.levelGraphics = this.game.gfx.createLevelGraphics();
+		this.levelGraphics = this.game.gfx.createLevelGraphics();
 	}
 	,
 	_setupPlayer: function() {
-		this.game.player = new Player(this.game);
-		this.game.addGameItem(this.game.player);
+		this.player = new Player(this.game);
+		this.game.addGameItem(this.player);
 	}
 	,
 	_setupEnemyFactory: function() {
-		this.game.enemies = new EnemyFactory(this.game);
-		this.addGameItem(this.game.enemies);
+		this.enemies = new EnemyFactory(this.game);
+		this.addGameItem(this.enemies);
 	}
 	,
 	_setupCrystals: function() {
-		this.game.crystals = new Crystals(this.game);
+		this.crystals = new Crystals(this.game);
 	}
 	,
 	_setupPowerups: function() {
-		this.game.powerups = {
+		this.powerups = {
 			bounceOffWalls: true // Temporary, until player can die
 		};
 	}
