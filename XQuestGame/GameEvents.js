@@ -10,12 +10,4 @@ var GameEvents = Class.create({
 	onCrystalsGathered: function(callback) {
 		this._events.addEvent('crystalsGathered', callback);
 	}
-	,
-	levelUp: function() {
-		this._events.fireEvent('levelUp', arguments);
-	}
-	,
-	onLevelUp: function(callback) {
-		this._events.addEvent('levelUp', callback);
-	}
 });

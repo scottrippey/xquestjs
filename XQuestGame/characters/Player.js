@@ -107,7 +107,7 @@ var Player = Class.create({
 		if (wallCollision) {
 			if (wallCollision.insideGate) {
 				if (wallCollision.insideGateDistance >= this.radius * 2) {
-					this.game.events.levelUp();
+					this.game.levelUp();
 				} else if (wallCollision.touchingGate) {
 					Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
 				}

@@ -8,9 +8,6 @@ var EnemyFactory = Class.create({
 		this.game = game;
 
 		this._setupEnemyLineup();
-
-		this.game.events.onLevelUp(this._onLevelUp.bind(this));
-		this._onLevelUp();
 	}
 	,
 	_setupEnemyLineup: function() {
@@ -20,9 +17,7 @@ var EnemyFactory = Class.create({
 		];
 	}
 	,
-	_onLevelUp: function() {
-		var currentLevel = this.game.currentLevel;
-
+	setLevel: function(currentLevel) {
 		var currentEnemyLineupIndex = Math.floor(currentLevel / 2);
 
 		if (currentEnemyLineupIndex >= this.enemyLineup.length) {

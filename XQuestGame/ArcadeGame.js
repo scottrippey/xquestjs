@@ -58,17 +58,6 @@ var ArcadeGame = Class.create(new BaseGame(), {
 				this.game.levelGraphics.openGate();
 			}
 		}.bind(this));
-		this.game.events.onLevelUp(this._levelUp.bind(this));
-
-	}
-	,
-	_levelUp: function() {
-
-		// TEMP: for now, let's just kill all enemies:
-		this.game.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
-
-		this.currentLevel++;
-		this._startLevel();
 	}
 	,
 	_startLevel: function() {
@@ -76,6 +65,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.game.levelGraphics.setGateWidth(Balance.gate.startingWidth);
 
 		this.game.crystals.createCrystals(Balance.crystals.quantity);
+		this.game.enemies.setLevel(this.currentLevel);
 
 		var bounds = Balance.level.bounds
 			, middleOfGame = {
@@ -95,6 +85,14 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	,
 	killPlayer: function(reason) {
 		this.player.killPlayerGraphics();
+	}
+
+	, levelUp: function() {
+		// TEMP: for now, let's just kill all enemies:
+		this.game.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
+
+		this.currentLevel++;
+		this._startLevel();
 	}
 
 });
