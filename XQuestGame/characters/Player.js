@@ -115,7 +115,7 @@ var Player = Class.create({
 				if (this.game.powerups.bounceOffWalls) {
 					Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
 				} else {
-					this.game.killPlayer('wall');
+					this.game.killPlayer();
 				}
 			}
 		}

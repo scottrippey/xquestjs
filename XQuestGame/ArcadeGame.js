@@ -75,7 +75,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 
 
 	,
-	killPlayer: function(reason) {
+	killPlayer: function() {
 		this.player.killPlayerGraphics();
 	}
 
