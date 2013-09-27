@@ -22,6 +22,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	,
 	_startGame: function() {
 		this.currentLevel = 1;
+		this._arrangeLevel();
 		this._startLevel();
 	}
 	,
@@ -50,25 +51,37 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	}
 
 	,
-	_startLevel: function() {
+	_arrangeLevel: function() {
 		this.game.levelGraphics.closeGate();
 		this.game.levelGraphics.setGateWidth(Balance.gate.startingWidth);
 
 		this.game.crystals.createCrystals(Balance.crystals.quantity);
 		this.game.enemies.setLevel(this.currentLevel);
+	}
+	,
+	_startLevel: function() {
+		var middleOfGame = this._getMiddleOfGame();
+		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
+		this.game.player.cancelVelocity();
+		this.game.player.showPlayer(true);
 
+		this.followPlayer = true;
+	}
+	,
+	_getMiddleOfGame: function() {
 		var bounds = Balance.level.bounds
 			, middleOfGame = {
 				x: bounds.x + (bounds.width / 2)
 				,y: bounds.y + (bounds.height / 2)
 			};
-		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
-		this.game.player.cancelVelocity();
+		return middleOfGame;
 	}
 
 	,
 	onAct: function(tickEvent) {
-		this.game.gfx.followPlayer(this.game.player.location);
+		if (this.followPlayer)
+			this.game.gfx.followPlayer(this.game.player.location);
+
 	}
 
 
@@ -79,11 +92,31 @@ var ArcadeGame = Class.create(new BaseGame(), {
 
 	,
 	levelUp: function() {
+		this.game.player.showPlayer(false);
+
 		// TEMP: for now, let's just kill all enemies:
 		this.game.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
 
 		this.currentLevel++;
-		this._startLevel();
+
+		this._arrangeLevel();
+		this._animateBackToCenter().queue(function() {
+			this._startLevel();
+		}.bind(this));
+	}
+	,
+	_animateBackToCenter: function() {
+		var visibleMiddle = this.game.gfx.getVisibleMiddle()
+			, middleOfGame = this._getMiddleOfGame();
+
+		this.followPlayer = false;
+		var animation = new Animation()
+			.duration(2).ease()
+			.tween(function(p) {
+				this.game.gfx.followPlayer(p);
+			}.bind(this), Keyframes.fromPoints([ visibleMiddle, middleOfGame ]));
+		this.game.gfx.addAnimation(animation);
+		return animation;
 	}
 
 	,

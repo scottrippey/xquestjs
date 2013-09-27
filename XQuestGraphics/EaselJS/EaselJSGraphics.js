@@ -28,6 +28,12 @@ var EaselJSGraphics = Class.create({
 		this.particleFactory = new EaselJSGraphics.ParticleFactory(this);
 	}
 	,
+	onMove: function(tickEvent) {
+		if (this.animations) {
+			Animation.updateAndEliminate(this.animations, tickEvent.deltaSeconds);
+		}
+	}
+	,
 	onAct: function(tickEvent) {
 		this.particleFactory.updateParticles(tickEvent);
 	}
@@ -49,17 +55,26 @@ var EaselJSGraphics = Class.create({
 			};
 		}
 
-		var offsetX = Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth/2), this._maxOffset.x)
-			,offsetY = Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight/2), this._maxOffset.y);
+		this._offset = {
+			x: Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth/2), this._maxOffset.x)
+			,y: Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight/2), this._maxOffset.y)
+		};
 
-		this.layers.background.x = -offsetX;
-		this.layers.characters.x = -offsetX;
-		this.layers.effects.x = -offsetX;
+		this.layers.background.x = -this._offset.x;
+		this.layers.characters.x = -this._offset.x;
+		this.layers.effects.x = -this._offset.x;
 
-		this.layers.background.y = -offsetY;
-		this.layers.characters.y = -offsetY;
-		this.layers.effects.y = -offsetY;
-
+		this.layers.background.y = -this._offset.y;
+		this.layers.characters.y = -this._offset.y;
+		this.layers.effects.y = -this._offset.y;
+	}
+	,
+	getVisibleMiddle: function() {
+		var bounds = Balance.level.bounds;
+		return {
+			x: this._offset.x + bounds.visibleWidth / 2
+			,y: this._offset.y + bounds.visibleHeight / 2
+		};
 	}
 	,
 	createLevelGraphics: function() {
@@ -130,5 +145,13 @@ var EaselJSGraphics = Class.create({
 				this.layers.effects.removeChild(particle);
 			}.bind(this, particle);
 		}
+	}
+
+	,
+	addAnimation: function(animation) {
+		if (!this.animations) {
+			this.animations = [];
+		}
+		this.animations.push(animation);
 	}
 });

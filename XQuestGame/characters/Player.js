@@ -90,6 +90,9 @@ var Player = Class.create({
 	}
 	,
 	_movePlayer: function(tickEvent) {
+		if (!this.playerGraphics.visible)
+			return;
+
 		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 		if (this.inputResults.acceleration) {
 			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
@@ -152,5 +155,10 @@ var Player = Class.create({
 	,
 	killPlayerGraphics: function() {
 		this.playerGraphics.killPlayerGraphics();
+	}
+
+	,
+	showPlayer: function(show) {
+		this.playerGraphics.toggleVisible(show !== false);
 	}
 });

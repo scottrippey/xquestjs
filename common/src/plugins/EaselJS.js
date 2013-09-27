@@ -24,3 +24,7 @@ createjs.Graphics.prototype.endStyle = function(styles) {
 createjs.Shape.prototype.moveTo = function(x, y) {
 	this.x = x; this.y = y;
 };
+createjs.Shape.prototype.toggleVisible = function(force) {
+	if (force === undefined) force = !this.visible;
+	this.visible = force;
+};
