@@ -152,7 +152,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				}
 				this.previousMousePosition = null;
 
-				this.currentGame.timer.pauseGame(this.paused);
+				this.currentGame.pauseGame(this.paused);
 			}
 
 		});

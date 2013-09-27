@@ -2,6 +2,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	player: null
 	, levelGraphics: null
 	, powerups: null
+	, paused: false
 
 	,
 	initialize: function(canvas) {
@@ -126,4 +127,11 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		}
 	}
 
-	});
+	,
+	pauseGame: function(paused) {
+		this.paused = (paused !== undefined) ? paused : !this.paused;
+		this.timer.pauseTimer(this.paused);
+
+		this.game.player.cancelVelocity();
+	}
+});
