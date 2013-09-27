@@ -19,19 +19,11 @@ var SlugGraphics = Class.create(new createjs.Shape(), {
 
 	}
 	,
-	killSplat: function(gfx, velocity) {
+	killSlug: function(gfx, velocity) {
 		var enemyGraphics = this;
 		gfx.removeGraphic(enemyGraphics);
 
 		var particleOptions = Graphics.enemies.splat.particles;
-		particleOptions.position = enemyGraphics;
-		particleOptions.velocity = { x: 0, y: 0 };
-
-		var particleCount = 10, partSpeed = particleOptions.speed;
-		for (var i = 0; i < particleCount; i++) {
-			particleOptions.velocity.x = velocity.x + partSpeed - 2 * partSpeed * Math.random();
-			particleOptions.velocity.y = velocity.y + partSpeed - 2 * partSpeed * Math.random();
-			gfx.addParticle(particleOptions);
-		}
+		gfx.createExplosion(enemyGraphics, velocity, particleOptions);
 	}
 });

@@ -57,7 +57,8 @@ var Graphics = {
 						strokeColor: '#000000'
 					}
 					, particles: {
-						speed: 150
+						count: 20
+						,speed: 150
 						,style: {
 							fillColor: '#009900'
 						}
@@ -85,7 +86,8 @@ var Graphics = {
 						strokeColor: '#000000'
 					}
 					, particles: {
-						speed: 300
+						count: 20
+						,speed: 300
 						,style: {
 							fillColor: '#999900'
 						}

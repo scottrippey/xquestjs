@@ -115,11 +115,20 @@ var EaselJSGraphics = Class.create({
 		return crystal;
 	}
 	,
-	addParticle: function(particleOptions) {
-		var particle = this.particleFactory.createParticle(particleOptions);
-		this.layers.effects.addChild(particle);
-		particle.destroy = function() {
-			this.layers.effects.removeChild(particle);
-		}.bind(this);
+	createExplosion: function(position, velocity, particleOptions) {
+		particleOptions.position = position;
+		particleOptions.velocity = { x: 0, y: 0 };
+
+		var particleCount = particleOptions.count, partSpeed = particleOptions.speed;
+		for (var i = 0; i < particleCount; i++) {
+			particleOptions.velocity.x = velocity.x + partSpeed - 2 * partSpeed * Math.random();
+			particleOptions.velocity.y = velocity.y + partSpeed - 2 * partSpeed * Math.random();
+
+			var particle = this.particleFactory.createParticle(particleOptions);
+			this.layers.effects.addChild(particle);
+			particle.destroy = function(particle) {
+				this.layers.effects.removeChild(particle);
+			}.bind(this, particle);
+		}
 	}
 });

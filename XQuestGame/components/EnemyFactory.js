@@ -86,6 +86,6 @@ var EnemyFactory = Class.create({
 	,
 	_killEnemy: function(enemy, enemyIndex) {
 		this.enemies.splice(enemyIndex, 1);
-		enemy.setEnemyState('killed');
+		enemy.killEnemy();
 	}
 });

@@ -44,11 +44,7 @@ var Locust = Class.create({
 
 	}
 	,
-	setEnemyState: function(state) {
-		switch (state) {
-			case "killed":
-				this.enemyGraphics.killLocust(this.game.gfx, this.velocity);
-				break;
-		}
+	killEnemy: function() {
+		this.enemyGraphics.killLocust(this.game.gfx, this.velocity);
 	}
 });

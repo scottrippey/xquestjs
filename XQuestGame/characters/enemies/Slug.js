@@ -44,11 +44,7 @@ var Slug = Class.create({
 
 	}
 	,
-	setEnemyState: function(state) {
-		switch (state) {
-			case "killed":
-				this.enemyGraphics.killSplat(this.game.gfx, this.velocity);
-				break;
-		}
+	killEnemy: function() {
+		this.enemyGraphics.killSlug(this.game.gfx, this.velocity);
 	}
 });
