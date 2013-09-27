@@ -23,23 +23,22 @@ EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 	}
 	,
 	gatherCrystal: function(playerLocation) {
+		var crystal = this;
 		this._animations.push(new Animation()
 			.duration(Graphics.crystals.gatherDuration)
 
 			.savePosition()
 			.easeIn('quint')
-			.move({ target: this, to: playerLocation })
-			.fade({ target: this, from: 0.1, to: 0 })
+			.move(crystal, playerLocation)
+			.fade(crystal, [0.1, 0])
 
 			.restorePosition()
 			.easeOut('quint')
-			.animate({ from: this.spinRate, to: Graphics.crystals.spinRateGathered, update: function(spinRate) {
-				this.spinRate = spinRate;
-			}.bind(this)})
+			.tween(function(s) { crystal.spinRate = s; }, [ crystal.spinRate, Graphics.crystals.spinRateGathered ])
 
 			.queue(function(animEvent) {
-				this._gfx.removeGraphic(this);
-			}.bind(this))
+				crystal._gfx.removeGraphic(crystal);
+			})
 		);
 	}
 });

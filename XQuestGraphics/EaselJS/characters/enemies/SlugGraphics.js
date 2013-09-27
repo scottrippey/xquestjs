@@ -24,9 +24,8 @@ Balance.onUpdate(function(mode) {
 					,friction: 0.9
 					,getAnimation: function(particle) {
 						return new Animation()
-							.duration(3)
-							.easeOut()
-							.fade({ target: particle, to: 0 })
+							.duration(3).easeOut()
+							.fade(particle, 0)
 							;
 					}
 				}

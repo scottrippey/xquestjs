@@ -89,7 +89,7 @@ EaselJSGraphics.LevelGraphics = Class.create(new createjs.Shape(), {
 		};
 		var segments = gate.segments;
 		for (var i = 1; i <= segments; i++) {
-			var pos = Animation.interpolatePoints(gateStart, gateEnd, i / segments);
+			var pos = Interpolate.points(gateStart, gateEnd, i / segments);
 			var dist = Math.min(segments - i, i) / segments
 				,deviation = dist * gate.deviation * (Math.random() - 0.5);
 			if (diff.y)
