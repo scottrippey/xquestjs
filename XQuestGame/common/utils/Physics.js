@@ -99,29 +99,7 @@ var Physics = {
 		}
 	}
 
-	,
-	pointIsInBounds: function(point, bounds) {
-		return (bounds.x <= point.x) &&
-			   (point.x <= (bounds.x + bounds.width)) &&
-			   (bounds.y <= point.y) &&
-			   (point.y <= (bounds.y + bounds.height));
-	}
 
-	,
-	distanceTest: function(pointA, pointB, testDistance) {
-		var dx, dy;
-		dx = (pointA.x - pointB.x);
-		if (Math.abs(dx) <= testDistance) {
-			dy = (pointA.y - pointB.y);
-			if (Math.abs(dy) <= testDistance) {
-				var delta = { x: dx, y: dy };
-				delta.distance = Physics.hypotenuse(delta);
-				if (delta.distance <= testDistance)
-					return delta;
-			}
-		}
-		return null;
-	}
 	,
 	bounceOffPoint: function(location, velocity, bouncePoint, radius, dampening) {
 		// This algorithm is not too accurate.
@@ -133,8 +111,8 @@ var Physics = {
 			,y: location.y - bouncePoint.y
 		};
 
-		var hv = Physics.hypotenuse(velocity)
-			,hd = Physics.hypotenuse(diff)
+		var hv = Point.hypotenuse(velocity)
+			,hd = Point.hypotenuse(diff)
 			,vScale = hv/hd
 			,lScale = radius/hd;
 
@@ -149,10 +127,6 @@ var Physics = {
 			velocity.y *= (1 - dampening);
 		}
 	}
-	,
-	hypotenuse: function(point) {
-		return Math.sqrt(point.x * point.x + point.y * point.y);
-	}
 
 
 	,
@@ -161,8 +135,8 @@ var Physics = {
 	}
 	,
 	_compareLocations: function(a, b) {
-		a = a.location.x; b = b.location.x;
-		return (a - b);
+		// Compare horizontally:
+		return (a.location.x - b.location.x);
 	}
 	,
 	detectCollisions: function(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
@@ -183,8 +157,8 @@ var Physics = {
 				bIndex--;
 				pointB = sortedPointsB[bIndex];
 			} else {
-				var bLookahead = bIndex;
-				while (bLookahead >= 0) {
+				var bLookAhead = bIndex;
+				while (bLookAhead >= 0) {
 					dx = pointA.location.x - pointB.location.x;
 					if (dx < -maxDistance) {
 						break;
@@ -195,11 +169,11 @@ var Physics = {
 						// Deep-compare:
 						var distance = Math.sqrt(dx * dx + dy * dy);
 						if (distance <= maxDistance) {
-							collisionCallback(pointA, pointB, aIndex, bLookahead, distance);
+							collisionCallback(pointA, pointB, aIndex, bLookAhead, distance);
 						}
 					}
-					bLookahead--;
-					pointB = sortedPointsB[bLookahead];
+					bLookAhead--;
+					pointB = sortedPointsB[bLookAhead];
 				}
 				pointB = sortedPointsB[bIndex];
 
@@ -210,14 +184,5 @@ var Physics = {
 		}
 	}
 
-	,
-	interpolatePoints: function(pointA, pointB, pct) {
-		if (pct === 0) return pointA;
-		if (pct === 1) return pointB;
-		return {
-			x: pointA.x + pct * (pointB.x - pointA.x)
-			,y: pointA.y + pct * (pointB.y - pointA.y)
-		};
-	}
 };
 

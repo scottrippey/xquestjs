@@ -89,7 +89,7 @@ EaselJSGraphics.LevelGraphics = Class.create(new createjs.Shape(), {
 		};
 		var segments = gate.segments;
 		for (var i = 1; i <= segments; i++) {
-			var pos = Physics.interpolatePoints(gateStart, gateEnd, i / segments);
+			var pos = Animation.interpolatePoints(gateStart, gateEnd, i / segments);
 			var dist = Math.min(segments - i, i) / segments
 				,deviation = dist * gate.deviation * (Math.random() - 0.5);
 			if (diff.y)
@@ -121,9 +121,9 @@ EaselJSGraphics.LevelGraphics = Class.create(new createjs.Shape(), {
 				wall.insideGate = true;
 				wall.insideGateDistance = -wall.distance;
 
-				if (Physics.distanceTest(location, this.gateStart, radius)) {
+				if (Point.distanceTest(location, this.gateStart, radius)) {
 					wall.touchingGate = this.gateStart;
-				} else if (Physics.distanceTest(location, this.gateEnd, radius)) {
+				} else if (Point.distanceTest(location, this.gateEnd, radius)) {
 					wall.touchingGate = this.gateEnd;
 				}
 			}

@@ -122,7 +122,7 @@ var Player = Class.create({
 		while (i--) {
 			var bulletGfx = this.bullets[i];
 			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
-			if (!Physics.pointIsInBounds(bulletGfx, bounds)) {
+			if (!Point.pointIsInBounds(bulletGfx, bounds)) {
 				bulletGfx.destroyBullet();
 				this.bullets.splice(i, 1);
 			}

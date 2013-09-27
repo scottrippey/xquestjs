@@ -85,6 +85,8 @@ _.extend(Animation.prototype, {
  * @returns {Number}
  */
 Animation.interpolate = function(from, to, pos) {
+	if (pos === 0) return from;
+	if (pos === 1) return to;
 	return from + pos * (to - from);
 };
 /**
@@ -111,6 +113,8 @@ Animation.interpolateArrays = function(from, to, pos) {
  * @returns {{x: Number, y: Number}}
  */
 Animation.interpolatePoints = function(from, to, position) {
+	if (position === 0) return from;
+	if (position === 1) return to;
 	return {
 		x: Animation.interpolate(from.x, to.x, position)
 		,y: Animation.interpolate(from.y, to.y, position)
