@@ -2,6 +2,11 @@
  * Animation Actions
  */
 _.extend(Animation.prototype, {
+	/**
+	 * Animates the `x` and `y` properties of the target.
+	 * @param moveOptions
+	 * @returns {this}
+	 */
 	move: function(moveOptions) {
 		var target = moveOptions.target;
 		if (!moveOptions.keyframes && !moveOptions.from)
@@ -14,6 +19,11 @@ _.extend(Animation.prototype, {
 		return this.animate(moveOptions);
 	}
 	,
+	/**
+	 * Animates the `color` property of the target.
+	 * @param colorOptions
+	 * @returns {this}
+	 */
 	color: function(colorOptions) {
 		var target = colorOptions.target;
 		if (!colorOptions.keyframes && !colorOptions.from)
@@ -28,6 +38,11 @@ _.extend(Animation.prototype, {
 		return this.animate(colorOptions);
 	}
 	,
+	/**
+	 * Animates the `alpha` property of the target.
+	 * @param fadeOptions
+	 * @returns {this}
+	 */
 	fade: function(fadeOptions) {
 		var target = fadeOptions.target;
 		if (!fadeOptions.keyframes && !fadeOptions.from)
@@ -38,6 +53,11 @@ _.extend(Animation.prototype, {
 		return this.animate(fadeOptions);
 	}
 	,
+	/**
+	 * Animates by calling `update` with the interpolated values.
+	 * @param animOptions
+	 * @returns {this}
+	 */
 	animate: function(animOptions) {
 		var keyframes = animOptions.keyframes || [ animOptions.from, animOptions.to ]
 			,update = animOptions.update
@@ -48,18 +68,32 @@ _.extend(Animation.prototype, {
 		if (map)
 			keyframes = _.map(keyframes, map);
 
-		return this.addAction(function(anim) {
-			var from = keyframes[(anim.keyframe) % keyframes.length]
-				,to = keyframes[(anim.keyframe + 1) % keyframes.length];
+		return this.addAction(function(animEvent) {
+			var from = keyframes[(animEvent.keyframe) % keyframes.length]
+				,to = keyframes[(animEvent.keyframe + 1) % keyframes.length];
 
-			update(interpolate(from, to, anim.position));
+			update(interpolate(from, to, animEvent.position));
 		});
 	}
 });
 
+/**
+ * Interpolates between two numbers
+ * @param {Number} from
+ * @param {Number} to
+ * @param {Number} pos
+ * @returns {Number}
+ */
 Animation.interpolate = function(from, to, pos) {
 	return from + pos * (to - from);
 };
+/**
+ * Interpolates all values between two arrays.
+ * @param {Number[]} from
+ * @param {Number[]} to
+ * @param {Number} pos
+ * @returns {Number[]}
+ */
 Animation.interpolateArrays = function(from, to, pos) {
 	var result = []
 		,l = Math.min(from.length, to.length);
@@ -68,6 +102,14 @@ Animation.interpolateArrays = function(from, to, pos) {
 	}
 	return result;
 };
+
+/**
+ * Interpolates between two points.
+ * @param {{x: Number, y: Number}} from
+ * @param {{x: Number, y: Number}} to
+ * @param {Number} position
+ * @returns {{x: Number, y: Number}}
+ */
 Animation.interpolatePoints = function(from, to, position) {
 	return {
 		x: Animation.interpolate(from.x, to.x, position)

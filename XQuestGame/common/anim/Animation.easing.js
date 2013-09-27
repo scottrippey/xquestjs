@@ -4,46 +4,64 @@
 _.extend(Animation.prototype, {
 	defaultEasing: 'swing'
 	,
+	/**
+	 * Applies an ease-in-out function to the current animation.
+	 *
+	 * @param {Easing|Function|string} [easing]
+	 * @returns {this}
+	 */
 	ease: function(easing) {
 		easing = Animation.Easing.from(easing || this.defaultEasing);
-		return this.addAction(function(anim){
-			var pos = anim.position;
+		return this.addAction(function(animEvent){
+			var pos = animEvent.position;
 			if (pos <= 0){
-				anim.position = 0;
+				animEvent.position = 0;
 			} else if (pos >= 1) {
-				anim.position = 1;
+				animEvent.position = 1;
 			} else if (pos <= 0.5) {
-				anim.position = easing(pos * 2) / 2;
+				animEvent.position = easing(pos * 2) / 2;
 			} else {
-				anim.position = 1 - easing((1 - pos) * 2) / 2;
+				animEvent.position = 1 - easing((1 - pos) * 2) / 2;
 			}
 		});
 	}
 	,
+	/**
+	 * Applies an ease-in function to the current animation.
+	 *
+	 * @param {Easing|Function|string} [easing]
+	 * @returns {this}
+	 */
 	easeIn: function(easing) {
 		easing = Animation.Easing.from(easing || this.defaultEasing);
-		return this.addAction(function(anim){
-			var pos = anim.position;
+		return this.addAction(function(animEvent){
+			var pos = animEvent.position;
 			if (pos <= 0){
-				anim.position = 0;
+				animEvent.position = 0;
 			} else if (pos >= 1) {
-				anim.position = 1;
+				animEvent.position = 1;
 			} else {
-				anim.position = easing(pos);
+				animEvent.position = easing(pos);
 			}
 		});
 	}
 	,
+	/**
+	 * Applies an ease-out function to the current animation.
+	 *
+	 * @param {Easing|Function|string} [easing]
+	 * @returns {this}
+	 */
 	easeOut: function(easing) {
 		easing = Animation.Easing.from(easing || this.defaultEasing);
-		return this.addAction(function(anim) {
-			var pos = anim.position;
+		return this.addAction(function(animEvent) {
+			var pos = animEvent.position;
 			if (pos <= 0){
-				anim.position = 0;
+				animEvent.position = 0;
 			} else if (pos >= 1) {
-				anim.position = 1;
+				animEvent.position = 1;
 			} else {
-				anim.position = 1 - easing(1 - pos);
+				animEvent.position = 1 - easing(1 - pos);
 			}
 		});
 	}

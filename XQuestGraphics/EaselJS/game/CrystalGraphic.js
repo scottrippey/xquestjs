@@ -37,7 +37,7 @@ EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 				this.spinRate = spinRate;
 			}.bind(this)})
 
-			.queue(function(anim) {
+			.queue(function(animEvent) {
 				this._gfx.removeGraphic(this);
 			}.bind(this))
 		);
