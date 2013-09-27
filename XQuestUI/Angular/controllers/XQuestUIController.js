@@ -88,6 +88,7 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 			}
 
 			, accelerate: function(acceleration) {
+				if (this.paused) return;
 				this.currentGame.input.accelerate(acceleration);
 			}
 
@@ -110,6 +111,8 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 			}
 
 			, primaryWeapon: function() {
+				if (this.paused) return;
+
 				if (this.currentGame)
 					this.currentGame.input.primaryWeapon();
 			}
