@@ -1,4 +1,4 @@
-var BulletGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.BulletGraphics = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

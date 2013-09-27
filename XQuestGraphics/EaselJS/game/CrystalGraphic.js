@@ -1,4 +1,4 @@
-var CrystalGraphic = Class.create(new createjs.Shape(), {
+EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 	initialize: function(gfx) {
 		this._gfx = gfx;
 		this._animations = [];

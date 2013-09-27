@@ -1,4 +1,4 @@
-var PlayerGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.PlayerGraphics = Class.create(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

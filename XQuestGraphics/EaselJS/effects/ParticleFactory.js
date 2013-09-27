@@ -1,4 +1,4 @@
-var ParticleFactory = Class.create({
+EaselJSGraphics.ParticleFactory = Class.create({
 	initialize: function(gfx) {
 		this.gfx = gfx;
 

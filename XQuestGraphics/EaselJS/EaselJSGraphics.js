@@ -20,12 +20,12 @@ var EaselJSGraphics = Class.create({
 	}
 	,
 	_setupBackground: function() {
-		var background = new BackgroundGraphics();
+		var background = new EaselJSGraphics.BackgroundGraphics();
 		this.layers.background.addChild(background);
 	}
 	,
 	_setupParticles: function() {
-		this.particleFactory = new ParticleFactory(this);
+		this.particleFactory = new EaselJSGraphics.ParticleFactory(this);
 	}
 	,
 	onAct: function(tickEvent) {
@@ -63,20 +63,20 @@ var EaselJSGraphics = Class.create({
 	}
 	,
 	createLevelGraphics: function() {
-		var levelGraphics = new LevelGraphics();
+		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
 		return levelGraphics;
 	}
 	,
 	createPlayerGraphics: function() {
-		var playerGraphics = new PlayerGraphics();
+		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		this.layers.characters.addChild(playerGraphics);
 		this._playerLocation = playerGraphics;
 		return playerGraphics;
 	}
 	,
 	createPlayerBullet: function() {
-		var bulletGfx = new BulletGraphics();
+		var bulletGfx = new EaselJSGraphics.BulletGraphics();
 		this.layers.effects.addChild(bulletGfx);
 		bulletGfx.destroyBullet = function() {
 			this.layers.effects.removeChild(bulletGfx);
@@ -88,10 +88,10 @@ var EaselJSGraphics = Class.create({
 		var enemyGraphics = null;
 		switch (enemyName) {
 			case 'Slug':
-				enemyGraphics = new SlugGraphics();
+				enemyGraphics = new EaselJSGraphics.SlugGraphics();
 				break;
 			case 'Locust':
-				enemyGraphics = new LocustGraphics();
+				enemyGraphics = new EaselJSGraphics.LocustGraphics();
 				break;
 		}
 
@@ -110,7 +110,7 @@ var EaselJSGraphics = Class.create({
 	}
 	,
 	createCrystalGraphic: function() {
-		var crystal = new CrystalGraphic(this);
+		var crystal = new EaselJSGraphics.CrystalGraphic(this);
 		this.layers.background.addChild(crystal);
 		return crystal;
 	}
