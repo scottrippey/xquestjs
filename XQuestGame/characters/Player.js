@@ -90,10 +90,11 @@ var Player = Class.create({
 	}
 	,
 	_movePlayer: function(tickEvent) {
-		if (!this.playerGraphics.visible)
-			return;
 
 		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
+
+		if (!this.playerActive) return;
+
 		if (this.inputResults.acceleration) {
 			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
 			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
@@ -106,6 +107,7 @@ var Player = Class.create({
 		if (wallCollision) {
 			if (wallCollision.insideGate) {
 				if (wallCollision.insideGateDistance >= this.radius * 2) {
+					this.cancelVelocity();
 					this.game.levelUp();
 				} else if (wallCollision.touchingGate) {
 					Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
@@ -154,11 +156,27 @@ var Player = Class.create({
 
 	,
 	killPlayerGraphics: function() {
+		this.playerActive = false;
 		this.playerGraphics.killPlayerGraphics();
 	}
 
 	,
 	showPlayer: function(show) {
-		this.playerGraphics.toggleVisible(show !== false);
+		this.playerActive = show;
+		if (show) {
+			this.playerGraphics.toggleVisible(true);
+			this.game.gfx.addAnimation(new Animation()
+				.duration(1).easeOut()
+				.scale(this.playerGraphics, [0,1])
+			);
+		} else {
+			this.game.gfx.addAnimation(new Animation()
+				.duration(0.5).easeOut()
+				.scale(this.playerGraphics, [1,0])
+				.queue(function() {
+					this.playerGraphics.toggleVisible(false);
+				}.bind(this))
+			);
+		}
 	}
 });

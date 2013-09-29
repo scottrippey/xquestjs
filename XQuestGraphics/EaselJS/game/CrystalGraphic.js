@@ -27,10 +27,14 @@ EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 			.savePosition()
 			.easeIn('quint')
 			.move(crystal, playerLocation)
-			.fade(crystal, [0.03, 0])
+
+			.restorePosition()
+			.scale(crystal, [0.9, 0.3])
+
 
 			.restorePosition()
 			.easeOut('quint')
+
 			.tween(function(s) { crystal.spinRate = s; }, [ crystal.spinRate, Graphics.crystals.spinRateGathered ])
 
 			.queue(function(animEvent) {

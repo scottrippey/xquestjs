@@ -24,7 +24,7 @@ _.extend(Animation.prototype, {
 	 */
 	fade: function(target, keyframes) {
 		var update = function(a) { target.alpha = a; };
-		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromValues(keyframes) || Keyframes.fromValues([ target.alpha, keyframes ]);
+		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromValues(keyframes) || Keyframes.fromValues([ target.alpha !== undefined ? target.alpha : 1, keyframes ]);
 		return this.tween(update, keyframes);
 	}
 
@@ -38,6 +38,21 @@ _.extend(Animation.prototype, {
 	color: function(target, keyframes) {
 		var update = function(c) { target.color = c; };
 		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromColors(keyframes) || Keyframes.fromColors([ target.color, keyframes ]);
+		return this.tween(update, keyframes);
+	}
+
+	,
+	/**
+	 * Animates the `scale` property of the target.
+	 * @param {Object} target
+	 * @param {Function|Number[]|Number} keyframes
+	 * @returns {this}
+	 */
+	scale: function(target, keyframes) {
+		var update = function(s) {
+			target.scaleX = target.scaleY = s;
+		};
+		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromValues(keyframes) || Keyframes.fromValues([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
 		return this.tween(update, keyframes);
 	}
 
