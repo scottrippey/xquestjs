@@ -91,18 +91,3 @@ _.extend(Animation.prototype, {
 		});
 	}
 });
-_.extend(Animation, {
-	/**
-	 * Updates a set of animations.
-	 * Removes all completed animations from the array.
-	 *
-	 * @param {Animation[]} animations
-	 * @param {Number} deltaSeconds
-	 */
-	updateAndEliminate: function(animations, deltaSeconds) {
-		_.eliminate(animations, function(animation) {
-			var anim = animation.update(deltaSeconds);
-			return !anim.stillRunning;
-		});
-	}
-});

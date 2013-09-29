@@ -30,7 +30,7 @@ var EaselJSGraphics = Class.create({
 	,
 	onMove: function(tickEvent) {
 		if (this.animations) {
-			Animation.updateAndEliminate(this.animations, tickEvent.deltaSeconds);
+			this.animations.update(tickEvent.deltaSeconds);
 		}
 	}
 	,
@@ -150,8 +150,8 @@ var EaselJSGraphics = Class.create({
 	,
 	addAnimation: function(animation) {
 		if (!this.animations) {
-			this.animations = [];
+			this.animations = new Animations();
 		}
-		this.animations.push(animation);
+		return this.animations.addAnimation(animation);
 	}
 });
