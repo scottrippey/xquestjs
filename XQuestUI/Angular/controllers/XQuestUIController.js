@@ -1,6 +1,7 @@
 angular.module("XQuestUI").controller("XQuestUIController", [
-	'$scope', '$window', '$document', function XQuestUIController($scope, $window, $document) {
+	'UserSettings', '$scope', '$window', '$document', function XQuestUIController(UserSettings, $scope, $window, $document) {
 		$scope.Balance = Balance;
+		$scope.UserSettings = UserSettings;
 		_.extend(this, {
 			currentGame: null
 			, previousMousePosition: null
@@ -55,8 +56,8 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				return delta;
 			}
 			, _adjustForSensitivity: function(delta, mousePosition, windowSize) {
-				var sensitivity = 1
-					, biasSensitivity = 2;
+				var sensitivity = UserSettings.mouseSensitivity
+					, biasSensitivity = UserSettings.mouseBiasSensitivity;
 
 				var distanceFromCenter = {
 					x: 2 * ((mousePosition.x / windowSize.width) - 0.5)

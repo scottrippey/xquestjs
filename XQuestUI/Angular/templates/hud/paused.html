@@ -1,4 +1,18 @@
 <h2> Game Paused </h2>
+<fieldset>
+	<button autofocus ng-click="ui.togglePause()"> Resume </button>
+</fieldset>
 
-
-<button autofocus ng-click="ui.togglePause()"> Resume </button>
+<fieldset>
+	<em>
+		These settings are not yet editable, but will be soon
+	</em>
+	<br />
+	<label>
+		Mouse Sensitivity: {{ UserSettings.mouseSensitivity }}
+	</label>
+	<br />
+	<label>
+		Mouse Bias Sensitivity: {{ UserSettings.mouseBiasSensitivity }}
+	</label>
+</fieldset>

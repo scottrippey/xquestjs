@@ -31,5 +31,8 @@ button {
 	cursor: pointer;
 }
 
-
+fieldset {
+	border: none;
+	margin-bottom: 2em;
+}
 
