@@ -5,11 +5,11 @@ var Keyframes = {
 		return keyframes;
 	}
 	,
-	fromValues: function(keyframes) {
+	fromNumbers: function(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
 		return function(pct) {
-			return Interpolate.keyframes(keyframes, pct, Interpolate.values);
+			return Interpolate.keyframes(keyframes, pct, Interpolate.numbers);
 		}
 	}
 	,

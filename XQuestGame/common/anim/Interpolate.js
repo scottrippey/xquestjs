@@ -6,7 +6,7 @@ var Interpolate = {
 	 * @param {Number} pos
 	 * @returns {Number}
 	 */
-	values: function(from, to, pct) {
+	numbers: function(from, to, pct) {
 		return from + pct * (to - from);
 	}
 	,
@@ -21,8 +21,8 @@ var Interpolate = {
 		if (pct === 0) return from;
 		if (pct === 1) return to;
 		return {
-			x: Interpolate.values(from.x, to.x, pct)
-			,y: Interpolate.values(from.y, to.y, pct)
+			x: Interpolate.numbers(from.x, to.x, pct)
+			,y: Interpolate.numbers(from.y, to.y, pct)
 		};
 	}
 	,
@@ -48,7 +48,7 @@ var Interpolate = {
 		var i = Math.min(from.length, to.length)
 			,results = [];
 		while (i--) {
-			results[i] = Interpolate.values(from[i], to[i], pct);
+			results[i] = Interpolate.numbers(from[i], to[i], pct);
 		}
 		return results;
 	}

@@ -24,7 +24,7 @@ _.extend(Animation.prototype, {
 	 */
 	fade: function(target, keyframes) {
 		var update = function(a) { target.alpha = a; };
-		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromValues(keyframes) || Keyframes.fromValues([ target.alpha !== undefined ? target.alpha : 1, keyframes ]);
+		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromNumbers(keyframes) || Keyframes.fromNumbers([ target.alpha !== undefined ? target.alpha : 1, keyframes ]);
 		return this.tween(update, keyframes);
 	}
 
@@ -52,7 +52,7 @@ _.extend(Animation.prototype, {
 		var update = function(s) {
 			target.scaleX = target.scaleY = s;
 		};
-		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromValues(keyframes) || Keyframes.fromValues([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
+		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromNumbers(keyframes) || Keyframes.fromNumbers([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
 		return this.tween(update, keyframes);
 	}
 
@@ -64,7 +64,7 @@ _.extend(Animation.prototype, {
 	 * @returns {this}
 	 */
 	tween: function(update, keyframes) {
-		var interpolate = Keyframes.fromFunction(keyframes) || Keyframes.fromValues(keyframes) || Keyframes.fromValues([ keyframes ]);
+		var interpolate = Keyframes.fromFunction(keyframes) || Keyframes.fromNumbers(keyframes) || Keyframes.fromNumbers([ keyframes ]);
 		return this.addAction(function(animEvent) {
 			var pct = animEvent.position;
 			var value = interpolate(pct);
