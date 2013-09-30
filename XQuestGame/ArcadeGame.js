@@ -44,6 +44,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 			bounceOffWalls: true // Temporary, until player can die
 			,rapidFire: false
 			,tripleShot: false
+			,powerShot: true
 		};
 	}
 	,

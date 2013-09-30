@@ -59,12 +59,14 @@ var Player = Class.create({
 							}
 						} else {
 							// Up
-							var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
-							var powerShot = Balance.powerups.powerShot;
-							if (elapsed >= powerShot.chargeDuration * 1000) {
-								this._addBullet();
-								this._addBullet(powerShot.angle);
-								this._addBullet(-powerShot.angle);
+							if (this.game.powerups.powerShot) {
+								var powerShot = Balance.powerups.powerShot;
+								var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
+								if (elapsed >= powerShot.chargeDuration * 1000) {
+									this._addBullet();
+									this._addBullet(powerShot.angle);
+									this._addBullet(-powerShot.angle);
+								}
 							}
 						}
 					}
