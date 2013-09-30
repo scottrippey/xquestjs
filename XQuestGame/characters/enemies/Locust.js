@@ -2,7 +2,9 @@ var Locust = Class.create({
 	initialize: function(game) {
 		this.game = game;
 		this._setupEnemyGraphics();
-		this.velocity = { x: 0, y: 0 };
+
+		this.velocity = { x: Balance.enemies.locust.speed, y: 0 };
+		this._changeDirection();
 	}
 	,
 	_setupEnemyGraphics: function() {
@@ -15,33 +17,27 @@ var Locust = Class.create({
 		this.location.moveTo(x, y);
 	}
 	,
-	onMove: function(tickEvent) {
-		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
-	}
-	,
-	onAct: function(tickEvent) {
-		if (this.nextChange == null) {
-			this._changeDirection();
-			this._calculateNextChange(tickEvent.runTime);
-		} else if (this.nextChange <= tickEvent.runTime) {
-			this._changeDirection();
-			this._calculateNextChange(tickEvent.runTime);
-		}
+	_changeDirection: function() {
+		this.turnSpeed = Balance.enemies.locust.turnSpeed();
 	}
 	,
 	_calculateNextChange: function(runTime) {
 		this.nextChange = runTime + (Balance.enemies.locust.movementInterval() * 1000);
 	}
 	,
-	_changeDirection: function() {
-		var speed = Balance.enemies.locust.speed
-			,angle = Math.random() * Math.PI * 2;
-		this.velocity = {
-			x: Math.cos(angle) * speed
-			,y: Math.sin(angle) * speed
-		};
+	onMove: function(tickEvent) {
+		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
+		Point.rotate(this.velocity, rotation);
 
+		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
+		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+	}
+	,
+	onAct: function(tickEvent) {
+		if (this.nextChange === undefined || this.nextChange <= tickEvent.runTime) {
+			this._changeDirection();
+			this._calculateNextChange(tickEvent.runTime);
+		}
 	}
 	,
 	killEnemy: function() {

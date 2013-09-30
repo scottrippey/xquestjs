@@ -68,20 +68,22 @@ Balance.onUpdate(function(mode) {
 				,movementInterval: Balance.randomBetween(3, 10)
 			}
 			,locust: {
-				radius: 10 //px
-				,speed: 70 //pps
-				,movementInterval: Balance.randomBetween(3, 10)
+				radius: 10
+				,speed: 150
+				,movementInterval: Balance.randomBetween(3, 5)
+				,turnSpeed: Balance.randomBetween(-100, 100)
 			}
 		}
 		,level: {
 			bounds: (function(){
 				var padding = 40
-					, visibleWidth = 800, visibleHeight = 450
-					, levelWidth = visibleWidth * 2, levelHeight = visibleHeight * 2;
+					, visibleWidth = Balance.dependsOn(mode, { 'test': 1200, 'default': 800 })
+					, visibleHeight = Balance.dependsOn(mode, { 'test': 675, 'default': 450 })
+					, levelWidth = 1200, levelHeight = 675;
 				return {
 					x: padding, y: padding
-					, visibleWidth: visibleWidth
-					, visibleHeight: visibleHeight
+					, visibleWidth: padding + visibleWidth + padding
+					, visibleHeight: padding + visibleHeight + padding
 					, width: levelWidth
 					, height: levelHeight
 					, totalWidth: padding + levelWidth + padding

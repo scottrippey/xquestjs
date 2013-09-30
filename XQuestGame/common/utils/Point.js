@@ -28,5 +28,25 @@ var Point = {
 		}
 		return null;
 	}
+	,
+	rotate: function(point, degrees) {
+		var radians = (degrees * Math.PI / 180);
+		var cos = Math.cos(radians), sin = Math.sin(radians);
+
+		var rx = point.x * cos - point.y * sin
+			,ry = point.x * sin + point.y * cos;
+		point.x = rx;
+		point.y = ry;
+	}
+	,
+	fromAngle: function(degrees, scale) {
+		var radians = (degrees * Math.PI / 180)
+			,cos = Math.cos(radians)
+			,sin = Math.sin(radians);
+		return {
+			x: scale * cos
+			,y: scale * sin
+		};
+	}
 
 };
