@@ -51,14 +51,16 @@ Balance.merge({
 				powerShot: {
 					chargeDuration: 1.0
 					, angle: 10
+					, focus: 100
 				}
 				,
 				rapidFire: {
-					shotsPerSecond: 7
+					shotsPerSecond: 6
 				}
 				,
 				tripleShot: {
 					angle: 10
+					, focus: 100
 				}
 			}
 			,bullets: {

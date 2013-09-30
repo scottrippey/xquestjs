@@ -51,11 +51,10 @@ var Player = Class.create({
 						if (this.primaryWeaponDown) {
 							// Down
 							this.primaryWeaponDownTime = tickEvent.runTime;
-							this._addBullet();
 							if (this.game.powerups.tripleShot) {
-								var tripleShot = Balance.powerups.tripleShot;
-								this._addBullet(tripleShot.angle);
-								this._addBullet(-tripleShot.angle);
+								this._tripleShot(Balance.powerups.tripleShot);
+							} else {
+								this._addBullet();
 							}
 						} else {
 							// Up
@@ -63,9 +62,7 @@ var Player = Class.create({
 								var powerShot = Balance.powerups.powerShot;
 								var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
 								if (elapsed >= powerShot.chargeDuration * 1000) {
-									this._addBullet();
-									this._addBullet(powerShot.angle);
-									this._addBullet(-powerShot.angle);
+									this._tripleShot(powerShot);
 								}
 							}
 						}
@@ -86,11 +83,10 @@ var Player = Class.create({
 					this.nextRapidFire = tickEvent.runTime + period;
 				} else if (this.nextRapidFire <= tickEvent.runTime) {
 					this.nextRapidFire += period;
-					this._addBullet();
 					if (this.game.powerups.tripleShot) {
-						var tripleShot = Balance.powerups.tripleShot;
-						this._addBullet(tripleShot.angle);
-						this._addBullet(-tripleShot.angle);
+						this._tripleShot(Balance.powerups.tripleShot);
+					} else {
+						this._addBullet();
 					}
 				}
 			} else {
@@ -100,15 +96,24 @@ var Player = Class.create({
 
 	}
 	,
-	_addBullet: function(degrees) {
+	_tripleShot: function(powerup) {
+		var playerSpeed = Point.hypotenuse(this.velocity);
+		var angle = powerup.angle * powerup.focus / playerSpeed;
+
+		this._addBullet();
+		this._addBullet(angle);
+		this._addBullet(-angle);
+	}
+	,
+	_addBullet: function(angle) {
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
 		bulletGfx.velocity = {
 			x: this.velocity.x * Balance.bullets.speed
 			, y: this.velocity.y * Balance.bullets.speed
 		};
-		if (degrees) {
-			Point.rotate(bulletGfx.velocity, degrees);
+		if (angle) {
+			Point.rotate(bulletGfx.velocity, angle);
 		}
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = Balance.bullets.radius;
