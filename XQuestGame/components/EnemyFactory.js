@@ -2,29 +2,22 @@ var EnemyFactory = Class.create({
 	initialize: function(game) {
 		this.game = game;
 		this.enemies = [];
-
-		this._setupEnemyLineup();
-	}
-	,
-	_setupEnemyLineup: function() {
-		this.enemyLineup = [
-			Slug
-			,Locust
-		];
 	}
 	,
 	setLevel: function(currentLevel) {
 		var currentEnemyLineupIndex = Math.floor(currentLevel / 2);
 
-		if (currentEnemyLineupIndex >= this.enemyLineup.length) {
+		var enemyLineup = Balance.enemies.roster;
+
+		if (currentEnemyLineupIndex >= enemyLineup.length) {
 			// Very high levels include all enemies:
-			this.enemyPool = this.enemyLineup;
+			this.enemyPool = enemyLineup;
 		} else if ((currentLevel % 2) === 0) {
-			// Even levels include a variety of enemies, up to the current level index:
-			this.enemyPool = this.enemyLineup.slice(0, currentEnemyLineupIndex + 1);
+			// Even levels only include the current enemy:
+			this.enemyPool = [ enemyLineup[currentEnemyLineupIndex] ];
 		} else {
-			// Odd levels only include the current enemy:
-			this.enemyPool = [ this.enemyLineup[currentEnemyLineupIndex] ];
+			// Odd levels include a variety of enemies, up to the current level index:
+			this.enemyPool = enemyLineup.slice(0, currentEnemyLineupIndex + 1);
 		}
 	}
 	,
@@ -47,19 +40,19 @@ var EnemyFactory = Class.create({
 	,
 	_spawnNextEnemy: function() {
 		var enemyCtor;
+		var randomEnemyIndex;
 		if (this.enemyPool.length === 1) {
-			enemyCtor = this.enemyPool[0];
+			randomEnemyIndex = 0;
 		} else {
 			// Prefer to spawn more difficult enemies:
 			var weightedRandom = (1 - Math.pow(Math.random(), Balance.enemies.spawnDifficulty));
-			var randomEnemyIndex = Math.floor(weightedRandom * this.enemyPool.length);
-			enemyCtor = this.enemyPool[randomEnemyIndex];
+			randomEnemyIndex = Math.floor(weightedRandom * this.enemyPool.length);
 		}
+		enemyCtor = this.enemyPool[randomEnemyIndex];
 
-		var game = this.game;
-		var enemy = new enemyCtor(game);
+		var enemy = new enemyCtor(this.game);
 		this.enemies.push(enemy);
-		game.addGameItem(enemy);
+		this.game.addGameItem(enemy);
 
 		var bounds = Balance.level.bounds
 			, spawnSide = Math.floor(Math.random() * 2) ? 1 : 2
