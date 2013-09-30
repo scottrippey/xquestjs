@@ -3,11 +3,11 @@ Balance.onUpdate(function(mode) {
 	_.merge(Graphics, {
 		enemies: {
 			slug: {
-				radius: Balance.enemies.splat.radius + 1
+				radius: Balance.enemies.slug.radius + 1
 				, outerFillStyle: {
 					fillColor: 'hsl(100, 100%, 30%)'
 				}
-				, innerRadius: Balance.enemies.splat.radius * (0.7)
+				, innerRadius: Balance.enemies.slug.radius * (0.7)
 				, innerFillStyle: {
 					fillColor: 'hsl(100, 100%, 50%)'
 				}
@@ -55,7 +55,7 @@ EaselJSGraphics.SlugGraphics = Class.create(new createjs.Shape(), {
 
 	}
 	,
-	killSlug: function(gfx, velocity) {
+	killEnemy: function(gfx, velocity) {
 		var enemyGraphics = this, G = Graphics.enemies.slug;
 		gfx.removeGraphic(enemyGraphics);
 

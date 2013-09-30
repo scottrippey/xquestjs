@@ -40,12 +40,10 @@ var Point = {
 	}
 	,
 	fromAngle: function(degrees, scale) {
-		var radians = (degrees * Math.PI / 180)
-			,cos = Math.cos(radians)
-			,sin = Math.sin(radians);
+		var radians = (degrees * Math.PI / 180);
 		return {
-			x: scale * cos
-			,y: scale * sin
+			x: Math.cos(radians) * scale
+			,y: Math.sin(radians) * scale
 		};
 	}
 

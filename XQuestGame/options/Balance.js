@@ -60,7 +60,7 @@ Balance.merge({
 				,spawnRate: gameOptions.spawnRate || Balance.randomBetween(3, 6)
 				,spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently
 				,roster: gameOptions.enemyRoster || [ Slug, Locust ]
-				,splat: {
+				,slug: {
 					radius: 13
 					,speed: 40
 					,movementInterval: Balance.randomBetween(3, 10)

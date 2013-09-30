@@ -1,47 +1,35 @@
-var Locust = Class.create({
-	initialize: function(game) {
-		this.game = game;
-		this._setupEnemyGraphics();
-
-		this.velocity = { x: Balance.enemies.locust.speed, y: 0 };
-		this._changeDirection();
+var Locust = Class.create(new BaseEnemy(), {
+	initialize: function Locust(game) {
+		var B = Balance.enemies.locust;
+		this.setupBaseEnemyGraphics(game, 'Locust', B.radius);
 	}
 	,
-	_setupEnemyGraphics: function() {
-		this.enemyGraphics = this.game.gfx.createEnemyGraphics('Locust');
-		this.location = this.enemyGraphics;
-		this.radius = Balance.enemies.locust.radius;
-	}
-	,
-	moveTo: function(x, y) {
+	setSpawnLocation: function(x, y, side) {
+		var B = Balance.enemies.locust;
 		this.location.moveTo(x, y);
+		this.velocity = Point.fromAngle((side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
+		this._changeTurnSpeed();
 	}
 	,
-	_changeDirection: function() {
-		this.turnSpeed = Balance.enemies.locust.turnSpeed();
-	}
-	,
-	_calculateNextChange: function(runTime) {
-		this.nextChange = runTime + (Balance.enemies.locust.movementInterval() * 1000);
+	_changeTurnSpeed: function() {
+		var B = Balance.enemies.locust;
+		this.turnSpeed = B.turnSpeed();
 	}
 	,
 	onMove: function(tickEvent) {
 		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
 		Point.rotate(this.velocity, rotation);
-		this.enemyGraphics.alignWith(this.velocity);
 
 		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
 		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
 	}
 	,
 	onAct: function(tickEvent) {
-		if (this.nextChange === undefined || this.nextChange <= tickEvent.runTime) {
-			this._changeDirection();
-			this._calculateNextChange(tickEvent.runTime);
+		var B = Balance.enemies.locust;
+		if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
+			this._changeTurnSpeed();
 		}
-	}
-	,
-	killEnemy: function() {
-		this.enemyGraphics.killLocust(this.game.gfx, this.velocity);
+
+		this.enemyGraphics.alignWith(this.velocity);
 	}
 });

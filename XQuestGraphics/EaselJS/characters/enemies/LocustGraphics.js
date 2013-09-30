@@ -57,7 +57,7 @@ EaselJSGraphics.LocustGraphics = Class.create(new createjs.Shape(), {
 
 	}
 	,
-	killLocust: function(gfx, velocity) {
+	killEnemy: function(gfx, velocity) {
 		var enemyGraphics = this, G = Graphics.enemies.locust;
 		gfx.removeGraphic(enemyGraphics);
 
