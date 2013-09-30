@@ -207,5 +207,11 @@ var Physics = {
 		}
 		return closestPointIndex;
 	}
+
+	,
+	autoAim: function(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
+		// TEMP:
+		return targetVelocity;
+	}
 };
 

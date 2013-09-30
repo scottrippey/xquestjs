@@ -45,6 +45,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 			,rapidFire: false
 			,tripleShot: false
 			,powerShot: true
+			,autoAim: false
 		};
 	}
 	,

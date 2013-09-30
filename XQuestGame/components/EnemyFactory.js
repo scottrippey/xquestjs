@@ -82,4 +82,11 @@ var EnemyFactory = Class.create({
 		this.enemies.splice(enemyIndex, 1);
 		enemy.killEnemy();
 	}
+	,
+	findClosestEnemy: function(location) {
+		var enemyLocations = this.enemies.map(function(enemy) { return enemy.location; }); // Perhaps this could be improved, but it's not mission-critical
+		var enemyIndex = Physics.findClosestPoint(location, enemyLocations);
+
+		return this.enemies[enemyIndex];
+	}
 });

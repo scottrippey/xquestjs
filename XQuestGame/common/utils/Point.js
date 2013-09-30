@@ -51,4 +51,12 @@ var Point = {
 		};
 	}
 
+	,
+	scaleVector: function(vector, scale) {
+		var vectorScale = scale / Point.hypotenuse(vector);
+		return {
+			x: vector.x * vectorScale
+			, y: vector.y * vectorScale
+		}
+	}
 };

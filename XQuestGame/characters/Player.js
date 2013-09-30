@@ -108,10 +108,16 @@ var Player = Class.create({
 	_addBullet: function(angle) {
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
-		bulletGfx.velocity = {
-			x: this.velocity.x * Balance.bullets.speed
-			, y: this.velocity.y * Balance.bullets.speed
-		};
+		if (this.game.powerups.autoAim) {
+			var autoAim = Balance.powerups.autoAim;
+			var targetEnemy = this.game.enemies.findClosestEnemy(this.location);
+			bulletGfx.velocity = Point.autoAim(this.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
+		} else {
+			bulletGfx.velocity = {
+				x: this.velocity.x * Balance.bullets.speed
+				, y: this.velocity.y * Balance.bullets.speed
+			};
+		}
 		if (angle) {
 			Point.rotate(bulletGfx.velocity, angle);
 		}

@@ -62,6 +62,10 @@ Balance.merge({
 					angle: 10
 					, focus: 100
 				}
+				,
+				autoAim: {
+					bulletSpeed: 50
+				}
 			}
 			,bullets: {
 				radius: 2
