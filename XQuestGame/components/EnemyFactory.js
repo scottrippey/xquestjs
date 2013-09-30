@@ -56,12 +56,13 @@ var EnemyFactory = Class.create({
 
 		var bounds = Balance.level.bounds
 			, spawnSide = Math.floor(Math.random() * 2) ? 1 : 2
-			, spawnPosition = {
+			, spawnInfo = {
 				x: (spawnSide === 1) ? (bounds.x + enemy.radius) : (bounds.x + bounds.width - enemy.radius)
 				,y: bounds.y + (bounds.height / 2)
+				,side: spawnSide
 			};
 
- 		enemy.setSpawnLocation(spawnPosition.x, spawnPosition.y, spawnSide);
+ 		enemy.spawn(spawnInfo);
 	}
 	,
 	killEnemiesOnCollision: function(sortedItems, maxItemRadius, collisionCallback) {

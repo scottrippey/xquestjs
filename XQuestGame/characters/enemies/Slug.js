@@ -4,9 +4,8 @@ var Slug = Class.create(new BaseEnemy(), {
 		this.setupBaseEnemyGraphics(game, 'Slug', B.radius);
 	}
 	,
-	setSpawnLocation: function(x, y, side) {
-		var B = Balance.enemies.slug;
-		this.location.moveTo(x, y);
+	spawn: function(spawnInfo) {
+		this.location.moveTo(spawnInfo.x, spawnInfo.y);
 		this._changeDirection();
 	}
 	,

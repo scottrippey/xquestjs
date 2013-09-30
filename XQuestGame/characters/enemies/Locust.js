@@ -4,10 +4,10 @@ var Locust = Class.create(new BaseEnemy(), {
 		this.setupBaseEnemyGraphics(game, 'Locust', B.radius);
 	}
 	,
-	setSpawnLocation: function(x, y, side) {
+	spawn: function(spawnInfo) {
 		var B = Balance.enemies.locust;
-		this.location.moveTo(x, y);
-		this.velocity = Point.fromAngle((side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
+		this.location.moveTo(spawnInfo.x, spawnInfo.y);
+		this.velocity = Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
 		this._changeTurnSpeed();
 	}
 	,
