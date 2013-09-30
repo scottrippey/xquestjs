@@ -11,4 +11,10 @@ var GameDebugger = Class.create({
 	spawnEnemy: function() {
 		this.game.enemies.spawnNextEnemy();
 	}
+	,
+	togglePowerup: function(powerupName, force) {
+		if (force === undefined)
+			force = !this.game.powerups[powerupName];
+		this.game.powerups[powerupName] = force;
+	}
 });
