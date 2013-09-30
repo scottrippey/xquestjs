@@ -7,6 +7,7 @@ var Player = Class.create({
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
 		this.bullets = [];
+		this.primaryWeaponDown = false;
 
 		this._setupPlayerGraphics();
 	}
@@ -28,57 +29,85 @@ var Player = Class.create({
 
 	,
 	onInput: function(tickEvent) {
-		var results = this.inputResults = {
-			acceleration: { x: 0, y: 0 }
-			, engaged: this.engaged
-			, primaryWeapon: 0
-		};
+		if (!this.playerActive) return;
 
 		this.game.input.processInputs(function(inputItem) {
 			switch (inputItem.inputType) {
 				case 'accelerate':
-					results.acceleration.x += inputItem.x;
-					results.acceleration.y += inputItem.y;
+					var acceleration = inputItem;
+					Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
+					Physics.applyAccelerationToVelocity(this.velocity, acceleration);
 					break;
 				case 'engage':
-					results.engaged = true;
+					this.engaged = true;
 					break;
 				case 'disengage':
-					results.engaged = false;
+					this.engaged = false;
 					break;
 				case 'primaryWeapon':
-					results.primaryWeapon += 1;
-					break;
-				case 'secondaryWeapon':
-					results.secondaryWeapon = true;
+					if (this.primaryWeaponDown !== inputItem.down) {
+						this.primaryWeaponDown = inputItem.down;
+
+						if (this.primaryWeaponDown) {
+							// Down
+							this.primaryWeaponDownTime = tickEvent.runTime;
+							this._addBullet();
+							if (this.game.powerups.tripleShot) {
+								var tripleShot = Balance.powerups.tripleShot;
+								this._addBullet(tripleShot.angle);
+								this._addBullet(-tripleShot.angle);
+							}
+						} else {
+							// Up
+							var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
+							var powerShot = Balance.powerups.powerShot;
+							if (elapsed >= powerShot.chargeDuration * 1000) {
+								this._addBullet();
+								this._addBullet(powerShot.angle);
+								this._addBullet(-powerShot.angle);
+							}
+						}
+					}
 					break;
 				default:
 					return false; // unhandled
 			}
 			return true;
-		});
+		}.bind(this));
 
-		this._analyzeInput();
-	}
-	,
-	_analyzeInput: function() {
-		if (this.inputResults.engaged !== this.engaged) {
-			this.engaged = this.inputResults.engaged;
+
+
+		if (this.game.powerups.rapidFire) {
+			if (this.primaryWeaponDown) {
+				var period = 1000 / Balance.powerups.rapidFire.shotsPerSecond;
+				if (!this.nextRapidFire) {
+					this.nextRapidFire = tickEvent.runTime + period;
+				} else if (this.nextRapidFire <= tickEvent.runTime) {
+					this.nextRapidFire += period;
+					this._addBullet();
+					if (this.game.powerups.tripleShot) {
+						var tripleShot = Balance.powerups.tripleShot;
+						this._addBullet(tripleShot.angle);
+						this._addBullet(-tripleShot.angle);
+					}
+				}
+			} else {
+				this.nextRapidFire = null;
+			}
 		}
 
-		var i = this.inputResults.primaryWeapon;
-		while (i--) {
-			this._addBullet(i);
-		}
 	}
 	,
-	_addBullet: function(index) {
+	_addBullet: function(degrees) {
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
 		bulletGfx.velocity = {
 			x: this.velocity.x * Balance.bullets.speed
 			, y: this.velocity.y * Balance.bullets.speed
 		};
+		if (degrees) {
+			Point.rotate(bulletGfx.velocity, degrees);
+		}
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = Balance.bullets.radius;
 		this.bullets.push(bulletGfx);
@@ -96,10 +125,10 @@ var Player = Class.create({
 
 		if (!this.playerActive) return;
 
-		if (this.inputResults.acceleration) {
-			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
-			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
-		}
+//		if (this.inputResults.acceleration) {
+//			Physics.applyAcceleration(this.playerGraphics, this.inputResults.acceleration, tickEvent.deltaSeconds);
+//			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
+//		}
 		if (!this.engaged) {
 			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}

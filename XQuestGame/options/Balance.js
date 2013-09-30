@@ -47,6 +47,20 @@ Balance.merge({
 				,looseFriction: 0.8
 				,bounceDampening : 0.3
 			}
+			,powerups: {
+				powerShot: {
+					chargeDuration: 1.0
+					, angle: 10
+				}
+				,
+				rapidFire: {
+					shotsPerSecond: 7
+				}
+				,
+				tripleShot: {
+					angle: 10
+				}
+			}
 			,bullets: {
 				radius: 2
 				,speed: 3 // * player speed

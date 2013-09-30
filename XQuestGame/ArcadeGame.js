@@ -42,6 +42,8 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	_setupPowerups: function() {
 		this.powerups = {
 			bounceOffWalls: true // Temporary, until player can die
+			,rapidFire: false
+			,tripleShot: false
 		};
 	}
 	,

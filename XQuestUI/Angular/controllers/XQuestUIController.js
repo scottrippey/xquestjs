@@ -111,11 +111,10 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 				this.previousMousePosition = null;
 			}
 
-			, primaryWeapon: function() {
-				if (this.paused) return;
+			, primaryWeapon: function(down) {
+				if (this.paused || !this.currentGame) return;
 
-				if (this.currentGame)
-					this.currentGame.input.primaryWeapon();
+				this.currentGame.input.primaryWeapon(down);
 			}
 
 			, registerCanvas: function(canvas) {

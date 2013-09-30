@@ -18,8 +18,8 @@ var GameInput = Class.create({
 	, disengage: function() {
 		this.inputItems.push({ inputType: 'disengage' });
 	}
-	, primaryWeapon: function() {
-		this.inputItems.push({ inputType: 'primaryWeapon' });
+	, primaryWeapon: function(down) {
+		this.inputItems.push({ inputType: 'primaryWeapon', down: down });
 	}
 	, accelerate: function(acceleration) {
 		this.inputItems.push({

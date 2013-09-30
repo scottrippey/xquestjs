@@ -1,7 +1,8 @@
 <div class="fill-screen danger-zone"
      ng-controller="XQuestUIController as ui"
      ng-mousemove="ui.onMouseMove($event)"
-     ng-mousedown="ui.primaryWeapon(); $event.preventDefault();"
+     ng-mousedown="ui.primaryWeapon(true); $event.preventDefault();"
+     ng-mouseup="ui.primaryWeapon(false);"
      ng-mouseleave="ui.togglePause(true)"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
 
@@ -9,7 +10,8 @@
      common-keymap-document
      common-keymap-preventDefault
 
-     common-keymap-fire-down="ui.primaryWeapon()"
+     common-keymap-fire-down="ui.primaryWeapon(true)"
+     common-keymap-fire-up="ui.primaryWeapon(false)"
      common-keymap-pause-down="ui.togglePause()"
 
      common-keymap-up-repeat="ui.accelerate({ x: 0, y: -5 })"
