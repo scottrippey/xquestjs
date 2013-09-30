@@ -42,9 +42,17 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 					this.game.gfx.createCrystalGraphic().moveTo(x, y);
 				}, [200, 200], [200, 250], [200, 300]);
 
-				this._applyEach(function(enemy, x, y) {
-					this.game.gfx.createEnemyGraphics(enemy).moveTo(x, y);
-				}, ['Slug', 300, 200], ['Slug', 300, 250], ['Slug', 300, 300]);
+				this._applyEach(function(enemy, x, y, spin) {
+					var enemyGraphics = this.game.gfx.createEnemyGraphics(enemy);
+					enemyGraphics.moveTo(x, y);
+					if (spin) {
+						this.game.gfx.addAnimation(new Animation()
+							.loop(spin)
+							.rotate(enemyGraphics, [0, 360])
+						);
+					}
+				}, ['Slug', 300, 200], ['Slug', 300, 250], ['Slug', 300, 300]
+				, ['Locust', 300, 350], ['Locust', 300, 400, 2], ['Locust', 300, 450, 1]);
 
 			}
 			,

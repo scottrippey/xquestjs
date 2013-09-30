@@ -5,20 +5,20 @@ Balance.onUpdate(function(mode) {
 			slug: {
 				radius: Balance.enemies.splat.radius + 1
 				, outerFillStyle: {
-					fillColor: '#009900'
+					fillColor: 'hsl(100, 100%, 30%)'
 				}
-				, innerRadius: Balance.enemies.splat.radius * (5/8)
+				, innerRadius: Balance.enemies.splat.radius * (0.7)
 				, innerFillStyle: {
-					fillColor: '#00DD00'
+					fillColor: 'hsl(100, 100%, 50%)'
 				}
 				, innerStyle: {
-					strokeColor: '#000000'
+					strokeColor: 'black'
 				}
 				, particles: {
 					count: 20
 					,speed: 150
 					,style: {
-						fillColor: '#009900'
+						fillColor: 'hsl(100, 100%, 50%)'
 					}
 					,radius: 4
 					,friction: 0.9

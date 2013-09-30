@@ -43,7 +43,7 @@ _.extend(Animation.prototype, {
 
 	,
 	/**
-	 * Animates the `scale` property of the target.
+	 * Animates the `scale` properties (scaleX, scaleY) of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
 	 * @returns {this}
@@ -56,6 +56,18 @@ _.extend(Animation.prototype, {
 		return this.tween(update, keyframes);
 	}
 
+	,
+	/**
+	 * Animates the `rotation` property of the target.
+	 * @param {Object} target
+	 * @param {Function|Number[]|Number} keyframes
+	 * @returns {this}
+	 */
+	rotate: function(target, keyframes) {
+		var update = function(r) { target.rotation = r; };
+		keyframes = Keyframes.fromFunction(keyframes) || Keyframes.fromNumbers(keyframes) || Keyframes.fromNumbers([ target.rotation !== undefined ? target.rotation : 1, keyframes ]);
+		return this.tween(update, keyframes);
+	}
 	,
 	/**
 	 * Animates by calling `update` with the interpolated keyframe values.

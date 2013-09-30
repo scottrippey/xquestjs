@@ -1,31 +1,36 @@
 Balance.onUpdate(function(mode) {
+	var radius = Balance.enemies.locust.radius
+		, offset = radius * 0.3
+		, innerRadius = radius * 0.6
+		, innerOffset = innerRadius * -0.2
+		, edge = 0.9
+		;
+
 	_.merge(Graphics, {
 		enemies: {
 			locust: {
-				radius: Balance.enemies.locust.radius + 1
-				, outerFillStyle: {
-					fillColor: '#999900'
+				radius: radius + 1
+				, triangle: [[0, -radius - offset], [radius * edge, radius - offset], [-radius * edge, radius - offset]]
+				, outerStyle: {
+					fillColor: 'hsl(40, 100%, 50%)'
 				}
-				, innerRadius: Balance.enemies.locust.radius * (5/8)
-				, innerFillStyle: {
-					fillColor: '#DDDD00'
-				}
+				, innerTriangle: [[0, -innerRadius - innerOffset], [innerRadius * edge, innerRadius - innerOffset], [-innerRadius * edge, innerRadius - innerOffset]]
 				, innerStyle: {
-					strokeColor: '#000000'
+					fillColor: 'hsl(0, 100%, 30%)'
+					,strokeColor: 'black'
 				}
 				, particles: {
 					count: 20
 					,speed: 300
 					,style: {
-						fillColor: '#999900'
+						fillColor: 'hsl(40, 100%, 50%)'
 					}
 					,radius: 4
 					,friction: 0.9
 					,getAnimation: function(particle) {
 						return new Animation()
 							.duration(3).easeOut()
-							.fade(particle, 0)
-							;
+							.fade(particle, 0);
 					}
 				}
 			}
@@ -42,14 +47,12 @@ EaselJSGraphics.LocustGraphics = Class.create(new createjs.Shape(), {
 		var g = this.graphics, G = Graphics.enemies.locust;
 		g.clear();
 
-		g.beginStyle(G.outerFillStyle)
-			.drawCircle(0, 0, G.radius)
-			.endFill();
-		g.beginStyle(G.innerFillStyle)
-			.drawCircle(0, 0, G.innerRadius)
-			.endFill()
-			.beginStyle(G.innerStyle)
-			.drawCircle(0, 0, G.innerRadius)
+		g.beginStyle(G.outerStyle)
+			.drawPolygon(G.triangle)
+			.endStyle(G.outerStyle);
+
+		g.beginStyle(G.innerStyle)
+			.drawPolygon(G.innerTriangle)
 			.endStyle(G.innerStyle);
 
 	}

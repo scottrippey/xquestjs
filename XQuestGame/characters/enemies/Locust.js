@@ -28,6 +28,7 @@ var Locust = Class.create({
 	onMove: function(tickEvent) {
 		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
 		Point.rotate(this.velocity, rotation);
+		this.enemyGraphics.alignWith(this.velocity);
 
 		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
 		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);

@@ -1,30 +1,54 @@
 
-createjs.Graphics.prototype.beginStyle = function(styles) {
-	var gfx = this;
-	if (styles.fillColor)
-		gfx.beginFill(styles.fillColor);
-	if (styles.strokeColor)
-		gfx.beginStroke(styles.strokeColor);
+_.extend(createjs.Graphics.prototype, {
+	beginStyle: function(styles) {
+		var gfx = this;
+		if (styles.fillColor)
+			gfx.beginFill(styles.fillColor);
+		if (styles.strokeColor)
+			gfx.beginStroke(styles.strokeColor);
 
-	if (styles.strokeWidth)
-		gfx.setStrokeStyle(styles.strokeWidth, styles.strokeCaps, styles.strokeJoints, styles.strokeMiter);
+		if (styles.strokeWidth)
+			gfx.setStrokeStyle(styles.strokeWidth, styles.strokeCaps, styles.strokeJoints, styles.strokeMiter);
 
-	return this;
-};
-createjs.Graphics.prototype.endStyle = function(styles) {
-	var gfx = this;
-	if (styles.fillColor)
-		gfx.endFill();
-	if (styles.strokeColor)
-		gfx.endStroke();
+		return this;
+	}
+	,
+	endStyle: function(styles) {
+		var gfx = this;
+		if (styles.fillColor)
+			gfx.endFill();
+		if (styles.strokeColor)
+			gfx.endStroke();
 
-	return this;
-};
+		return this;
+	}
+	,
+	drawPolygon: function(points) {
+		var gfx = this;
+		var startX = points[0][0], startY = points[0][1];
+		gfx.moveTo(startX, startY);
+		for (var i = 1, l = points.length; i < l; i++) {
+			var x = points[i][0], y = points[i][1];
+			gfx.lineTo(x, y);
+		}
+		gfx.lineTo(startX, startY);
 
-createjs.Shape.prototype.moveTo = function(x, y) {
-	this.x = x; this.y = y;
-};
-createjs.Shape.prototype.toggleVisible = function(force) {
-	if (force === undefined) force = !this.visible;
-	this.visible = force;
-};
+		return this;
+	}
+});
+
+_.extend(createjs.Shape.prototype, {
+	moveTo: function(x, y) {
+		this.x = x; this.y = y;
+	}
+	,
+	toggleVisible: function(force) {
+		if (force === undefined) force = !this.visible;
+		this.visible = force;
+	}
+	,
+	alignWith: function(vector) {
+		this.rotation = 180 - Math.atan2(vector.x, vector.y) / (Math.PI / 180);
+	}
+});
+

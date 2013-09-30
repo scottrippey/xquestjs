@@ -68,7 +68,7 @@ Balance.onUpdate(function(mode) {
 				,movementInterval: Balance.randomBetween(3, 10)
 			}
 			,locust: {
-				radius: 10
+				radius: 11
 				,speed: 150
 				,movementInterval: Balance.randomBetween(3, 5)
 				,turnSpeed: Balance.randomBetween(-100, 100)
