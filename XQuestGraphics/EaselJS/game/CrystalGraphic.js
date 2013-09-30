@@ -7,6 +7,7 @@ EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 	_setupCrystalGraphic: function() {
 		var v = Graphics.crystals;
 		this.graphics
+			.clear()
 			.beginStyle(v.style)
 			.drawPolyStar(0, 0, v.radius, v.sides, v.pointSize, 0)
 			.endStyle(v.style);
