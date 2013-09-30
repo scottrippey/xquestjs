@@ -7,6 +7,10 @@ var Point = {
 		return Math.sqrt(point.x * point.x + point.y * point.y);
 	}
 	,
+	hypotenuseXY: function(x, y) {
+		return Math.sqrt(x * x + y * y);
+	}
+	,
 	pointIsInBounds: function(point, bounds) {
 		return (bounds.x <= point.x) &&
 			(point.x <= (bounds.x + bounds.width)) &&

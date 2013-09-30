@@ -25,7 +25,7 @@ var EnemyFactory = Class.create({
 		if (this.nextEnemySpawn == null) {
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		} else if (this.nextEnemySpawn <= tickEvent.runTime) {
-			this._spawnNextEnemy();
+			this.spawnNextEnemy();
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		}
 		if (this.enemies.length >= 2) {
@@ -38,7 +38,7 @@ var EnemyFactory = Class.create({
 		this.nextEnemySpawn = runTime + spawnRate * 1000;
 	}
 	,
-	_spawnNextEnemy: function() {
+	spawnNextEnemy: function() {
 		var enemyCtor;
 		var randomEnemyIndex;
 		if (this.enemyPool.length === 1) {

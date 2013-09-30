@@ -1,5 +1,6 @@
 var Player = Class.create({
 	location: null
+	, radius: null
 	,
 	initialize: function(game) {
 		this.game = game;

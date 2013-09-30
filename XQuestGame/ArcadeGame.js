@@ -21,12 +21,6 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this._startGame();
 	}
 	,
-	_startGame: function() {
-		this.currentLevel = 1;
-		this._arrangeLevel();
-		this._startLevel();
-	}
-	,
 	_setupLevelGraphics: function() {
 		this.levelGraphics = this.game.gfx.createLevelGraphics();
 	}
@@ -50,7 +44,19 @@ var ArcadeGame = Class.create(new BaseGame(), {
 			bounceOffWalls: true // Temporary, until player can die
 		};
 	}
+	,
+	debug: function() {
+		var debug = new GameDebugger(this.game);
+		this.debug = function() { return debug; };
+		return this.debug();
+	}
 
+	,
+	_startGame: function() {
+		this.currentLevel = 1;
+		this._arrangeLevel();
+		this._startLevel();
+	}
 	,
 	_arrangeLevel: function() {
 		this.game.levelGraphics.closeGate();

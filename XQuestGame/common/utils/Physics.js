@@ -184,5 +184,28 @@ var Physics = {
 		}
 	}
 
+	,
+	findClosestPoint: function(target, points) {
+		var closestPointIndex = -1, distance = Number.MAX_VALUE;
+
+		var i = points.length;
+		while (i--) {
+			var point = points[i];
+
+			// Let's do rough comparisons, and short-circuit when possible:
+			var dx = point.x - target.x;
+			if (Math.abs(dx) >= distance) continue;
+			var dy = point.y - target.y;
+			if (Math.abs(dy) >= distance) continue;
+
+			// Now do a precise comparison:
+			var actualDistance = Point.hypotenuseXY(dx, dy);
+			if (actualDistance < distance) {
+				distance = actualDistance;
+				closestPointIndex = i;
+			}
+		}
+		return closestPointIndex;
+	}
 };
 
