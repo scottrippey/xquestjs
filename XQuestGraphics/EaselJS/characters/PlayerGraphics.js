@@ -21,10 +21,13 @@ EaselJSGraphics.PlayerGraphics = Class.create(new createjs.Shape(), {
 		this.rotation += (Graphics.player.spinRate * tickEvent.deltaSeconds);
 	}
 	,
-	killPlayerGraphics: function() {
-		// TODO.
-
-		// TEMP:
-		Graphics.player.innerStyle.fillColor = 'red';
+	killPlayerGraphics: function(gfx, velocity) {
+		var G = Graphics.player;
+		this.toggleVisible(false);
+		gfx.createExplosion(this, velocity, G.particles);
+	}
+	,
+	restorePlayerGraphics: function() {
+		this.toggleVisible(true);
 	}
 });

@@ -3,6 +3,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	, levelGraphics: null
 	, powerups: null
 	, paused: false
+	, stats: null
 
 	,
 	initialize: function(canvas) {
@@ -12,6 +13,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.initializeGame(canvas);
 		this.addGameItem(this);
 
+		this.stats = {};
 		this._setupLevelGraphics();
 		this._setupPlayer();
 		this._setupEnemyFactory();
@@ -46,6 +48,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 			,tripleShot: false
 			,powerShot: true
 			,autoAim: false
+			,invincible: false
 		};
 	}
 	,
@@ -58,13 +61,15 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	,
 	_startGame: function() {
 		this.currentLevel = 1;
+		this.stats.lives = Balance.player.lives;
+
 		this._arrangeLevel();
 		this._startLevel();
 	}
 	,
 	_arrangeLevel: function() {
 		this.game.levelGraphics.closeGate();
-		this.game.levelGraphics.setGateWidth(Balance.gate.startingWidth);
+		this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 
 		this.game.crystals.createCrystals(Balance.crystals.quantity);
 		this.game.enemies.setLevel(this.currentLevel);
@@ -98,7 +103,23 @@ var ArcadeGame = Class.create(new BaseGame(), {
 
 	,
 	killPlayer: function() {
-		this.player.killPlayerGraphics();
+		this.player.killPlayer();
+
+		if (this.stats.lives === 0) {
+			this._gameOver();
+		} else {
+			this.stats.lives--;
+			this._animateBackToCenter().queue(function() {
+				this._startLevel();
+			}.bind(this));
+		}
+	}
+	,
+	_gameOver: function() {
+		// bew wew wew wew wew
+		this._animateBackToCenter().queue(function() {
+			this._startGame();
+		}.bind(this));
 	}
 
 	,

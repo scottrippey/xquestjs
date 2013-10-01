@@ -9,11 +9,26 @@ Balance.onUpdate(function(mode) {
 			}
 			, innerRadius: Balance.player.radius - 2
 			, innerStyle: {
-				fillColor: 'yellow'
+				fillColor: 'hsl(120, 100%, 50%)'
 			}
 			, innerStarPoints: 3
 			, innerStarSize: 0.7
 			, spinRate: 0.3 * 360
+			, particles: {
+				count: 100
+				,speed: 200
+				,style: {
+					fillColor: 'hsl(60, 100%, 50%)'
+				}
+				,radius: 6
+				,friction: 0.7
+				,getAnimation: function(particle) {
+					return new Animation()
+						.duration(3).easeOut()
+						.fade(particle, 0)
+						;
+				}
+			}
 		}
 		,bullets: {
 			radius: Balance.bullets.radius

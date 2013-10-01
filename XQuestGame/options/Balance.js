@@ -46,6 +46,7 @@ Balance.merge({
 				radius: 12
 				,looseFriction: 0.8
 				,bounceDampening : 0.3
+				,lives: 4
 			}
 			,powerups: {
 				powerShot: {
@@ -108,9 +109,7 @@ Balance.merge({
 						, totalHeight: padding + levelHeight + padding
 					};
 				})()
-			}
-			,gate: {
-				startingWidth: 150
+				, gateWidth: 150
 			}
 		});
 

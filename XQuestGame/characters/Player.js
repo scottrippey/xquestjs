@@ -185,6 +185,8 @@ var Player = Class.create({
 
 	,
 	onAct: function(tickEvent) {
+		if (!this.playerActive) return;
+
 		if (this.bullets.length) {
 			if (this.bullets.length >= 2) {
 				Physics.sortByLocation(this.bullets);
@@ -193,8 +195,12 @@ var Player = Class.create({
 				this._destroyBullet(bullet, bi);
 			}.bind(this));
 		}
-		// Temp: let the player destroy enemies:
-		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, null);
+
+		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
+			if (this.game.powerups.invincible) return;
+
+			this.game.killPlayer();
+		}.bind(this));
 
 	}
 	,
@@ -203,16 +209,16 @@ var Player = Class.create({
 	}
 
 	,
-	killPlayerGraphics: function() {
+	killPlayer: function() {
 		this.playerActive = false;
-		this.playerGraphics.killPlayerGraphics();
+		this.playerGraphics.killPlayerGraphics(this.game.gfx, this.velocity);
 	}
 
 	,
 	showPlayer: function(show) {
 		this.playerActive = show;
 		if (show) {
-			this.playerGraphics.toggleVisible(true);
+			this.playerGraphics.restorePlayerGraphics();
 			this.game.gfx.addAnimation(new Animation()
 				.duration(1).easeOut()
 				.scale(this.playerGraphics, [0,1])
