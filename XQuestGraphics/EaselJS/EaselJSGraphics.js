@@ -135,9 +135,10 @@ var EaselJSGraphics = Class.create({
 		particleOptions.velocity = { x: 0, y: 0 };
 
 		var particleCount = particleOptions.count, partSpeed = particleOptions.speed;
+		var random = function() { return 1 - Math.random() - Math.random(); }; // provides a more even spread than just Math.random()
 		for (var i = 0; i < particleCount; i++) {
-			particleOptions.velocity.x = velocity.x + partSpeed - 2 * partSpeed * Math.random();
-			particleOptions.velocity.y = velocity.y + partSpeed - 2 * partSpeed * Math.random();
+			particleOptions.velocity.x = velocity.x + partSpeed * random();
+			particleOptions.velocity.y = velocity.y + partSpeed * random();
 
 			var particle = this.particleFactory.createParticle(particleOptions);
 			this.layers.effects.addChild(particle);
