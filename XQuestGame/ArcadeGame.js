@@ -71,6 +71,7 @@ var ArcadeGame = Class.create(new BaseGame(), {
 		this.game.levelGraphics.closeGate();
 		this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 
+		this.game.crystals.clearCrystals();
 		this.game.crystals.createCrystals(Balance.crystals.quantity);
 		this.game.enemies.setLevel(this.currentLevel);
 	}
@@ -103,12 +104,13 @@ var ArcadeGame = Class.create(new BaseGame(), {
 
 	,
 	killPlayer: function() {
-		this.player.killPlayer();
+		this.game.player.killPlayer();
+		this.game.enemies.clearAllEnemies();
 
-		if (this.stats.lives === 0) {
+		if (this.game.stats.lives === 0) {
 			this._gameOver();
 		} else {
-			this.stats.lives--;
+			this.game.stats.lives--;
 			this._animateBackToCenter().queue(function() {
 				this._startLevel();
 			}.bind(this));
@@ -126,8 +128,8 @@ var ArcadeGame = Class.create(new BaseGame(), {
 	levelUp: function() {
 		this.game.player.showPlayer(false);
 
-		// TEMP: for now, let's just kill all enemies:
-		this.game.enemies.killEnemiesOnCollision([ { location: { x: 0, y: 0 }, radius: 999999 } ], 999999, null);
+		// Let's kill all enemies:
+		this.game.enemies.killAllEnemies();
 
 		this.currentLevel++;
 

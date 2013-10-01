@@ -23,6 +23,12 @@ var Crystals = Class.create({
 		Physics.sortByLocation(this.crystals);
 	}
 	,
+	clearCrystals: function() {
+		this.crystals.forEach(function(crystal) {
+			this.game.gfx.removeGraphic(crystal);
+		}, this);
+	}
+	,
 	onAct: function(tickEvent) {
 
 		// Check for player-collisions:
@@ -36,7 +42,7 @@ var Crystals = Class.create({
 
 		var crystalsGathered = 0;
 		Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, function(crystal, point, crystalIndex, pi, distance) {
-			crystal.gatherCrystal(this.game.player.location);
+			crystal.gatherCrystal(this.game.gfx, this.game.player.location);
 			this.crystals.splice(crystalIndex, 1);
 			crystalsGathered++;
 		}.bind(this));
@@ -52,7 +58,7 @@ var Crystals = Class.create({
 		var crystalIndex = Physics.findClosestPoint(location, this.crystals)
 			,crystal = this.crystals[crystalIndex];
 
-		crystal.gatherCrystal(this.game.player.location);
+		crystal.gatherCrystal(this.game.gfx, this.game.player.location);
 		this.crystals.splice(crystalIndex, 1);
 
 		this.game.crystalsGathered(this.crystals.length, 1);

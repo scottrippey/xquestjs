@@ -125,7 +125,7 @@ var EaselJSGraphics = Class.create({
 	}
 	,
 	createCrystalGraphic: function() {
-		var crystal = new EaselJSGraphics.CrystalGraphic(this);
+		var crystal = new EaselJSGraphics.CrystalGraphic();
 		this.layers.background.addChild(crystal);
 		return crystal;
 	}

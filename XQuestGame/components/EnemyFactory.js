@@ -78,9 +78,21 @@ var EnemyFactory = Class.create({
 		}.bind(this));
 	}
 	,
+	killAllEnemies: function() {
+		this.enemies.forEach(function(enemy) { enemy.killEnemy(); });
+		this.enemies.length = 0;
+	}
+	,
+	clearAllEnemies: function() {
+		this.enemies.forEach(function(enemy) {
+			enemy.clearEnemy();
+		});
+		this.enemies.length = 0;
+	}
+	,
 	_killEnemy: function(enemy, enemyIndex) {
-		this.enemies.splice(enemyIndex, 1);
 		enemy.killEnemy();
+		this.enemies.splice(enemyIndex, 1);
 	}
 	,
 	findClosestEnemy: function(location) {

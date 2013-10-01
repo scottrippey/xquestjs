@@ -1,6 +1,5 @@
 EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
-	initialize: function(gfx) {
-		this.gfx = gfx;
+	initialize: function() {
 		this._setupCrystalGraphic();
 	}
 	,
@@ -20,9 +19,9 @@ EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 	}
 	,
-	gatherCrystal: function(playerLocation) {
+	gatherCrystal: function(gfx, playerLocation) {
 		var crystal = this;
-		crystal.gfx.addAnimation(new Animation()
+		gfx.addAnimation(new Animation()
 			.duration(Graphics.crystals.gatherDuration)
 
 			.savePosition()
@@ -39,7 +38,7 @@ EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
 			.tween(function(s) { crystal.spinRate = s; }, [ crystal.spinRate, Graphics.crystals.spinRateGathered ])
 
 			.queue(function(animEvent) {
-				crystal.gfx.removeGraphic(crystal);
+				gfx.removeGraphic(crystal);
 			})
 		);
 	}

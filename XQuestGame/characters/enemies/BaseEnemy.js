@@ -33,4 +33,16 @@ var BaseEnemy = Class.create({
 	killEnemy: function() {
 		this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
 	}
+	,
+	/* @public */
+	clearEnemy: function() {
+		this.game.gfx.addAnimation(new Animation()
+			.duration(2).easeIn()
+			.scale(this.enemyGraphics, 0)
+
+			.queue(function() {
+				this.game.gfx.removeGraphic(this.enemyGraphics);
+			}.bind(this))
+		);
+	}
 });
