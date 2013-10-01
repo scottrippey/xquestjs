@@ -35,6 +35,7 @@ EaselJSGraphics.ParticleFactory = Class.create({
 		particle.y = particleOptions.position.y;
 		particle.velocity = particleOptions.velocity ? _.clone(particleOptions.velocity) : null;
 		particle.friction = particleOptions.friction || null;
+		particle.radius = particleOptions.radius;
 
 		this._particles.push(particle);
 
@@ -54,6 +55,7 @@ EaselJSGraphics.ParticleFactory = Class.create({
 					Physics.applyFrictionToVelocity(particle.velocity, particle.friction, deltaSeconds);
 				}
 			}
+			Physics.bounceOffWalls(particle, particle.radius, particle.velocity, Balance.level.bounds, 0);
 		});
 	}
 });
