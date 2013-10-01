@@ -15,13 +15,13 @@ Balance.onUpdate(function(mode) {
 			, innerStarSize: 0.7
 			, spinRate: 0.3 * 360
 			, particles: {
-				count: 100
-				,speed: 200
+				count: 200
+				,speed: 800
 				,style: {
 					fillColor: 'hsl(60, 100%, 50%)'
 				}
 				,radius: 6
-				,friction: 0.7
+				,friction: 0.9
 				,getAnimation: function(particle) {
 					return new Animation()
 						.duration(3).easeOut()

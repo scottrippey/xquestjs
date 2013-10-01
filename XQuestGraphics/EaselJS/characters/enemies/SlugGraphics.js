@@ -16,12 +16,12 @@ Balance.onUpdate(function(mode) {
 				}
 				, particles: {
 					count: 20
-					,speed: 150
+					,speed: 300
 					,style: {
 						fillColor: 'hsl(100, 100%, 50%)'
 					}
 					,radius: 4
-					,friction: 0.9
+					,friction: 0.95
 					,getAnimation: function(particle) {
 						return new Animation()
 							.duration(3).easeOut()
