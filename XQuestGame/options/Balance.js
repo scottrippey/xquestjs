@@ -33,7 +33,7 @@ Balance.merge({
 		,
 		'test': {
 			fullView: true
-			,spawnRate: Balance.randomBetween(1, 1)
+			,spawnRate: Balance.randomBetween(100, 100)
 			,crystalCount: 3
 		}
 	}
@@ -64,7 +64,7 @@ Balance.merge({
 				}
 				,
 				autoAim: {
-					bulletSpeed: 50
+					bulletSpeed: 500
 				}
 			}
 			,bullets: {
@@ -82,7 +82,7 @@ Balance.merge({
 				,roster: gameOptions.enemyRoster || [ Slug, Locust ]
 				,slug: {
 					radius: 13
-					,speed: 40
+					,speed: 80
 					,movementInterval: Balance.randomBetween(3, 10)
 				}
 				,locust: {
