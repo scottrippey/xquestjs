@@ -217,13 +217,67 @@ var Physics = {
 	 * @param {Point} targetVelocity
 	 * @param {Number} bulletSpeed
 	 * @returns {Point}
+	 *
+	 * For reference, see http://stackoverflow.com/a/4750162/272072 - "shoot projectile (straight trajectory) at moving target in 3 dimensions"
 	 */
 	trajectory: function(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
-		// TODO: use bulletSpeed in this equation
-		return {
-			x: targetLocation.x - playerLocation.x + targetVelocity.x
-			,y: targetLocation.y - playerLocation.y + targetVelocity.y
+		// We've got some crazy equations coming up,
+		// so let's create some shorthand variables:
+		var v = targetVelocity
+			, bs = bulletSpeed
+			, e = targetLocation
+			, p = playerLocation
+			, d = { x: e.x - p.x, y: e.y - p.y }
+			, sqr = function(x) { return x * x; };
+
+		// Solve for t by using the quadratic trajectory equation:
+		var a = sqr(v.x) + sqr(v.y) - sqr(bs)
+			,b = 2 * (v.x * d.x + v.y * d.y)
+			,c = sqr(d.x) + sqr(d.y);
+
+		var solutions = Physics.solveQuadratic(a, b, c);
+		var t;
+		if (solutions.length === 0 || (solutions[0] <= 0 && solutions[1] <= 0)) {
+			// It's just not possible to hit the target using the given bulletSpeed.
+			// So let's just fire in the approximate direction:
+			t = 1;
+		} else {
+			// Pick the shortest positive solution:
+			if (solutions[0] > 0 && solutions[0] < solutions[1])
+				t = solutions[0];
+			else
+				t = solutions[1];
+		}
+
+		var trajectory = {
+			x: (d.x + v.x * t)
+			,y: (d.y + v.y * t)
 		};
+		return Point.scaleVector(trajectory, bulletSpeed);
+	}
+
+	,
+	/**
+	 * Solves a quadratic equation by using the quadratic formula.
+	 *
+	 * Quadratic equations: ax² + bx + c = 0
+	 * Quadratic formula: (-b ± sqrt(b^2 - 4ac)) / 2a
+	 *
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @returns {[ number, number ]|[]} Returns either 2 solutions or no solutions.
+	 */
+	solveQuadratic: function(a, b, c) {
+		var bSquaredMinus4AC = (b * b - 4 * a * c);
+		if (bSquaredMinus4AC < 0)
+			return []; // No possible solutions
+
+		var twoA = (2 * a)
+			,negativeBOver2A = (-b / twoA)
+			,sqrtOfBSquaredMinus4ACOver2A = Math.sqrt(bSquaredMinus4AC) / twoA;
+
+		return [ negativeBOver2A + sqrtOfBSquaredMinus4ACOver2A, negativeBOver2A - sqrtOfBSquaredMinus4ACOver2A ];
 	}
 };
 
