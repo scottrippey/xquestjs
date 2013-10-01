@@ -209,9 +209,21 @@ var Physics = {
 	}
 
 	,
-	autoAim: function(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
-		// TEMP:
-		return targetVelocity;
+	/**
+	 * Determines the required trajectory in order to hit a moving target
+	 *
+	 * @param {Point} playerLocation
+	 * @param {Point} targetLocation
+	 * @param {Point} targetVelocity
+	 * @param {Number} bulletSpeed
+	 * @returns {Point}
+	 */
+	trajectory: function(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
+		// TODO: use bulletSpeed in this equation
+		return {
+			x: targetLocation.x - playerLocation.x + targetVelocity.x
+			,y: targetLocation.y - playerLocation.y + targetVelocity.y
+		};
 	}
 };
 
