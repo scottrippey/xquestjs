@@ -15,8 +15,8 @@ var BaseEnemy = Smart.Class({
 	,
 	/* @protected */
 	applyVelocityAndBounce: function(tickEvent) {
-		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+		Smart.Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
+		Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
 	}
 	,
 	/* @protected */

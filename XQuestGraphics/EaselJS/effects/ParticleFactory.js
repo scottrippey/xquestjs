@@ -50,12 +50,12 @@ EaselJSGraphics.ParticleFactory = Smart.Class({
 				particle.animation.update(deltaSeconds);
 			}
 			if (particle.velocity) {
-				Physics.applyVelocity(particle, particle.velocity, deltaSeconds);
+				Smart.Physics.applyVelocity(particle, particle.velocity, deltaSeconds);
 				if (particle.friction) {
-					Physics.applyFrictionToVelocity(particle.velocity, particle.friction, deltaSeconds);
+					Smart.Physics.applyFrictionToVelocity(particle.velocity, particle.friction, deltaSeconds);
 				}
 			}
-			Physics.bounceOffWalls(particle, particle.radius, particle.velocity, Balance.level.bounds, 0);
+			Smart.Physics.bounceOffWalls(particle, particle.radius, particle.velocity, Balance.level.bounds, 0);
 		});
 	}
 });

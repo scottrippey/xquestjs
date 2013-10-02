@@ -110,7 +110,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	 */
 	levelCollision: function(location, radius) {
 		var bounds = Balance.level.bounds;
-		var wall = Physics.checkBounds(location, radius, bounds);
+		var wall = Smart.Physics.checkBounds(location, radius, bounds);
 
 		if (!wall) return null;
 

@@ -34,7 +34,7 @@ var TestPhysicsHelper = {
 		inputPoints = TestPhysicsHelper.getPoints(inputPoints);
 		expectedPoints = TestPhysicsHelper.getPoints(expectedPoints);
 
-		var sortedPoints = Physics.sortByLocation(inputPoints);
+		var sortedPoints = Smart.Physics.sortByLocation(inputPoints);
 
 		TestPhysicsHelper.assertPointsAreEqual(sortedPoints, expectedPoints);
 	}
@@ -45,7 +45,7 @@ var TestPhysicsHelper = {
 		expectedCollisions = TestPhysicsHelper.getPoints(expectedCollisions);
 
 		var actualCollisions = [];
-		Physics.detectCollisions(pointsA, pointsB, maxDistance, function(pA, pB, iA, iB, d) {
+		Smart.Physics.detectCollisions(pointsA, pointsB, maxDistance, function(pA, pB, iA, iB, d) {
 			actualCollisions.push(pA, pB);
 		});
 

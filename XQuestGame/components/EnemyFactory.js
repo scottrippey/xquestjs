@@ -29,7 +29,7 @@ var EnemyFactory = Smart.Class({
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		}
 		if (this.enemies.length >= 2) {
-			Physics.sortByLocation(this.enemies);
+			Smart.Physics.sortByLocation(this.enemies);
 		}
 	}
 	,
@@ -68,7 +68,7 @@ var EnemyFactory = Smart.Class({
 	killEnemiesOnCollision: function(sortedItems, maxItemRadius, collisionCallback) {
 		var enemies = this.enemies;
 		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
-		Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
+		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
 			if (theseSpecificItemsDidCollide) {
 				this._killEnemy(enemy, ei);
@@ -97,7 +97,7 @@ var EnemyFactory = Smart.Class({
 	,
 	findClosestEnemy: function(location) {
 		var enemyLocations = this.enemies.map(function(enemy) { return enemy.location; }); // Perhaps this could be improved, but it's not mission-critical
-		var enemyIndex = Physics.findClosestPoint(location, enemyLocations);
+		var enemyIndex = Smart.Physics.findClosestPoint(location, enemyLocations);
 
 		return this.enemies[enemyIndex];
 	}

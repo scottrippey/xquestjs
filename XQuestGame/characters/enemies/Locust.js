@@ -20,8 +20,8 @@ var Locust = Smart.Class(new BaseEnemy(), {
 		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
 		Point.rotate(this.velocity, rotation);
 
-		Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-		Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+		Smart.Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
+		Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
 	}
 	,
 	onAct: function(tickEvent) {

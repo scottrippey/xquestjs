@@ -35,8 +35,8 @@ var Player = Smart.Class({
 			switch (inputItem.inputType) {
 				case 'accelerate':
 					var acceleration = inputItem;
-					Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
-					Physics.applyAccelerationToVelocity(this.velocity, acceleration);
+					Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
+					Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
 					break;
 				case 'engage':
 					this.engaged = true;
@@ -113,7 +113,7 @@ var Player = Smart.Class({
 			var autoAim = Balance.powerups.autoAim;
 			var targetEnemy = this.game.enemies.findClosestEnemy(this.location);
 			if (targetEnemy) {
-				velocity = Physics.trajectory(this.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
+				velocity = Smart.Physics.trajectory(this.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
 			}
 		}
 		if (!velocity) {
@@ -139,7 +139,7 @@ var Player = Smart.Class({
 	,
 	_movePlayer: function(tickEvent) {
 
-		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
+		Smart.Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 
 		if (!this.playerActive) return;
 
@@ -148,7 +148,7 @@ var Player = Smart.Class({
 //			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
 //		}
 		if (!this.engaged) {
-			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
+			Smart.Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
 		var wallCollision = this.game.levelGraphics.levelCollision(this.location, this.radius);
@@ -158,11 +158,11 @@ var Player = Smart.Class({
 					this.cancelVelocity();
 					this.game.levelUp();
 				} else if (wallCollision.touchingGate) {
-					Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
+					Smart.Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
 				}
 			} else {
 				if (this.game.powerups.bounceOffWalls) {
-					Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
+					Smart.Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
 				} else {
 					this.game.killPlayer();
 				}
@@ -174,7 +174,7 @@ var Player = Smart.Class({
 		var bounds = Balance.level.bounds, i = this.bullets.length;
 		while (i--) {
 			var bulletGfx = this.bullets[i];
-			Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
+			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 			if (!Point.pointIsInBounds(bulletGfx, bounds)) {
 				bulletGfx.destroyBullet();
 				this.bullets.splice(i, 1);
@@ -189,7 +189,7 @@ var Player = Smart.Class({
 
 		if (this.bullets.length) {
 			if (this.bullets.length >= 2) {
-				Physics.sortByLocation(this.bullets);
+				Smart.Physics.sortByLocation(this.bullets);
 			}
 			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
 				this._destroyBullet(bullet, bi);

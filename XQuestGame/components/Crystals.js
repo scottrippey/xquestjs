@@ -20,7 +20,7 @@ var Crystals = Smart.Class({
 			this.crystals.push(crystal);
 		}
 
-		Physics.sortByLocation(this.crystals);
+		Smart.Physics.sortByLocation(this.crystals);
 	}
 	,
 	clearCrystals: function() {
@@ -41,7 +41,7 @@ var Crystals = Smart.Class({
 		var maxDistance = maxRadius + Balance.crystals.radius;
 
 		var crystalsGathered = 0;
-		Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, function(crystal, point, crystalIndex, pi, distance) {
+		Smart.Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, function(crystal, point, crystalIndex, pi, distance) {
 			crystal.gatherCrystal(this.game.gfx, this.game.player.location);
 			this.crystals.splice(crystalIndex, 1);
 			crystalsGathered++;
@@ -55,7 +55,7 @@ var Crystals = Smart.Class({
 	gatherClosestCrystal: function(location) {
 		if (!this.crystals.length) return;
 
-		var crystalIndex = Physics.findClosestPoint(location, this.crystals)
+		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals)
 			,crystal = this.crystals[crystalIndex];
 
 		crystal.gatherCrystal(this.game.gfx, this.game.player.location);
