@@ -46,7 +46,7 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 					var enemyGraphics = this.game.gfx.createEnemyGraphics(enemy);
 					enemyGraphics.moveTo(x, y);
 					if (spin) {
-						this.game.gfx.addAnimation(new Animation()
+						this.game.gfx.addAnimation(new Smart.Animation()
 							.loop(spin)
 							.rotate(enemyGraphics, [0, 360])
 						);

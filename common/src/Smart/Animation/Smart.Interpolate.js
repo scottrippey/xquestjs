@@ -1,4 +1,4 @@
-var Interpolate = {
+Smart.Interpolate = {
 	/**
 	 * Interpolates between two numbers
 	 * @param {Number} from
@@ -21,8 +21,8 @@ var Interpolate = {
 		if (pct === 0) return from;
 		if (pct === 1) return to;
 		return {
-			x: Interpolate.numbers(from.x, to.x, pct)
-			,y: Interpolate.numbers(from.y, to.y, pct)
+			x: Smart.Interpolate.numbers(from.x, to.x, pct)
+			,y: Smart.Interpolate.numbers(from.y, to.y, pct)
 		};
 	}
 	,
@@ -31,7 +31,7 @@ var Interpolate = {
 		if (pct === 1) return to;
 		from = Smart.Color.parseToArray(from);
 		to = Smart.Color.parseToArray(to);
-		return Smart.Color.arrayToHex(Interpolate.arrays(from, to, pct));
+		return Smart.Color.arrayToHex(Smart.Interpolate.arrays(from, to, pct));
 	}
 	,
 	/**
@@ -48,7 +48,7 @@ var Interpolate = {
 		var i = Math.min(from.length, to.length)
 			,results = [];
 		while (i--) {
-			results[i] = Interpolate.numbers(from[i], to[i], pct);
+			results[i] = Smart.Interpolate.numbers(from[i], to[i], pct);
 		}
 		return results;
 	}

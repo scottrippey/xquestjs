@@ -144,11 +144,11 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 			, middleOfGame = this._getMiddleOfGame();
 
 		this.followPlayer = false;
-		var animation = new Animation()
+		var animation = new Smart.Animation()
 			.duration(2).ease()
 			.tween(function(p) {
 				this.game.gfx.followPlayer(p);
-			}.bind(this), Keyframes.fromPoints([ visibleMiddle, middleOfGame ]));
+			}.bind(this), Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]));
 		this.game.gfx.addAnimation(animation);
 		return animation;
 	}

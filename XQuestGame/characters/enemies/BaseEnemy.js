@@ -36,7 +36,7 @@ var BaseEnemy = Smart.Class({
 	,
 	/* @public */
 	clearEnemy: function() {
-		this.game.gfx.addAnimation(new Animation()
+		this.game.gfx.addAnimation(new Smart.Animation()
 			.duration(2).easeIn()
 			.scale(this.enemyGraphics, 0)
 

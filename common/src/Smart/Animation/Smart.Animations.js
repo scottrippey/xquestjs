@@ -1,6 +1,6 @@
-var Animations = Smart.Class({
+Smart.Animations = Smart.Class({
 	addAnimation: function(animation) {
-		if (!animation) animation = new Animation();
+		if (!animation) animation = new Smart.Animation();
 		if (!this.animations)
 			this.animations = [ animation ];
 		else

@@ -1,4 +1,4 @@
-var Keyframes = {
+Smart.Keyframes = {
 	fromFunction: function(keyframes) {
 		if (!_.isFunction(keyframes)) return null;
 
@@ -9,7 +9,7 @@ var Keyframes = {
 		if (!_.isArray(keyframes)) return null;
 
 		return function(pct) {
-			return Interpolate.keyframes(keyframes, pct, Interpolate.numbers);
+			return Smart.Interpolate.keyframes(keyframes, pct, Smart.Interpolate.numbers);
 		}
 	}
 	,
@@ -17,7 +17,7 @@ var Keyframes = {
 		if (!_.isArray(keyframes)) return null;
 
 		return function(pct) {
-			return Interpolate.keyframes(keyframes, pct, Interpolate.points);
+			return Smart.Interpolate.keyframes(keyframes, pct, Smart.Interpolate.points);
 		};
 	}
 	,
@@ -26,7 +26,7 @@ var Keyframes = {
 
 		var colorKeyframes = _.map(keyframes, Smart.Color.parseToArray);
 		return function(pct) {
-			return Interpolate.keyframes(colorKeyframes, pct, Interpolate.colors);
+			return Smart.Interpolate.keyframes(colorKeyframes, pct, Smart.Interpolate.colors);
 		}
 	}
 };

@@ -23,7 +23,7 @@ Balance.onUpdate(function(mode) {
 					,radius: 4
 					,friction: 0.95
 					,getAnimation: function(particle) {
-						return new Animation()
+						return new Smart.Animation()
 							.duration(3).easeOut()
 							.fade(particle, 0)
 							;

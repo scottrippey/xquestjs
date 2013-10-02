@@ -21,7 +21,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 	,
 	gatherCrystal: function(gfx, playerLocation) {
 		var crystal = this;
-		gfx.addAnimation(new Animation()
+		gfx.addAnimation(new Smart.Animation()
 			.duration(Graphics.crystals.gatherDuration)
 
 			.savePosition()

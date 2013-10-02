@@ -151,7 +151,7 @@ var EaselJSGraphics = Smart.Class({
 	,
 	addAnimation: function(animation) {
 		if (!this.animations) {
-			this.animations = new Animations();
+			this.animations = new Smart.Animations();
 		}
 		return this.animations.addAnimation(animation);
 	}

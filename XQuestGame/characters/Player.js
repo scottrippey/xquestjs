@@ -219,12 +219,12 @@ var Player = Smart.Class({
 		this.playerActive = show;
 		if (show) {
 			this.playerGraphics.restorePlayerGraphics();
-			this.game.gfx.addAnimation(new Animation()
+			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(1).easeOut()
 				.scale(this.playerGraphics, [0,1])
 			);
 		} else {
-			this.game.gfx.addAnimation(new Animation()
+			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(0.5).easeOut()
 				.scale(this.playerGraphics, [1,0])
 				.queue(function() {
