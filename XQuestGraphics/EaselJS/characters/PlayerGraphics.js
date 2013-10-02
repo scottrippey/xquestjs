@@ -1,4 +1,4 @@
-EaselJSGraphics.PlayerGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.PlayerGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

@@ -1,4 +1,4 @@
-EaselJSGraphics.ParticleFactory = Class.create({
+EaselJSGraphics.ParticleFactory = Smart.Class({
 	initialize: function(gfx) {
 		this.gfx = gfx;
 

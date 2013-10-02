@@ -1,4 +1,4 @@
-var BaseEnemy = Class.create({
+var BaseEnemy = Smart.Class({
 	game: null
 	, enemyGraphics: null
 	, location: null

@@ -1,4 +1,4 @@
-var ArcadeGame = Class.create(new BaseGame(), {
+var ArcadeGame = Smart.Class(new BaseGame(), {
 	player: null
 	, levelGraphics: null
 	, powerups: null

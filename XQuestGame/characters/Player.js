@@ -1,4 +1,4 @@
-var Player = Class.create({
+var Player = Smart.Class({
 	location: null
 	, radius: null
 	,

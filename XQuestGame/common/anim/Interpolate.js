@@ -29,9 +29,9 @@ var Interpolate = {
 	colors: function(from, to, pct) {
 		if (pct === 0) return from;
 		if (pct === 1) return to;
-		from = Color.parseToArray(from);
-		to = Color.parseToArray(to);
-		return Color.arrayToHex(Interpolate.arrays(from, to, pct));
+		from = Smart.Color.parseToArray(from);
+		to = Smart.Color.parseToArray(to);
+		return Smart.Color.arrayToHex(Interpolate.arrays(from, to, pct));
 	}
 	,
 	/**

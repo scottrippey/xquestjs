@@ -1,4 +1,4 @@
-EaselJSGraphics.CrystalGraphic = Class.create(new createjs.Shape(), {
+EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		this._setupCrystalGraphic();
 	}

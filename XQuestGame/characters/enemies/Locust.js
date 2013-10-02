@@ -1,4 +1,4 @@
-var Locust = Class.create(new BaseEnemy(), {
+var Locust = Smart.Class(new BaseEnemy(), {
 	initialize: function Locust(game) {
 		var B = Balance.enemies.locust;
 		this.setupBaseEnemyGraphics(game, 'Locust', B.radius);

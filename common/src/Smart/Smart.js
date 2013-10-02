@@ -1,24 +1,25 @@
-var Class = {
-	create: function(base, implement) {
-		var constructor = (implement || base).hasOwnProperty('initialize') && (implement || base)['initialize'];
-		if (!constructor) {
-			constructor = function Class() { };
-		}
+// Global namespace:
+Smart = {};
 
-		constructor.prototype = base;
-		if (implement){
-			for (var key in implement) {
-				// Takes the place of checking hasOwnProperty:
-				if (constructor.prototype[key] === implement[key]) continue;
-				constructor.prototype[key] = implement[key];
-			}
-		}
-
-		return constructor;
+Smart.Class = function(base, implement) {
+	var constructor = (implement || base).hasOwnProperty('initialize') && (implement || base)['initialize'];
+	if (!constructor) {
+		constructor = function Class() { };
 	}
+
+	constructor.prototype = base;
+	if (implement){
+		for (var key in implement) {
+			// Takes the place of checking hasOwnProperty:
+			if (constructor.prototype[key] === implement[key]) continue;
+			constructor.prototype[key] = implement[key];
+		}
+	}
+
+	return constructor;
 };
 
-var Events = Class.create({
+Smart.Events = Smart.Class({
 	addEvent: function(eventName, callback) {
 		if (!this.$events) this.$events = {};
 		if (!this.$events[eventName]) this.$events[eventName] = [];
@@ -37,7 +38,7 @@ var Events = Class.create({
 	}
 });
 
-var Color = {
+Smart.Color = {
 	arrayToHex: function(array){
 		if (array.length < 3) return null;
 		if (array.length == 4 && array[3] == 0) return 'transparent';
@@ -52,7 +53,7 @@ var Color = {
 	parseToArray: function(color) {
 		if (typeof color !== 'string') return color;
 
-		return Color.hexToArray(color) || Color.rgbToArray(color);
+		return Smart.Color.hexToArray(color) || Smart.Color.rgbToArray(color);
 	}
 	,
 	hexToArray: function(string){

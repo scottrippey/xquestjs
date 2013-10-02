@@ -1,4 +1,4 @@
-var GameInput = Class.create({
+var GameInput = Smart.Class({
 	initialize: function() {
 		this.inputItems = [];
 	}

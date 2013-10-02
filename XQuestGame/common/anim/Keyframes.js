@@ -24,7 +24,7 @@ var Keyframes = {
 	fromColors: function(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
-		var colorKeyframes = _.map(keyframes, Color.parseToArray);
+		var colorKeyframes = _.map(keyframes, Smart.Color.parseToArray);
 		return function(pct) {
 			return Interpolate.keyframes(colorKeyframes, pct, Interpolate.colors);
 		}

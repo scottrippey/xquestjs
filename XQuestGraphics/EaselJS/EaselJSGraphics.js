@@ -1,4 +1,4 @@
-var EaselJSGraphics = Class.create({
+var EaselJSGraphics = Smart.Class({
 	initialize: function(canvas) {
 		this.canvas = canvas;
 

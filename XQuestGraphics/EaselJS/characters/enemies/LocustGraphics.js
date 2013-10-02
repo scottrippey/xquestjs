@@ -38,7 +38,7 @@ Balance.onUpdate(function(mode) {
 	});
 });
 
-EaselJSGraphics.LocustGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.LocustGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

@@ -1,4 +1,4 @@
-var Crystals = Class.create({
+var Crystals = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		this.game.addGameItem(this);

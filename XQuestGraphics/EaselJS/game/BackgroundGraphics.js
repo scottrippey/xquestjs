@@ -1,4 +1,4 @@
-EaselJSGraphics.BackgroundGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.BackgroundGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		var bounds = Balance.level.bounds;
 		this._size = {

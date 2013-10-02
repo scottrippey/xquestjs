@@ -34,7 +34,7 @@ Balance.onUpdate(function(mode) {
 	});
 });
 
-EaselJSGraphics.SlugGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.SlugGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

@@ -1,4 +1,4 @@
-var Animations = Class.create({
+var Animations = Smart.Class({
 	addAnimation: function(animation) {
 		if (!animation) animation = new Animation();
 		if (!this.animations)

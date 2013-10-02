@@ -1,4 +1,4 @@
-var Slug = Class.create(new BaseEnemy(), {
+var Slug = Smart.Class(new BaseEnemy(), {
 	initialize: function Slug(game) {
 		var B = Balance.enemies.slug;
 		this.setupBaseEnemyGraphics(game, 'Slug', B.radius);

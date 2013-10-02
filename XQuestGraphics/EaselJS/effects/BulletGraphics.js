@@ -1,4 +1,4 @@
-EaselJSGraphics.BulletGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.BulletGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}

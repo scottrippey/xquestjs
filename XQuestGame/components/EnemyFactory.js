@@ -1,4 +1,4 @@
-var EnemyFactory = Class.create({
+var EnemyFactory = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		this.enemies = [];

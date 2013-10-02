@@ -1,4 +1,4 @@
-EaselJSGraphics.LevelGraphics = Class.create(new createjs.Shape(), {
+EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	gateStart: null, gateEnd: null, gateOpen: false
 	,
 	initialize: function() {

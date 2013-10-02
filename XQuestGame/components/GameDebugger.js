@@ -1,4 +1,4 @@
-var GameDebugger = Class.create({
+var GameDebugger = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 	}
