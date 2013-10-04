@@ -9,7 +9,7 @@ Balance.onUpdate(function(mode) {
 			}
 			, innerRadius: Balance.player.radius - 2
 			, innerStyle: {
-				fillColor: 'hsl(120, 100%, 50%)'
+				fillColor: 'hsl(60, 100%, 50%)'
 			}
 			, innerStarPoints: 3
 			, innerStarSize: 0.7
