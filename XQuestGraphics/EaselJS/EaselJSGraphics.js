@@ -12,11 +12,13 @@ var EaselJSGraphics = Smart.Class({
 			background: new createjs.Stage(this.canvas)
 			, effects: new createjs.Stage(this.canvas)
 			, characters: new createjs.Stage(this.canvas)
+			, hud: new createjs.Stage(this.canvas)
 		};
 
 		this.layers.background.autoClear = false;
 		this.layers.effects.autoClear = false;
 		this.layers.characters.autoClear = false;
+		this.layers.hud.autoClear = false;
 	}
 	,
 	_setupBackground: function() {
@@ -42,6 +44,7 @@ var EaselJSGraphics = Smart.Class({
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
+		this.layers.hud.update(tickEvent);
 	}
 	,
 	followPlayer: function(playerLocation) {
@@ -61,12 +64,15 @@ var EaselJSGraphics = Smart.Class({
 		};
 
 		this.layers.background.x = -this._offset.x;
-		this.layers.characters.x = -this._offset.x;
 		this.layers.effects.x = -this._offset.x;
+		this.layers.characters.x = -this._offset.x;
+		this.layers.hud.x = -this._offset.x;
 
 		this.layers.background.y = -this._offset.y;
-		this.layers.characters.y = -this._offset.y;
 		this.layers.effects.y = -this._offset.y;
+		this.layers.characters.y = -this._offset.y;
+		this.layers.hud.y = -this._offset.y;
+
 	}
 	,
 	getVisibleMiddle: function() {
@@ -86,7 +92,6 @@ var EaselJSGraphics = Smart.Class({
 	createPlayerGraphics: function() {
 		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		this.layers.characters.addChild(playerGraphics);
-		this._playerLocation = playerGraphics;
 		return playerGraphics;
 	}
 	,
@@ -122,6 +127,7 @@ var EaselJSGraphics = Smart.Class({
 		this.layers.background.removeChild(graphic);
 		this.layers.effects.removeChild(graphic);
 		this.layers.characters.removeChild(graphic);
+		this.layers.hud.removeChild(graphic);
 	}
 	,
 	createCrystalGraphic: function() {
@@ -147,12 +153,36 @@ var EaselJSGraphics = Smart.Class({
 			}.bind(this, particle);
 		}
 	}
-
 	,
 	addAnimation: function(animation) {
 		if (!this.animations) {
 			this.animations = new Smart.Animations();
 		}
 		return this.animations.addAnimation(animation);
+	}
+
+	,
+	addText: function(text, textStyle) {
+		textStyle = _.extend({
+			fontWeight: 'normal'
+			, fontSize: '48px'
+			, fontFamily: '"Segoe UI"'
+			, color: 'white'
+			, textAlign: 'center'
+			, textBaseline: 'middle'
+		}, textStyle);
+
+		var color = textStyle.color
+			, style = [ textStyle.fontWeight, textStyle.fontSize, textStyle.fontFamily ].join(" ");
+
+		var textGfx = new createjs.Text(text, style, color);
+		textGfx.textAlign = textStyle.textAlign;
+		textGfx.textBaseline = textStyle.textBaseline;
+
+		this.layers.hud.addChild(textGfx);
+		textGfx.destroy = function(text) {
+			this.layers.hud.removeChild(text);
+		}.bind(this, textGfx);
+		return textGfx;
 	}
 });

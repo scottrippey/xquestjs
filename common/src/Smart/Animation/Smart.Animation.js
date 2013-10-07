@@ -2,7 +2,7 @@
  * Animation Core
  */
 Smart.Animation = Smart.Class({
-	initialize: function() {
+	initialize: function Animation() {
 		this._actions = [];
 		this._position = 0;
 
@@ -50,6 +50,7 @@ Smart.Animation = Smart.Class({
 
 			if (animEvent._clearCurrentActions) {
 				animEvent._clearCurrentActions = false;
+				animEvent.position = this._position = 0;
 				this._actions.splice(0, i + 1);
 				i = -1;
 			}

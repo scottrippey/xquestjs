@@ -37,7 +37,7 @@ _.extend(createjs.Graphics.prototype, {
 	}
 });
 
-_.extend(createjs.Shape.prototype, {
+_.extend(createjs.DisplayObject.prototype, {
 	moveTo: function(x, y) {
 		this.x = x; this.y = y;
 	}
