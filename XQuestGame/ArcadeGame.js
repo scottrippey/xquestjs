@@ -6,7 +6,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	, stats: null
 
 	,
-	initialize: function(canvas) {
+	initialize: function ArcadeGame(canvas) {
 		// Since all other classes use 'this.game', this will provide consistency:
 		this.game = this;
 
@@ -71,18 +71,8 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	_showLevelNumber: function() {
 		var level = "Level " + this.currentLevel;
 
-		var middleOfGame = this.game.levelGraphics.getMiddleOfGame()
-			, topOfGame = this.game.levelGraphics.getTopOfGame()
-			, txt = this.game.gfx.addText(level, { textBaseline: 'top' });
-
-		this.game.gfx.addAnimation(new Smart.Animation()
-			.duration(2).easeOut('quint')
-			.fade(txt, [0, 1])
-			.move(txt, [ topOfGame, middleOfGame ])
-
-			.queue().duration(3)
-			.fade(txt, [1, 0])
-		).update(0);
+		var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });
+		textGfx.flyIn(1.5).flyOut(2);
 	}
 	,
 	_arrangeNewLevel: function() {
@@ -95,7 +85,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 	,
 	_startLevel: function() {
-		var middleOfGame = this.game.levelGraphics.getMiddleOfGame();
+		var middleOfGame = this.game.gfx.getMiddleOfGame();
 		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
 		this.game.player.cancelVelocity();
 		this.game.player.showPlayer(true);
@@ -132,9 +122,23 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	,
 	_gameOver: function() {
 		// bew wew wew wew wew
-		this._animateBackToCenter().queue(function() {
-			this._startGame();
-		}.bind(this));
+		this._animateBackToCenter();
+
+		this.game.gfx.addAnimation(new Smart.Animation()
+			.queue(function() {
+				this.game.gfx.addText("Game Over").flyIn(2).delay(2).flyOut(2);
+			}.bind(this)).delay(5)
+			.queue(function() {
+				this.game.gfx.addText("Highest Level: " + this.currentLevel).flyIn(2).delay(2).flyOut(2);
+			}.bind(this)).delay(5)
+			.queue(function() {
+				this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
+			}.bind(this)).delay(5)
+			.queue(function() {
+				this._startGame();
+			}.bind(this))
+		);
+
 	}
 
 	,
@@ -155,7 +159,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	,
 	_animateBackToCenter: function() {
 		var visibleMiddle = this.game.gfx.getVisibleMiddle()
-			, middleOfGame = this.game.levelGraphics.getMiddleOfGame();
+			, middleOfGame = this.game.gfx.getMiddleOfGame();
 
 		this.followPlayer = false;
 		var animation = new Smart.Animation()

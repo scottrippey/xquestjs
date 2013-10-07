@@ -17,4 +17,8 @@ var GameDebugger = Smart.Class({
 			force = !this.game.powerups[powerupName];
 		this.game.powerups[powerupName] = force;
 	}
+	,
+	killPlayer: function() {
+		this.game.killPlayer();
+	}
 });

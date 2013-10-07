@@ -86,9 +86,11 @@ Smart.Animation = Smart.Class({
 		return this.addAction(function(animEvent) {
 			if (animEvent.stillRunning === true) {
 				animEvent.stopUpdate();
+			} else if (callback && callback(animEvent) === false) {
+				animEvent.stopUpdate();
+				animEvent.stillRunning = true;
 			} else {
 				animEvent.clearCurrentActions();
-				if (callback) callback(animEvent);
 			}
 		});
 	}

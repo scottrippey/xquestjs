@@ -63,9 +63,8 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	delay: function(duration) {
-		return this.addAction(function(animEvent) {
-			animEvent.position = Math.max(0, animEvent.position - duration);
-			animEvent.stillRunning = true;
+		return this.queue(function(animEvent) {
+			return (animEvent.position >= duration);
 		});
 	}
 	,

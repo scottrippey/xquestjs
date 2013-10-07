@@ -83,6 +83,33 @@ var EaselJSGraphics = Smart.Class({
 		};
 	}
 	,
+	getMiddleOfGame: function() {
+		var bounds = Balance.level.bounds
+			, middleOfGame = {
+				x: bounds.x + (bounds.width / 2)
+				,y: bounds.y + (bounds.height / 2)
+			};
+		return middleOfGame;
+	}
+	,
+	getTopOfGame: function() {
+		var bounds = Balance.level.bounds
+			, topOfGame = {
+				x: bounds.x + (bounds.width / 2)
+				,y: bounds.y
+			};
+		return topOfGame;
+	}
+	,
+	getBottomOfGame: function() {
+		var bounds = Balance.level.bounds
+			, bottomOfGame = {
+				x: bounds.x + (bounds.width / 2)
+				,y: bounds.y + bounds.height
+			};
+		return bottomOfGame;
+	}
+	,
 	createLevelGraphics: function() {
 		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
@@ -163,26 +190,16 @@ var EaselJSGraphics = Smart.Class({
 
 	,
 	addText: function(text, textStyle) {
-		textStyle = _.extend({
-			fontWeight: 'normal'
-			, fontSize: '48px'
-			, fontFamily: '"Segoe UI"'
-			, color: 'white'
-			, textAlign: 'center'
-			, textBaseline: 'middle'
-		}, textStyle);
+		var textGfx = new EaselJSGraphics.TextGraphic();
+		textGfx.setGfx(this);
+		textGfx.setText(text, textStyle);
 
-		var color = textStyle.color
-			, style = [ textStyle.fontWeight, textStyle.fontSize, textStyle.fontFamily ].join(" ");
-
-		var textGfx = new createjs.Text(text, style, color);
-		textGfx.textAlign = textStyle.textAlign;
-		textGfx.textBaseline = textStyle.textBaseline;
 
 		this.layers.hud.addChild(textGfx);
-		textGfx.destroy = function(text) {
-			this.layers.hud.removeChild(text);
+		textGfx.destroy = function(textGfx) {
+			this.layers.hud.removeChild(textGfx);
 		}.bind(this, textGfx);
+
 		return textGfx;
 	}
 });
