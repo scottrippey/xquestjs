@@ -29,9 +29,10 @@ var Player = Smart.Class({
 
 	,
 	onInput: function(tickEvent) {
-		if (!this.playerActive) return;
 
 		this.game.input.processInputs(function(inputItem) {
+			if (!this.playerActive) return true;
+
 			switch (inputItem.inputType) {
 				case 'accelerate':
 					var acceleration = inputItem;
@@ -74,6 +75,8 @@ var Player = Smart.Class({
 			return true;
 		}.bind(this));
 
+
+		if (!this.playerActive) return;
 
 
 		if (this.game.powerups.rapidFire) {
