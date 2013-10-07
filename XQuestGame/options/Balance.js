@@ -33,7 +33,7 @@ Balance.merge({
 		,
 		'test': {
 			fullView: true
-			,spawnRate: Balance.randomBetween(100, 100)
+			,spawnRate: Balance.randomBetween(1, 1)
 			,crystalCount: 3
 		}
 	}
