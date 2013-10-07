@@ -222,7 +222,7 @@ var Player = Smart.Class({
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(1).easeOut()
 				.scale(this.playerGraphics, [0,1])
-			);
+			).update(0);
 		} else {
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(0.5).easeOut()
