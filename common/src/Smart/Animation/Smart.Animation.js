@@ -83,7 +83,7 @@ Smart.Animation = Smart.Class({
 	 * @returns {this}
 	 */
 	queue: function(callback) {
-		return this.addAction(function(animEvent) {
+		return this.addAction(function _queue_(animEvent) {
 			if (animEvent.stillRunning === true) {
 				animEvent.stopUpdate();
 			} else if (callback && callback(animEvent) === false) {

@@ -10,9 +10,18 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	move: function(target, keyframes) {
-		var update = function(p) { target.x = p.x; target.y = p.y; };
-		keyframes = Smart.Keyframes.fromFunction(keyframes) || Smart.Keyframes.fromPoints(keyframes) || Smart.Keyframes.fromPoints([ Point.clonePoint(target), keyframes ]);
-		return this.tween(update, keyframes);
+		var interpolate = function(position) {
+			interpolate =
+				Smart.Keyframes.fromFunction(keyframes)
+				|| Smart.Keyframes.fromPoints(keyframes)
+				|| Smart.Keyframes.fromPoints([ Point.clonePoint(target), keyframes ]);
+			return interpolate(position);
+		};
+		return this.addAction(function _move_(animEvent) {
+			var p = interpolate(animEvent.position);
+			target.x = p.x; target.y = p.y;
+		});
+
 	}
 
 	,
@@ -23,9 +32,17 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	fade: function(target, keyframes) {
-		var update = function(a) { target.alpha = a; };
-		keyframes = Smart.Keyframes.fromFunction(keyframes) || Smart.Keyframes.fromNumbers(keyframes) || Smart.Keyframes.fromNumbers([ target.alpha !== undefined ? target.alpha : 1, keyframes ]);
-		return this.tween(update, keyframes);
+		var interpolate = function(position) {
+			interpolate =
+				Smart.Keyframes.fromFunction(keyframes)
+				|| Smart.Keyframes.fromNumbers(keyframes)
+				|| Smart.Keyframes.fromNumbers([ target.alpha !== undefined ? target.alpha : 1, keyframes ]);
+			return interpolate(position);
+		};
+
+		return this.addAction(function _fade_(animEvent) {
+			target.alpha = interpolate(animEvent.position);
+		});
 	}
 
 	,
@@ -36,9 +53,17 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	color: function(target, keyframes) {
-		var update = function(c) { target.color = c; };
-		keyframes = Smart.Keyframes.fromFunction(keyframes) || Smart.Keyframes.fromColors(keyframes) || Smart.Keyframes.fromColors([ target.color, keyframes ]);
-		return this.tween(update, keyframes);
+		var interpolate = function(position) {
+			interpolate =
+				Smart.Keyframes.fromFunction(keyframes)
+				|| Smart.Keyframes.fromColors(keyframes)
+				|| Smart.Keyframes.fromColors([ target.color, keyframes ]);
+			return interpolate(position);
+		};
+
+		return this.addAction(function _color_(animEvent) {
+			target.color = interpolate(animEvent.position);
+		});
 	}
 
 	,
@@ -49,11 +74,16 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	scale: function(target, keyframes) {
-		var update = function(s) {
-			target.scaleX = target.scaleY = s;
+		var interpolate = function(position) {
+			interpolate =
+				Smart.Keyframes.fromFunction(keyframes)
+				|| Smart.Keyframes.fromNumbers(keyframes)
+				|| Smart.Keyframes.fromNumbers([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
+			return interpolate(position);
 		};
-		keyframes = Smart.Keyframes.fromFunction(keyframes) || Smart.Keyframes.fromNumbers(keyframes) || Smart.Keyframes.fromNumbers([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
-		return this.tween(update, keyframes);
+		return this.addAction(function _scale_(animEvent) {
+			target.scaleX = target.scaleY = interpolate(animEvent.position);
+		});
 	}
 
 	,
@@ -64,9 +94,17 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	rotate: function(target, keyframes) {
-		var update = function(r) { target.rotation = r; };
-		keyframes = Smart.Keyframes.fromFunction(keyframes) || Smart.Keyframes.fromNumbers(keyframes) || Smart.Keyframes.fromNumbers([ target.rotation !== undefined ? target.rotation : 1, keyframes ]);
-		return this.tween(update, keyframes);
+		var interpolate = function(position) {
+			interpolate =
+				Smart.Keyframes.fromFunction(keyframes)
+				|| Smart.Keyframes.fromNumbers(keyframes)
+				|| Smart.Keyframes.fromNumbers([ target.rotation !== undefined ? target.rotation : 1, keyframes ]);
+			return interpolate(position);
+		};
+
+		return this.addAction(function _rotate_(animEvent) {
+			target.rotation = interpolate(animEvent.position);
+		});
 	}
 	,
 	/**
@@ -76,11 +114,13 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	tween: function(update, keyframes) {
-		var interpolate = Smart.Keyframes.fromFunction(keyframes) || Smart.Keyframes.fromNumbers(keyframes) || Smart.Keyframes.fromNumbers([ keyframes ]);
-		return this.addAction(function(animEvent) {
-			var pct = animEvent.position;
-			var value = interpolate(pct);
-			update(value);
+		var interpolate =
+			Smart.Keyframes.fromFunction(keyframes)
+			|| Smart.Keyframes.fromNumbers(keyframes)
+			|| Smart.Keyframes.fromNumbers([ keyframes ]);
+
+		return this.addAction(function _tween_(animEvent) {
+			update(interpolate(animEvent.position));
 		});
 	}
 

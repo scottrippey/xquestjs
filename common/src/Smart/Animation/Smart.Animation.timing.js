@@ -9,7 +9,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	duration: function(duration) {
-		return this.addAction(function(animEvent){
+		return this.addAction(function _duration_(animEvent){
 			if (animEvent.position >= duration) {
 				animEvent.position = 1;
 			} else {
@@ -29,7 +29,7 @@ _.extend(Smart.Animation.prototype, {
 	loop: function(duration, maxLoops) {
 		if (maxLoops === undefined)
 			maxLoops = Number.MAX_VALUE;
-		return this.addAction(function(animEvent) {
+		return this.addAction(function _loop_(animEvent) {
 			while (animEvent.position >= duration) {
 				animEvent.position -= duration;
 				animEvent.loops++;
@@ -51,7 +51,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	continuous: function(duration) {
-		return this.addAction(function(animEvent) {
+		return this.addAction(function _continuous_(animEvent) {
 			animEvent.position = animEvent.position / duration;
 			animEvent.stillRunning = true;
 		});
@@ -63,7 +63,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	delay: function(duration) {
-		return this.queue(function(animEvent) {
+		return this.queue(function _delay_(animEvent) {
 			return (animEvent.position >= duration);
 		});
 	}
@@ -74,7 +74,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	savePosition: function() {
-		return this.addAction(function(animEvent) {
+		return this.addAction(function _savePosition_(animEvent) {
 			animEvent.savedPosition = animEvent.position;
 		});
 	}
@@ -85,7 +85,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {this}
 	 */
 	restorePosition: function() {
-		return this.addAction(function(animEvent) {
+		return this.addAction(function _restorePosition_(animEvent) {
 			animEvent.position = animEvent.savedPosition;
 		});
 	}
