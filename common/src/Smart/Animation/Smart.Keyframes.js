@@ -29,4 +29,12 @@ Smart.Keyframes = {
 			return Smart.Interpolate.keyframes(colorKeyframes, pct, Smart.Interpolate.colors);
 		}
 	}
+	,
+	step: function(keyframes) {
+		if (!_.isArray(keyframes)) return null;
+
+		return function(pct) {
+			return Smart.Interpolate.keyframes(keyframes, pct, false);
+		}
+	}
 };
