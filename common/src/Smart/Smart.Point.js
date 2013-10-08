@@ -1,4 +1,4 @@
-var Point = {
+Smart.Point = {
 	clonePoint: function(point) {
 		return { x: point.x, y: point.y };
 	}
@@ -25,7 +25,7 @@ var Point = {
 			dy = (pointA.y - pointB.y);
 			if (Math.abs(dy) <= testDistance) {
 				var delta = { x: dx, y: dy };
-				delta.distance = Point.hypotenuse(delta);
+				delta.distance = Smart.Point.hypotenuse(delta);
 				if (delta.distance <= testDistance)
 					return delta;
 			}
@@ -53,7 +53,7 @@ var Point = {
 
 	,
 	scaleVector: function(vector, scale) {
-		var vectorScale = scale / Point.hypotenuse(vector);
+		var vectorScale = scale / Smart.Point.hypotenuse(vector);
 		return {
 			x: vector.x * vectorScale
 			, y: vector.y * vectorScale

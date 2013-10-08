@@ -121,9 +121,9 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 				wall.insideGate = true;
 				wall.insideGateDistance = -wall.distance;
 
-				if (Point.distanceTest(location, this.gateStart, radius)) {
+				if (Smart.Point.distanceTest(location, this.gateStart, radius)) {
 					wall.touchingGate = this.gateStart;
-				} else if (Point.distanceTest(location, this.gateEnd, radius)) {
+				} else if (Smart.Point.distanceTest(location, this.gateEnd, radius)) {
 					wall.touchingGate = this.gateEnd;
 				}
 			}

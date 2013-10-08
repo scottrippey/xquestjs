@@ -22,6 +22,6 @@ var Slug = Smart.Class(new BaseEnemy(), {
 	,
 	_changeDirection: function() {
 		var B = Balance.enemies.slug;
-		this.velocity = Point.fromAngle(Math.random() * 360, B.speed);
+		this.velocity = Smart.Point.fromAngle(Math.random() * 360, B.speed);
 	}
 });

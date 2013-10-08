@@ -111,8 +111,8 @@ Smart.Physics = {
 			,y: location.y - bouncePoint.y
 		};
 
-		var hv = Point.hypotenuse(velocity)
-			,hd = Point.hypotenuse(diff)
+		var hv = Smart.Point.hypotenuse(velocity)
+			,hd = Smart.Point.hypotenuse(diff)
 			,vScale = hv/hd
 			,lScale = radius/hd;
 
@@ -199,7 +199,7 @@ Smart.Physics = {
 			if (Math.abs(dy) >= distance) continue;
 
 			// Now do a precise comparison:
-			var actualDistance = Point.hypotenuseXY(dx, dy);
+			var actualDistance = Smart.Point.hypotenuseXY(dx, dy);
 			if (actualDistance < distance) {
 				distance = actualDistance;
 				closestPointIndex = i;
@@ -253,7 +253,7 @@ Smart.Physics = {
 			x: (d.x + v.x * t)
 			,y: (d.y + v.y * t)
 		};
-		return Point.scaleVector(trajectory, bulletSpeed);
+		return Smart.Point.scaleVector(trajectory, bulletSpeed);
 	}
 
 	,

@@ -7,7 +7,7 @@ var Locust = Smart.Class(new BaseEnemy(), {
 	spawn: function(spawnInfo) {
 		var B = Balance.enemies.locust;
 		this.location.moveTo(spawnInfo.x, spawnInfo.y);
-		this.velocity = Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
+		this.velocity = Smart.Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
 		this._changeTurnSpeed();
 	}
 	,
@@ -18,7 +18,7 @@ var Locust = Smart.Class(new BaseEnemy(), {
 	,
 	onMove: function(tickEvent) {
 		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
-		Point.rotate(this.velocity, rotation);
+		Smart.Point.rotate(this.velocity, rotation);
 
 		Smart.Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
 		Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);

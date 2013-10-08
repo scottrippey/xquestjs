@@ -100,7 +100,7 @@ var Player = Smart.Class({
 	}
 	,
 	_tripleShot: function(powerup) {
-		var playerSpeed = Point.hypotenuse(this.velocity);
+		var playerSpeed = Smart.Point.hypotenuse(this.velocity);
 		var angle = powerup.angle * powerup.focus / playerSpeed;
 
 		this._addBullet();
@@ -127,7 +127,7 @@ var Player = Smart.Class({
 		}
 		bulletGfx.velocity = velocity;
 		if (angle) {
-			Point.rotate(bulletGfx.velocity, angle);
+			Smart.Point.rotate(bulletGfx.velocity, angle);
 		}
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = Balance.bullets.radius;
@@ -178,7 +178,7 @@ var Player = Smart.Class({
 		while (i--) {
 			var bulletGfx = this.bullets[i];
 			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
-			if (!Point.pointIsInBounds(bulletGfx, bounds)) {
+			if (!Smart.Point.pointIsInBounds(bulletGfx, bounds)) {
 				bulletGfx.destroyBullet();
 				this.bullets.splice(i, 1);
 			}

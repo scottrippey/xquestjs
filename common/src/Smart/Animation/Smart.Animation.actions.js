@@ -14,7 +14,7 @@ _.extend(Smart.Animation.prototype, {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
 				|| Smart.Keyframes.fromPoints(keyframes)
-				|| Smart.Keyframes.fromPoints([ Point.clonePoint(target), keyframes ]);
+				|| Smart.Keyframes.fromPoints([ Smart.Point.clonePoint(target), keyframes ]);
 			return interpolate(position);
 		};
 		return this.addAction(function _move_(animEvent) {
