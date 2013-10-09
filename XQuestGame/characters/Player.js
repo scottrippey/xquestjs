@@ -199,11 +199,15 @@ var Player = Smart.Class({
 			}.bind(this));
 		}
 
+		var killPlayer = false;
 		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
 			if (this.game.powerups.invincible) return;
 
-			this.game.killPlayer();
+			killPlayer = true;
 		}.bind(this));
+
+		if (killPlayer)
+			this.game.killPlayer();
 
 	}
 	,
