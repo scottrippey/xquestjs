@@ -48,6 +48,9 @@ Balance.merge({
 				,bounceDampening : 0.3
 				,lives: 4
 			}
+			,powerCrystals: {
+				radius: 15
+			}
 			,powerups: {
 				powerShot: {
 					chargeDuration: 1.0
@@ -76,6 +79,7 @@ Balance.merge({
 				radius: 10
 				,quantity: gameOptions.crystalCount || 12
 			}
+
 			,enemies: {
 				maxRadius: 13
 				,spawnRate: gameOptions.spawnRate || Balance.randomBetween(2, 4)

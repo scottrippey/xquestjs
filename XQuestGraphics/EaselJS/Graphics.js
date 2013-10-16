@@ -44,9 +44,24 @@ Balance.onUpdate(function(mode) {
 			}
 			,sides: 6
 			,pointSize: 0.5
-			,spinRate: -0.1 * 360 //rps
-			,spinRateGathered: 1 * 360 //rps
+			,spinRate: -0.1 * 360
+			,spinRateGathered: 1 * 360
 			,gatherDuration: 1 //s
+		}
+		,powerCrystals: {
+			radius: Balance.powerCrystals.radius
+			,style: {
+				strokeColor: 'white'
+				,strokeWidth: 2
+			}
+			,sides: 5
+			,pointSize: 0.3
+			,spinRate: 0.3 * 360
+			,radiusInner: Balance.powerCrystals.radius * 0.5
+			,styleInner: {
+				fillColor: 'yellow'
+				,strokeWidth: 2
+			}
 		}
 		,level: {
 			cornerRadius: 16

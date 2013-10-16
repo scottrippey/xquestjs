@@ -163,6 +163,12 @@ var EaselJSGraphics = Smart.Class({
 		return crystal;
 	}
 	,
+	createPowerCrystalGraphic: function() {
+		var powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
+		this.layers.characters.addChild(powerCrystal);
+		return powerCrystal;
+	}
+	,
 	createExplosion: function(position, velocity, particleOptions) {
 		particleOptions.position = position;
 		particleOptions.velocity = { x: 0, y: 0 };

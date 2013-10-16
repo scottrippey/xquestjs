@@ -1,18 +1,18 @@
 EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
-	initialize: function() {
+	initialize: function CrystalGraphic() {
 		this._setupCrystalGraphic();
 	}
 	,
 	_setupCrystalGraphic: function() {
-		var v = Graphics.crystals;
+		var G = Graphics.crystals;
 		this.graphics
 			.clear()
-			.beginStyle(v.style)
-			.drawPolyStar(0, 0, v.radius, v.sides, v.pointSize, 0)
-			.endStyle(v.style);
+			.beginStyle(G.style)
+			.drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
+			.endStyle(G.style);
 		this.rotation = 360 * Math.random();
 
-		this.spinRate = Graphics.crystals.spinRate;
+		this.spinRate = G.spinRate;
 	}
 	,
 	onTick: function(tickEvent) {

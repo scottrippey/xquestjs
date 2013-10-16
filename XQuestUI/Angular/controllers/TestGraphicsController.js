@@ -17,9 +17,16 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 				this.game.initializeGame(this.canvas);
 			}
 			,
+			_applyEach: function(callback, args_) {
+				for (var i = 1, l = arguments.length; i < l; i++) {
+					callback.apply(this, arguments[i]);
+				}
+			}
+			,
 			testGraphics: function() {
 				this._testLevel();
 				this._testPlayersAndEnemies();
+				this._testPowerups();
 			}
 			,
 			_testLevel: function() {
@@ -56,10 +63,10 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 
 			}
 			,
-			_applyEach: function(callback, args_) {
-				for (var i = 1, l = arguments.length; i < l; i++) {
-					callback.apply(this, arguments[i]);
-				}
+			_testPowerups: function() {
+				this._applyEach(function(x, y) {
+					this.game.gfx.createPowerCrystalGraphic().moveTo(x, y);
+				}, [100, 350], [150, 400], [200, 450]);
 			}
 		});
 	}
