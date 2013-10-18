@@ -38,7 +38,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 	,
 	_setupCrystals: function() {
-		this.crystals = new Crystals(this.game);
+		this.crystals = new CrystalFactory(this.game);
 	}
 	,
 	_setupPowerups: function() {
