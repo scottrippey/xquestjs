@@ -4,6 +4,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	, powerups: null
 	, paused: false
 	, stats: null
+	, powerCrystals: null
 
 	,
 	initialize: function ArcadeGame(canvas) {
@@ -18,6 +19,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this._setupPlayer();
 		this._setupEnemyFactory();
 		this._setupCrystals();
+		this._setupPowerCrystals();
 		this._setupPowerups();
 
 		this._startGame();
@@ -39,6 +41,10 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	,
 	_setupCrystals: function() {
 		this.crystals = new CrystalFactory(this.game);
+	}
+	,
+	_setupPowerCrystals: function() {
+		this.powerCrystals = new PowerupFactory(this.game);
 	}
 	,
 	_setupPowerups: function() {

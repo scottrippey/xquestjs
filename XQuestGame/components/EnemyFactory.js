@@ -54,15 +54,19 @@ var EnemyFactory = Smart.Class({
 		this.enemies.push(enemy);
 		this.game.addGameItem(enemy);
 
+		var spawnInfo = this.getRandomSpawn(enemy.radius);
+ 		enemy.spawn(spawnInfo);
+	}
+	,
+	getRandomSpawn: function(enemyRadius) {
 		var bounds = Balance.level.bounds
 			, spawnSide = Math.floor(Math.random() * 2) ? 1 : 2
 			, spawnInfo = {
-				x: (spawnSide === 1) ? (bounds.x + enemy.radius) : (bounds.x + bounds.width - enemy.radius)
+				x: (spawnSide === 1) ? (bounds.x + enemyRadius) : (bounds.x + bounds.width - enemyRadius)
 				,y: bounds.y + (bounds.height / 2)
 				,side: spawnSide
 			};
-
- 		enemy.spawn(spawnInfo);
+		return spawnInfo;
 	}
 	,
 	killEnemiesOnCollision: function(sortedItems, maxItemRadius, collisionCallback) {

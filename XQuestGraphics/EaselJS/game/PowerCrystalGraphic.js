@@ -23,4 +23,24 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 	onTick: function(tickEvent) {
 		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 	}
+	,
+	gatherPowerCrystal: function(gfx, playerLocation) {
+		var powerCrystal = this;
+		gfx.addAnimation(new Smart.Animation()
+			.duration(Graphics.powerCrystals.gatherDuration)
+			.savePosition()
+
+			.easeOut('quint')
+			.move(powerCrystal, playerLocation)
+
+			.restorePosition()
+			.easeOut('quint')
+			.scale(powerCrystal, [1, 2, 2.5, 2, 1, 0])
+
+			.queue(function(animEvent) {
+				gfx.removeGraphic(powerCrystal);
+			})
+		);
+	}
+
 });

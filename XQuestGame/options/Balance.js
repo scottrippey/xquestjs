@@ -50,6 +50,9 @@ Balance.merge({
 			}
 			,powerCrystals: {
 				radius: 15
+				, speed: 300
+				, spawnAngle: Balance.randomBetween(-70, 70)
+				, turnSpeed: Balance.randomBetween(-20, 20)
 			}
 			,powerups: {
 				powerShot: {

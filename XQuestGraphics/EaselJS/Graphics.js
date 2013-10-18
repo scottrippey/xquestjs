@@ -54,14 +54,15 @@ Balance.onUpdate(function(mode) {
 				strokeColor: 'white'
 				,strokeWidth: 2
 			}
-			,sides: 5
-			,pointSize: 0.3
-			,spinRate: 0.3 * 360
 			,radiusInner: Balance.powerCrystals.radius * 0.5
 			,styleInner: {
 				fillColor: 'yellow'
 				,strokeWidth: 2
 			}
+			,sides: 5
+			,pointSize: 0.3
+			,spinRate: 0.3 * 360
+			,gatherDuration: 2
 		}
 		,level: {
 			cornerRadius: 16

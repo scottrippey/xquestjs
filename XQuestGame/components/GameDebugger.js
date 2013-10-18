@@ -21,4 +21,8 @@ var GameDebugger = Smart.Class({
 	killPlayer: function() {
 		this.game.killPlayer();
 	}
+	,
+	spawnPowerCrystal: function() {
+		this.game.powerCrystals.createPowerCrystal();
+	}
 });
