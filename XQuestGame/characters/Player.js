@@ -52,14 +52,14 @@ var Player = Smart.Class({
 						if (this.primaryWeaponDown) {
 							// Down
 							this.primaryWeaponDownTime = tickEvent.runTime;
-							if (this.game.powerups.tripleShot) {
+							if (this.game.activePowerups.tripleShot) {
 								this._tripleShot(Balance.powerups.tripleShot);
 							} else {
 								this._addBullet();
 							}
 						} else {
 							// Up
-							if (this.game.powerups.powerShot) {
+							if (this.game.activePowerups.powerShot) {
 								var powerShot = Balance.powerups.powerShot;
 								var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
 								if (elapsed >= powerShot.chargeDuration * 1000) {
@@ -79,14 +79,14 @@ var Player = Smart.Class({
 		if (!this.playerActive) return;
 
 
-		if (this.game.powerups.rapidFire) {
+		if (this.game.activePowerups.rapidFire) {
 			if (this.primaryWeaponDown) {
 				var period = 1000 / Balance.powerups.rapidFire.shotsPerSecond;
 				if (!this.nextRapidFire) {
 					this.nextRapidFire = tickEvent.runTime + period;
 				} else if (this.nextRapidFire <= tickEvent.runTime) {
 					this.nextRapidFire += period;
-					if (this.game.powerups.tripleShot) {
+					if (this.game.activePowerups.tripleShot) {
 						this._tripleShot(Balance.powerups.tripleShot);
 					} else {
 						this._addBullet();
@@ -112,7 +112,7 @@ var Player = Smart.Class({
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
 		var velocity;
-		if (this.game.powerups.autoAim) {
+		if (this.game.activePowerups.autoAim) {
 			var autoAim = Balance.powerups.autoAim;
 			var targetEnemy = this.game.enemies.findClosestEnemy(this.location);
 			if (targetEnemy) {
@@ -164,7 +164,7 @@ var Player = Smart.Class({
 					Smart.Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
 				}
 			} else {
-				if (this.game.powerups.bounceOffWalls) {
+				if (this.game.activePowerups.bounceOffWalls) {
 					Smart.Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
 				} else {
 					this.game.killPlayer();
@@ -201,7 +201,7 @@ var Player = Smart.Class({
 
 		var killPlayer = false;
 		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
-			if (this.game.powerups.invincible) return;
+			if (this.game.activePowerups.invincible) return;
 
 			killPlayer = true;
 		}.bind(this));

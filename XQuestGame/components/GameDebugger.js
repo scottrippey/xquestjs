@@ -14,8 +14,8 @@ var GameDebugger = Smart.Class({
 	,
 	togglePowerup: function(powerupName, force) {
 		if (force === undefined)
-			force = !this.game.powerups[powerupName];
-		this.game.powerups[powerupName] = force;
+			force = !this.game.activePowerups[powerupName];
+		this.game.activePowerups[powerupName] = force;
 	}
 	,
 	killPlayer: function() {
