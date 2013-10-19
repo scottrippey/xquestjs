@@ -1,5 +1,7 @@
 /**
  * Animation Actions
+ * These actions animate certain object properties that are used by EaselJS,
+ * such as x, y, alpha, color, scaleX, scaleY, and rotation.
  */
 _.extend(Smart.Animation.prototype, {
 
