@@ -187,10 +187,16 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 
 	, activatePowerup: function(powerupName) {
 		this.game.activePowerups[powerupName] = true;
-		console.log("Powerup active:", powerupName);
+
+		var powerupDisplayName = powerupName + '!';
+		var textGfx = this.game.gfx.addText(powerupDisplayName, { textBaseline: 'top' });
+		textGfx.flyIn(1.5).flyOut(2);
 	}
 	, powerupDeactivated: function(powerupName) {
-		console.log("Powerup deactivated: ", powerupName);
+
+		var powerupDisplayName = powerupName + ' inactive';
+		var textGfx = this.game.gfx.addText(powerupDisplayName, { textBaseline: 'top' });
+		textGfx.flyIn(1.5).flyOut(2);
 	}
 	,
 	_updateActivePowerups: function(tickEvent) {
