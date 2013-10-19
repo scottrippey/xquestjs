@@ -58,22 +58,35 @@ Balance.merge({
 			}
 			,powerups: {
 				powerShot: {
-					chargeDuration: 1.0
+					duration: 10
+					, frequency: 10
+					, chargeDuration: 1.0
 					, angle: 10
 					, focus: 100
 				}
 				,
 				rapidFire: {
-					shotsPerSecond: 6
+					duration: 30
+					, frequency: 10
+					, shotsPerSecond: 8
 				}
 				,
 				tripleShot: {
-					angle: 10
+					duration: 30
+					, frequency: 10
+					, angle: 10
 					, focus: 100
 				}
 				,
 				autoAim: {
-					bulletSpeed: 500
+					duration: 30
+					, frequency: 10
+					, bulletSpeed: 500
+				}
+				,
+				invincible: {
+					duration: 15
+					, frequency: 10
 				}
 			}
 			,bullets: {

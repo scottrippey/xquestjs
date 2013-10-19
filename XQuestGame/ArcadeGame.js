@@ -20,7 +20,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this._setupEnemyFactory();
 		this._setupCrystals();
 		this._setupPowerCrystals();
-		this._setupPowerups();
+		this.powerups = {};
 
 		this._startGame();
 	}
@@ -45,17 +45,6 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	,
 	_setupPowerCrystals: function() {
 		this.powerCrystals = new PowerupFactory(this.game);
-	}
-	,
-	_setupPowerups: function() {
-		this.powerups = {
-			bounceOffWalls: false
-			,rapidFire: false
-			,tripleShot: false
-			,powerShot: true
-			,autoAim: false
-			,invincible: false
-		};
 	}
 	,
 	debug: function() {
@@ -190,5 +179,10 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.timer.pauseTimer(this.paused);
 
 		this.game.player.cancelVelocity();
+	}
+
+	,
+	activatePowerup: function(powerupName) {
+		this.powerups[powerupName] = true;
 	}
 });

@@ -49,21 +49,41 @@ var PowerupFactory = Smart.Class({
 	}
 	,
 	createPowerCrystal: function() {
+		var B = Balance.powerCrystals;
+
 		var powerCrystal = this.game.gfx.createPowerCrystalGraphic();
 		powerCrystal.location = powerCrystal;
-		powerCrystal.radius = Balance.powerCrystals.radius;
-		powerCrystal.turnSpeed = Balance.powerCrystals.turnSpeed();
+		powerCrystal.radius = B.radius;
+		powerCrystal.turnSpeed = B.turnSpeed();
+		powerCrystal.powerupName = this._randomPowerup();
 
 		// Set initial position and velocity:
 		var spawnInfo = this.game.enemies.getRandomSpawn(powerCrystal.radius);
 		powerCrystal.moveTo(spawnInfo.x, spawnInfo.y);
-		powerCrystal.velocity = { x: Balance.powerCrystals.speed, y: 0 };
-		Smart.Point.rotate(powerCrystal.velocity, Balance.powerCrystals.spawnAngle());
+		powerCrystal.velocity = { x: B.speed, y: 0 };
+		Smart.Point.rotate(powerCrystal.velocity, B.spawnAngle());
 		if (spawnInfo.side === 2) {
 			powerCrystal.velocity.x *= -1;
 		}
 
 		this.powerCrystals.push(powerCrystal);
+	}
+	,
+	_randomPowerup: function() {
+		var B = Balance.powerups;
+		var totalFrequency = 0;
+		_.forOwn(B, function(p) {
+			totalFrequency += p.frequency;
+		});
+		var randomPowerupIndex = (Math.random() * totalFrequency), result;
+		_.forOwn(B, function(p, name) {
+			randomPowerupIndex -= p.frequency;
+			if (randomPowerupIndex <= 0){
+				result = name;
+				return false;
+			}
+		});
+		return result;
 	}
 	,
 	_gatherOnCollision: function(collisionPoints, maxRadius) {
@@ -72,6 +92,7 @@ var PowerupFactory = Smart.Class({
 		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, function(powerCrystal, point, crystalIndex, pi, distance) {
 			powerCrystal.gatherPowerCrystal(this.game.gfx, this.game.player.location);
 			this.powerCrystals.splice(crystalIndex, 1);
+			this.game.activatePowerup(powerCrystal.powerupName);
 		}.bind(this));
 
 	}
