@@ -164,7 +164,7 @@ var Player = Smart.Class({
 					Smart.Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
 				}
 			} else {
-				if (this.game.activePowerups.bounceOffWalls) {
+				if (this.game.activePowerups.invincible) {
 					Smart.Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
 				} else {
 					this.game.killPlayer();

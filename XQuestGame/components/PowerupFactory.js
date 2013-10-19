@@ -46,6 +46,7 @@ var PowerupFactory = Smart.Class({
 		// Check for player-collisions:
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);
+
 	}
 	,
 	createPowerCrystal: function() {
@@ -96,4 +97,5 @@ var PowerupFactory = Smart.Class({
 		}.bind(this));
 
 	}
+
 });

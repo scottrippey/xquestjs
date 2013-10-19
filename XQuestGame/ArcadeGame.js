@@ -90,6 +90,8 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 
 	,
 	onAct: function(tickEvent) {
+		this._updateActivePowerups(tickEvent);
+
 		if (this.followPlayer)
 			this.game.gfx.followPlayer(this.game.player.location);
 
@@ -181,8 +183,35 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.game.player.cancelVelocity();
 	}
 
-	,
-	activatePowerup: function(powerupName) {
+	, activatePowerup: function(powerupName) {
 		this.game.activePowerups[powerupName] = true;
+		console.log("Powerup active:", powerupName);
 	}
+	, powerupDeactivated: function(powerupName) {
+		console.log("Powerup deactivated: ", powerupName);
+	}
+	,
+	_updateActivePowerups: function(tickEvent) {
+		var B = Balance.powerups;
+		var updatedValues = {};
+
+		// Update new and old powerups: (never make changes to an object while iterating)
+		_.forOwn(this.game.activePowerups, function(timeout, powerupName) {
+			if (timeout === true) {
+				updatedValues[powerupName] = tickEvent.runTime + B[powerupName].duration * 1000;
+			} else if (timeout <= tickEvent.runTime) {
+				updatedValues[powerupName] = undefined;
+			}
+		});
+		_.forOwn(updatedValues, function(updatedValue, powerupName) {
+			if (updatedValue === undefined) {
+				delete this.game.activePowerups[powerupName];
+				this.game.powerupDeactivated(powerupName);
+			} else {
+				this.game.activePowerups[powerupName] = updatedValue;
+			}
+		}, this);
+
+	}
+
 });

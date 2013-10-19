@@ -12,10 +12,8 @@ var GameDebugger = Smart.Class({
 		this.game.enemies.spawnNextEnemy();
 	}
 	,
-	togglePowerup: function(powerupName, force) {
-		if (force === undefined)
-			force = !this.game.activePowerups[powerupName];
-		this.game.activePowerups[powerupName] = force;
+	activatePowerup: function(powerupName) {
+		this.game.activatePowerup(powerupName);
 	}
 	,
 	killPlayer: function() {
