@@ -8,6 +8,7 @@ var BaseEnemy = Smart.Class({
 	/* @protected */
 	setupBaseEnemyGraphics: function(game, enemyName, radius) {
 		this.game = game;
+		this.game.addGameItem(this);
 		this.enemyGraphics = this.game.gfx.createEnemyGraphics(enemyName);
 		this.location = this.enemyGraphics;
 		this.radius = radius;
@@ -32,6 +33,7 @@ var BaseEnemy = Smart.Class({
 	/* @public */
 	killEnemy: function() {
 		this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
+		this.game.removeGameItem(this);
 	}
 	,
 	/* @public */
@@ -42,6 +44,7 @@ var BaseEnemy = Smart.Class({
 
 			.queue(function() {
 				this.game.gfx.removeGraphic(this.enemyGraphics);
+				this.game.removeGameItem(this);
 			}.bind(this))
 		);
 	}

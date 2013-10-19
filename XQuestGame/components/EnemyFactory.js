@@ -39,7 +39,7 @@ var EnemyFactory = Smart.Class({
 	}
 	,
 	spawnNextEnemy: function() {
-		var enemyCtor;
+
 		var randomEnemyIndex;
 		if (this.enemyPool.length === 1) {
 			randomEnemyIndex = 0;
@@ -48,11 +48,11 @@ var EnemyFactory = Smart.Class({
 			var weightedRandom = (1 - Math.pow(Math.random(), Balance.enemies.spawnDifficulty));
 			randomEnemyIndex = Math.floor(weightedRandom * this.enemyPool.length);
 		}
-		enemyCtor = this.enemyPool[randomEnemyIndex];
+
+		var enemyCtor = this.enemyPool[randomEnemyIndex];
 
 		var enemy = new enemyCtor(this.game);
 		this.enemies.push(enemy);
-		this.game.addGameItem(enemy);
 
 		var spawnInfo = this.getRandomSpawn(enemy.radius);
  		enemy.spawn(spawnInfo);

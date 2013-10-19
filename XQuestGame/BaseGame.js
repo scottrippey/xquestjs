@@ -14,6 +14,7 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 	}
 	,
 	_setupHandlers: function() {
+		this.gameItemCounter = [];
 		this.handlers = {
 			input: []
 			, move: []
@@ -37,27 +38,41 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 	}
 	,
 	_tickHandler: function(tickEvent) {
-		var executeHandlerWithTickEvent = function(handler) {
-			handler(tickEvent);
-		};
-
-		_.each(this.handlers.input, executeHandlerWithTickEvent);
-		_.each(this.handlers.move, executeHandlerWithTickEvent);
-		_.each(this.handlers.act, executeHandlerWithTickEvent);
-		_.each(this.handlers.draw, executeHandlerWithTickEvent);
+		// Iterate right-to-left, because items could be removed
+		_.forEachRight(this.handlers.input, function(gameItem) { gameItem.onInput(tickEvent); });
+		_.forEachRight(this.handlers.move, function(gameItem) { gameItem.onMove(tickEvent); });
+		_.forEachRight(this.handlers.act, function(gameItem) { gameItem.onAct(tickEvent); });
+		_.forEachRight(this.handlers.draw, function(gameItem) { gameItem.onDraw(tickEvent); });
 	}
 	,
 	addGameItem: function(gameItem) {
 		// Determine which methods the gameItem implements,
 		// and add them to the appropriate queue:
 		if (gameItem.onInput)
-			this.handlers.input.push(gameItem.onInput.bind(gameItem));
+			this.handlers.input.push(gameItem);
 		if (gameItem.onMove)
-			this.handlers.move.push(gameItem.onMove.bind(gameItem));
+			this.handlers.move.push(gameItem);
 		if (gameItem.onAct)
-			this.handlers.act.push(gameItem.onAct.bind(gameItem));
+			this.handlers.act.push(gameItem);
 		if (gameItem.onDraw)
-			this.handlers.draw.push(gameItem.onDraw.bind(gameItem));
+			this.handlers.draw.push(gameItem);
+
+		this.gameItemCounter.push(gameItem);
+		console.log("Game Item added: ", this.gameItemCounter.length, gameItem);
+	}
+	,
+	removeGameItem: function(gameItem) {
+		if (gameItem.onInput)
+			_.eliminate(this.handlers.input, gameItem);
+		if (gameItem.onMove)
+			_.eliminate(this.handlers.move, gameItem);
+		if (gameItem.onAct)
+			_.eliminate(this.handlers.act, gameItem);
+		if (gameItem.onDraw)
+			_.eliminate(this.handlers.draw, gameItem);
+
+		_.eliminate(this.gameItemCounter, gameItem);
+		console.log("Game item removed: ", this.gameItemCounter.length, gameItem);
 	}
 
 });
