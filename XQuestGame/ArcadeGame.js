@@ -102,6 +102,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	killPlayer: function() {
 		this.game.player.killPlayer();
 		this.game.enemies.clearAllEnemies();
+		this.game.powerCrystals.clearAllPowerCrystals();
 
 		if (this.game.stats.lives === 0) {
 			this._gameOver();

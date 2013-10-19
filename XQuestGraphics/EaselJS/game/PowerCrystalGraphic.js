@@ -43,4 +43,17 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 		);
 	}
 
+	,
+	clearPowerCrystal: function(gfx) {
+		var powerCrystal = this;
+		return gfx.addAnimation(new Smart.Animation()
+			.duration(2).easeIn()
+			.scale(powerCrystal, 0)
+
+			.queue(function() {
+				gfx.removeGraphic(powerCrystal);
+			})
+		);
+
+	}
 });

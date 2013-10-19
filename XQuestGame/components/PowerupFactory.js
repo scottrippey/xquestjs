@@ -91,11 +91,21 @@ var PowerupFactory = Smart.Class({
 		var maxDistance = maxRadius + Balance.powerCrystals.radius;
 
 		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, function(powerCrystal, point, crystalIndex, pi, distance) {
-			powerCrystal.gatherPowerCrystal(this.game.gfx, this.game.player.location);
 			this.powerCrystals.splice(crystalIndex, 1);
+			powerCrystal.gatherPowerCrystal(this.game.gfx, this.game.player.location);
 			this.game.activatePowerup(powerCrystal.powerupName);
 		}.bind(this));
 
+	}
+
+	,
+	clearAllPowerCrystals: function() {
+		_.forEach(this.powerCrystals, function(powerCrystal) {
+			powerCrystal.clearPowerCrystal(this.game.gfx)
+				.queue(function() {
+					this.powerCrystals.splice(this.powerCrystals.indexOf(powerCrystal), 1);
+				}.bind(this));
+		}, this);
 	}
 
 });
