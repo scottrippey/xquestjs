@@ -19,12 +19,30 @@ var PowerupFactory = Smart.Class({
 
 		});
 
+		if (this._shouldSpawn(tickEvent)) {
+			this.createPowerCrystal();
+		}
+
 		if (this.powerCrystals.length >= 2) {
 			Smart.Physics.sortByLocation(this.powerCrystals);
 		}
 	}
 	,
+	_shouldSpawn: function(tickEvent) {
+		var B = Balance.powerCrystals;
+
+		// TODO: Make this performance-based instead of time-based:
+		var isFirstRun = (this.nextSpawn === undefined);
+		var shouldSpawn = !isFirstRun && (this.nextSpawn <= tickEvent.runTime);
+		if (isFirstRun || shouldSpawn) {
+			this.nextSpawn = tickEvent.runTime + B.spawnRate() * 1000;
+		}
+		return shouldSpawn;
+	}
+	,
 	onAct: function(tickEvent) {
+		// Check for bullet-collisions:
+
 		// Check for player-collisions:
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);

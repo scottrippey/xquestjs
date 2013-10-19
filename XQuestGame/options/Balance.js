@@ -35,6 +35,7 @@ Balance.merge({
 			fullView: true
 			,spawnRate: Balance.randomBetween(1, 1)
 			,crystalCount: 3
+			,powerupSpawnRate: Balance.randomBetween(5, 5)
 		}
 	}
 	,
@@ -52,7 +53,8 @@ Balance.merge({
 				radius: 15
 				, speed: 300
 				, spawnAngle: Balance.randomBetween(-70, 70)
-				, turnSpeed: Balance.randomBetween(-20, 20)
+				, turnSpeed: Balance.randomBetween(-40, 40)
+				, spawnRate: gameOptions.powerupSpawnRate || Balance.randomBetween(30, 45)
 			}
 			,powerups: {
 				powerShot: {
