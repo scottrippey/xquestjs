@@ -145,6 +145,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 
 		// Let's kill all enemies:
 		this.game.enemies.killAllEnemies();
+		this.game.powerCrystals.clearAllPowerCrystals();
 
 		this.currentLevel++;
 
