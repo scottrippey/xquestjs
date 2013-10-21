@@ -14,7 +14,6 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 	}
 	,
 	_setupHandlers: function() {
-		this.gameItemCounter = [];
 		this.handlers = {
 			input: []
 			, move: []
@@ -57,8 +56,6 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 		if (gameItem.onDraw)
 			this.handlers.draw.push(gameItem);
 
-		this.gameItemCounter.push(gameItem);
-		console.log("Game Item added: ", this.gameItemCounter.length, gameItem);
 	}
 	,
 	removeGameItem: function(gameItem) {
@@ -71,8 +68,6 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 		if (gameItem.onDraw)
 			_.eliminate(this.handlers.draw, gameItem);
 
-		_.eliminate(this.gameItemCounter, gameItem);
-		console.log("Game item removed: ", this.gameItemCounter.length, gameItem);
 	}
 
 });
