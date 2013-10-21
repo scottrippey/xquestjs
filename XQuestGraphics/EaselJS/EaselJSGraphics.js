@@ -75,6 +75,44 @@ var EaselJSGraphics = Smart.Class({
 
 	}
 	,
+	getGamePoint: function(gamePoint) {
+		if (typeof gamePoint !== 'string') return gamePoint;
+		var bounds = Balance.level.bounds;
+		switch (gamePoint) {
+			case 'visibleMiddle':
+				return {
+					x: this._offset.x + bounds.visibleWidth / 2
+					,y: this._offset.y + bounds.visibleHeight / 2
+				};
+			case 'middle':
+				return {
+					x: bounds.x + bounds.width / 2
+					,y: bounds.y + bounds.height / 2
+				};
+			case 'top':
+				return {
+					x: bounds.x + bounds.width / 2
+					,y: bounds.y
+				};
+			case 'bottom':
+				return {
+					x: bounds.x + bounds.width / 2
+					,y: bounds.y + bounds.height
+				};
+			case 'left':
+				return {
+					x: bounds.x
+					, y: bounds.y + bounds.height / 2
+				};
+			case 'right':
+				return {
+					x: bounds.x + bounds.width
+					, y: bounds.y + bounds.height / 2
+				};
+		}
+	}
+	,
+	/** @deprecated */
 	getVisibleMiddle: function() {
 		var bounds = Balance.level.bounds;
 		return {
@@ -83,31 +121,31 @@ var EaselJSGraphics = Smart.Class({
 		};
 	}
 	,
+	/** @deprecated */
 	getMiddleOfGame: function() {
-		var bounds = Balance.level.bounds
-			, middleOfGame = {
+		var bounds = Balance.level.bounds;
+		return {
 				x: bounds.x + (bounds.width / 2)
 				,y: bounds.y + (bounds.height / 2)
 			};
-		return middleOfGame;
 	}
 	,
+	/** @deprecated */
 	getTopOfGame: function() {
-		var bounds = Balance.level.bounds
-			, topOfGame = {
+		var bounds = Balance.level.bounds;
+		return {
 				x: bounds.x + (bounds.width / 2)
 				,y: bounds.y
 			};
-		return topOfGame;
 	}
 	,
+	/** @deprecated */
 	getBottomOfGame: function() {
-		var bounds = Balance.level.bounds
-			, bottomOfGame = {
+		var bounds = Balance.level.bounds;
+		return {
 				x: bounds.x + (bounds.width / 2)
 				,y: bounds.y + bounds.height
 			};
-		return bottomOfGame;
 	}
 	,
 	createLevelGraphics: function() {
