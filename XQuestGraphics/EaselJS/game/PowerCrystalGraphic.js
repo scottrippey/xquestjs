@@ -26,7 +26,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 	,
 	gatherPowerCrystal: function(gfx, playerLocation) {
 		var powerCrystal = this;
-		gfx.addAnimation(new Smart.Animation()
+		return gfx.addAnimation(new Smart.Animation()
 			.duration(Graphics.powerCrystals.gatherDuration)
 			.savePosition()
 
