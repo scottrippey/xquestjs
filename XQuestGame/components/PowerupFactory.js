@@ -37,27 +37,44 @@ var PowerupFactory = Smart.Class({
 	}
 	,
 	createPowerCrystal: function() {
-		var powerCrystal = new PowerCrystal(this.game, this._randomPowerup());
-
+		var powerCrystal = new PowerCrystal(this.game);
 		var spawnInfo = this.game.enemies.getRandomSpawn(powerCrystal.radius);
 		powerCrystal.spawn(spawnInfo);
 		this.powerCrystals.push(powerCrystal);
 	}
 	,
-	_randomPowerup: function() {
+	_nextPowerup: function() {
 		var B = Balance.powerups;
 		var totalFrequency = 0;
-		_.forOwn(B, function(p) {
+		_.forOwn(B, function(p, powerupName) {
+			if (powerupName in this.game.activePowerups) return;
 			totalFrequency += p.frequency;
-		});
-		var randomPowerupIndex = (Math.random() * totalFrequency), result;
-		_.forOwn(B, function(p, name) {
-			randomPowerupIndex -= p.frequency;
-			if (randomPowerupIndex <= 0){
-				result = name;
-				return false;
-			}
-		});
+		}, this);
+		var result;
+		if (totalFrequency !== 0) {
+			// Choose from the available powerups:
+			var randomPowerupIndex = (Math.random() * totalFrequency);
+			_.forOwn(B, function (powerup, powerupName) {
+				if (powerupName in this.game.activePowerups) return;
+				randomPowerupIndex -= powerup.frequency;
+				if (randomPowerupIndex <= 0) {
+					result = powerupName;
+					return false;
+				}
+			}, this);
+		} else {
+			// All powerups already gained, so start renewing some:
+			result = null;
+			var resultTime = null;
+			_.forOwn(B, function(powerup, powerupName) {
+				var activeTime = this.game.activePowerups[powerupName];
+
+				if (resultTime === null || activeTime < resultTime) {
+					resultTime = activeTime;
+					result = powerupName;
+				}
+			}, this);
+		}
 		return result;
 	}
 	,
@@ -67,7 +84,8 @@ var PowerupFactory = Smart.Class({
 		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, function(powerCrystal, point, crystalIndex, pi, distance) {
 			this.powerCrystals.splice(crystalIndex, 1);
 			powerCrystal.gatherPowerCrystal();
-			this.game.activatePowerup(powerCrystal.powerupName);
+			var powerupName = this._nextPowerup();
+			this.game.activatePowerup(powerupName);
 		}.bind(this));
 
 	}

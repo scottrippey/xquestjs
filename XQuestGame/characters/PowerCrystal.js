@@ -1,5 +1,5 @@
 var PowerCrystal = Smart.Class({
-	initialize: function(game, powerupName) {
+	initialize: function(game) {
 		var B = Balance.powerCrystals;
 		this.game = game;
 		this.game.addGameItem(this);
@@ -9,8 +9,6 @@ var PowerCrystal = Smart.Class({
 
 
 		this.turnSpeed = B.turnSpeed();
-		this.powerupName = powerupName;
-
 	}
 	,
 	spawn: function(spawnInfo) {
