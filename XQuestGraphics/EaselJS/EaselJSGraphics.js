@@ -66,12 +66,10 @@ var EaselJSGraphics = Smart.Class({
 		this.layers.background.x = -this._offset.x;
 		this.layers.effects.x = -this._offset.x;
 		this.layers.characters.x = -this._offset.x;
-		this.layers.hud.x = -this._offset.x;
 
 		this.layers.background.y = -this._offset.y;
 		this.layers.effects.y = -this._offset.y;
 		this.layers.characters.y = -this._offset.y;
-		this.layers.hud.y = -this._offset.y;
 
 	}
 	,
@@ -110,6 +108,24 @@ var EaselJSGraphics = Smart.Class({
 					, y: bounds.y + bounds.height / 2
 				};
 		}
+	}
+	,
+	getHudPoint: function(hudPoint) {
+		if (typeof hudPoint !== 'string') return hudPoint;
+		var bounds = Balance.level.bounds;
+		switch (hudPoint) {
+			case 'middle':
+				return { x: bounds.visibleWidth / 2, y: bounds.visibleHeight / 2 };
+			case 'top':
+				return { x: bounds.visibleWidth / 2, y: 0 };
+			case 'bottom':
+				return { x: bounds.visibleWidth / 2, y: bounds.visibleHeight };
+			case 'left':
+				return { x: 0, y: bounds.visibleHeight / 2 };
+			case 'right':
+				return {x: bounds.visibleWidth, y: bounds.visibleHeight / 2 };
+		}
+		return null;
 	}
 	,
 	createLevelGraphics: function() {

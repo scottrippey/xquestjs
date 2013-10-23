@@ -12,11 +12,13 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 		powerupActive: {
 			fontSize: '30px'
 			, color: 'hsl(120, 100%, 80%)'
+			, textBaseline: 'bottom'
 		}
 		,
 		powerupDeactive: {
 			fontSize: '24px'
 			, color: 'hsl(0, 100%, 80%)'
+			, textBaseline: 'bottom'
 		}
 	}
 	,
@@ -43,13 +45,13 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 	}
 	,
 	start: function(gamePoint) {
-		var location = this.gfx.getGamePoint(gamePoint);
+		var location = this.gfx.getHudPoint(gamePoint);
 		this.moveTo(location.x, location.y);
 		return this;
 	}
 	,
 	flyIn: function(duration, to) {
-		var toLocation = this.gfx.getGamePoint(to || 'middle');
+		var toLocation = this.gfx.getHudPoint(to || 'middle');
 
 		var txt = this;
 		this.animation
@@ -66,7 +68,7 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 	}
 	,
 	flyOut: function(duration, to) {
-		var toLocation = this.gfx.getGamePoint(to || 'bottom');
+		var toLocation = this.gfx.getHudPoint(to || 'bottom');
 
 		var txt = this;
 		this.animation
