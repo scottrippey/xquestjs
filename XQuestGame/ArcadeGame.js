@@ -80,7 +80,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 	,
 	_startLevel: function() {
-		var middleOfGame = this.game.gfx.getMiddleOfGame();
+		var middleOfGame = this.game.gfx.getGamePoint('middle');
 		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
 		this.game.player.cancelVelocity();
 		this.game.player.showPlayer(true);
@@ -157,8 +157,8 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 	,
 	_animateBackToCenter: function() {
-		var visibleMiddle = this.game.gfx.getVisibleMiddle()
-			, middleOfGame = this.game.gfx.getMiddleOfGame();
+		var visibleMiddle = this.game.gfx.getGamePoint('visibleMiddle')
+			, middleOfGame = this.game.gfx.getGamePoint('middle');
 
 		this.followPlayer = false;
 		var animation = new Smart.Animation()

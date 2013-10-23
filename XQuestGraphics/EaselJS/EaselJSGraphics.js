@@ -112,42 +112,6 @@ var EaselJSGraphics = Smart.Class({
 		}
 	}
 	,
-	/** @deprecated */
-	getVisibleMiddle: function() {
-		var bounds = Balance.level.bounds;
-		return {
-			x: this._offset.x + bounds.visibleWidth / 2
-			,y: this._offset.y + bounds.visibleHeight / 2
-		};
-	}
-	,
-	/** @deprecated */
-	getMiddleOfGame: function() {
-		var bounds = Balance.level.bounds;
-		return {
-				x: bounds.x + (bounds.width / 2)
-				,y: bounds.y + (bounds.height / 2)
-			};
-	}
-	,
-	/** @deprecated */
-	getTopOfGame: function() {
-		var bounds = Balance.level.bounds;
-		return {
-				x: bounds.x + (bounds.width / 2)
-				,y: bounds.y
-			};
-	}
-	,
-	/** @deprecated */
-	getBottomOfGame: function() {
-		var bounds = Balance.level.bounds;
-		return {
-				x: bounds.x + (bounds.width / 2)
-				,y: bounds.y + bounds.height
-			};
-	}
-	,
 	createLevelGraphics: function() {
 		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
@@ -237,7 +201,6 @@ var EaselJSGraphics = Smart.Class({
 		var textGfx = new EaselJSGraphics.TextGraphic();
 		textGfx.setGfx(this);
 		textGfx.setText(text, textStyle);
-
 
 		this.layers.hud.addChild(textGfx);
 		textGfx.destroy = function(textGfx) {
