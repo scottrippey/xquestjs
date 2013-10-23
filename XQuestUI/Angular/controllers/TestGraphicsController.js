@@ -27,6 +27,7 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 				this._testLevel();
 				this._testPlayersAndEnemies();
 				this._testPowerups();
+				this._testBombs();
 			}
 			,
 			_testLevel: function() {
@@ -67,6 +68,12 @@ angular.module('XQuestUI').controller('TestGraphicsController', [
 				this._applyEach(function(x, y) {
 					this.game.gfx.createPowerCrystalGraphic().moveTo(x, y);
 				}, [100, 350], [150, 400], [200, 450]);
+			}
+			,
+			_testBombs: function() {
+				this._applyEach(function(x, y) {
+					this.game.gfx.createBombCrystalGraphic().moveTo(x, y);
+				}, [150, 350], [200, 400], [250, 450]);
 			}
 		});
 	}

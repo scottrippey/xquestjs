@@ -56,6 +56,9 @@ Balance.merge({
 				, turnSpeed: Balance.randomBetween(-40, 40)
 				, spawnRate: gameOptions.powerupSpawnRate || Balance.randomBetween(30, 45)
 			}
+			,bombCrystals: {
+				radius: 10
+			}
 			,powerups: {
 				powerShot: {
 					duration: 10

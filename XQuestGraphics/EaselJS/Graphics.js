@@ -64,6 +64,22 @@ Balance.onUpdate(function(mode) {
 			,spinRate: 0.3 * 360
 			,gatherDuration: 2
 		}
+		,bombCrystals: {
+			radius: Balance.bombCrystals.radius
+			,style: {
+				strokeColor: 'yellow'
+				,strokeWidth: 2
+			}
+			,radiusInner: Balance.bombCrystals.radius * 0.5
+			,styleInner: {
+				fillColor: 'white'
+				,strokeWidth: 2
+			}
+			,sides: 3
+			,pointSize: 0.3
+			,spinRate: 0.3 * 360
+			,gatherDuration: 2
+		}
 		,level: {
 			cornerRadius: 16
 			, strokeStyle: {
