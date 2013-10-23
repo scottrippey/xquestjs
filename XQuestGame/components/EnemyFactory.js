@@ -56,6 +56,10 @@ var EnemyFactory = Smart.Class({
 
 		var spawnInfo = this.getRandomSpawn(enemy.radius);
  		enemy.spawn(spawnInfo);
+		this.game.gfx.addAnimation(new Smart.Animation()
+			.duration(1).easeOut('quint')
+			.scale(enemy.location, [0, 1])
+		).update(0);
 	}
 	,
 	getRandomSpawn: function(enemyRadius) {
