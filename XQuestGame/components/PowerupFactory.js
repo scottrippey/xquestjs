@@ -91,6 +91,24 @@ var PowerupFactory = Smart.Class({
 	}
 
 	,
+	startLevel: function(currentLevel) {
+		var frequency = 2, shouldSpawnBomb = (currentLevel % frequency === 0);
+		if (shouldSpawnBomb) {
+			this.createBombCrystal();
+		}
+	}
+	,
+	createBombCrystal: function() {
+		var bomb = new BombCrystal(this.game);
+		var random = this.game.gfx.getGamePoint('random', bomb.radius);
+		bomb.spawnBomb(random);
+
+		if (!this.bombs)
+			this.bombs = [];
+		this.bombs.push(bomb);
+	}
+
+	,
 	clearAllPowerCrystals: function() {
 		_.forEach(this.powerCrystals, function(powerCrystal) {
 			powerCrystal.clearPowerCrystal();

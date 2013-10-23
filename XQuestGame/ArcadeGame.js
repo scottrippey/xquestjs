@@ -75,8 +75,9 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 
 		this.game.crystals.clearCrystals();
-		this.game.crystals.createCrystals(Balance.crystals.quantity);
-		this.game.enemies.setLevel(this.currentLevel);
+		this.game.crystals.startLevel(this.currentLevel);
+		this.game.enemies.startLevel(this.currentLevel);
+		this.game.powerups.startLevel(this.currentLevel);
 	}
 	,
 	_startLevel: function() {

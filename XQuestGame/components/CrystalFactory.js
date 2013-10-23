@@ -5,7 +5,8 @@ var CrystalFactory = Smart.Class({
 		this.crystals = [];
 	}
 	,
-	createCrystals: function(count) {
+	startLevel: function(currentLevel) {
+		var count = Balance.crystals.quantity;
 		var bounds = Balance.level.bounds
 			,radius = Balance.crystals.radius
 			,randomX = function() { return bounds.x + radius + Math.random() * (bounds.width - radius * 2); }

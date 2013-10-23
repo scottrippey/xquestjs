@@ -4,7 +4,7 @@ var EnemyFactory = Smart.Class({
 		this.enemies = [];
 	}
 	,
-	setLevel: function(currentLevel) {
+	startLevel: function(currentLevel) {
 		var currentEnemyLineupIndex = Math.floor(currentLevel / 2);
 
 		var enemyLineup = Balance.enemies.roster;

@@ -77,6 +77,11 @@ var EaselJSGraphics = Smart.Class({
 		if (typeof gamePoint !== 'string') return gamePoint;
 		var bounds = Balance.level.bounds;
 		switch (gamePoint) {
+			case 'random':
+				return {
+					x: bounds.x + bounds.width * Math.random()
+					,y: bounds.y + bounds.height * Math.random()
+				};
 			case 'visibleMiddle':
 				return {
 					x: this._offset.x + bounds.visibleWidth / 2
@@ -185,6 +190,12 @@ var EaselJSGraphics = Smart.Class({
 		var powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
 		this.layers.characters.addChild(powerCrystal);
 		return powerCrystal;
+	}
+	,
+	createBombCrystalGraphic: function() {
+		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
+		this.layers.background.addChild(bombCrystal);
+		return bombCrystal;
 	}
 	,
 	createExplosion: function(position, velocity, particleOptions) {
