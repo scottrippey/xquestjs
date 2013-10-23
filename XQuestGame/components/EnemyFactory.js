@@ -75,11 +75,18 @@ var EnemyFactory = Smart.Class({
 		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
 			if (theseSpecificItemsDidCollide) {
-				this._killEnemy(enemy, ei);
+				enemy.mustDie = true;
 				if (collisionCallback)
 					collisionCallback(enemy, item, ei, ii, distance);
 			}
 		}.bind(this));
+
+		var i = enemies.length;
+		while (i--) {
+			if (enemies[i].mustDie) {
+				this._killEnemy(enemies[i], i);
+			}
+		}
 	}
 	,
 	killAllEnemies: function() {
