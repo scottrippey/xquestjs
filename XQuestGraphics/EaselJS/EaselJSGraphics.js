@@ -195,6 +195,7 @@ var EaselJSGraphics = Smart.Class({
 	createBombCrystalGraphic: function() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		this.layers.background.addChild(bombCrystal);
+		bombCrystal.destroy = function() { this.layers.background.removeChild(bombCrystal); }.bind(this);
 		return bombCrystal;
 	}
 	,

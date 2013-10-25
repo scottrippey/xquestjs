@@ -8,4 +8,8 @@ var BombCrystal = Smart.Class({
 	spawnBomb: function(location) {
 		this.location.moveTo(location.x, location.y);
 	}
+	,
+	destroy: function() {
+		this.location.destroy();
+	}
 });

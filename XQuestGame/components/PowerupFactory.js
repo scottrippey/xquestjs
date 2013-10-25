@@ -34,6 +34,22 @@ var PowerupFactory = Smart.Class({
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);
 
+		if (this.bombs && this.bombs.length) {
+			if (this.bombs.length >= 2) {
+				Smart.Physics.sortByLocation(this.bombs);
+			}
+
+			var maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
+
+			Smart.Physics.detectCollisions(this.bombs, [ this.game.player ], maxDistance, function(bomb, player, bombIndex, pi, distance) {
+				this.bombs.splice(bombIndex, 1);
+
+				bomb.destroy();
+			}.bind(this));
+
+
+		}
+
 	}
 	,
 	createPowerCrystal: function() {

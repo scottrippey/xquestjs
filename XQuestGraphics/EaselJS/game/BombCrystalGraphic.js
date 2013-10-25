@@ -1,5 +1,5 @@
 EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
-	initialize: function PowerCrystalGraphic() {
+	initialize: function BombCrystalGraphic() {
 		this._setupGraphics();
 	}
 	,
