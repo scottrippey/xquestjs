@@ -80,6 +80,11 @@ Balance.onUpdate(function(mode) {
 			,spinRate: 0.3 * 360
 			,gatherDuration: 2
 		}
+		,bombs: {
+			style:{
+				fillColor: 'white'
+			}
+		}
 		,level: {
 			cornerRadius: 16
 			, strokeStyle: {

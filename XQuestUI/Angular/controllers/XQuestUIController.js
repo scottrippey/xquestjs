@@ -116,6 +116,11 @@ angular.module("XQuestUI").controller("XQuestUIController", [
 
 				this.currentGame.input.primaryWeapon(down);
 			}
+			, secondaryWeapon: function() {
+				if (this.paused || !this.currentGame) return;
+
+				this.currentGame.input.secondaryWeapon();
+			}
 
 			, registerCanvas: function(canvas) {
 				this.canvas = canvas;

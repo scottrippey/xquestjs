@@ -6,12 +6,13 @@
      ng-mouseleave="ui.togglePause(true)"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
 
-     common-keymap="{ fire: 'space', pause: 'enter escape' }"
+     common-keymap="{ fire: 'space', pause: 'escape', bomb: 'enter' }"
      common-keymap-document
      common-keymap-preventDefault
 
      common-keymap-fire-down="ui.primaryWeapon(true)"
      common-keymap-fire-up="ui.primaryWeapon(false)"
+     common-keymap-bomb-down="ui.secondaryWeapon(false)"
      common-keymap-pause-down="ui.togglePause()"
 
      common-keymap-up-repeat="ui.accelerate({ x: 0, y: -5 })"

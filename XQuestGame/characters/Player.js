@@ -69,6 +69,9 @@ var Player = Smart.Class({
 						}
 					}
 					break;
+				case 'secondaryWeapon':
+					this._releaseABomb();
+					break;
 				default:
 					return false; // unhandled
 			}
@@ -132,6 +135,12 @@ var Player = Smart.Class({
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = Balance.bullets.radius;
 		this.bullets.push(bulletGfx);
+	}
+	,
+	_releaseABomb: function() {
+		var bomb = this.game.gfx.createBombGraphic();
+		bomb.moveTo(this.location.x, this.location.y);
+
 	}
 
 	,

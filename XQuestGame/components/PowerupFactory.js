@@ -43,8 +43,8 @@ var PowerupFactory = Smart.Class({
 
 			Smart.Physics.detectCollisions(this.bombs, [ this.game.player ], maxDistance, function(bomb, player, bombIndex, pi, distance) {
 				this.bombs.splice(bombIndex, 1);
-
 				bomb.destroy();
+				this.game.stats.bombs++;
 			}.bind(this));
 
 

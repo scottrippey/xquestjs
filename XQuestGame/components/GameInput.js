@@ -21,6 +21,9 @@ var GameInput = Smart.Class({
 	, primaryWeapon: function(down) {
 		this.inputItems.push({ inputType: 'primaryWeapon', down: down });
 	}
+	, secondaryWeapon: function() {
+		this.inputItems.push({ inputType: 'secondaryWeapon' });
+	}
 	, accelerate: function(acceleration) {
 		this.inputItems.push({
 			inputType: 'accelerate'

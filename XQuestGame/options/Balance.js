@@ -59,6 +59,10 @@ Balance.merge({
 			,bombCrystals: {
 				radius: 10
 			}
+			,bombs: {
+				startCount: 3
+				, speed: 1300
+			}
 			,powerups: {
 				powerShot: {
 					duration: 10

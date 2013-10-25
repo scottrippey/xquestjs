@@ -57,6 +57,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	_startGame: function() {
 		this.currentLevel = 1;
 		this.stats.lives = Balance.player.lives;
+		this.stats.bombs = Balance.bombs.startCount;
 
 		this._showLevelNumber();
 		this._arrangeNewLevel();
