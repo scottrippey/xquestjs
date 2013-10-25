@@ -77,7 +77,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.game.crystals.clearCrystals();
 		this.game.crystals.startLevel(this.currentLevel);
 		this.game.enemies.startLevel(this.currentLevel);
-		this.game.powerups.startLevel(this.currentLevel);
+		this.game.powerCrystals.startLevel(this.currentLevel);
 	}
 	,
 	_startLevel: function() {
