@@ -8,6 +8,7 @@ var Player = Smart.Class({
 		this.engaged = false;
 		this.bullets = [];
 		this.primaryWeaponDown = false;
+		this.bomb = null;
 
 		this._setupPlayerGraphics();
 	}
@@ -138,9 +139,21 @@ var Player = Smart.Class({
 	}
 	,
 	_releaseABomb: function() {
-		var bomb = this.game.gfx.createBombGraphic();
-		bomb.moveTo(this.location.x, this.location.y);
+		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null);
 
+		if (canBomb) {
+			this.game.stats.bombs--;
+			this.bomb = this._createBomb();
+		}
+
+		return canBomb;
+	}
+	,
+	_createBomb: function() {
+		var bomb = this.game.gfx.createBombGraphic(function() { this.bomb = null; }.bind(this));
+		bomb.location = bomb;
+		bomb.location.moveTo(this.location.x, this.location.y);
+		return bomb;
 	}
 
 	,
@@ -206,6 +219,10 @@ var Player = Smart.Class({
 			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
 				this._destroyBullet(bullet, bi);
 			}.bind(this));
+		}
+
+		if (this.bomb) {
+			this.game.enemies.killEnemiesOnCollision([ this.bomb ], this.bomb.radius);
 		}
 
 		var killPlayer = false;

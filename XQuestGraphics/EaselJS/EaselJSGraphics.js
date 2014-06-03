@@ -199,10 +199,13 @@ var EaselJSGraphics = Smart.Class({
 		return bombCrystal;
 	}
 	,
-	createBombGraphic: function() {
+	createBombGraphic: function(onDestroy) {
 		var bomb = new EaselJSGraphics.BombGraphic();
 		this.layers.effects.addChild(bomb);
-		bomb.destroy = function() { this.layers.effects.removeChild(bomb); }.bind(this);
+		bomb.destroy = function() {
+			this.layers.effects.removeChild(bomb);
+			onDestroy();
+		}.bind(this);
 		return bomb;
 	}
 	,
