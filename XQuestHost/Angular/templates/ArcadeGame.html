@@ -1,24 +1,6 @@
 <div class="fill-screen danger-zone"
      ng-controller="XQuestUIController as ui"
-     ng-mousemove="ui.onMouseMove($event)"
-     ng-mousedown="ui.primaryWeapon(true); $event.preventDefault();"
-     ng-mouseup="ui.primaryWeapon(false);"
-     ng-mouseleave="ui.togglePause(true)"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
-
-     common-keymap="{ fire: 'space', pause: 'escape', bomb: 'enter' }"
-     common-keymap-document
-     common-keymap-preventDefault
-
-     common-keymap-fire-down="ui.primaryWeapon(true)"
-     common-keymap-fire-up="ui.primaryWeapon(false)"
-     common-keymap-bomb-down="ui.secondaryWeapon(false)"
-     common-keymap-pause-down="ui.togglePause()"
-
-     common-keymap-up-repeat="ui.accelerate({ x: 0, y: -5 })"
-     common-keymap-down-repeat="ui.accelerate({ x: 0, y: 5 })"
-     common-keymap-left-repeat="ui.accelerate({ x: -5, y: 0 })"
-     common-keymap-right-repeat="ui.accelerate({ x: 5, y: 0 })"
 
      common-keymap-c="ui.currentGame.debug().gatherClosestCrystal()"
      common-keymap-s="ui.currentGame.debug().spawnEnemy()"
@@ -35,10 +17,7 @@
 	>
 
 
-	<div class="canvas-container"
-	     ng-mouseenter="ui.engage()"
-	     ng-mouseleave="ui.disengage()">
-
+	<div class="canvas-container">
 		<canvas id="XQuestCanvas" width="{{ Balance.level.bounds.visibleWidth }}" height="{{ Balance.level.bounds.visibleHeight }}"
 		        common-init-canvas="ui.registerCanvas(canvas)"
 		        common-fill-parent

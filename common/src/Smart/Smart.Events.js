@@ -6,13 +6,13 @@ Smart.Events = Smart.Class({
 		this.$events[eventName].push(callback);
 	}
 	,
-	fireEvent: function(eventName, args) {
+	fireEvent: function(eventName, eventArgs) {
 		var callbacks = this.$events && this.$events[eventName];
 		if (!callbacks) return;
-		if (!args) args = [];
+		if (!eventArgs) eventArgs = [];
 
 		for (var i = 0, l = callbacks.length; i < l; i++) {
-			callbacks[i].apply(null, args);
+			callbacks[i].apply(null, eventArgs);
 		}
 	}
 });

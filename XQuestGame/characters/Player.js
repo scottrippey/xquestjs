@@ -7,6 +7,7 @@ var Player = Smart.Class({
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
 		this.primaryWeaponDown = false;
+		this.previousState = this.game.input.getDefaultState();
 
 		this._setupPlayerGraphics();
 	}
@@ -26,57 +27,56 @@ var Player = Smart.Class({
 
 	, onInput: function(tickEvent) {
 
-		this.game.input.processInputs(function(inputItem) {
-			if (!this.playerActive) return true;
-
-			switch (inputItem.inputType) {
-				case 'accelerate':
-					var acceleration = inputItem;
-					Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
-					Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
-					break;
-				case 'engage':
-					this.engaged = true;
-					break;
-				case 'disengage':
-					this.engaged = false;
-					break;
-				case 'primaryWeapon':
-					if (this.primaryWeaponDown !== inputItem.down) {
-						this.primaryWeaponDown = inputItem.down;
-
-						if (this.primaryWeaponDown) {
-							// Down
-							this.primaryWeaponDownTime = tickEvent.runTime;
-							if (this.game.activePowerups.tripleShot) {
-								this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
-							} else {
-								this.game.projectiles.addBullet();
-							}
-						} else {
-							// Up
-							if (this.game.activePowerups.powerShot) {
-								var powerShot = Balance.powerups.powerShot;
-								var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
-								if (elapsed >= powerShot.chargeDuration * 1000) {
-									this.game.projectiles.addTripleShot(powerShot);
-								}
-							}
-						}
-					}
-					break;
-				case 'secondaryWeapon':
-					this.game.projectiles.releaseABomb();
-					break;
-				default:
-					return false; // unhandled
-			}
-			return true;
-		}.bind(this));
-
+		var currentState = this.game.input.getInputState();
+		var previousState = this.previousState;
 
 		if (!this.playerActive) return;
 
+		this.previousState = currentState;
+
+		if (currentState.accelerationX || currentState.accelerationY) {
+			var acceleration = {
+				x: currentState.accelerationX || 0,
+				y: currentState.accelerationY || 0
+			};
+			Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
+			Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
+		}
+
+		this.engaged = currentState.engaged;
+
+		if (currentState.primaryWeapon) {
+			var isFirstDown = (previousState.primaryWeapon === false);
+			if (isFirstDown) {
+				this.primaryWeaponDownTime = tickEvent.runTime;
+
+				if (this.game.activePowerups.tripleShot) {
+					this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
+				} else {
+					this.game.projectiles.addBullet();
+				}
+			} else {
+
+			}
+		} else {
+			var isFirstUp = (previousState.primaryWeapon === true);
+			if (isFirstUp) {
+				if (this.game.activePowerups.powerShot) {
+					var powerShot = Balance.powerups.powerShot;
+					var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
+					if (elapsed >= powerShot.chargeDuration * 1000) {
+						this.game.projectiles.addTripleShot(powerShot);
+					}
+				}
+			}
+		}
+
+		if (currentState.secondaryWeapon) {
+			var isFirstDown = (previousState.secondaryWeapon === false);
+			if (isFirstDown) {
+				this.game.projectiles.releaseABomb();
+			}
+		}
 
 		if (this.game.activePowerups.rapidFire) {
 			if (this.primaryWeaponDown) {

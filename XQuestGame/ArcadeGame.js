@@ -6,11 +6,11 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	, stats: null
 	, powerCrystals: null
 
-	, initialize: function ArcadeGame(canvas) {
+	, initialize: function ArcadeGame(graphics) {
 		// Since all other classes use 'this.game', this will provide consistency:
 		this.game = this;
 
-		this.initializeGame(canvas);
+		this.initializeGame(graphics);
 		this.addGameItem(this);
 
 		this.stats = {};
@@ -20,7 +20,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this._setupCrystals();
 		this._setupPowerCrystals();
 		this._setupProjectiles();
-		
+
 		this.activePowerups = {};
 
 		this._startGame();
@@ -172,6 +172,8 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.timer.pauseTimer(this.paused);
 
 		this.game.player.cancelVelocity();
+
+		this.fireEvent('gamePaused', [ this.paused ]);
 	}
 
 	, activatePowerup: function(powerupName) {

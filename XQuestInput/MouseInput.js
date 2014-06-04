@@ -21,6 +21,7 @@
 		element: null,
 		elementSize: null,
 		mouseState: null,
+		previousMousePosition: null,
 
 		initialize: function(game, element) {
 			this.game = game;

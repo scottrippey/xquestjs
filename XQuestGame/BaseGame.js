@@ -3,12 +3,12 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 	, input: null
 	, timer: null
 	,
-	initializeGame: function(canvas) {
-		if (!canvas)
+	initializeGame: function(graphics) {
+		if (!graphics)
 			console.error("You must provide a Canvas element!");
 
 		this._setupHandlers();
-		this._setupGraphics(canvas);
+		this._setupGraphics(graphics);
 		this._setupInput();
 		this._setupTimer();
 	}
@@ -22,8 +22,8 @@ var BaseGame = Smart.Class(new Smart.Events(), {
 		};
 	}
 	,
-	_setupGraphics: function(canvas) {
-		this.gfx = new EaselJSGraphics(canvas);
+	_setupGraphics: function(graphics) {
+		this.gfx = graphics; //new EaselJSGraphics(canvas);
 		this.addGameItem(this.gfx);
 	}
 	,

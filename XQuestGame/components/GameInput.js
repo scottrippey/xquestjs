@@ -1,35 +1,33 @@
 var GameInput = Smart.Class({
+	inputs: null,
 	initialize: function() {
-		this.inputItems = [];
-	}
+		this.inputs = [];
+	},
 
-	, processInputs: function(inputHandler) {
-		var notHandled = function(item) { return !inputHandler(item); };
-		var unhandled = this.inputItems.filter(notHandled);
-		this.inputItems = unhandled;
+	addGameInput: function(input) {
+		this.inputs.push(input);
+	},
 
-        if (unhandled.length !== 0)
-		    console.error("[GameInput]", "For now, all inputs should be handled.");
-	}
+	getDefaultState: function() {
+		var state = {
+			primaryWeapon: false
+			, secondaryWeapon: false
+			, engaged: false
+			, accelerationX: 0
+			, accelerationY: 0
+		};
+		return state;
+	},
 
-	, engage: function() {
-		this.inputItems.push({ inputType: 'engage' });
-	}
-	, disengage: function() {
-		this.inputItems.push({ inputType: 'disengage' });
-	}
-	, primaryWeapon: function(down) {
-		this.inputItems.push({ inputType: 'primaryWeapon', down: down });
-	}
-	, secondaryWeapon: function() {
-		this.inputItems.push({ inputType: 'secondaryWeapon' });
-	}
-	, accelerate: function(acceleration) {
-		this.inputItems.push({
-			inputType: 'accelerate'
-			, x: acceleration.x
-			, y: acceleration.y
-		});
+	getInputState: function() {
+		var state = this.getDefaultState();
+
+		var i = this.inputs.length;
+		while (i--) {
+			this.inputs[i].mergeInputState(state);
+		}
+
+		return state;
 	}
 
 });
