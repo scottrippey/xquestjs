@@ -12,12 +12,18 @@
 		left: primaryWeapon
 		, right: secondaryWeapon
 	};
+	var UserSettings = {
+		mouseSensitivity: 2,
+		mouseBiasSensitivity: 2
+	};
 
 	XQuestInput.MouseInput = Smart.Class({
 		element: null,
 		mouseState: null,
 
-		initialize: function(element) {
+		initialize: function(game, element) {
+			this.game = game;
+			this.game.input.addGameInput(this);
 			this.element = element;
 			this.mouseState = {};
 			this.mouseMap = mouseMap;
@@ -29,6 +35,14 @@
 				'mouseup': this._onMouseUp.bind(this),
 				'mousemove': this._onMouseMove.bind(this)
 			});
+
+			addEventListeners(window, {
+				'resize': this._onWindowResize.bind(this)
+			});
+		},
+
+		_onWindowResize: function() {
+			this.elementSize = null;
 		},
 
 		_onMouseOver: function(ev) {
@@ -59,20 +73,65 @@
 				this.mouseState[action] = false;
 			}
 		},
-		_onMouseMove: function(ev) {
-			var mousePosition = getMousePosition(ev);
-			var previousMousePosition = this.previousMousePosition;
-			this.previousMousePosition = mousePosition;
 
-			if (!previousMousePosition) {
-				return;
+		_onMouseMove: function(ev) {
+			if (this.elementSize === null) {
+				this.elementSize = getElementSize(this.element);
 			}
 
-			var deltaX = mousePosition.x - previousMousePosition.x,
-				deltaY = mousePosition.y - previousMousePosition.y;
+			var mousePosition = getMousePosition(ev);
+			var delta = this._updateMousePosition(mousePosition);
+			if (!delta)
+				return;
 
-			this.mouseState.accelerationX += deltaX;
-			this.mouseState.accelerationY += deltaY;
+			var acceleration = this._adjustForSensitivity(delta, mousePosition, this.elementSize);
+
+			this.mouseState.accelerationX += acceleration.x;
+			this.mouseState.accelerationY += acceleration.y;
+		},
+		_updateMousePosition: function(mousePosition) {
+			var delta = null;
+			if (this.previousMousePosition) {
+				delta = {
+					x: mousePosition.x - this.previousMousePosition.x
+					, y: mousePosition.y - this.previousMousePosition.y
+				};
+			}
+			this.previousMousePosition = mousePosition;
+
+			return delta;
+		},
+		_adjustForSensitivity: function(delta, mousePosition, elementSize) {
+			var sensitivity = UserSettings.mouseSensitivity
+				, biasSensitivity = UserSettings.mouseBiasSensitivity;
+
+			var distanceFromCenter = {
+				x: 2 * ((mousePosition.x / elementSize.width) - 0.5)
+				, y: 2 * ((mousePosition.y / elementSize.height) - 0.5)
+			};
+
+			var bias = {
+				x: this._getBias(distanceFromCenter.x, delta.x, biasSensitivity)
+				, y: this._getBias(distanceFromCenter.y, delta.y, biasSensitivity)
+			};
+			var acceleration = {
+				x: delta.x * sensitivity * bias.x
+				, y: delta.y * sensitivity * bias.y
+			};
+			return acceleration;
+		},
+		_getBias: function(distanceFromCenter, deltaDirection, sensitivity) {
+			// "Bias" is used to increase outward sensitivity, and decrease inward sensitivity.
+			// This causes the user's mouse to gravitate toward the center of the page,
+			// decreasing the likelihood of reaching the edges of the page.
+
+			var isMovingAwayFromCenter = (distanceFromCenter < 0 && deltaDirection < 0) || (distanceFromCenter > 0 && deltaDirection > 0);
+			distanceFromCenter = Math.abs(distanceFromCenter);
+			if (isMovingAwayFromCenter) {
+				return 1 + distanceFromCenter * (sensitivity - 1);
+			} else {
+				return 1 - distanceFromCenter + (distanceFromCenter / sensitivity);
+			}
 		},
 
 		mergeInputState: function(state) {
@@ -103,6 +162,9 @@
 			child = child.parentNode;
 		}
 		return false;
+	}
+	function getElementSize(element) {
+		return { width: element.clientWidth, height: element.clientHeight };
 	}
 	function getMousePosition(ev) {
 		return { x: ev.clientX, y: ev.clientY };
