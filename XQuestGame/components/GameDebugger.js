@@ -3,24 +3,22 @@ var GameDebugger = Smart.Class({
 		this.game = game;
 	}
 
-	,
-	gatherClosestCrystal: function() {
+	, gatherClosestCrystal: function() {
 		this.game.crystals.gatherClosestCrystal(this.game.player.location);
 	}
-	,
-	spawnEnemy: function() {
+	, spawnEnemy: function() {
 		this.game.enemies.spawnNextEnemy();
 	}
-	,
-	activatePowerup: function(powerupName) {
+	, activatePowerup: function(powerupName) {
 		this.game.activatePowerup(powerupName);
 	}
-	,
-	killPlayer: function() {
+	, addBomb: function() {
+		this.game.stats.bombs++;
+	}
+	, killPlayer: function() {
 		this.game.killPlayer();
 	}
-	,
-	spawnPowerCrystal: function() {
+	, spawnPowerCrystal: function() {
 		this.game.powerCrystals.createPowerCrystal();
 	}
 });
