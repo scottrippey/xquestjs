@@ -41,9 +41,9 @@ var PowerupFactory = Smart.Class({
 
 			var maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
 
-			Smart.Physics.detectCollisions(this.bombs, [ this.game.player ], maxDistance, function(bomb, player, bombIndex, pi, distance) {
+			Smart.Physics.detectCollisions(this.bombs, [ this.game.player ], maxDistance, function(bombCrystal, player, bombIndex, pi, distance) {
 				this.bombs.splice(bombIndex, 1);
-				bomb.destroy();
+				bombCrystal.gatherBombCrystal();
 				this.game.stats.bombs++;
 			}.bind(this));
 
@@ -115,13 +115,13 @@ var PowerupFactory = Smart.Class({
 	}
 	,
 	createBombCrystal: function() {
-		var bomb = new BombCrystal(this.game);
-		var random = this.game.gfx.getGamePoint('random', bomb.radius);
-		bomb.spawnBomb(random);
+		var bombCrystal = new BombCrystal(this.game);
+		var randomSpawnLocation = this.game.gfx.getGamePoint('random', bombCrystal.radius);
+		bombCrystal.spawnBomb(randomSpawnLocation);
 
 		if (!this.bombs)
 			this.bombs = [];
-		this.bombs.push(bomb);
+		this.bombs.push(bombCrystal);
 	}
 
 	,
