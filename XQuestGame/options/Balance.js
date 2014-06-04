@@ -69,7 +69,6 @@ Balance.merge({
 					, frequency: 10
 					, chargeDuration: 1.0
 					, angle: 10
-					, focus: 100
 				}
 				,
 				rapidFire: {
@@ -82,7 +81,6 @@ Balance.merge({
 					duration: 30
 					, frequency: 10
 					, angle: 10
-					, focus: 100
 				}
 				,
 				autoAim: {

@@ -6,9 +6,7 @@ var Player = Smart.Class({
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
-		this.bullets = [];
 		this.primaryWeaponDown = false;
-		this.bomb = null;
 
 		this._setupPlayerGraphics();
 	}
@@ -17,7 +15,8 @@ var Player = Smart.Class({
 		this.location = this.playerGraphics;
 		this.radius = Balance.player.radius;
 	}
-	, moveTo: function(x, y) {
+	
+	, movePlayerTo: function(x, y) {
 		this.playerGraphics.moveTo(x, y);
 	}
 	, cancelVelocity: function() {
@@ -50,9 +49,9 @@ var Player = Smart.Class({
 							// Down
 							this.primaryWeaponDownTime = tickEvent.runTime;
 							if (this.game.activePowerups.tripleShot) {
-								this._tripleShot(Balance.powerups.tripleShot);
+								this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
 							} else {
-								this._addBullet();
+								this.game.projectiles.addBullet();
 							}
 						} else {
 							// Up
@@ -60,14 +59,14 @@ var Player = Smart.Class({
 								var powerShot = Balance.powerups.powerShot;
 								var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
 								if (elapsed >= powerShot.chargeDuration * 1000) {
-									this._tripleShot(powerShot);
+									this.game.projectiles.addTripleShot(powerShot);
 								}
 							}
 						}
 					}
 					break;
 				case 'secondaryWeapon':
-					this._releaseABomb();
+					this.game.projectiles.releaseABomb();
 					break;
 				default:
 					return false; // unhandled
@@ -87,9 +86,9 @@ var Player = Smart.Class({
 				} else if (this.nextRapidFire <= tickEvent.runTime) {
 					this.nextRapidFire += period;
 					if (this.game.activePowerups.tripleShot) {
-						this._tripleShot(Balance.powerups.tripleShot);
+						this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
 					} else {
-						this._addBullet();
+						this.game.projectiles.addBullet();
 					}
 				}
 			} else {
@@ -98,59 +97,9 @@ var Player = Smart.Class({
 		}
 
 	}
-	, _tripleShot: function(powerup) {
-		var playerSpeed = Smart.Point.hypotenuse(this.velocity);
-		var angle = powerup.angle * powerup.focus / playerSpeed;
-
-		this._addBullet();
-		this._addBullet(angle);
-		this._addBullet(-angle);
-	}
-	, _addBullet: function(angle) {
-		var bulletGfx = this.game.gfx.createPlayerBullet();
-		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
-		var velocity;
-		if (this.game.activePowerups.autoAim) {
-			var autoAim = Balance.powerups.autoAim;
-			var targetEnemy = this.game.enemies.findClosestEnemy(this.location);
-			if (targetEnemy) {
-				velocity = Smart.Physics.trajectory(this.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
-			}
-		}
-		if (!velocity) {
-			velocity = {
-				x: this.velocity.x * Balance.bullets.speed
-				, y: this.velocity.y * Balance.bullets.speed
-			};
-		}
-		bulletGfx.velocity = velocity;
-		if (angle) {
-			Smart.Point.rotate(bulletGfx.velocity, angle);
-		}
-		bulletGfx.location = bulletGfx;
-		bulletGfx.radius = Balance.bullets.radius;
-		this.bullets.push(bulletGfx);
-	}
-	, _releaseABomb: function() {
-		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null);
-
-		if (canBomb) {
-			this.game.stats.bombs--;
-			this.bomb = this._createBomb();
-		}
-
-		return canBomb;
-	}
-	, _createBomb: function() {
-		var bomb = this.game.gfx.createBombGraphic(function() { this.bomb = null; }.bind(this));
-		bomb.location = bomb;
-		bomb.location.moveTo(this.location.x, this.location.y);
-		return bomb;
-	}
 
 	, onMove: function(tickEvent) {
 		this._movePlayer(tickEvent);
-		this._moveBullets(tickEvent);
 	}
 	, _movePlayer: function(tickEvent) {
 
@@ -184,34 +133,11 @@ var Player = Smart.Class({
 			}
 		}
 	}
-	, _moveBullets: function(tickEvent) {
-		var bounds = Balance.level.bounds, i = this.bullets.length;
-		while (i--) {
-			var bulletGfx = this.bullets[i];
-			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
-			if (!Smart.Point.pointIsInBounds(bulletGfx, bounds)) {
-				bulletGfx.destroyBullet();
-				this.bullets.splice(i, 1);
-			}
-		}
-	}
 
 
 	, onAct: function(tickEvent) {
 		if (!this.playerActive) return;
 
-		if (this.bullets.length) {
-			if (this.bullets.length >= 2) {
-				Smart.Physics.sortByLocation(this.bullets);
-			}
-			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
-				this._destroyBullet(bullet, bi);
-			}.bind(this));
-		}
-
-		if (this.bomb) {
-			this.game.enemies.killEnemiesOnCollision([ this.bomb ], this.bomb.radius);
-		}
 
 		var killPlayer = false;
 		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
@@ -222,9 +148,6 @@ var Player = Smart.Class({
 
 		if (killPlayer)
 			this.game.killPlayer();
-
-	}
-	, _destroyBullet: function(bullet, bulletIndex) {
 
 	}
 

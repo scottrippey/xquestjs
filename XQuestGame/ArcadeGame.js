@@ -19,6 +19,8 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this._setupEnemyFactory();
 		this._setupCrystals();
 		this._setupPowerCrystals();
+		this._setupProjectiles();
+		
 		this.activePowerups = {};
 
 		this._startGame();
@@ -40,6 +42,10 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	, _setupPowerCrystals: function() {
 		this.powerCrystals = new PowerupFactory(this.game);
 	}
+	, _setupProjectiles: function() {
+		this.projectiles = new Projectiles(this.game);
+	}
+	
 	, debug: function() {
 		var debug = new GameDebugger(this.game);
 		this.debug = function() { return debug; };
@@ -72,7 +78,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 	, _startLevel: function() {
 		var middleOfGame = this.game.gfx.getGamePoint('middle');
-		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
+		this.game.player.movePlayerTo(middleOfGame.x, middleOfGame.y);
 		this.game.player.cancelVelocity();
 		this.game.player.showPlayer(true);
 
