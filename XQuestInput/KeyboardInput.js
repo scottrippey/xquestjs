@@ -52,8 +52,14 @@
 
 	XQuestInput.KeyboardInput = Smart.Class({
 		sensitivity: 1,
-		initialize: function(element) {
-			this.keyHelper = new XQuestInput.KeyboardInput.KeyHelper(element, this._onActionsDown.bind(this));
+		initialize: function(game, element) {
+			this.game = game;
+			this.game.input.addGameInput(this);
+
+			if (!element) {
+				element = document;
+			}
+			this.keyHelper = new XQuestInput.KeyboardInput.KeyHelper(element, this._onOtherActionsDown.bind(this));
 
 			this.setKeyMap(keyMap);
 		},
@@ -106,8 +112,8 @@
 			this.downKeys = [];
 			this.downActions = {};
 
-			this.element.addEventListener('keydown', this._onKeydown);
-			this.element.addEventListener('keyup', this._onKeyup);
+			this.element.addEventListener('keydown', this._onKeydown.bind(this));
+			this.element.addEventListener('keyup', this._onKeyup.bind(this));
 		},
 		_onKeydown: function(event) {
 			var keyName = this._getKeyName(event);
@@ -136,7 +142,7 @@
 		_getKeyName: function(event) {
 			var keyName =
 				this.codes[event.keyCode]
-				|| (event.keyIdentifier && event.keyIdentifier.indexOf('U+') === -1 && event.keyIdentifier).toLowerCase()
+				|| (event.keyIdentifier && event.keyIdentifier.indexOf('U+') === -1 && event.keyIdentifier.toLowerCase())
 				|| String.fromCharCode(event.keyCode)
 				|| 'unknown';
 			return keyName;
