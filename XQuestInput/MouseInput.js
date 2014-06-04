@@ -19,6 +19,7 @@
 
 	XQuestInput.MouseInput = Smart.Class({
 		element: null,
+		elementSize: null,
 		mouseState: null,
 
 		initialize: function(game, element) {
@@ -52,7 +53,7 @@
 			}
 		},
 		_onMouseOut: function(ev) {
-			var isInsideElement = elementContains(this.element, ev.target);
+			var isInsideElement = elementContains(this.element, ev.relatedTarget);
 			if (!isInsideElement) {
 				this.mouseState.engaged = false;
 				this.game.pauseGame(true);
