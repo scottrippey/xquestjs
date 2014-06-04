@@ -1,0 +1,59 @@
+<div class="fill-screen danger-zone"
+     ng-controller="XQuestUIController as ui"
+     ng-mousemove="ui.onMouseMove($event)"
+     ng-mousedown="ui.primaryWeapon(true); $event.preventDefault();"
+     ng-mouseup="ui.primaryWeapon(false);"
+     ng-mouseleave="ui.togglePause(true)"
+     ng-class="{ 'mouse-engaged': !!ui.engaged }"
+
+     common-keymap="{ fire: 'space', pause: 'escape', bomb: 'enter' }"
+     common-keymap-document
+     common-keymap-preventDefault
+
+     common-keymap-fire-down="ui.primaryWeapon(true)"
+     common-keymap-fire-up="ui.primaryWeapon(false)"
+     common-keymap-bomb-down="ui.secondaryWeapon(false)"
+     common-keymap-pause-down="ui.togglePause()"
+
+     common-keymap-up-repeat="ui.accelerate({ x: 0, y: -5 })"
+     common-keymap-down-repeat="ui.accelerate({ x: 0, y: 5 })"
+     common-keymap-left-repeat="ui.accelerate({ x: -5, y: 0 })"
+     common-keymap-right-repeat="ui.accelerate({ x: 5, y: 0 })"
+
+     common-keymap-c="ui.currentGame.debug().gatherClosestCrystal()"
+     common-keymap-s="ui.currentGame.debug().spawnEnemy()"
+     common-keymap-d="ui.currentGame.debug().killPlayer()"
+
+     common-keymap-1="ui.currentGame.debug().activatePowerup('invincible')"
+     common-keymap-2="ui.currentGame.debug().activatePowerup('rapidFire')"
+     common-keymap-3="ui.currentGame.debug().activatePowerup('tripleShot')"
+     common-keymap-4="ui.currentGame.debug().activatePowerup('autoAim')"
+     common-keymap-5="ui.currentGame.debug().activatePowerup('powerShot')"
+     common-keymap-6="ui.currentGame.debug().addBomb()"
+
+     common-keymap-0="ui.currentGame.debug().spawnPowerCrystal()"
+	>
+
+
+	<div class="canvas-container"
+	     ng-mouseenter="ui.engage()"
+	     ng-mouseleave="ui.disengage()">
+
+		<canvas id="XQuestCanvas" width="{{ Balance.level.bounds.visibleWidth }}" height="{{ Balance.level.bounds.visibleHeight }}"
+		        common-init-canvas="ui.registerCanvas(canvas)"
+		        common-fill-parent
+				>
+			Uh oh, your browser cannot play this game.
+			To play the most awesome game ever, please upgrade
+			to a better browser, such as Chrome, Safari, or FireFox.
+			In other words, Internet Explorer sucks.
+		</canvas>
+
+	</div>
+
+	<div class="hud-container" ng-show="!!ui.hud">
+		<div class="hud-contents" ng-include="ui.hud">
+			HUD will go here
+		</div>
+	</div>
+</div>

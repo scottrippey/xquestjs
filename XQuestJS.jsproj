@@ -111,12 +111,12 @@
     <Content Include="XQuestGraphics\EaselJS\game\CrystalGraphic.js" />
     <Content Include="XQuestGraphics\EaselJS\game\LevelGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\Graphics.js" />
-    <Content Include="XQuestUI\Angular\controllers\XQuestUIController.js" />
-    <Content Include="XQuestUI\Angular\directives\xqArcadeGame.js" />
-    <Content Include="XQuestUI\Angular\templates\ArcadeGame.html" />
-    <Content Include="XQuestUI\Angular\XQuestUI.js" />
-    <Content Include="XQuestUI\css\default.css" />
-    <Content Include="XQuestUI\input\GameInput.js" />
+    <Content Include="XQuestHost\Angular\controllers\XQuestHostController.js" />
+    <Content Include="XQuestHost\Angular\directives\xqArcadeGame.js" />
+    <Content Include="XQuestHost\Angular\templates\ArcadeGame.html" />
+    <Content Include="XQuestHost\Angular\XQuestHost.js" />
+    <Content Include="XQuestHost\css\default.css" />
+    <Content Include="XQuestHost\input\GameInput.js" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Win8\package.appxmanifest">
@@ -124,7 +124,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="XQuestUI\Angular\templates\settings\" />
+    <Folder Include="XQuestHost\Angular\templates\settings\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment

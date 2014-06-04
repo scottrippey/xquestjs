@@ -1,4 +1,4 @@
-angular.module('XQuestUI').controller('TestGraphicsController', [
+angular.module('XQuestHost').controller('TestGraphicsController', [
 	'$scope', function TestGraphicsController($scope) {
 		$scope.Balance = Balance;
 		_.extend(this, {

@@ -1,12 +1,12 @@
-angular.module('XQuestUI').controller('NavigationController', [
+angular.module('XQuestHost').controller('NavigationController', [
 	function NavigationController() {
 		_.extend(this, {
 			page: null
 			,
 			pages: {
-				main: 'XQuestUI/Angular/templates/help/help.html'
-				, arcadeGame: 'XQuestUI/Angular/templates/ArcadeGame.html'
-				, testGraphics: 'XQuestUI/Angular/templates/test/TestGraphics.html'
+				main: 'XQuestHost/Angular/templates/help/help.html'
+				, arcadeGame: 'XQuestHost/Angular/templates/ArcadeGame.html'
+				, testGraphics: 'XQuestHost/Angular/templates/test/TestGraphics.html'
 			}
 			,
 			initialize: function() {

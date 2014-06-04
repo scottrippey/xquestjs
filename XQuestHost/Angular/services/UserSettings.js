@@ -1,4 +1,4 @@
-angular.module('XQuestUI').factory('UserSettings', [
+angular.module('XQuestHost').factory('UserSettings', [
 	function() {
 		var UserSettings = {
 			mouseSensitivity: 2
