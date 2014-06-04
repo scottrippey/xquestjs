@@ -6,8 +6,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	, stats: null
 	, powerCrystals: null
 
-	,
-	initialize: function ArcadeGame(canvas) {
+	, initialize: function ArcadeGame(canvas) {
 		// Since all other classes use 'this.game', this will provide consistency:
 		this.game = this;
 
@@ -24,37 +23,30 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 
 		this._startGame();
 	}
-	,
-	_setupLevelGraphics: function() {
+	, _setupLevelGraphics: function() {
 		this.levelGraphics = this.game.gfx.createLevelGraphics();
 	}
-	,
-	_setupPlayer: function() {
+	, _setupPlayer: function() {
 		this.player = new Player(this.game);
 		this.game.addGameItem(this.player);
 	}
-	,
-	_setupEnemyFactory: function() {
+	, _setupEnemyFactory: function() {
 		this.enemies = new EnemyFactory(this.game);
 		this.addGameItem(this.enemies);
 	}
-	,
-	_setupCrystals: function() {
+	, _setupCrystals: function() {
 		this.crystals = new CrystalFactory(this.game);
 	}
-	,
-	_setupPowerCrystals: function() {
+	, _setupPowerCrystals: function() {
 		this.powerCrystals = new PowerupFactory(this.game);
 	}
-	,
-	debug: function() {
+	, debug: function() {
 		var debug = new GameDebugger(this.game);
 		this.debug = function() { return debug; };
 		return this.debug();
 	}
 
-	,
-	_startGame: function() {
+	, _startGame: function() {
 		this.currentLevel = 1;
 		this.stats.lives = Balance.player.lives;
 		this.stats.bombs = Balance.bombs.startCount;
@@ -63,15 +55,13 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this._arrangeNewLevel();
 		this._startLevel();
 	}
-	,
-	_showLevelNumber: function() {
+	, _showLevelNumber: function() {
 		var level = "Level " + this.currentLevel;
 
 		var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });
 		textGfx.flyIn(1.5).flyOut(2);
 	}
-	,
-	_arrangeNewLevel: function() {
+	, _arrangeNewLevel: function() {
 		this.game.levelGraphics.closeGate();
 		this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 
@@ -80,8 +70,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.game.enemies.startLevel(this.currentLevel);
 		this.game.powerCrystals.startLevel(this.currentLevel);
 	}
-	,
-	_startLevel: function() {
+	, _startLevel: function() {
 		var middleOfGame = this.game.gfx.getGamePoint('middle');
 		this.game.player.moveTo(middleOfGame.x, middleOfGame.y);
 		this.game.player.cancelVelocity();
@@ -90,8 +79,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		this.followPlayer = true;
 	}
 
-	,
-	onAct: function(tickEvent) {
+	, onAct: function(tickEvent) {
 		this._updateActivePowerups(tickEvent);
 
 		if (this.followPlayer)
@@ -100,8 +88,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 
 
-	,
-	killPlayer: function() {
+	, killPlayer: function() {
 		this.game.player.killPlayer();
 		this.game.enemies.clearAllEnemies();
 		this.game.powerCrystals.clearAllPowerCrystals();
@@ -112,15 +99,13 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 			this._loseALife();
 		}
 	}
-	,
-	_loseALife: function() {
+	, _loseALife: function() {
 		this.game.stats.lives--;
 		this._animateBackToCenter().queue(function() {
 			this._startLevel();
 		}.bind(this));
 	}
-	,
-	_gameOver: function() {
+	, _gameOver: function() {
 		// bew wew wew wew wew
 		this._animateBackToCenter();
 
@@ -141,8 +126,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 
 	}
 
-	,
-	levelUp: function() {
+	, levelUp: function() {
 		this.game.player.showPlayer(false);
 
 		// Let's kill all enemies:
@@ -157,8 +141,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 			this._startLevel();
 		}.bind(this));
 	}
-	,
-	_animateBackToCenter: function() {
+	, _animateBackToCenter: function() {
 		var visibleMiddle = this.game.gfx.getGamePoint('visibleMiddle')
 			, middleOfGame = this.game.gfx.getGamePoint('middle');
 
@@ -172,15 +155,13 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		return animation;
 	}
 
-	,
-	crystalsGathered: function(remainingCrystals, gatheredCrystals) {
+	, crystalsGathered: function(remainingCrystals, gatheredCrystals) {
 		if (remainingCrystals === 0) {
 			this.game.levelGraphics.openGate();
 		}
 	}
 
-	,
-	pauseGame: function(paused) {
+	, pauseGame: function(paused) {
 		this.paused = (paused !== undefined) ? paused : !this.paused;
 		this.timer.pauseTimer(this.paused);
 
@@ -200,8 +181,7 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 		var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupDeactive');
 		textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
 	}
-	,
-	_updateActivePowerups: function(tickEvent) {
+	, _updateActivePowerups: function(tickEvent) {
 		var B = Balance.powerups;
 		var updatedValues = {};
 

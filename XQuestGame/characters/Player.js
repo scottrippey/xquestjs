@@ -1,8 +1,8 @@
 var Player = Smart.Class({
 	location: null
 	, radius: null
-	,
-	initialize: function(game) {
+	
+	, initialize: function(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
@@ -12,24 +12,20 @@ var Player = Smart.Class({
 
 		this._setupPlayerGraphics();
 	}
-	,
-	_setupPlayerGraphics: function() {
+	, _setupPlayerGraphics: function() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
 		this.location = this.playerGraphics;
 		this.radius = Balance.player.radius;
 	}
-	,
-	moveTo: function(x, y) {
+	, moveTo: function(x, y) {
 		this.playerGraphics.moveTo(x, y);
 	}
-	,
-	cancelVelocity: function() {
+	, cancelVelocity: function() {
 		this.velocity.x = 0;
 		this.velocity.y = 0;
 	}
 
-	,
-	onInput: function(tickEvent) {
+	, onInput: function(tickEvent) {
 
 		this.game.input.processInputs(function(inputItem) {
 			if (!this.playerActive) return true;
@@ -102,8 +98,7 @@ var Player = Smart.Class({
 		}
 
 	}
-	,
-	_tripleShot: function(powerup) {
+	, _tripleShot: function(powerup) {
 		var playerSpeed = Smart.Point.hypotenuse(this.velocity);
 		var angle = powerup.angle * powerup.focus / playerSpeed;
 
@@ -111,8 +106,7 @@ var Player = Smart.Class({
 		this._addBullet(angle);
 		this._addBullet(-angle);
 	}
-	,
-	_addBullet: function(angle) {
+	, _addBullet: function(angle) {
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		bulletGfx.moveTo(this.playerGraphics.x, this.playerGraphics.y);
 		var velocity;
@@ -137,8 +131,7 @@ var Player = Smart.Class({
 		bulletGfx.radius = Balance.bullets.radius;
 		this.bullets.push(bulletGfx);
 	}
-	,
-	_releaseABomb: function() {
+	, _releaseABomb: function() {
 		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null);
 
 		if (canBomb) {
@@ -148,21 +141,18 @@ var Player = Smart.Class({
 
 		return canBomb;
 	}
-	,
-	_createBomb: function() {
+	, _createBomb: function() {
 		var bomb = this.game.gfx.createBombGraphic(function() { this.bomb = null; }.bind(this));
 		bomb.location = bomb;
 		bomb.location.moveTo(this.location.x, this.location.y);
 		return bomb;
 	}
 
-	,
-	onMove: function(tickEvent) {
+	, onMove: function(tickEvent) {
 		this._movePlayer(tickEvent);
 		this._moveBullets(tickEvent);
 	}
-	,
-	_movePlayer: function(tickEvent) {
+	, _movePlayer: function(tickEvent) {
 
 		Smart.Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 
@@ -194,8 +184,7 @@ var Player = Smart.Class({
 			}
 		}
 	}
-	,
-	_moveBullets: function(tickEvent) {
+	, _moveBullets: function(tickEvent) {
 		var bounds = Balance.level.bounds, i = this.bullets.length;
 		while (i--) {
 			var bulletGfx = this.bullets[i];
@@ -208,8 +197,7 @@ var Player = Smart.Class({
 	}
 
 
-	,
-	onAct: function(tickEvent) {
+	, onAct: function(tickEvent) {
 		if (!this.playerActive) return;
 
 		if (this.bullets.length) {
@@ -236,19 +224,16 @@ var Player = Smart.Class({
 			this.game.killPlayer();
 
 	}
-	,
-	_destroyBullet: function(bullet, bulletIndex) {
+	, _destroyBullet: function(bullet, bulletIndex) {
 
 	}
 
-	,
-	killPlayer: function() {
+	, killPlayer: function() {
 		this.playerActive = false;
 		this.playerGraphics.killPlayerGraphics(this.game.gfx, this.velocity);
 	}
 
-	,
-	showPlayer: function(show) {
+	, showPlayer: function(show) {
 		this.playerActive = show;
 		if (show) {
 			this.playerGraphics.restorePlayerGraphics();
