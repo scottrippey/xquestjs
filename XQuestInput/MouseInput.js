@@ -41,13 +41,14 @@
 			addEventListeners(window, {
 				'resize': this._onWindowResize.bind(this)
 			});
+			this._onWindowResize();
 			
 			this.game.onGamePaused(this._onGamePaused.bind(this));
 			this._onGamePaused(false);
 		},
 
 		_onWindowResize: function() {
-			this.elementSize = null;
+			this.elementSize = getElementSize(this.element);
 		},
 		
 		_onGamePaused: function(paused) {
@@ -84,10 +85,6 @@
 		},
 
 		_onMouseMove: function(ev) {
-			if (this.elementSize === null) {
-				this.elementSize = getElementSize(this.element);
-			}
-
 			var mousePosition = getMousePosition(ev);
 			var delta = this._updateMousePosition(mousePosition);
 			if (!delta)

@@ -12,6 +12,7 @@ var XQuestHost = Smart.Class({
 
 		new XQuestInput.KeyboardInput(this.game, null);
 		new XQuestInput.MouseInput(this.game, canvas.parentNode);
+		new XQuestInput.TouchInput(this.game, canvas.parentNode);
 	},
 	
 	_createFullScreenCanvas: function(canvasWidth, canvasHeight) {
