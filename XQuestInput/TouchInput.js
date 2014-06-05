@@ -45,39 +45,42 @@
 		
 
 		_onTouchStart: function(ev) {
+			ev.preventDefault();
 			var touches = ev.changedTouches;
 			for (var i = 0, l = touches.length; i < l; i++) {
 				var touch = touches[i];
 				if (!this.touchState.engaged) {
-					this.touchState.engaged = touch.identifier;
-					var touchPosition = getTouchPosition(ev);
-					this._updateMousePosition(touchPosition);
+					this.touchState.engaged = { identifier: touch.identifier };
+					var touchPosition = getTouchPosition(touch);
+					this._updateTouchPosition(touchPosition);
 				} else if (!this.touchState.primaryWeapon) {
-					this.touchState.primaryWeapon = touch.identifier;
+					this.touchState.primaryWeapon = { identifier: touch.identifier };
 				} else if (!this.touchState.secondaryWeapon) {
-					this.touchState.secondaryWeapon = touch.identifier;
+					this.touchState.secondaryWeapon = { identifier: touch.identifier };
 				}
 			}
 		},
 		_onTouchEnd: function(ev) {
+			ev.preventDefault();
 			var touches = ev.changedTouches;
 			for (var i = 0, l = touches.length; i < l; i++) {
 				var touch = touches[i];
-				if (this.touchState.engaged === touch.identifier) {
+				if (this.touchState.engaged && this.touchState.engaged.identifier === touch.identifier) {
 					this.touchState.engaged = false;
-				} else if  (this.touchState.primaryWeapon === touch.identifier) {
+				} else if (this.touchState.primaryWeapon && this.touchState.primaryWeapon.identifier === touch.identifier) {
 					this.touchState.primaryWeapon = false;
-				} else if (this.touchState.secondaryWeapon === touch.identifier) {
+				} else if (this.touchState.secondaryWeapon && this.touchState.secondaryWeapon.identifier === touch.identifier) {
 					this.touchState.secondaryWeapon = false;
 				}
 			}
 		},
 		_onTouchMove: function(ev) {
+			ev.preventDefault();
 			var touches = ev.changedTouches;
 			for (var i = 0, l = touches.length; i < l; i++) {
 				var touch = touches[i];
-				if (this.touchState.engaged === touch.identifier) {
-					var touchPosition = getTouchPosition(ev);
+				if (this.touchState.engaged && this.touchState.engaged.identifier === touch.identifier) {
+					var touchPosition = getTouchPosition(touch);
 					var delta = this._updateTouchPosition(touchPosition);
 					if (!delta) continue;
 					var acceleration = this._adjustForSensitivity(delta, touchPosition, this.elementSize);
@@ -166,8 +169,8 @@
 	function getElementSize(element) {
 		return { width: element.clientWidth, height: element.clientHeight };
 	}
-	function getTouchPosition(ev) {
-		return { x: ev.clientX, y: ev.clientY };
+	function getTouchPosition(touch) {
+		return { x: touch.clientX, y: touch.clientY };
 	}
 
 })();
