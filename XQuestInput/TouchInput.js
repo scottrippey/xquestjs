@@ -8,8 +8,7 @@
 
 (function() {
 	var UserSettings = {
-		touchSensitivity: 2,
-		touchBiasSensitivity: 2
+		touchSensitivity: 2
 	};
 
 	XQuestInput.TouchInput = Smart.Class({
@@ -104,37 +103,12 @@
 			return delta;
 		},
 		_adjustForSensitivity: function(delta, touchPosition, elementSize) {
-			var sensitivity = UserSettings.touchSensitivity
-				, biasSensitivity = UserSettings.touchBiasSensitivity;
-			
-			// TODO: Change "distanceFromCenter" to "distanceFromInitialTouch"
-			var distanceFromCenter = {
-				x: 2 * ((touchPosition.x / elementSize.width) - 0.5)
-				, y: 2 * ((touchPosition.y / elementSize.height) - 0.5)
-			};
-
-			var bias = {
-				x: this._getBias(distanceFromCenter.x, delta.x, biasSensitivity)
-				, y: this._getBias(distanceFromCenter.y, delta.y, biasSensitivity)
-			};
+			var sensitivity = UserSettings.touchSensitivity;
 			var acceleration = {
-				x: delta.x * sensitivity * bias.x
-				, y: delta.y * sensitivity * bias.y
+				x: delta.x * sensitivity
+				, y: delta.y * sensitivity
 			};
 			return acceleration;
-		},
-		_getBias: function(distanceFromCenter, deltaDirection, sensitivity) {
-			// "Bias" is used to increase outward sensitivity, and decrease inward sensitivity.
-			// This causes the user's touch to gravitate toward the center of the page,
-			// decreasing the likelihood of reaching the edges of the page.
-
-			var isMovingAwayFromCenter = (distanceFromCenter < 0 && deltaDirection < 0) || (distanceFromCenter > 0 && deltaDirection > 0);
-			distanceFromCenter = Math.abs(distanceFromCenter);
-			if (isMovingAwayFromCenter) {
-				return 1 + distanceFromCenter * (sensitivity - 1);
-			} else {
-				return 1 - distanceFromCenter + (distanceFromCenter / sensitivity);
-			}
 		},
 
 		mergeInputState: function(state) {
