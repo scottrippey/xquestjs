@@ -41,10 +41,17 @@
 			addEventListeners(window, {
 				'resize': this._onWindowResize.bind(this)
 			});
+			
+			this.game.onGamePaused(this._onGamePaused.bind(this));
+			this._onGamePaused(false);
 		},
 
 		_onWindowResize: function() {
 			this.elementSize = null;
+		},
+		
+		_onGamePaused: function(paused) {
+			this.element.style.cursor = paused ? null : "none";
 		},
 
 		_onMouseOver: function(ev) {

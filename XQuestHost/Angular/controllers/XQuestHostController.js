@@ -24,7 +24,7 @@ angular.module("XQuestHost").controller("XQuestUIController", [
 
 				var host = new XQuestHost(canvas);
 				var game = host.game;
-				game.addEvent('gamePaused', this._onGamePaused.bind(this));
+				game.onGamePaused(this._onGamePaused.bind(this));
 
 				this.currentGame = game;
 

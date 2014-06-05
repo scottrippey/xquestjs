@@ -175,6 +175,9 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 
 		this.fireEvent('gamePaused', [ this.paused ]);
 	}
+	, onGamePaused: function(callback) {
+		this.addEvent('gamePaused', callback);
+	}
 
 	, activatePowerup: function(powerupName) {
 		this.game.activePowerups[powerupName] = true;
