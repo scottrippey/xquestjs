@@ -6,7 +6,6 @@ var Player = Smart.Class({
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
-		this.primaryWeaponDown = false;
 		this.previousState = this.game.input.getDefaultState();
 
 		this._setupPlayerGraphics();
@@ -79,7 +78,7 @@ var Player = Smart.Class({
 		}
 
 		if (this.game.activePowerups.rapidFire) {
-			if (this.primaryWeaponDown) {
+			if (currentState.primaryWeapon) {
 				var period = 1000 / Balance.powerups.rapidFire.shotsPerSecond;
 				if (!this.nextRapidFire) {
 					this.nextRapidFire = tickEvent.runTime + period;
