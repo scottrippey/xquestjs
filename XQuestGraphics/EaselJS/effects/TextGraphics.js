@@ -85,10 +85,15 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 		return this;
 	}
 	,
+	queue: function(callback) {
+		this.animation.queue(callback);
+		return this;
+	}
+	,
 	delay: function(duration) {
 		this.animation.delay(duration);
 
 		return this;
 	}
-
+	
 });

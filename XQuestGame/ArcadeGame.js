@@ -180,37 +180,42 @@ var ArcadeGame = Smart.Class(new BaseGame(), {
 	}
 
 	, activatePowerup: function(powerupName) {
-		this.game.activePowerups[powerupName] = true;
+		this.game.activePowerups[powerupName] = 'newPowerup';
 
-		var powerupDisplayName = powerupName + '!';
+		var powerupDisplayName = powerupName + "!";
 		var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupActive');
 		textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
 	}
 	, powerupDeactivated: function(powerupName) {
-
-		var powerupDisplayName = powerupName + ' inactive';
+		var powerupDisplayName = powerupName + " inactive";
 		var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupDeactive');
-		textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
+		return textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
 	}
 	, _updateActivePowerups: function(tickEvent) {
 		var B = Balance.powerups;
 		var updatedValues = {};
-
+		var deactivating = 'deactivating';
+		
 		// Update new and old powerups: (never make changes to an object while iterating)
-		_.forOwn(this.game.activePowerups, function(timeout, powerupName) {
-			if (timeout === true) {
-				updatedValues[powerupName] = tickEvent.runTime + B[powerupName].duration * 1000;
-			} else if (timeout <= tickEvent.runTime) {
-				updatedValues[powerupName] = undefined;
+		_.forOwn(this.game.activePowerups, function(powerupValue, powerupName) {
+			if (powerupValue === 'newPowerup') {
+				// New
+				var powerupExpires = tickEvent.runTime + B[powerupName].duration * 1000;
+				updatedValues[powerupName] = powerupExpires;
+			} else if (powerupValue === deactivating) {
+				// Old
+			} else if (powerupValue <= tickEvent.runTime) {
+				// Expired
+				updatedValues[powerupName] = deactivating;
 			}
 		});
 		_.forOwn(updatedValues, function(updatedValue, powerupName) {
-			if (updatedValue === undefined) {
-				delete this.game.activePowerups[powerupName];
-				this.game.powerupDeactivated(powerupName);
-			} else {
-				this.game.activePowerups[powerupName] = updatedValue;
+			if (updatedValue === deactivating) {
+				this.game.powerupDeactivated(powerupName).queue(function() {
+					delete this.game.activePowerups[powerupName];
+				}.bind(this));
 			}
+			this.game.activePowerups[powerupName] = updatedValue;
 		}, this);
 
 	}
