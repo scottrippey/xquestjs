@@ -1,4 +1,4 @@
-var BaseGame = Smart.Class(new Smart.Events(), {
+var BaseGame = Smart.Class({
 	gfx: null
 	, input: null
 	, timer: null
