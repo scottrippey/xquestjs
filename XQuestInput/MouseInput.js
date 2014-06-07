@@ -14,7 +14,8 @@
 	};
 	var UserSettings = {
 		mouseSensitivity: 2,
-		mouseBiasSensitivity: 2
+		mouseBiasSensitivity: 2,
+		maxMouseMove: 40 // Maximum mouse delta per mousemove event
 	};
 
 	XQuestInput.MouseInput = Smart.Class({
@@ -100,8 +101,8 @@
 				return;
 			}
 			var delta = {
-				x: mousePosition.x - previousMousePosition.x
-				, y: mousePosition.y - previousMousePosition.y
+				x: Math.min(mousePosition.x - previousMousePosition.x, UserSettings.maxMouseMove)
+				, y: Math.min(mousePosition.y - previousMousePosition.y, UserSettings.maxMouseMove)
 			};
 
 			var acceleration = this._adjustForSensitivity(delta, mousePosition);
