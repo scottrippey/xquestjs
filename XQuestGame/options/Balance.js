@@ -43,11 +43,42 @@ Balance.merge({
 		var gameOptions = (typeof gameMode === 'object') ? gameMode : Balance.gameModeOverrides[gameMode] || {};
 
 		Balance.merge({
-			player: {
+			level: {
+				bounds: (function(){
+					var padding = 40
+						, visibleWidth = gameOptions.fullView ? 1200 : 800
+						, visibleHeight = gameOptions.fullView ? 675 : 450
+						, levelWidth = 1200, levelHeight = 675;
+					return {
+						x: padding, y: padding
+						, visibleWidth: padding + visibleWidth + padding
+						, visibleHeight: padding + visibleHeight + padding
+						, width: levelWidth
+						, height: levelHeight
+						, totalWidth: padding + levelWidth + padding
+						, totalHeight: padding + levelHeight + padding
+					};
+				})()
+				, gateWidth: 200
+			}
+			,player: {
 				radius: 12
 				,looseFriction: 0.8
 				,bounceDampening : 0.0
 				,lives: 5
+			}
+			,bullets: {
+				radius: 2
+				,speed: 3 // * player speed
+				,shotsPerSecond: 1.0
+			}
+			,bombs: {
+				startCount: 3
+				, speed: 1300
+			}
+			,crystals: {
+				radius: 10
+				,spawnQuantity: function(game) { return Math.min(12 + game.currentLevel, 40); }
 			}
 			,powerCrystals: {
 				radius: 15
@@ -59,10 +90,6 @@ Balance.merge({
 			,bombCrystals: {
 				radius: 10
 				, spawnQuantity: gameOptions.bombCrystalsSpawnQuantity || function(game) { return ((game.currentLevel + 1) % 2); }
-			}
-			,bombs: {
-				startCount: 3
-				, speed: 1300
 			}
 			,powerups: {
 				rapidFire: {
@@ -88,15 +115,6 @@ Balance.merge({
 					, frequency: 10
 				}
 			}
-			,bullets: {
-				radius: 2
-				,speed: 3 // * player speed
-			}
-			,crystals: {
-				radius: 10
-				,spawnQuantity: function(game) { return Math.min(12 + game.currentLevel, 40); }
-			}
-
 			,enemies: {
 				maxRadius: 13
 				,spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(2, 4)
@@ -113,24 +131,6 @@ Balance.merge({
 					,movementInterval: Balance.randomBetween(3, 5)
 					,turnSpeed: Balance.randomBetween(-100, 100)
 				}
-			}
-			,level: {
-				bounds: (function(){
-					var padding = 40
-						, visibleWidth = gameOptions.fullView ? 1200 : 800
-						, visibleHeight = gameOptions.fullView ? 675 : 450
-						, levelWidth = 1200, levelHeight = 675;
-					return {
-						x: padding, y: padding
-						, visibleWidth: padding + visibleWidth + padding
-						, visibleHeight: padding + visibleHeight + padding
-						, width: levelWidth
-						, height: levelHeight
-						, totalWidth: padding + levelWidth + padding
-						, totalHeight: padding + levelHeight + padding
-					};
-				})()
-				, gateWidth: 200
 			}
 		});
 

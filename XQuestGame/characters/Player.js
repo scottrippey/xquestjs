@@ -58,29 +58,33 @@ var Player = Smart.Class({
 
 			}
 		}
+
+		if (currentState.primaryWeapon) {
+			var shotsPerSecond;
+			if (this.game.activePowerups.rapidFire) {
+				shotsPerSecond = Balance.powerups.rapidFire.shotsPerSecond;
+			} else {
+				shotsPerSecond = Balance.bullets.shotsPerSecond;
+			}
+			var period = 1000 / shotsPerSecond;
+			if (!this.nextRapidFire) {
+				this.nextRapidFire = tickEvent.runTime + period;
+			} else if (this.nextRapidFire <= tickEvent.runTime) {
+				this.nextRapidFire += period;
+				if (this.game.activePowerups.tripleShot) {
+					this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
+				} else {
+					this.game.projectiles.addBullet();
+				}
+			}
+		} else {
+			this.nextRapidFire = null;
+		}
 		
 		if (currentState.secondaryWeapon) {
 			var isFirstDown = (previousState.secondaryWeapon === false);
 			if (isFirstDown) {
 				this.game.projectiles.releaseABomb();
-			}
-		}
-
-		if (this.game.activePowerups.rapidFire) {
-			if (currentState.primaryWeapon) {
-				var period = 1000 / Balance.powerups.rapidFire.shotsPerSecond;
-				if (!this.nextRapidFire) {
-					this.nextRapidFire = tickEvent.runTime + period;
-				} else if (this.nextRapidFire <= tickEvent.runTime) {
-					this.nextRapidFire += period;
-					if (this.game.activePowerups.tripleShot) {
-						this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
-					} else {
-						this.game.projectiles.addBullet();
-					}
-				}
-			} else {
-				this.nextRapidFire = null;
 			}
 		}
 
