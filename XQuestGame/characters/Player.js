@@ -57,19 +57,8 @@ var Player = Smart.Class({
 			} else {
 
 			}
-		} else {
-			var isFirstUp = (previousState.primaryWeapon === true);
-			if (isFirstUp) {
-				if (this.game.activePowerups.powerShot) {
-					var powerShot = Balance.powerups.powerShot;
-					var elapsed = tickEvent.runTime - this.primaryWeaponDownTime;
-					if (elapsed >= powerShot.chargeDuration * 1000) {
-						this.game.projectiles.addTripleShot(powerShot);
-					}
-				}
-			}
 		}
-
+		
 		if (currentState.secondaryWeapon) {
 			var isFirstDown = (previousState.secondaryWeapon === false);
 			if (isFirstDown) {

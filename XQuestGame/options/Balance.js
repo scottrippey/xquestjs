@@ -33,8 +33,8 @@ Balance.merge({
 		,
 		'test': {
 			fullView: true
-			,spawnRate: Balance.randomBetween(1, 1)
-			,crystalCount: 3
+			,enemySpawnRate: Balance.randomBetween(1, 1)
+			,bombCrystalsSpawnQuantity: function(game) { return 3; }
 			,powerupSpawnRate: Balance.randomBetween(5, 5)
 		}
 	}
@@ -46,51 +46,45 @@ Balance.merge({
 			player: {
 				radius: 12
 				,looseFriction: 0.8
-				,bounceDampening : 0.3
-				,lives: 4
+				,bounceDampening : 0.0
+				,lives: 5
 			}
 			,powerCrystals: {
 				radius: 15
 				, speed: 300
 				, spawnAngle: Balance.randomBetween(-70, 70)
 				, turnSpeed: Balance.randomBetween(-40, 40)
-				, spawnRate: gameOptions.powerupSpawnRate || Balance.randomBetween(30, 45)
+				, spawnRate: gameOptions.powerupSpawnRate || Balance.randomBetween(20, 40)
 			}
 			,bombCrystals: {
 				radius: 10
+				, spawnQuantity: gameOptions.bombCrystalsSpawnQuantity || function(game) { return ((game.currentLevel + 1) % 2); }
 			}
 			,bombs: {
 				startCount: 3
 				, speed: 1300
 			}
 			,powerups: {
-				powerShot: {
-					duration: 10
-					, frequency: 10
-					, chargeDuration: 1.0
-					, angle: 10
-				}
-				,
 				rapidFire: {
-					duration: 30
-					, frequency: 10
-					, shotsPerSecond: 8
+					duration: 60
+					, frequency: 20
+					, shotsPerSecond: 10
 				}
 				,
 				tripleShot: {
-					duration: 30
-					, frequency: 10
+					duration: 60
+					, frequency: 20
 					, angle: 10
 				}
 				,
 				autoAim: {
 					duration: 30
-					, frequency: 10
+					, frequency: 20
 					, bulletSpeed: 500
 				}
 				,
 				invincible: {
-					duration: 15
+					duration: 20
 					, frequency: 10
 				}
 			}
@@ -100,12 +94,12 @@ Balance.merge({
 			}
 			,crystals: {
 				radius: 10
-				,quantity: gameOptions.crystalCount || 12
+				,spawnQuantity: function(game) { return Math.min(12 + game.currentLevel, 40); }
 			}
 
 			,enemies: {
 				maxRadius: 13
-				,spawnRate: gameOptions.spawnRate || Balance.randomBetween(2, 4)
+				,spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(2, 4)
 				,spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently
 				,roster: gameOptions.enemyRoster || [ Slug, Locust ]
 				,slug: {
@@ -136,7 +130,7 @@ Balance.merge({
 						, totalHeight: padding + levelHeight + padding
 					};
 				})()
-				, gateWidth: 150
+				, gateWidth: 200
 			}
 		});
 

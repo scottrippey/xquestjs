@@ -34,15 +34,15 @@ var PowerupFactory = Smart.Class({
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);
 
-		if (this.bombs && this.bombs.length) {
-			if (this.bombs.length >= 2) {
-				Smart.Physics.sortByLocation(this.bombs);
+		if (this.bombCrystals && this.bombCrystals.length) {
+			if (this.bombCrystals.length >= 2) {
+				Smart.Physics.sortByLocation(this.bombCrystals);
 			}
 
 			var maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
 
-			Smart.Physics.detectCollisions(this.bombs, [ this.game.player ], maxDistance, function(bombCrystal, player, bombIndex, pi, distance) {
-				this.bombs.splice(bombIndex, 1);
+			Smart.Physics.detectCollisions(this.bombCrystals, [ this.game.player ], maxDistance, function(bombCrystal, player, bombIndex, pi, distance) {
+				this.bombCrystals.splice(bombIndex, 1);
 				bombCrystal.gatherBombCrystal();
 				this.game.stats.bombs++;
 			}.bind(this));
@@ -107,9 +107,9 @@ var PowerupFactory = Smart.Class({
 	}
 
 	,
-	startLevel: function(currentLevel) {
-		var frequency = 2, shouldSpawnBomb = (currentLevel % frequency === 0);
-		if (shouldSpawnBomb) {
+	startLevel: function() {
+		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
+		while (bombCrystalQuantity--) {
 			this.createBombCrystal();
 		}
 	}
@@ -119,9 +119,9 @@ var PowerupFactory = Smart.Class({
 		var randomSpawnLocation = this.game.gfx.getGamePoint('random', bombCrystal.radius);
 		bombCrystal.spawnBomb(randomSpawnLocation);
 
-		if (!this.bombs)
-			this.bombs = [];
-		this.bombs.push(bombCrystal);
+		if (!this.bombCrystals)
+			this.bombCrystals = [];
+		this.bombCrystals.push(bombCrystal);
 	}
 
 	,
