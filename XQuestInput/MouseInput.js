@@ -49,23 +49,26 @@
 
 		_onWindowResize: function() {
 			this.elementSize = getElementSize(this.element);
+			this.previousMousePosition = null;
 		},
 		
 		_onGamePaused: function(paused) {
 			this.element.style.cursor = paused ? null : "none";
+			this.previousMousePosition = null;
 		},
 
 		_onMouseOver: function(ev) {
 			var isInsideElement = elementContains(this.element, ev.target);
 			if (isInsideElement) {
 				this.mouseState.engaged = true;
+				this._inactive(false);
 			}
 		},
 		_onMouseOut: function(ev) {
 			var isInsideElement = elementContains(this.element, ev.relatedTarget);
 			if (!isInsideElement) {
 				this.mouseState.engaged = false;
-				this.game.pauseGame(true);
+				this._inactive(true);
 			}
 		},
 		_onMouseDown: function(ev) {
@@ -83,32 +86,32 @@
 				this.mouseState[action] = false;
 			}
 		},
+		
+		_inactive: function(inactive) {
+			if (inactive) {
+				this.game.pauseGame(true);				
+			}
+		},
 
 		_onMouseMove: function(ev) {
-			var mousePosition = getMousePosition(ev);
-			var delta = this._updateMousePosition(mousePosition);
-			if (!delta)
+			var mousePosition = getMousePosition(ev), previousMousePosition = this.previousMousePosition;
+			this.previousMousePosition = mousePosition;
+			if (!previousMousePosition) {
 				return;
+			}
+			var delta = {
+				x: mousePosition.x - previousMousePosition.x
+				, y: mousePosition.y - previousMousePosition.y
+			};
 
-			var acceleration = this._adjustForSensitivity(delta, mousePosition, this.elementSize);
+			var acceleration = this._adjustForSensitivity(delta, mousePosition);
 
 			this.mouseState.accelerationX += acceleration.x;
 			this.mouseState.accelerationY += acceleration.y;
 		},
-		_updateMousePosition: function(mousePosition) {
-			var delta = null;
-			if (this.previousMousePosition) {
-				delta = {
-					x: mousePosition.x - this.previousMousePosition.x
-					, y: mousePosition.y - this.previousMousePosition.y
-				};
-			}
-			this.previousMousePosition = mousePosition;
-
-			return delta;
-		},
-		_adjustForSensitivity: function(delta, mousePosition, elementSize) {
-			var sensitivity = UserSettings.mouseSensitivity
+		_adjustForSensitivity: function(delta, mousePosition) {
+			var elementSize = this.elementSize
+				, sensitivity = UserSettings.mouseSensitivity
 				, biasSensitivity = UserSettings.mouseBiasSensitivity;
 
 			var distanceFromCenter = {
