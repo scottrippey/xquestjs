@@ -116,7 +116,7 @@ var PowerupFactory = Smart.Class({
 	,
 	createBombCrystal: function() {
 		var bombCrystal = new BombCrystal(this.game);
-		var randomSpawnLocation = this.game.gfx.getGamePoint('random', bombCrystal.radius);
+		var randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
 		bombCrystal.spawnBomb(randomSpawnLocation);
 
 		if (!this.bombCrystals)

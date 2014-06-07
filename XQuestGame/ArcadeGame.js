@@ -87,7 +87,6 @@
 			this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 	
 			this._events.fireEvent(GameEvents.onNewLevel);
-			this.game.crystals.clearCrystals();
 			this.game.crystals.startLevel();
 			this.game.enemies.startLevel();
 			this.game.powerCrystals.startLevel();
@@ -153,9 +152,7 @@
 	
 		, levelUp: function() {
 			this.game.player.showPlayer(false);
-			
-			this._events.fireEvent(GameEvents.onNextLevel);
-			
+						
 			// Let's kill all enemies:
 			this.game.enemies.killAllEnemies();
 			this.game.powerCrystals.clearAllPowerCrystals();
@@ -167,6 +164,8 @@
 			this._animateBackToCenter().queue(function() {
 				this._startLevel();
 			}.bind(this));
+			
+			this._events.fireEvent(GameEvents.onNextLevel);
 		}
 		, _animateBackToCenter: function() {
 			var visibleMiddle = this.game.gfx.getGamePoint('visibleMiddle')

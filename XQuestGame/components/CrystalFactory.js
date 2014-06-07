@@ -6,28 +6,24 @@ var CrystalFactory = Smart.Class({
 	}
 	,
 	startLevel: function() {
-		var count = Balance.crystals.spawnQuantity(this.game);
-		var bounds = Balance.level.bounds
-			,radius = Balance.crystals.radius
-			,randomX = function() { return bounds.x + radius + Math.random() * (bounds.width - radius * 2); }
-			,randomY = function() { return bounds.y + radius + Math.random() * (bounds.height - radius * 2); };
+		// Clean up:
+		this.crystals.forEach(function(crystal) {
+			this.game.gfx.removeGraphic(crystal);
+		}, this);
+		this.crystals = [];
 
-
-		while (count--) {
+		var spawnQuantity = Balance.crystals.spawnQuantity(this.game);
+		var radius = Balance.crystals.radius;
+		
+		while (spawnQuantity--) {
 			var crystal = this.game.gfx.createCrystalGraphic();
-			crystal.x = randomX();
-			crystal.y = randomY();
+			var spawnPoint = this.game.gfx.getSafeSpawn(radius);
+			crystal.moveTo(spawnPoint.x, spawnPoint.y);
 			crystal.location = crystal;
 			this.crystals.push(crystal);
 		}
 
 		Smart.Physics.sortByLocation(this.crystals);
-	}
-	,
-	clearCrystals: function() {
-		this.crystals.forEach(function(crystal) {
-			this.game.gfx.removeGraphic(crystal);
-		}, this);
 	}
 	,
 	onAct: function(tickEvent) {

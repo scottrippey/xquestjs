@@ -73,14 +73,27 @@ var EaselJSGraphics = Smart.Class({
 
 	}
 	,
-	getGamePoint: function(gamePoint) {
+	getSafeSpawn: function(radius) {
+		var leftEnemySpawn = this.getGamePoint('left')
+			, rightEnemySpawn = this.getGamePoint('right')
+			, safeDistance = Balance.enemies.safeSpawnDistance;
+		var randomSpot, isSafe;
+		do {
+			randomSpot = this.getGamePoint('random', radius);
+			isSafe = !(Smart.Point.distanceTest(leftEnemySpawn, randomSpot, safeDistance)) && !(Smart.Point.distanceTest(rightEnemySpawn, randomSpot, safeDistance));
+		} while (!isSafe);
+		return randomSpot;
+	}
+	,
+	getGamePoint: function(gamePoint, radius) {
 		if (typeof gamePoint !== 'string') return gamePoint;
+		if (radius == undefined) radius = 0;
 		var bounds = Balance.level.bounds;
 		switch (gamePoint) {
 			case 'random':
 				return {
-					x: bounds.x + bounds.width * Math.random()
-					,y: bounds.y + bounds.height * Math.random()
+					x: bounds.x + radius + (bounds.width - radius - radius) * Math.random()
+					, y: bounds.y + radius + (bounds.height - radius - radius) * Math.random()
 				};
 			case 'visibleMiddle':
 				return {
@@ -95,24 +108,30 @@ var EaselJSGraphics = Smart.Class({
 			case 'top':
 				return {
 					x: bounds.x + bounds.width / 2
-					,y: bounds.y
+					,y: bounds.y + radius
 				};
 			case 'bottom':
 				return {
 					x: bounds.x + bounds.width / 2
-					,y: bounds.y + bounds.height
+					,y: bounds.y + bounds.height - radius
 				};
 			case 'left':
 				return {
-					x: bounds.x
+					x: bounds.x + radius
 					, y: bounds.y + bounds.height / 2
 				};
 			case 'right':
 				return {
-					x: bounds.x + bounds.width
+					x: bounds.x + bounds.width - radius
 					, y: bounds.y + bounds.height / 2
 				};
+			default:
+				throw "Invalid gamePoint: " + gamePoint;
 		}
+	}
+	,
+	_isSafeSpawn: function(point) {
+		var dangerZone
 	}
 	,
 	getHudPoint: function(hudPoint) {
