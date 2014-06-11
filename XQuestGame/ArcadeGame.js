@@ -240,7 +240,24 @@
 			}, this);
 	
 		}
-	
+
+		, toggleFPS: function() {
+			if (this.fpsText) {
+				this.fpsText.destroy();
+				this.fpsText = null;
+			} else {
+				var textStyle = { color: 'red', fontSize: "40px", textAlign: 'left', textBaseline: 'top' };
+				this.fpsText = this.game.gfx.addText("FPS", textStyle);
+				this.fpsText.moveTo(0, 0);
+				this.fpsText.onTick = function(tickEvent) {
+					var actualFPS = createjs.Ticker.getMeasuredFPS()
+						,potentialFPS = 1000 / createjs.Ticker.getMeasuredTickTime();
+
+					this.text = "FPS: " + potentialFPS.toFixed(2) + " [" + actualFPS.toFixed(2) + "]";
+				};
+			}
+		}
+
 	});
 	
 	// Add event handler functions to ArcadeGame, so that we don't use addEvent / fireEvent directly

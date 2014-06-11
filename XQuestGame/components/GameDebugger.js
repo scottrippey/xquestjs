@@ -21,4 +21,7 @@ var GameDebugger = Smart.Class({
 	, spawnPowerCrystal: function() {
 		this.game.powerCrystals.createPowerCrystal();
 	}
+	, toggleFPS: function() {
+		this.game.toggleFPS();
+	}
 });
