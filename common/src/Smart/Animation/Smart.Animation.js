@@ -69,7 +69,7 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Adds an action to the animation queue.
 	 * @param {function(AnimationEvent)} actionFunction
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	addAction: function(actionFunction) {
 		this._actions.push(actionFunction);
@@ -80,7 +80,7 @@ Smart.Animation = Smart.Class({
 	 * Waits for the current animations to complete, before continuing the chain.
 	 * If supplied, the callback will be executed.
 	 * @param {function(AnimationEvent)} [callback]
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	queue: function(callback) {
 		return this.addAction(function _queue_(animEvent) {

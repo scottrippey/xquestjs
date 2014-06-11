@@ -8,7 +8,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-in-out function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	ease: function(easing) {
 		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
@@ -30,7 +30,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-in function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	easeIn: function(easing) {
 		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
@@ -50,7 +50,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-out function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	easeOut: function(easing) {
 		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);

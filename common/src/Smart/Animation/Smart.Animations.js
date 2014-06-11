@@ -1,4 +1,10 @@
 Smart.Animations = Smart.Class({
+	/**
+	 * Adds or creates an animation to the list.
+	 *
+	 * @param {Animation} [animation]
+	 * @returns {Animation}
+	 */
 	addAnimation: function(animation) {
 		if (!animation) animation = new Smart.Animation();
 		if (!this.animations)
@@ -8,6 +14,12 @@ Smart.Animations = Smart.Class({
 		return animation;
 	}
 	,
+	/**
+	 * Updates all animations in the list.
+	 * Automatically removes finished animations.
+	 *
+	 * @param {Number} deltaSeconds
+	 */
 	update: function(deltaSeconds) {
 		if (!this.animations) return;
 		var i = this.animations.length;
