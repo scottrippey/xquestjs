@@ -2,6 +2,10 @@
      ng-controller="XQuestUIController as ui"
      ng-class="{ 'mouse-engaged': !!ui.engaged }"
 
+     common-keymap
+     common-keymap-document
+     common-keymap-prevent-default
+
      common-keymap-c="ui.currentGame.debug().gatherClosestCrystal()"
      common-keymap-s="ui.currentGame.debug().spawnEnemy()"
      common-keymap-d="ui.currentGame.debug().killPlayer()"
@@ -10,8 +14,7 @@
      common-keymap-2="ui.currentGame.debug().activatePowerup('rapidFire')"
      common-keymap-3="ui.currentGame.debug().activatePowerup('tripleShot')"
      common-keymap-4="ui.currentGame.debug().activatePowerup('autoAim')"
-     common-keymap-5="ui.currentGame.debug().activatePowerup('powerShot')"
-     common-keymap-6="ui.currentGame.debug().addBomb()"
+     common-keymap-5="ui.currentGame.debug().addBomb()"
 
      common-keymap-0="ui.currentGame.debug().spawnPowerCrystal()"
 	>
