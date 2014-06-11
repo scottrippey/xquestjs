@@ -50,5 +50,30 @@ _.extend(createjs.DisplayObject.prototype, {
 	alignWith: function(vector) {
 		this.rotation = 180 - Math.atan2(vector.x, vector.y) / (Math.PI / 180);
 	}
+	,
+	dispose: function() {
+		console.assert(this._onDispose !== null, "Object is already disposed!");
+
+		if (this._onDispose) {
+			this._onDispose.forEach(function(callback) {
+				callback.call(this, this);
+			}, this);
+			this._onDispose = null;
+		}
+	}
+	,
+	/**
+	 * Adds a "cleanup" handler that will be called when `dispose` is called.
+	 * @param {Function} callback
+	 */
+	onDispose: function(callback) {
+		console.assert(this._onDispose !== null, "Object is already disposed!");
+
+		if (this._onDispose === undefined)
+			this._onDispose = [ callback ];
+		else
+			this._onDispose.push(callback);
+	}
+
 });
 
