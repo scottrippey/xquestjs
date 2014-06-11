@@ -2,6 +2,10 @@ var EaselJSGraphics = Smart.Class({
 	initialize: function(canvas) {
 		this.canvas = canvas;
 
+		this.debugStats = {
+			allGraphics: []
+		};
+
 		this._setupLayers();
 		this._setupBackground();
 		this._setupParticles();
@@ -14,6 +18,23 @@ var EaselJSGraphics = Smart.Class({
 			, characters: new createjs.Stage(this.canvas)
 			, hud: new createjs.Stage(this.canvas)
 		};
+
+		var allGraphics = this.debugStats.allGraphics;
+		function trackChildren(stage) {
+			var addChild = stage.addChild, removeChild = stage.removeChild;
+			stage.addChild = function(child) {
+				addChild.apply(this, arguments);
+				allGraphics.push(child);
+			};
+			stage.removeChild = function(child) {
+				removeChild.apply(this, arguments);
+				_.eliminate(allGraphics, child);
+			};
+		}
+		trackChildren(this.layers.background);
+		trackChildren(this.layers.effects);
+		trackChildren(this.layers.characters);
+		trackChildren(this.layers.hud);
 
 		this.layers.background.autoClear = false;
 		this.layers.effects.autoClear = false;

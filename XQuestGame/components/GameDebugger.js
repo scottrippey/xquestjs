@@ -24,4 +24,7 @@ var GameDebugger = Smart.Class({
 	, toggleFPS: function() {
 		this.game.toggleFPS();
 	}
+	, toggleDebugStats: function() {
+		this.game.toggleDebugStats();
+	}
 });

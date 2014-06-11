@@ -7,6 +7,10 @@ var BaseGame = Smart.Class({
 		if (!graphics)
 			console.error("You must provide a Canvas element!");
 
+		this.debugStats = {
+			gameItems: []
+		};
+
 		this._setupHandlers();
 		this._setupGraphics(graphics);
 		this._setupInput();
@@ -56,6 +60,7 @@ var BaseGame = Smart.Class({
 		if (gameItem.onDraw)
 			this.handlers.draw.push(gameItem);
 
+		this.debugStats.gameItems.push(gameItem);
 	}
 	,
 	removeGameItem: function(gameItem) {
@@ -68,6 +73,7 @@ var BaseGame = Smart.Class({
 		if (gameItem.onDraw)
 			_.eliminate(this.handlers.draw, gameItem);
 
+		_.eliminate(this.debugStats.gameItems, gameItem);
 	}
 
 });

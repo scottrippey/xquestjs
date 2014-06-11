@@ -257,6 +257,25 @@
 				};
 			}
 		}
+		, toggleDebugStats: function() {
+			if (this.debugStatsText) {
+				this.debugStatsText.dispose();
+				this.debugStatsText = null;
+			} else {
+				var textStyle = { color: 'red', fontSize: "40px", textAlign: 'right', textBaseline: 'top' };
+				this.debugStatsText = this.game.gfx.addText("FPS", textStyle);
+
+				var bounds = Balance.level.bounds;
+				this.debugStatsText.moveTo(bounds.visibleWidth, 0);
+
+
+				var gameItems = this.game.debugStats.gameItems
+					,allGraphics = this.game.gfx.debugStats.allGraphics;
+				this.debugStatsText.onTick = function(tickEvent) {
+					this.text = "Game Items: " + gameItems.length + "\nGraphics: " + allGraphics.length;
+				};
+			}
+		}
 
 	});
 	
