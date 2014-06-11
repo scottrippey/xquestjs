@@ -77,9 +77,7 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 			.fade(txt, [1, 0])
 			.move(txt, toLocation )
 			.rotate(txt, [0, 30])
-			.queue(function(){
-				txt.destroy();
-			})
+			.queueDispose(txt)
 		;
 
 		return this;

@@ -19,9 +19,7 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 		this.radius += (B.speed * tickEvent.deltaSeconds);
 		this.alpha = 1 - (this.radius / bounds.totalWidth);
 		if (this.alpha <= 0) {
-			this.destroy();
+			this.dispose();
 		}
-
-		this._setupGraphics();
 	}
 });

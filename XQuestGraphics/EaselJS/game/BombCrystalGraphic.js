@@ -36,9 +36,7 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
 			.easeOut('quint')
 			.scale(bombCrystal, [1, 2, 2.5, 2, 1, 0])
 
-			.queue(function(animEvent) {
-				gfx.removeGraphic(bombCrystal);
-			})
+			.queueDispose(bombCrystal)
 		);
 	}
 });

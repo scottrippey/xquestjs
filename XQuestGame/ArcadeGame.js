@@ -243,7 +243,7 @@
 
 		, toggleFPS: function() {
 			if (this.fpsText) {
-				this.fpsText.destroy();
+				this.fpsText.dispose();
 				this.fpsText = null;
 			} else {
 				var textStyle = { color: 'red', fontSize: "40px", textAlign: 'left', textBaseline: 'top' };

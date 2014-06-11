@@ -9,7 +9,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `x` and `y` properties of the target.
 	 * @param {Point} target
 	 * @param {Function|Point[]|Point} keyframes
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	move: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -31,7 +31,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `alpha` property of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	fade: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -52,7 +52,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `color` property of the target.
 	 * @param {Object} target
 	 * @param {Function|String[]|String} keyframes
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	color: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -73,7 +73,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `scale` properties (scaleX, scaleY) of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	scale: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -93,7 +93,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `rotation` property of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	rotate: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -113,7 +113,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates by calling `update` with the interpolated keyframe values.
 	 * @param {function(pct:Number)} update
 	 * @param {Function|Number[]} keyframes
-	 * @returns {this}
+	 * @returns {Animation} this
 	 */
 	tween: function(update, keyframes) {
 		var interpolate =
@@ -126,5 +126,14 @@ _.extend(Smart.Animation.prototype, {
 		});
 	}
 
+	,
+	/**
+	 * Disposes the object once animations are finished
+	 * @param disposable - Any object -- must have a `dispose` method
+	 * @returns {Animation} this
+	 */
+	queueDispose: function(disposable) {
+		return this.queue(function() { disposable.dispose(); });
+	}
 });
 

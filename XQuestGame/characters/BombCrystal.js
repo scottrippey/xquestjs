@@ -8,14 +8,6 @@ var BombCrystal = Smart.Class({
 		this.location.moveTo(location.x, location.y);
 	}
 	, gatherBombCrystal: function() {
-		this.location.gatherBombCrystal(this.game.gfx, this.game.player.location)
-			.queue(function() {
-				this.game.removeGameItem(this);
-				this.destroy();
-			}.bind(this))
-		;
-	}
-	, destroy: function() {
-		this.location.destroy();
+		this.location.gatherBombCrystal(this.game.gfx, this.game.player.location);
 	}
 });

@@ -214,17 +214,18 @@ var EaselJSGraphics = Smart.Class({
 	createBombCrystalGraphic: function() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		this.layers.background.addChild(bombCrystal);
-		bombCrystal.destroy = function() { this.layers.background.removeChild(bombCrystal); }.bind(this);
+		bombCrystal.onDispose(function() {
+			this.layers.background.removeChild(bombCrystal);
+		}.bind(this));
 		return bombCrystal;
 	}
 	,
-	createBombGraphic: function(onDestroy) {
+	createBombGraphic: function() {
 		var bomb = new EaselJSGraphics.BombGraphic();
 		this.layers.effects.addChild(bomb);
-		bomb.destroy = function() {
+		bomb.onDispose(function() {
 			this.layers.effects.removeChild(bomb);
-			onDestroy();
-		}.bind(this);
+		}.bind(this));
 		return bomb;
 	}
 	,
@@ -240,9 +241,9 @@ var EaselJSGraphics = Smart.Class({
 
 			var particle = this.particleFactory.createParticle(particleOptions);
 			this.layers.effects.addChild(particle);
-			particle.destroy = function(particle) {
+			particle.onDispose(function(particle) {
 				this.layers.effects.removeChild(particle);
-			}.bind(this, particle);
+			}.bind(this, particle));
 		}
 	}
 	,
@@ -260,9 +261,9 @@ var EaselJSGraphics = Smart.Class({
 		textGfx.setText(text, textStyle);
 
 		this.layers.hud.addChild(textGfx);
-		textGfx.destroy = function(textGfx) {
+		textGfx.onDispose(function() {
 			this.layers.hud.removeChild(textGfx);
-		}.bind(this, textGfx);
+		}.bind(this));
 
 		return textGfx;
 	}

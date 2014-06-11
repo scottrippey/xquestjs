@@ -25,10 +25,7 @@ EaselJSGraphics.ParticleFactory = Smart.Class({
 		g.endStyle(particleOptions.style);
 
 		if (particleOptions.getAnimation) {
-			particle.animation = particleOptions.getAnimation(particle);
-			particle.animation.queue(function() {
-				particle.destroy();
-			});
+			particle.animation = particleOptions.getAnimation(particle).queueDispose(particle);
 		}
 
 		particle.x = particleOptions.position.x;
