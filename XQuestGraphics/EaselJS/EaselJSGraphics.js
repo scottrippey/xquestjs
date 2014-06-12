@@ -284,4 +284,14 @@ var EaselJSGraphics = Smart.Class({
 
 		return textGfx;
 	}
+
+	,
+	createHUDOverlay: function() {
+		var hudOverlay = new EaselJSGraphics.HUDOverlay();
+		this.layers.hud.addChild(hudOverlay);
+		hudOverlay.onDispose(function() {
+			this.layers.hud.removeChild(hudOverlay);
+		}.bind(this));
+		return hudOverlay;
+	}
 });

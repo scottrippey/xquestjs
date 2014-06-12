@@ -45,18 +45,20 @@ Balance.merge({
 		Balance.merge({
 			level: {
 				bounds: (function(){
-					var padding = 40
+					var hudHeight = 40
+						, padding = 40
 						, visibleWidth = gameOptions.fullView ? 1200 : 800
 						, visibleHeight = gameOptions.fullView ? 675 : 450
 						, levelWidth = 1200, levelHeight = 675;
 					return {
-						x: padding, y: padding
+						hudHeight: hudHeight
+						, x: padding, y: hudHeight + padding
 						, visibleWidth: padding + visibleWidth + padding
-						, visibleHeight: padding + visibleHeight + padding
+						, visibleHeight: hudHeight + padding + visibleHeight + padding
 						, width: levelWidth
 						, height: levelHeight
 						, totalWidth: padding + levelWidth + padding
-						, totalHeight: padding + levelHeight + padding
+						, totalHeight: hudHeight + padding + levelHeight + padding
 					};
 				})()
 				, gateWidth: 200

@@ -33,7 +33,8 @@
 			this._setupCrystals();
 			this._setupPowerCrystals();
 			this._setupProjectiles();
-	
+			this._setupHUD();
+
 			this.activePowerups = {};
 	
 			this._startGame();
@@ -57,6 +58,9 @@
 		}
 		, _setupProjectiles: function() {
 			this.projectiles = new XQuestGame.Projectiles(this.game);
+		}
+		, _setupHUD: function() {
+			this.hud = new XQuestGame.HUD(this.game);
 		}
 		
 		, debug: function() {
