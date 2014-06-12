@@ -20,9 +20,9 @@ XQuestGame.HUD = Smart.Class({
 	,
 	_layout: function() {
 		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;
-		var padding = 20, spacer = 50;
+		var spacer = 50;
 
-		var leftPos = padding;
+		var leftPos = spacer;
 
 		leftPos += this.hudLivesIcon.radius;
 		this.hudLivesIcon.moveTo(leftPos, middle);
