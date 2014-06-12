@@ -14,7 +14,9 @@ XQuestGame.CrystalFactory = Smart.Class({
 
 		var spawnQuantity = Balance.crystals.spawnQuantity(this.game);
 		var radius = Balance.crystals.radius;
-		
+
+		this.game.stats.crystalCount = spawnQuantity;
+
 		while (spawnQuantity--) {
 			var crystal = this.game.gfx.createCrystalGraphic();
 			var spawnPoint = this.game.gfx.getSafeSpawn(radius);
@@ -46,6 +48,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 
 		if (crystalsGathered) {
 			this.game.crystalsGathered(this.crystals.length, crystalsGathered);
+			this.game.stats.crystalCount -= crystalsGathered;
 		}
 	}
 	,
@@ -59,9 +62,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 		this.crystals.splice(crystalIndex, 1);
 
 		this.game.crystalsGathered(this.crystals.length, 1);
-	}
-	,
-	onDraw: function(tickEvent) {
 
+		this.game.stats.crystalCount -= 1;
 	}
 });

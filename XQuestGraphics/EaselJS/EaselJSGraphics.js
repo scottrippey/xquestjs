@@ -181,6 +181,15 @@ var EaselJSGraphics = Smart.Class({
 		return playerGraphics;
 	}
 	,
+	createPlayerHUDIcon: function() {
+		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
+		var scale = 0.7;
+		playerGraphics.scaleTo(scale);
+		playerGraphics.radius *= scale;
+		this.layers.hud.addChild(playerGraphics);
+		return playerGraphics;
+	}
+	,
 	createPlayerBullet: function() {
 		var bulletGfx = new EaselJSGraphics.BulletGraphics();
 		this.layers.effects.addChild(bulletGfx);
@@ -219,6 +228,15 @@ var EaselJSGraphics = Smart.Class({
 	createCrystalGraphic: function() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		this.layers.background.addChild(crystal);
+		return crystal;
+	}
+	,
+	createCrystalHUDIcon: function() {
+		var crystal = new EaselJSGraphics.CrystalGraphic();
+		var scale = 0.7;
+		crystal.scaleTo(scale);
+		crystal.radius *= scale;
+		this.layers.hud.addChild(crystal);
 		return crystal;
 	}
 	,

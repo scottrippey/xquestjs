@@ -4,16 +4,17 @@ EaselJSGraphics.PlayerGraphics = Smart.Class(new createjs.Shape(), {
 	}
 	,
 	_setupGraphics: function(){
-		var g = this.graphics, v = Graphics.player;
+		var g = this.graphics, G = Graphics.player;
+		this.radius = G.radius;
 		g.clear();
 
-		g.beginStyle(v.outerStrokeStyle)
-		 .drawCircle(0, 0, v.radius)
+		g.beginStyle(G.outerStrokeStyle)
+		 .drawCircle(0, 0, G.radius)
 		 .endStroke();
 
-		g.beginStyle(v.innerStyle)
-		 .drawPolyStar(0, 0, v.innerRadius, v.innerStarPoints, v.innerStarSize, 0)
-		 .endStyle(v.innerStyle);
+		g.beginStyle(G.innerStyle)
+		 .drawPolyStar(0, 0, G.innerRadius, G.innerStarPoints, G.innerStarSize, 0)
+		 .endStyle(G.innerStyle);
 
 	}
 	,

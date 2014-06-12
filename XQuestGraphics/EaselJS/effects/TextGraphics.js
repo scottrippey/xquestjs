@@ -20,6 +20,13 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 			, color: 'hsl(0, 100%, 80%)'
 			, textBaseline: 'bottom'
 		}
+		,
+		hudText: {
+			fontSize: '12px'
+			, color: 'white'
+			, textBaseline: 'middle'
+			, textAlign: 'left'
+		}
 	}
 	,
 	setGfx: function(gfx) {

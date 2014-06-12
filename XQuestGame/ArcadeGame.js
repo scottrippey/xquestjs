@@ -61,6 +61,7 @@
 		}
 		, _setupHUD: function() {
 			this.hud = new XQuestGame.HUD(this.game);
+			this.addGameItem(this.hud);
 		}
 		
 		, debug: function() {

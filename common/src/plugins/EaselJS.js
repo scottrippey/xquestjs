@@ -42,6 +42,12 @@ _.extend(createjs.DisplayObject.prototype, {
 		this.x = x; this.y = y;
 	}
 	,
+	scaleTo: function(x, y) {
+		if (y === undefined) y = x;
+		this.scaleX = x;
+		this.scaleY = y;
+	}
+	,
 	toggleVisible: function(force) {
 		if (force === undefined) force = !this.visible;
 		this.visible = force;
