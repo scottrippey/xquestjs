@@ -33,7 +33,7 @@
 			this._setupCrystals();
 			this._setupPowerCrystals();
 			this._setupProjectiles();
-			//this._setupHUD();
+			this._setupHUD();
 
 			this.activePowerups = {};
 	
