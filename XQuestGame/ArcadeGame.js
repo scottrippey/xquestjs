@@ -9,8 +9,8 @@
 		,onGamePaused: 'GamePaused'
 		,onPowerupChanged: 'PowerupChanged'
 	};
-	
-	ArcadeGame = Smart.Class(new BaseGame(), {
+
+	XQuestGame.ArcadeGame = Smart.Class(new XQuestGame.BaseGame(), {
 		player: null
 		, levelGraphics: null
 		, activePowerups: null
@@ -18,7 +18,7 @@
 		, stats: null
 		, powerCrystals: null
 		
-		, initialize: function ArcadeGame(graphics) {
+		, initialize: function _ArcadeGame(graphics) {
 			// Since all other classes use 'this.game', this will provide consistency:
 			this.game = this;
 			this._events = new Smart.Events();
@@ -42,25 +42,25 @@
 			this.levelGraphics = this.game.gfx.createLevelGraphics();
 		}
 		, _setupPlayer: function() {
-			this.player = new Player(this.game);
+			this.player = new XQuestGame.Player(this.game);
 			this.game.addGameItem(this.player);
 		}
 		, _setupEnemyFactory: function() {
-			this.enemies = new EnemyFactory(this.game);
+			this.enemies = new XQuestGame.EnemyFactory(this.game);
 			this.addGameItem(this.enemies);
 		}
 		, _setupCrystals: function() {
-			this.crystals = new CrystalFactory(this.game);
+			this.crystals = new XQuestGame.CrystalFactory(this.game);
 		}
 		, _setupPowerCrystals: function() {
-			this.powerCrystals = new PowerupFactory(this.game);
+			this.powerCrystals = new XQuestGame.PowerupFactory(this.game);
 		}
 		, _setupProjectiles: function() {
-			this.projectiles = new Projectiles(this.game);
+			this.projectiles = new XQuestGame.Projectiles(this.game);
 		}
 		
 		, debug: function() {
-			var debug = new GameDebugger(this.game);
+			var debug = new XQuestGame.GameDebugger(this.game);
 			this.debug = function() { return debug; };
 			return this.debug();
 		}
@@ -281,7 +281,7 @@
 	
 	// Add event handler functions to ArcadeGame, so that we don't use addEvent / fireEvent directly
 	_.forOwn(GameEvents, function(eventName, onEventName) {
-		ArcadeGame.prototype[onEventName] = function(eventHandler) {
+		XQuestGame.ArcadeGame.prototype[onEventName] = function(eventHandler) {
 			this._events.addEvent(eventName, eventHandler);
 		};
 	});

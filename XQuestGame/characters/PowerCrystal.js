@@ -1,4 +1,4 @@
-var PowerCrystal = Smart.Class({
+XQuestGame.PowerCrystal = Smart.Class({
 	initialize: function(game) {
 		var B = Balance.powerCrystals;
 		this.game = game;

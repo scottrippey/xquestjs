@@ -1,4 +1,4 @@
-var Slug = Smart.Class(new BaseEnemy(), {
+XQuestGame.Slug = Smart.Class(new XQuestGame.BaseEnemy(), {
 	initialize: function Slug(game) {
 		var B = Balance.enemies.slug;
 		this.setupBaseEnemyGraphics(game, 'Slug', B.radius);

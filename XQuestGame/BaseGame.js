@@ -1,4 +1,4 @@
-var BaseGame = Smart.Class({
+XQuestGame.BaseGame = Smart.Class({
 	gfx: null
 	, input: null
 	, timer: null
@@ -32,7 +32,7 @@ var BaseGame = Smart.Class({
 	}
 	,
 	_setupInput: function() {
-		this.input = new GameInput();
+		this.input = new XQuestGame.GameInput();
 	}
 	,
 	_setupTimer: function() {

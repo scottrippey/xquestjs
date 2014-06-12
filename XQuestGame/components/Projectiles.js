@@ -1,4 +1,4 @@
-var Projectiles = Smart.Class({
+XQuestGame.Projectiles = Smart.Class({
 	initialize: function Projectiles(game) {
 		this.game = game;
 		this.game.addGameItem(this);

@@ -1,0 +1,3 @@
+XQuestGame.HUD = Smart.Class({
+
+});

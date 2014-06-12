@@ -120,7 +120,7 @@ Balance.merge({
 				,safeSpawnDistance: 13*10
 				,spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(2, 4)
 				,spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently
-				,roster: gameOptions.enemyRoster || [ Slug, Locust ]
+				,roster: gameOptions.enemyRoster || [ XQuestGame.Slug, XQuestGame.Locust ]
 				,slug: {
 					radius: 13
 					,speed: 80

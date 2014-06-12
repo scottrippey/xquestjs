@@ -1,4 +1,4 @@
-var GameInput = Smart.Class({
+XQuestGame.GameInput = Smart.Class({
 	inputs: null,
 	initialize: function() {
 		this.inputs = [];

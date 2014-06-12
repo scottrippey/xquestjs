@@ -1,4 +1,4 @@
-var PowerupFactory = Smart.Class({
+XQuestGame.PowerupFactory = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		this.game.addGameItem(this);
@@ -53,7 +53,7 @@ var PowerupFactory = Smart.Class({
 	}
 	,
 	createPowerCrystal: function() {
-		var powerCrystal = new PowerCrystal(this.game);
+		var powerCrystal = new XQuestGame.PowerCrystal(this.game);
 		var spawnInfo = this.game.enemies.getRandomSpawn(powerCrystal.radius);
 		powerCrystal.spawn(spawnInfo);
 		this.powerCrystals.push(powerCrystal);
@@ -115,7 +115,7 @@ var PowerupFactory = Smart.Class({
 	}
 	,
 	createBombCrystal: function() {
-		var bombCrystal = new BombCrystal(this.game);
+		var bombCrystal = new XQuestGame.BombCrystal(this.game);
 		var randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
 		bombCrystal.spawnBomb(randomSpawnLocation);
 

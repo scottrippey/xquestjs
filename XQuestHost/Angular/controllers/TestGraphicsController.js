@@ -13,7 +13,7 @@ angular.module('XQuestHost').controller('TestGraphicsController', [
 			_setupTestGame: function() {
 				Balance.setGameMode('test');
 
-				this.game = new BaseGame();
+				this.game = new XQuestGame.BaseGame();
 				this.game.initializeGame(this.canvas);
 			}
 			,

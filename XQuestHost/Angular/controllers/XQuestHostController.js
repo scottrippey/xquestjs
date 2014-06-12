@@ -22,7 +22,7 @@ angular.module("XQuestHost").controller("XQuestUIController", [
 
 				Balance.setGameMode(gameMode || 'arcade');
 
-				var host = new XQuestHost(canvas);
+				var host = new XQuestGame.XQuestHost(canvas);
 				var game = host.game;
 				game.onGamePaused(this._onGamePaused.bind(this));
 

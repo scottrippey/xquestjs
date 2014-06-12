@@ -1,4 +1,4 @@
-var BombCrystal = Smart.Class({
+XQuestGame.BombCrystal = Smart.Class({
 	initialize: function BombCrystal(game) {
 		this.game = game;
 		this.location = this.game.gfx.createBombCrystalGraphic();

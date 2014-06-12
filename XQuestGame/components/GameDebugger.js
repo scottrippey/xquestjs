@@ -1,4 +1,4 @@
-var GameDebugger = Smart.Class({
+XQuestGame.GameDebugger = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 	}

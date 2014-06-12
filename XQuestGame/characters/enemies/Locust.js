@@ -1,4 +1,4 @@
-var Locust = Smart.Class(new BaseEnemy(), {
+XQuestGame.Locust = Smart.Class(new XQuestGame.BaseEnemy(), {
 	initialize: function Locust(game) {
 		var B = Balance.enemies.locust;
 		this.setupBaseEnemyGraphics(game, 'Locust', B.radius);

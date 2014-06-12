@@ -1,4 +1,4 @@
-var BaseEnemy = Smart.Class({
+XQuestGame.BaseEnemy = Smart.Class({
 	game: null
 	, enemyGraphics: null
 	, location: null

@@ -1,4 +1,4 @@
-var Player = Smart.Class({
+XQuestGame.Player = Smart.Class({
 	location: null
 	, radius: null
 	
