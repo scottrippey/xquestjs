@@ -151,10 +151,6 @@ var EaselJSGraphics = Smart.Class({
 		}
 	}
 	,
-	_isSafeSpawn: function(point) {
-		var dangerZone
-	}
-	,
 	getHudPoint: function(hudPoint) {
 		if (typeof hudPoint !== 'string') return hudPoint;
 		var bounds = Balance.level.bounds;
