@@ -255,6 +255,15 @@ var EaselJSGraphics = Smart.Class({
 		return bombCrystal;
 	}
 	,
+	createBombCrystalHUDIcon: function() {
+		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
+		var scale = 0.7;
+		bombCrystal.scaleTo(scale);
+		bombCrystal.radius *= scale;
+		this.layers.hud.addChild(bombCrystal);
+		return bombCrystal;
+	}
+	,
 	createBombGraphic: function() {
 		var bomb = new EaselJSGraphics.BombGraphic();
 		this.layers.effects.addChild(bomb);

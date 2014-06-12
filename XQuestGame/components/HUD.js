@@ -13,11 +13,14 @@ XQuestGame.HUD = Smart.Class({
 
 		this.hudCrystalsIcon = this.game.gfx.createCrystalHUDIcon();
 		this.hudCrystalsText = this.game.gfx.addText("", 'hudText');
+
+		this.hudBombsIcon = this.game.gfx.createBombCrystalHUDIcon();
+		this.hudBombsText = this.game.gfx.addText("", 'hudText');
 	}
 	,
 	_layout: function() {
 		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;
-		var padding = 20, margin = 50;
+		var padding = 20, spacer = 50;
 
 		var leftPos = padding;
 
@@ -26,15 +29,21 @@ XQuestGame.HUD = Smart.Class({
 		leftPos += this.hudLivesIcon.radius;
 		this.hudLivesText.moveTo(leftPos, middle);
 
-		leftPos += margin;
+		leftPos += spacer;
 
 		leftPos += this.hudCrystalsIcon.radius;
 		this.hudCrystalsIcon.moveTo(leftPos, middle);
 		leftPos += this.hudCrystalsIcon.radius;
 		this.hudCrystalsText.moveTo(leftPos, middle);
 
-		leftPos += margin;
+		leftPos += spacer;
 
+		leftPos += this.hudBombsIcon.radius;
+		this.hudBombsIcon.moveTo(leftPos, middle);
+		leftPos += this.hudBombsIcon.radius;
+		this.hudBombsText.moveTo(leftPos, middle);
+
+		leftPos += spacer;
 
 
 	}
@@ -42,6 +51,7 @@ XQuestGame.HUD = Smart.Class({
 	onDraw: function(tickEvent) {
 		this.hudLivesText.text = ' x ' + this.game.stats.lives;
 		this.hudCrystalsText.text = ' x ' + this.game.stats.crystalCount;
+		this.hudBombsText.text = ' x ' + this.game.stats.bombs;
 	}
 
 });

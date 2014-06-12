@@ -4,6 +4,9 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
 	}
 	, _setupGraphics: function() {
 		var G = Graphics.bombCrystals;
+
+		this.radius = G.radius;
+
 		this.graphics
 			.clear()
 			.beginStyle(G.style)

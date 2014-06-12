@@ -2,7 +2,7 @@ Balance.onUpdate(function(mode) {
 	_.merge(Graphics, {
 		HUD: {
 			backgroundStyle: {
-				fillColor: 'hsla(0, 100%, 100%, 0.2)'
+				fillColor: 'hsla(0, 100%, 100%, 0.1)'
 			}
 		}
 	});
