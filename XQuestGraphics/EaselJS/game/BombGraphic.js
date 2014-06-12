@@ -1,7 +1,7 @@
 EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 	initialize: function BombGraphic() {
 		this.radius = Balance.player.radius;
-		this._setupGraphics();
+
 	}
 	,
 	_setupGraphics: function() {
@@ -21,5 +21,6 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 		if (this.alpha <= 0) {
 			this.dispose();
 		}
+		this._setupGraphics();
 	}
 });
