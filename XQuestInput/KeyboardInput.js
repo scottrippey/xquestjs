@@ -17,6 +17,10 @@
 
 (function() {
 
+	var UserSettings = {
+		keyboardSensitivity: 5
+	};
+
 	// Available actions:
 	var accelerateUp = 'accelerateUp';
 	var accelerateDown = 'accelerateDown';
@@ -51,7 +55,6 @@
 	};
 
 	XQuestInput.KeyboardInput = Smart.Class({
-		sensitivity: 1,
 		initialize: function(game, element) {
 			this.game = game;
 			this.game.input.addGameInput(this);
@@ -75,7 +78,7 @@
 		},
 
 		mergeInputState: function(state) {
-			var sensitivity = this.sensitivity;
+			var sensitivity = UserSettings.keyboardSensitivity;
 			var downActions = this.keyHelper.getDownActions();
 
 			if (downActions[primaryWeapon]) state.primaryWeapon = true;
