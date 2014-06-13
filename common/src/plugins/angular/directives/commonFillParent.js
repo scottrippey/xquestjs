@@ -1,26 +1,18 @@
 angular.module('common').directive('commonFillParent', [
 	'$window', function($window) {
-		var fill = function(elementWidth, elementHeight, parentWidth, parentHeight) {
-			var elRatio = elementWidth / elementHeight;
-			var parentRatio = parentWidth / parentHeight;
-
-			if (elRatio >= parentRatio) {
-				return {
-					width: parentWidth
-					, height: parentWidth / elRatio
-				};
-			} else {
-				return {
-					width: parentHeight * elRatio
-					, height: parentHeight
-				};
-			}
+		var elementIsWiderThanParent = function(element, parent) {
+			var naturalRatio = element.width / element.height,
+				parentRatio = parent.offsetWidth / parent.offsetHeight;
+			return naturalRatio >= parentRatio;
 		};
 		return function($scope, $element, $attrs) {
 			var resizeElement = function() {
 				var $parent = $element.parent();
-				var size = fill($element[0].width, $element[0].height, $parent[0].offsetWidth, $parent[0].offsetHeight);
-				$element.css({ width: size.width + 'px', height: size.height + 'px' });
+				if (elementIsWiderThanParent($element[0], $parent[0])) {
+					$element.css({ width: '100%', height: null });
+				} else {
+					$element.css({ width: null, height: '100%' });
+				}
 			};
 			angular.element($window).bind('resize', resizeElement);
 			resizeElement();
