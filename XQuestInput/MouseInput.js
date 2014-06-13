@@ -7,15 +7,16 @@
  */
 
 (function() {
-	var primaryWeapon = 'primaryWeapon', secondaryWeapon = 'secondaryWeapon';
-	var mouseMap = {
-		left: primaryWeapon
-		, right: secondaryWeapon
-	};
 	var UserSettings = {
 		mouseSensitivity: 2,
 		mouseBiasSensitivity: 2,
 		maxMouseMove: 40 // Maximum mouse delta per mousemove event
+	};
+
+	var primaryWeapon = 'primaryWeapon', secondaryWeapon = 'secondaryWeapon';
+	var mouseMap = {
+		left: primaryWeapon
+		, right: secondaryWeapon
 	};
 
 	XQuestInput.MouseInput = Smart.Class({
@@ -52,7 +53,7 @@
 			this.elementSize = getElementSize(this.element);
 			this.previousMousePosition = null;
 		},
-		
+
 		_onGamePaused: function(paused) {
 			this.element.style.cursor = paused ? null : "none";
 			this.previousMousePosition = null;
@@ -182,8 +183,8 @@
 	function getMouseButton(ev) {
 		switch (ev.which || ev.button) {
 			case 1: return 'left';
-			case 2: return 'right';
-			case 3: return 'middle';
+			case 2: return 'middle';
+			case 3: return 'right';
 			case 4: return 'xbutton1';
 			case 5: return 'xbutton2';
 			default: return 'none';
