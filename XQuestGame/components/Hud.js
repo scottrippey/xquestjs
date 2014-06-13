@@ -6,6 +6,8 @@ XQuestGame.Hud = Smart.Class({
 	}
 	, _setupGraphics: function() {
 
+		this.game.gfx.enableTouchClicks();
+
 		this.hudOverlay = this.game.gfx.createHUDOverlay();
 
 		this.hudLivesIcon = this.game.gfx.createPlayerHUDIcon();

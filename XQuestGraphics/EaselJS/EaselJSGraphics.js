@@ -313,6 +313,10 @@ var EaselJSGraphics = Smart.Class({
 	}
 
 	,
+	enableTouchClicks: function() {
+		createjs.Touch.enable(this.layers.hud);
+	}
+	,
 	createHUDOverlay: function() {
 		var hudOverlay = new EaselJSGraphics.HudGraphics.HudOverlay();
 		this.layers.hud.addChild(hudOverlay);
