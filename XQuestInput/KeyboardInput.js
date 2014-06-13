@@ -32,6 +32,7 @@
 
 	var keyMap = {
 		escape: pauseGame,
+		contextMenu: pauseGame,
 
 		up: accelerateUp,
 		down: accelerateDown,
@@ -63,6 +64,7 @@
 				element = document;
 			}
 			this.keyHelper = new XQuestInput.KeyboardInput.KeyHelper(element, this._onOtherActionsDown.bind(this));
+			this.keyHelper.disableContextMenu();
 
 			this.setKeyMap(keyMap);
 		},
@@ -103,7 +105,8 @@
 		codes: {
 			13: 'enter',
 			27: 'escape',
-			32: 'space'
+			32: 'space',
+			93: 'contextMenu'
 		},
 		keyMap: null,
 		downKeys: null,
@@ -118,8 +121,8 @@
 			this.element.addEventListener('keydown', this._onKeydown.bind(this));
 			this.element.addEventListener('keyup', this._onKeyup.bind(this));
 		},
-		_onKeydown: function(event) {
-			var keyName = this._getKeyName(event);
+		_onKeydown: function(ev) {
+			var keyName = this._getKeyName(ev);
 			var downIndex = this.downKeys.indexOf(keyName);
 			var isDown = (downIndex !== -1);
 			if (!isDown) {
@@ -130,8 +133,8 @@
 				}
 			}
 		},
-		_onKeyup: function(event) {
-			var keyName = this._getKeyName(event);
+		_onKeyup: function(ev) {
+			var keyName = this._getKeyName(ev);
 			var downIndex = this.downKeys.indexOf(keyName);
 			var wasDown = (downIndex !== -1);
 			if (wasDown) {
@@ -142,11 +145,11 @@
 				}
 			}
 		},
-		_getKeyName: function(event) {
+		_getKeyName: function(ev) {
 			var keyName =
-				this.codes[event.keyCode]
-				|| (event.keyIdentifier && event.keyIdentifier.indexOf('U+') === -1 && event.keyIdentifier.toLowerCase())
-				|| String.fromCharCode(event.keyCode)
+				this.codes[ev.keyCode]
+				|| (ev.keyIdentifier && ev.keyIdentifier.indexOf('U+') === -1 && ev.keyIdentifier.toLowerCase())
+				|| String.fromCharCode(ev.keyCode)
 				|| 'unknown';
 			return keyName;
 		},
@@ -157,7 +160,21 @@
 
 		setKeyMap: function(keyMap) {
 			this.keyMap = keyMap;
+		},
+
+		disableContextMenu: function(disabled) {
+			if (disabled === undefined) disabled = true;
+
+			if (disabled) {
+				window.addEventListener('contextmenu', preventDefault);
+			} else {
+				window.removeEventListener('contextmenu', preventDefault);
+			}
 		}
-	})
+	});
+
+	function preventDefault(ev) {
+		ev.preventDefault();
+	}
 
 })();
