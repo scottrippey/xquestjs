@@ -59,7 +59,6 @@
 					this.touchState.secondaryWeapon = { identifier: touch.identifier };
 				}
 			}
-			this._inactive(false);
 		},
 		_onTouchEnd: function(ev) {
 			ev.preventDefault();
@@ -73,10 +72,6 @@
 				} else if (this.touchState.secondaryWeapon && this.touchState.secondaryWeapon.identifier === touch.identifier) {
 					this.touchState.secondaryWeapon = false;
 				}
-			}
-			var noTouches = !(this.touchState.engaged || this.touchState.primaryWeapon || this.touchState.secondaryWeapon);
-			if (noTouches) {
-				this._inactive(true);
 			}
 		},
 		_onTouchMove: function(ev) {
@@ -115,16 +110,6 @@
 				, y: delta.y * sensitivity
 			};
 			return acceleration;
-		},
-
-		_inactive: function(inactive) {
-			if (inactive) {
-				this.inactiveTimer = setTimeout(function() {
-					this.game.pauseGame(true);
-				}.bind(this), UserSettings.inactiveTouchTimeout * 1000);
-			} else {
-				clearTimeout(this.inactiveTimer);
-			}
 		},
 
 		mergeInputState: function(state) {
