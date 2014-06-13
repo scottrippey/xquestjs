@@ -34,17 +34,17 @@ XQuestGame.Hud = Smart.Class({
 
 		leftPos += spacer;
 
-		leftPos += this.hudCrystalsIcon.radius;
-		this.hudCrystalsIcon.moveTo(leftPos, middle);
-		leftPos += this.hudCrystalsIcon.radius;
-		this.hudCrystalsText.moveTo(leftPos, middle);
-
-		leftPos += spacer;
-
 		leftPos += this.hudBombsIcon.radius;
 		this.hudBombsIcon.moveTo(leftPos, middle);
 		leftPos += this.hudBombsIcon.radius;
 		this.hudBombsText.moveTo(leftPos, middle);
+
+		leftPos += spacer;
+
+		leftPos += this.hudCrystalsIcon.radius;
+		this.hudCrystalsIcon.moveTo(leftPos, middle);
+		leftPos += this.hudCrystalsIcon.radius;
+		this.hudCrystalsText.moveTo(leftPos, middle);
 
 		leftPos += spacer;
 
