@@ -42,9 +42,11 @@ XQuestGame.BaseGame = Smart.Class({
 	,
 	_tickHandler: function(tickEvent) {
 		// Iterate right-to-left, because items could be removed
-		_.forEachRight(this.handlers.input, function(gameItem) { gameItem.onInput(tickEvent); });
-		_.forEachRight(this.handlers.move, function(gameItem) { gameItem.onMove(tickEvent); });
-		_.forEachRight(this.handlers.act, function(gameItem) { gameItem.onAct(tickEvent); });
+		if (!tickEvent.paused) {
+			_.forEachRight(this.handlers.input, function(gameItem) { gameItem.onInput(tickEvent); });
+			_.forEachRight(this.handlers.move, function(gameItem) { gameItem.onMove(tickEvent); });
+			_.forEachRight(this.handlers.act, function(gameItem) { gameItem.onAct(tickEvent); });
+		}
 		_.forEachRight(this.handlers.draw, function(gameItem) { gameItem.onDraw(tickEvent); });
 	}
 	,
