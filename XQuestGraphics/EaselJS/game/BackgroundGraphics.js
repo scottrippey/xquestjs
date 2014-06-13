@@ -7,6 +7,8 @@ EaselJSGraphics.BackgroundGraphics = Smart.Class(new createjs.Shape(), {
 		};
 		this._setupBackground();
 		this._setupStars();
+
+		this.cache(0, 0, this._size.width, this._size.height);
 	}
 	,
 	_setupBackground: function(){
