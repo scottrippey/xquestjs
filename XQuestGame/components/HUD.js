@@ -1,4 +1,4 @@
-XQuestGame.HUD = Smart.Class({
+XQuestGame.Hud = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		this._setupGraphics();
@@ -16,6 +16,9 @@ XQuestGame.HUD = Smart.Class({
 
 		this.hudBombsIcon = this.game.gfx.createBombCrystalHUDIcon();
 		this.hudBombsText = this.game.gfx.addText("", 'hudText');
+		
+		this.hudPauseButton = this.game.gfx.createPauseButtonHUD();
+		this.hudPauseButton.addEventListener('click', function() { this.game.pauseGame(); }.bind(this));
 	}
 	,
 	_layout: function() {
@@ -45,6 +48,9 @@ XQuestGame.HUD = Smart.Class({
 
 		leftPos += spacer;
 
+		
+		var center = bounds.visibleWidth / 2;
+		this.hudPauseButton.moveTo(center - this.hudPauseButton.width / 2, middle - this.hudPauseButton.height / 2);
 
 	}
 	,

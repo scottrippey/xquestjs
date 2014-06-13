@@ -1,6 +1,11 @@
 var Graphics;
 Balance.onUpdate(function(mode) {
 	Graphics = {
+		merge: function(newGraphics) {
+			_.merge(Graphics, newGraphics);
+		}
+	};
+	Graphics.merge({
 		player: {
 			radius: Balance.player.radius
 			, outerStrokeStyle: {
@@ -105,5 +110,5 @@ Balance.onUpdate(function(mode) {
 			, starColors: ['#FFFFFF','#666666','#999999', '#CCCCCC']
 			, starCount: 500
 		}
-	};
+	});
 });

@@ -314,11 +314,20 @@ var EaselJSGraphics = Smart.Class({
 
 	,
 	createHUDOverlay: function() {
-		var hudOverlay = new EaselJSGraphics.HUDOverlay();
+		var hudOverlay = new EaselJSGraphics.HudGraphics.HudOverlay();
 		this.layers.hud.addChild(hudOverlay);
 		hudOverlay.onDispose(function() {
 			this.layers.hud.removeChild(hudOverlay);
 		}.bind(this));
 		return hudOverlay;
+	}
+	,
+	createPauseButtonHUD: function() {
+		var pauseButton = new EaselJSGraphics.HudGraphics.HudPauseButton(this);
+		this.layers.hud.addChild(pauseButton);
+		pauseButton.onDispose(function() {
+			this.layers.hud.removeChild(pauseButton);
+		}.bind(this));
+		return pauseButton;
 	}
 });

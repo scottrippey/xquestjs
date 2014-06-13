@@ -1,6 +1,6 @@
 Balance.onUpdate(function(mode) {
 	_.merge(Graphics, {
-		HUD: {
+		hudGraphics: {
 			backgroundStyle: {
 				fillColor: 'hsla(0, 100%, 100%, 0.1)'
 			}
@@ -8,12 +8,12 @@ Balance.onUpdate(function(mode) {
 	});
 });
 
-EaselJSGraphics.HUDOverlay = Smart.Class(new createjs.Shape(), {
+EaselJSGraphics.HudGraphics.HudOverlay = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
 		this._setupGraphics();
 	}
 	, _setupGraphics: function() {
-		var G = Graphics.HUD, bounds = Balance.level.bounds;
+		var G = Graphics.hudGraphics, bounds = Balance.level.bounds;
 
 		this.graphics.clear()
 			.beginStyle(G.backgroundStyle)

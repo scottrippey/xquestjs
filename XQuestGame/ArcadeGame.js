@@ -60,7 +60,7 @@
 			this.projectiles = new XQuestGame.Projectiles(this.game);
 		}
 		, _setupHUD: function() {
-			this.hud = new XQuestGame.HUD(this.game);
+			this.hud = new XQuestGame.Hud(this.game);
 			this.addGameItem(this.hud);
 		}
 		
