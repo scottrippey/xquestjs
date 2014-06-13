@@ -63,16 +63,16 @@
 			if (!element) {
 				element = document;
 			}
-			this.keyHelper = new XQuestInput.KeyboardInput.KeyHelper(element, this._onOtherActionsDown.bind(this));
-			this.keyHelper.disableContextMenu();
+			this.keyMapper = new XQuestInput.KeyboardInput.KeyMapper(element, this._onActionDown.bind(this));
+			this.keyMapper.disableContextMenu();
 
 			this.setKeyMap(keyMap);
 		},
 		setKeyMap: function(keyMap) {
-			this.keyHelper.setKeyMap(keyMap);
+			this.keyMapper.setKeyMap(keyMap);
 		},
-		_onOtherActionsDown: function(downAction) {
-			switch (downAction) {
+		_onActionDown: function(action) {
+			switch (action) {
 				case pauseGame:
 					this.game.pauseGame();
 					break;
@@ -81,7 +81,7 @@
 
 		mergeInputState: function(state) {
 			var sensitivity = UserSettings.keyboardSensitivity;
-			var downActions = this.keyHelper.getDownActions();
+			var downActions = this.keyMapper.getDownActions();
 
 			if (downActions[primaryWeapon]) state.primaryWeapon = true;
 			if (downActions[secondaryWeapon]) state.secondaryWeapon = true;
@@ -100,8 +100,9 @@
 
 	});
 
-	XQuestInput.KeyboardInput.KeyHelper = Smart.Class({
+	XQuestInput.KeyboardInput.KeyMapper = Smart.Class({
 		element: null,
+		onActionDown: null,
 		codes: {
 			13: 'enter',
 			27: 'escape',
@@ -112,8 +113,9 @@
 		downKeys: null,
 		downActions: null,
 
-		initialize: function(element) {
+		initialize: function(element, onActionDown) {
 			this.element = element;
+			this.onActionDown = onActionDown;
 			this.codes = _.clone(this.codes);
 			this.downKeys = [];
 			this.downActions = {};
@@ -129,7 +131,11 @@
 				this.downKeys.push(keyName);
 				var action = this.keyMap[keyName];
 				if (action) {
-					this.downActions[action] = (this.downActions[action] || 0) + 1;
+					var downAction = (this.downActions[action] || 0) + 1;
+					this.downActions[action] = downAction;
+					if (downAction === 1) {
+						this.onActionDown(action);
+					}
 				}
 			}
 		},
@@ -141,7 +147,8 @@
 				this.downKeys.splice(downIndex, 1);
 				var action = this.keyMap[keyName];
 				if (action) {
-					this.downActions[action] = (this.downActions[action] || 1) - 1;
+					var downAction = (this.downActions[action] || 1) - 1;
+					this.downActions[action] = downAction;
 				}
 			}
 		},
