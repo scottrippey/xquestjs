@@ -47,15 +47,19 @@ Balance.merge({
 				bounds: (function(){
 					var hudHeight = 40
 						, padding = 40
-						, visibleWidth = gameOptions.fullView ? 1200 : 800
-						, visibleHeight = gameOptions.fullView ? 675 : 450
-						, levelWidth = 1200, levelHeight = 675;
+						, levelWidth = 1200, levelHeight = 675
+						, visibleWidth = 800, visibleHeight = 450
+						;
+					if (gameOptions.fullView) {
+						visibleWidth = padding + levelWidth + padding;
+						visibleHeight = hudHeight + padding + levelHeight + padding;
+					}
 					return {
 						hudHeight: hudHeight
 						, padding: padding
 						, x: padding, y: hudHeight + padding
-						, visibleWidth: padding + visibleWidth + padding
-						, visibleHeight: hudHeight + padding + visibleHeight + padding
+						, visibleWidth: visibleWidth
+						, visibleHeight: visibleHeight
 						, width: levelWidth
 						, height: levelHeight
 						, totalWidth: padding + levelWidth + padding
