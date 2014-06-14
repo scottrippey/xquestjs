@@ -12,7 +12,7 @@
 		inactiveTouchTimeout: 4
 	};
 
-	XQuestInput.TouchInput = Smart.Class({
+	XQuestInput.PlayerInputTouch = Smart.Class({
 		element: null,
 		elementSize: null,
 		touches: null,

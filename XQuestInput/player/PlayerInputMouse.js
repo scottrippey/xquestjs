@@ -19,7 +19,7 @@
 		, right: secondaryWeapon
 	};
 
-	XQuestInput.MouseInput = Smart.Class({
+	XQuestInput.PlayerInputMouse = Smart.Class({
 		element: null,
 		elementSize: null,
 		mouseState: null,
