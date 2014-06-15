@@ -19,22 +19,44 @@ EaselJSGraphics.PathHelper = Smart.Class({
 	,_command: null // Initialized in constructor
 	,draw: null // Initialized in constructor
 	
-	,style: function(styles) {
+	,drawPath: function(path) {
+		this._command(function(context) {
+			path.draw(context);
+		});
+	}
+	,beginStyle: function(styles) {
 		for (var style in styles) {
 			if (!styles.hasOwnProperty(style)) continue;
 			this[style](styles[style]);
 		}
 		return this;
 	}
-	,clearStyle: function() {
-		return this.strokeStyle(null).fillStyle(null);
+	,endStyle: function(styles) {
+		for (var style in styles) {
+			if (!styles.hasOwnProperty(style)) continue;
+			this[style](null);
+		}
+		return this;
 	}
 	,circle: function(x, y, radius) {
 		this.arc(x, y, radius, 0, 2 * Math.PI);
 		return this;
 	}
 	,star: function(x, y, radius, sides, pointSize, angle) {
-		if (pointSize == null) { pointSize = 0; }
+		if (typeof x === 'object') {
+			var options = x;
+			x = options.x;
+			y = options.y;
+			radius = options.radius;
+			sides = options.sides;
+			pointSize = options.pointSize;
+			angle = options.angle;
+		}
+		if (!x) x = 0;
+		if (!y) y = 0;
+		if (!pointSize) pointSize = 0;
+		if (!angle) angle = 0;
+		
 		pointSize = 1-pointSize;
 		if (angle == null) { angle = 0; }
 		else { angle /= 180/Math.PI; }
