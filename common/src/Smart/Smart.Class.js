@@ -1,11 +1,14 @@
 Smart.Class = function(base, implement) {
-	var constructor = (implement || base).hasOwnProperty('initialize') && (implement || base)['initialize'];
+	if (!implement) implement = base;
+	var constructor = implement.hasOwnProperty('initialize') && implement['initialize'];
 	if (!constructor) {
-		constructor = function Class() { };
+		constructor = function Class() {
+			if (this.initialize) this.initialize.apply(this, arguments);
+		};
 	}
 
 	constructor.prototype = base;
-	if (implement){
+	if (implement !== base){
 		for (var key in implement) {
 			// Takes the place of checking hasOwnProperty:
 			if (constructor.prototype[key] === implement[key]) continue;
