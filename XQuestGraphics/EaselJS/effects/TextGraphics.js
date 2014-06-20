@@ -28,6 +28,13 @@ Balance.onUpdate(function(gameMode){
 				, textBaseline: 'middle'
 				, textAlign: 'left'
 			}
+			,
+			menuButton: {
+				fontSize: '20px'
+				, color: 'white'
+				, textBaseline: 'middle'
+				, textAlign: 'center'
+			}
 		}
 	});
 });

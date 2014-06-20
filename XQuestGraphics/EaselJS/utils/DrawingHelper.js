@@ -44,6 +44,28 @@ _.extend(EaselJSGraphics.DrawingBase.prototype, {
 		}
 		return this;
 	}
+	,roundRect: function(x, y, width, height, radius) {
+
+		var halfPI = Math.PI / 2
+			,angle_top = halfPI * 3
+			,angle_right = 0
+			,angle_bottom = halfPI
+			,angle_left = Math.PI;
+
+		var arc_left = x + radius
+			,arc_right = x + width - radius
+			,arc_top = y + radius
+			,arc_bottom = y + height - radius;
+
+		this
+			.arc(arc_right, arc_top, radius, angle_top, angle_right)
+			.arc(arc_right, arc_bottom, radius, angle_right, angle_bottom)
+			.arc(arc_left, arc_bottom, radius, angle_bottom, angle_left)
+			.arc(arc_left, arc_top, radius, angle_left, angle_top)
+		;
+
+		return this;
+	}
 	,circle: function(x, y, radius) {
 		this.arc(x, y, radius, 0, 2 * Math.PI);
 		return this;

@@ -334,4 +334,17 @@ var EaselJSGraphics = Smart.Class({
 		}.bind(this));
 		return pauseButton;
 	}
+	,
+	createButton: function(text, invokedHandler) {
+		var buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
+		buttonGfx.setText(text);
+		buttonGfx.addEventListener('click', invokedHandler);
+
+		this.layers.hud.addChild(buttonGfx);
+		buttonGfx.onDispose(function() {
+			this.layers.hud.removeChild(buttonGfx);
+		}.bind(this));
+
+		return buttonGfx;
+	}
 });

@@ -1,8 +1,6 @@
 XQuestGame.BaseScene = Smart.Class({
-	host: null
-	,initialize: function BaseScene() { }
-	,BaseScene_initialize: function(host) {
-		this.host = host;
+	initialize: function BaseScene() { }
+	,BaseScene_initialize: function() {
 		this.debugStats = { sceneItems: [] };
 		this._setupEvents();
 		this._setupPhases();
@@ -74,6 +72,15 @@ XQuestGame.BaseScene = Smart.Class({
 				this._events.addEvent(eventName, eventHandler);
 			};
 		}, this);
+	}
+	,
+	/**
+	 * @protected
+	 * @param {string} eventName
+	 * @param {array} [args]
+	 */
+	fireSceneEvent: function(eventName, args) {
+		this._events.fireEvent(eventName, args);
 	}
 
 });
