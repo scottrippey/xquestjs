@@ -1,9 +1,14 @@
-XQuestGame.Scene = Smart.Class({
-	game: null
-	,initialize: function(game) {
-		this.game = game;
+XQuestGame.BaseScene = Smart.Class({
+	host: null
+	,initialize: function BaseScene() { }
+	,BaseScene_initialize: function(host) {
+		this.host = host;
 		this.debugStats = { sceneItems: [] };
+		this._setupEvents();
 		this._setupPhases();
+	}
+	,_setupEvents: function() {
+		this._events = new Smart.Events();
 	}
 	,_setupPhases: function() {
 		this.phases = {
@@ -50,6 +55,25 @@ XQuestGame.Scene = Smart.Class({
 	}
 	,scenePause: function(scenePaused) {
 		this.scenePaused = scenePaused;
+	}
+	,
+	/**
+	 * Creates utility methods for adding event handlers.
+	 * This makes it easier to add events and harder to have typos.
+	 *
+	 * Example:
+	 *  game.onGamePaused(function(paused) { ... });
+	 * instead of
+	 *  game.addEvent('GamePaused', function(paused) { ... });
+	 *
+	 * @param {Object.<method,{string} event>} SceneEvents
+	 */
+	implementSceneEvents: function(SceneEvents) {
+		_.forOwn(SceneEvents, function(eventName, onEventName) {
+			this[onEventName] = function(eventHandler) {
+				this._events.addEvent(eventName, eventHandler);
+			};
+		}, this);
 	}
 
 });
