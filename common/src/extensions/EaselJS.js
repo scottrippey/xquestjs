@@ -53,11 +53,6 @@ _.extend(createjs.DisplayObject.prototype, {
 		this.visible = force;
 	}
 	,
-	// TODO: Move this to Smart.Physics
-	alignWith: function(vector) {
-		this.rotation = 180 - Math.atan2(vector.x, vector.y) / (Math.PI / 180);
-	}
-	,
 	dispose: function() {
 		console.assert(this._onDispose !== null, "Object is already disposed!");
 

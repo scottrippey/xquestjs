@@ -30,6 +30,6 @@ XQuestGame.Locust = Smart.Class(new XQuestGame.BaseEnemy(), {
 			this._changeTurnSpeed();
 		}
 
-		this.enemyGraphics.alignWith(this.velocity);
+		this.enemyGraphics.rotation = Smart.Point.angleFromVector(this.velocity);
 	}
 });
