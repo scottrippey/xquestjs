@@ -1,34 +1,37 @@
+Balance.onUpdate(function(gameMode){
+	Graphics.merge({
+		textStyles: {
+			default: {
+				fontWeight: 'normal'
+				, fontSize: '48px'
+				, fontFamily: '"Segoe UI"'
+				, color: 'white'
+				, textAlign: 'center'
+				, textBaseline: 'middle'
+			}
+			,
+			powerupActive: {
+				fontSize: '30px'
+				, color: 'hsl(120, 100%, 80%)'
+				, textBaseline: 'bottom'
+			}
+			,
+			powerupDeactive: {
+				fontSize: '24px'
+				, color: 'hsl(0, 100%, 80%)'
+				, textBaseline: 'bottom'
+			}
+			,
+			hudText: {
+				fontSize: '12px'
+				, color: 'white'
+				, textBaseline: 'middle'
+				, textAlign: 'left'
+			}
+		}
+	});
+});
 EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
-	textStyles: {
-		default: {
-			fontWeight: 'normal'
-			, fontSize: '48px'
-			, fontFamily: '"Segoe UI"'
-			, color: 'white'
-			, textAlign: 'center'
-			, textBaseline: 'middle'
-		}
-		,
-		powerupActive: {
-			fontSize: '30px'
-			, color: 'hsl(120, 100%, 80%)'
-			, textBaseline: 'bottom'
-		}
-		,
-		powerupDeactive: {
-			fontSize: '24px'
-			, color: 'hsl(0, 100%, 80%)'
-			, textBaseline: 'bottom'
-		}
-		,
-		hudText: {
-			fontSize: '12px'
-			, color: 'white'
-			, textBaseline: 'middle'
-			, textAlign: 'left'
-		}
-	}
-	,
 	setGfx: function(gfx) {
 		this.gfx = gfx;
 		this.animation = gfx.addAnimation(new Smart.Animation());
@@ -37,13 +40,15 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 	,
 	setText: function(text, textStyle) {
 
+		var textStyles = Graphics.textStyles;
+
 		this.text = text;
 
 		if (typeof textStyle === 'string') {
-			textStyle = this.textStyles[textStyle];
+			textStyle = textStyles[textStyle];
 		}
 
-		textStyle = textStyle ? _.defaults({}, textStyle, this.textStyles.default) : this.textStyles.default;
+		textStyle = textStyle ? _.defaults({}, textStyle, textStyles.default) : textStyles.default;
 		this.font = [ textStyle.fontWeight, textStyle.fontSize, textStyle.fontFamily ].join(" ");
 		this.color = textStyle.color;
 
