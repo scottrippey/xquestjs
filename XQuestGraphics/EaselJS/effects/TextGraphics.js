@@ -30,7 +30,7 @@ Balance.onUpdate(function(gameMode){
 			}
 			,
 			menuButton: {
-				fontSize: '20px'
+				fontSize: '40px'
 				, color: 'white'
 				, textBaseline: 'middle'
 				, textAlign: 'center'

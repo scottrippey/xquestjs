@@ -3,17 +3,20 @@ XQuestGame.XQuestHost = Smart.Class({
 
 		this.scenes = [];
 
+		Balance.setGameMode('arcade');
+
+		this._setupCanvas(canvas);
+		this._setupGraphics();
+		this._setupTimer();
+		this._setupStartMenu();
+	}
+
+	,_setupCanvas: function(canvas) {
 		if (!canvas) {
 			var bounds = Balance.level.bounds;
 			canvas = this._createFullScreenCanvas(bounds.visibleWidth, bounds.visibleHeight);
 		}
-
 		this.canvas = canvas;
-
-		this.graphics = new EaselJSGraphics(canvas);
-
-		this._setupTimer();
-		this._setupStartMenu();
 	}
 	,_createFullScreenCanvas: function(canvasWidth, canvasHeight) {
 		var div = document.createElement('div');
@@ -48,6 +51,9 @@ XQuestGame.XQuestHost = Smart.Class({
 		}
 	}
 
+	,_setupGraphics: function() {
+		this.graphics = new EaselJSGraphics(this.canvas);
+	}
 
 	,_setupTimer: function() {
 		this.timer = new EaselJSTimer();
@@ -65,7 +71,6 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.startMenu.onStartArcadeGame(this._startArcadeGame.bind(this));
 		this.scenes.push(this.startMenu);
 	}
-
 	,_startArcadeGame: function() {
 
 		this.game = new XQuestGame.ArcadeGame(this.graphics);
@@ -74,7 +79,6 @@ XQuestGame.XQuestHost = Smart.Class({
 		new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode);
 		new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode);
 	}
-
 
 
 });

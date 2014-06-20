@@ -62,6 +62,7 @@ _.extend(EaselJSGraphics.DrawingBase.prototype, {
 			.arc(arc_right, arc_bottom, radius, angle_right, angle_bottom)
 			.arc(arc_left, arc_bottom, radius, angle_bottom, angle_left)
 			.arc(arc_left, arc_top, radius, angle_left, angle_top)
+			.lineTo(arc_right, y)
 		;
 
 		return this;
