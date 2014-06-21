@@ -194,11 +194,15 @@
 		}
 	
 		, pauseGame: function(paused) {
-			this.paused = (paused !== undefined) ? paused : !this.paused;
+			paused = (paused !== undefined) ? paused : !this.paused;
+			
+			if (this.paused === paused) return;
+			this.paused = paused;
+			
 			this.timer.pauseTimer(this.paused);
-	
+			
 			this.game.player.cancelVelocity();
-	
+			
 			this._events.fireEvent(GameEvents.onGamePaused, [ this.paused ]);
 		}
 	

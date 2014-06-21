@@ -1,4 +1,8 @@
 (function init_StartMenu() {
+	var BaseMenuEvents = {
+		onMenuExit: 'MenuExit'
+	};
+	
 	XQuestGame.BaseMenu = Smart.Class(new XQuestGame.BaseScene(), {
 		BaseMenu_initialize: function (gfx) {
 			this.BaseScene_initialize();
@@ -28,7 +32,10 @@
 		,exitMenu: function(callback) {
 			var currentButtons = this.buttonStack.pop();
 			this.buttonStack.length = 0;
-			this._leaveButtons(currentButtons).queue(callback);
+			this._leaveButtons(currentButtons).queue(function() {
+				this.fireSceneEvent(BaseMenuEvents.onMenuExit);
+				callback();
+			}.bind(this));
 		}
 		,_enterButtons: function(buttons, isBackNavigation) {
 			var layoutMargin = 20
@@ -92,4 +99,6 @@
 			return lastAnimation;
 		}
 	});
+	
+	XQuestGame.BaseMenu.prototype.implementSceneEvents(BaseMenuEvents);
 })();
