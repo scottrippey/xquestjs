@@ -60,7 +60,7 @@ Smart.Animation = Smart.Class({
 			}
 		}
 		if (animEvent.stillRunning === false && this._actions.length) {
-			this._actions = [];
+			this._actions.length = 0;
 		}
 
 		return animEvent;
@@ -93,5 +93,12 @@ Smart.Animation = Smart.Class({
 				animEvent.clearCurrentActions();
 			}
 		});
+	}
+	,
+	/**
+	 * Cancels the animation queue and removes the animation
+	 */
+	cancelAnimation: function() {
+		this._actions.length = 0;
 	}
 });
