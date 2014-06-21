@@ -5,7 +5,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 	,
 	_setupCrystalGraphic: function() {
 		var G = Graphics.crystals;
-		this.radius = G.radius;
+		this.visibleRadius = G.radius;
 
 		this.graphics
 			.clear()

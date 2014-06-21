@@ -5,7 +5,7 @@ EaselJSGraphics.PlayerGraphics = Smart.Class(new createjs.Shape(), {
 	,
 	_setupGraphics: function(){
 		var g = this.graphics, G = Graphics.player;
-		this.radius = G.radius;
+		this.visibleRadius = G.radius;
 		g.clear();
 
 		g.beginStyle(G.outerStrokeStyle)

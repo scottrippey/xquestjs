@@ -185,7 +185,7 @@ var EaselJSGraphics = Smart.Class({
 		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		var scale = 0.7;
 		playerGraphics.scaleTo(scale);
-		playerGraphics.radius *= scale;
+		playerGraphics.visibleRadius *= scale;
 		this.layers.hud.addChild(playerGraphics);
 		return playerGraphics;
 	}
@@ -235,7 +235,7 @@ var EaselJSGraphics = Smart.Class({
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		var scale = 0.7;
 		crystal.scaleTo(scale);
-		crystal.radius *= scale;
+		crystal.visibleRadius *= scale;
 		this.layers.hud.addChild(crystal);
 		return crystal;
 	}
@@ -259,7 +259,7 @@ var EaselJSGraphics = Smart.Class({
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		var scale = 0.7;
 		bombCrystal.scaleTo(scale);
-		bombCrystal.radius *= scale;
+		bombCrystal.visibleRadius *= scale;
 		this.layers.hud.addChild(bombCrystal);
 		return bombCrystal;
 	}
