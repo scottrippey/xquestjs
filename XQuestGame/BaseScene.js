@@ -51,9 +51,6 @@ XQuestGame.BaseScene = Smart.Class({
 
 		_.eliminate(this.debugStats.sceneItems, sceneItem);
 	}
-	,scenePause: function(scenePaused) {
-		this.scenePaused = scenePaused;
-	}
 	,
 	/**
 	 * Creates utility methods for adding event handlers.

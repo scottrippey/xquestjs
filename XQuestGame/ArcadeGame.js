@@ -10,23 +10,27 @@
 		,onPowerupChanged: 'PowerupChanged'
 	};
 
-	XQuestGame.ArcadeGame = Smart.Class(new XQuestGame.BaseGame(), {
+	XQuestGame.ArcadeGame = Smart.Class(new XQuestGame.BaseScene(), {
 		player: null
 		, levelGraphics: null
 		, activePowerups: null
-		, paused: false
+		, scenePaused: false
 		, stats: null
 		, powerCrystals: null
 		
-		, initialize: function _ArcadeGame(graphics) {
+		, initialize: function _ArcadeGame(graphics, input) {
+			this.BaseScene_initialize();
+			this.gfx = graphics;
+			this.input = input;
+			
 			// Since all other classes use 'this.game', this will provide consistency:
 			this.game = this;
 			this._events = new Smart.Events();
 	
-			this.initializeGame(graphics);
-			this.addGameItem(this);
+			this.addSceneItem(this);
 	
 			this.stats = {};
+			this._setupInput();
 			this._setupLevelGraphics();
 			this._setupPlayer();
 			this._setupEnemyFactory();
@@ -39,16 +43,19 @@
 	
 			this._startGame();
 		}
+		, _setupInput: function() {
+			this.input = new XQuestGame.GameInput();
+		}
 		, _setupLevelGraphics: function() {
 			this.levelGraphics = this.game.gfx.createLevelGraphics();
 		}
 		, _setupPlayer: function() {
 			this.player = new XQuestGame.Player(this.game);
-			this.game.addGameItem(this.player);
+			this.game.addSceneItem(this.player);
 		}
 		, _setupEnemyFactory: function() {
 			this.enemies = new XQuestGame.EnemyFactory(this.game);
-			this.addGameItem(this.enemies);
+			this.addSceneItem(this.enemies);
 		}
 		, _setupCrystals: function() {
 			this.crystals = new XQuestGame.CrystalFactory(this.game);
@@ -61,7 +68,7 @@
 		}
 		, _setupHUD: function() {
 			this.hud = new XQuestGame.Hud(this.game);
-			this.addGameItem(this.hud);
+			this.addSceneItem(this.hud);
 		}
 		
 		, debug: function() {
@@ -194,16 +201,14 @@
 		}
 	
 		, pauseGame: function(paused) {
-			paused = (paused !== undefined) ? paused : !this.paused;
+			paused = (paused !== undefined) ? paused : !this.scenePaused;
 			
-			if (this.paused === paused) return;
-			this.paused = paused;
-			
-			this.timer.pauseTimer(this.paused);
+			if (this.scenePaused === paused) return;
+			this.scenePaused = paused;
 			
 			this.game.player.cancelVelocity();
 			
-			this._events.fireEvent(GameEvents.onGamePaused, [ this.paused ]);
+			this._events.fireEvent(GameEvents.onGamePaused, [ this.scenePaused ]);
 		}
 	
 		, activatePowerup: function(powerupName) {

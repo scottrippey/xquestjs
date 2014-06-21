@@ -1,7 +1,7 @@
 XQuestGame.Projectiles = Smart.Class({
 	initialize: function Projectiles(game) {
 		this.game = game;
-		this.game.addGameItem(this);
+		this.game.addSceneItem(this);
 
 		this.bullets = [];
 		this.bomb = null;

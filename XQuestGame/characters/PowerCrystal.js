@@ -2,7 +2,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 	initialize: function(game) {
 		var B = Balance.powerCrystals;
 		this.game = game;
-		this.game.addGameItem(this);
+		this.game.addSceneItem(this);
 
 		this.location = this.game.gfx.createPowerCrystalGraphic();
 		this.radius = B.radius;
@@ -36,7 +36,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 	gatherPowerCrystal: function() {
 		this.location.gatherPowerCrystal(this.game.gfx, this.game.player.location)
 			.queue(function() {
-				this.game.removeGameItem(this);
+				this.game.removeSceneItem(this);
 			}.bind(this))
 		;
 	}
@@ -44,7 +44,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 	clearPowerCrystal: function() {
 		this.location.clearPowerCrystal(this.game.gfx)
 			.queue(function() {
-				this.game.removeGameItem(this);
+				this.game.removeSceneItem(this);
 			}.bind(this))
 		;
 	}
