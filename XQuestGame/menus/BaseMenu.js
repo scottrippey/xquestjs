@@ -25,6 +25,11 @@
 				this._enterButtons(currentButtons, isBackNavigation)
 			}
 		}
+		,exitMenu: function(callback) {
+			var currentButtons = this.buttonStack.pop();
+			this.buttonStack.length = 0;
+			this._leaveButtons(currentButtons).queue(callback);
+		}
 		,_enterButtons: function(buttons, isBackNavigation) {
 			var layoutMargin = 20
 				, animRotation = 30

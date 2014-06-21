@@ -1,22 +1,22 @@
-(function init_StartMenu() {
-	var StartMenuEvents = {
-		onStartArcadeGame: 'StartArcadeGame'
+(function init_PauseMenu() {
+	var PauseMenuEvents = {
+		onResumeGame: 'ResumeGame'
 	};
 
-	XQuestGame.StartMenu = Smart.Class(new XQuestGame.BaseMenu(), {
+	XQuestGame.PauseMenu = Smart.Class(new XQuestGame.BaseMenu(), {
 		initialize: function (gfx) {
 			this.BaseMenu_initialize(gfx);
-			this._loadStartMenu();
+			this._loadPauseMenu();
 		}
-		,_loadStartMenu: function() {
-			var startButton = this.gfx.createButton("Start Game", this._startArcadeGame.bind(this));
+		,_loadPauseMenu: function() {
+			var resumeButton = this.gfx.createButton("Resume Game", this._resumeGame.bind(this));
 			var gameOptions = this.gfx.createButton("Game Options", this._loadGameOptions.bind(this));
 			
-			this.loadButtons([startButton, gameOptions]);
+			this.loadButtons([resumeButton, gameOptions]);
 		}
-		,_startArcadeGame: function() {
+		,_resumeGame: function() {
 			this.exitMenu(function() {
-				this.fireSceneEvent(StartMenuEvents.onStartArcadeGame);
+				this.fireSceneEvent(PauseMenuEvents.onResumeGame);
 			}.bind(this));
 		}
 		
@@ -28,5 +28,5 @@
 			this.loadButtons([option1, option2, option3]);
 		}
 	});
-	XQuestGame.StartMenu.prototype.implementSceneEvents(StartMenuEvents);
+	XQuestGame.PauseMenu.prototype.implementSceneEvents(PauseMenuEvents);
 })();
