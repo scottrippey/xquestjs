@@ -6,20 +6,33 @@
 	XQuestGame.StartMenu = Smart.Class(new XQuestGame.BaseScene(), {
 		initialize: function (gfx) {
 			this.BaseScene_initialize();
-
+			
+			this.buttonStack = [];
+			
 			this.gfx = gfx;
 			this.addSceneItem(this.gfx);
 
 			this._loadStartMenu();
 		}
-		,_loadButtons: function(buttons, isBackNavigation) {
-			if (this.currentButtons) {
-				this._leaveButtons(this.currentButtons, isBackNavigation);
+		,_loadButtons: function(buttons) {
+			var isBackNavigation = false;
+			if (this.buttonStack.length) {
+				var currentButtons = this.buttonStack[this.buttonStack.length - 1];
+				this._leaveButtons(currentButtons, isBackNavigation);
 			}
-			this.currentButtons = buttons;
+			this.buttonStack.push(buttons);
 			
-			this._enterButtons(this.currentButtons, isBackNavigation);
+			this._enterButtons(buttons, isBackNavigation);
 			
+		}
+		,_goBack: function() {
+			if (this.buttonStack.length) {
+				var isBackNavigation = true;
+				this._leaveButtons(this.buttonStack.pop(), isBackNavigation);
+				
+				var currentButtons = this.buttonStack[this.buttonStack.length - 1];
+				this._enterButtons(currentButtons, isBackNavigation)
+			}
 		}
 		,_enterButtons: function(buttons, isBackNavigation) {
 			var layoutMargin = 20
@@ -62,7 +75,7 @@
 				,buttonHeight = buttons[0].visibleHeight
 				;
 			top.x -= buttonWidth / 2;
-			top.y -= buttonHeight;
+			top.y -= buttonHeight * 1.5;
 			
 			var lastAnimation;
 			
@@ -74,8 +87,10 @@
 					.delay(animStagger * i).duration(animDuration).easeOut('quint')
 					.move(button, top)
 					.rotate(animRotation)
-					.queueDispose(button)
 				;
+				if (isBackNavigation)
+					button.animation.queueDispose(button);
+				
 				lastAnimation = button.animation;
 			}
 			return lastAnimation;
@@ -85,20 +100,20 @@
 			var startButton = this.gfx.createButton("Start Game", this._startArcadeGame.bind(this));
 			var gameOptions = this.gfx.createButton("Game Options", this._loadGameOptions.bind(this));
 			
-			this._loadButtons([startButton, gameOptions], false);
+			this._loadButtons([startButton, gameOptions]);
 		}
 		,_startArcadeGame: function() {
-			this._leaveButtons(this.currentButtons).queue(function() {
+			this._leaveButtons(this.buttonStack.pop()).queue(function() {
 				this.fireSceneEvent(StartMenuEvents.onStartArcadeGame);
 			}.bind(this));
 		}
 		
 		,_loadGameOptions: function() {
-			var option1 = this.gfx.createButton("Option 1", null);
-			var option2 = this.gfx.createButton("Option 2", null);
-			var option3 = this.gfx.createButton("Option 3", null);
+			var option1 = this.gfx.createButton("Option 1", this._goBack.bind(this));
+			var option2 = this.gfx.createButton("Option 2", this._goBack.bind(this));
+			var option3 = this.gfx.createButton("Option 3", this._goBack.bind(this));
 			
-			this._loadButtons([option1, option2, option3], false);
+			this._loadButtons([option1, option2, option3]);
 		}
 	});
 	XQuestGame.StartMenu.prototype.implementSceneEvents(StartMenuEvents);
