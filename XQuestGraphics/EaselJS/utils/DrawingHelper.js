@@ -7,7 +7,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 // Native canvas methods; create proxies:
 [
 	'moveTo', 'lineTo', 'arc', 'arcTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect'
-	,'beginPath', 'fill', 'stroke'
+	,'beginPath', 'fill', 'stroke', 'closePath'
 ].forEach(function(methodName) {
 	EaselJSGraphics.DrawingBase.prototype[methodName] = function _canvas_method_() {
 		var methodArgs = arguments;

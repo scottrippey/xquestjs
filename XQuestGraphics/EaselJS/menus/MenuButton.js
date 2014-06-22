@@ -32,13 +32,17 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 	}
 });
 EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraphics.Drawing(), {
-	drawStatic: function(drawing) {
+	drawEffects: function(drawing) {
 		var G = Graphics.menuButton;
-		drawing.beginPath()
-			.roundRect(0, 0, G.width, G.height, G.borderRadius)
-			.endPath(G.buttonStyle);
-	}
-	,drawEffects: function(drawing) {
-
+		var left = 0, top = 0, right = left + G.width, bottom = top + G.height;
+		var segmentsH = 20, devH = 0.05;
+		var segmentsV = 5, devV = 0.5;
+		drawing.beginPath();
+		drawing.moveTo(left, top);
+		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: left, y: top }, { x: right, y: top }, segmentsH, devH);
+		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: right, y: top }, { x: right, y: bottom }, segmentsV, devV);
+		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: right, y: bottom }, { x: left, y: bottom }, segmentsH, devH);
+		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: left, y: bottom }, { x: left, y: top }, segmentsV, devV);
+		drawing.endPath(G.buttonStyle);
 	}
 });
