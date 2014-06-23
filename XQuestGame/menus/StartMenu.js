@@ -9,8 +9,8 @@
 			this._loadStartMenu();
 		}
 		,_loadStartMenu: function() {
-			var startButton = this.gfx.createButton("Start Game", this._startArcadeGame.bind(this));
-			var gameOptions = this.gfx.createButton("Game Options", this._loadGameOptions.bind(this));
+			var startButton = this.createMenuButton("Start Game", this._startArcadeGame.bind(this));
+			var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
 			
 			this.loadButtons([startButton, gameOptions]);
 		}
@@ -21,10 +21,10 @@
 		}
 		
 		,_loadGameOptions: function() {
-			var option1 = this.gfx.createButton("Option 1", this.goBack.bind(this));
-			var option2 = this.gfx.createButton("Option 2", this.goBack.bind(this));
-			var option3 = this.gfx.createButton("Option 3", this.goBack.bind(this));
-			var option4 = this.gfx.createButton("Option 4", this.goBack.bind(this));
+			var option1 = this.createMenuButton("Option 1", this.goBack.bind(this));
+			var option2 = this.createMenuButton("Option 2", this.goBack.bind(this));
+			var option3 = this.createMenuButton("Option 3", this.goBack.bind(this));
+			var option4 = this.createMenuButton("Option 4", this.goBack.bind(this));
 
 			this.loadButtons([option1, option2, option3, option4]);
 		}

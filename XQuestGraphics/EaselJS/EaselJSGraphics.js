@@ -31,15 +31,11 @@ var EaselJSGraphics = Smart.Class({
 				_.eliminate(allGraphics, child);
 			};
 		}
-		trackChildren(this.layers.background);
-		trackChildren(this.layers.effects);
-		trackChildren(this.layers.characters);
-		trackChildren(this.layers.hud);
-
-		this.layers.background.autoClear = false;
-		this.layers.effects.autoClear = false;
-		this.layers.characters.autoClear = false;
-		this.layers.hud.autoClear = false;
+		_.forOwn(this.layers, function(stage) {
+			trackChildren(stage);
+			stage.autoClear = false;
+		});
+		this.layers.hud.enableMouseOver = true;
 	}
 	,
 	_setupBackground: function() {
@@ -335,10 +331,17 @@ var EaselJSGraphics = Smart.Class({
 		return pauseButton;
 	}
 	,
-	createButton: function(text, invokedHandler) {
+	createButton: function(text) {
 		var buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
 		buttonGfx.setText(text);
-		buttonGfx.addEventListener('click', invokedHandler);
+		buttonGfx.addButtonEvents = function(events) {
+			if (events.invoke)
+				this.addEventListener('click', events.invoke);
+			if (events.hoverEnter)
+				this.addEventListener('rollover', events.hoverEnter);
+			if (events.hoverLeave)
+				this.addEventListener('rollout', events.hoverLeave);
+		};
 
 		this.layers.hud.addChild(buttonGfx);
 		buttonGfx.onDispose(function() {

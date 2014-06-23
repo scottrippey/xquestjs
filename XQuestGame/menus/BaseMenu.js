@@ -101,6 +101,29 @@
 			return lastAnimation;
 		}
 
+		,createMenuButton: function(text, onInvoke) {
+			var buttonGfx = this.gfx.createButton(text);
+			buttonGfx.addButtonEvents({
+				invoke: onInvoke
+				, hoverEnter: this._setActiveButton.bind(this, buttonGfx)
+				, hoverLeave: this._setActiveButton.bind(this, null)
+			});
+			buttonGfx.onInvoke = onInvoke;
+			return buttonGfx;
+		}
+		,_setActiveButton: function(activeButton) {
+			var buttons = this.buttonStack[this.buttonStack.length - 1];
+			for (var i = 0, l = buttons.length; i < l; i++) {
+				var menuButton = buttons[i];
+
+				var isActive = (menuButton === activeButton);
+				menuButton.setActive(isActive);
+
+				if (isActive) this.activeIndex = i;
+			}
+		}
+
+
 	});
 	
 	XQuestGame.BaseMenu.prototype.implementSceneEvents(BaseMenuEvents);

@@ -9,6 +9,11 @@ Balance.onUpdate(function(gameMode) {
 				strokeStyle: 'hsla(60, 100%, 100%, 0.3)',
 				fillStyle: 'hsla(60, 100%, 100%, 0.2)'
 			}
+			,buttonActiveStyle: {
+				lineWidth: 4,
+				strokeStyle: 'hsla(60, 100%, 100%, 0.7)',
+				fillStyle: 'hsla(60, 100%, 100%, 0.5)'
+			}
 		}
 	});
 });
@@ -18,7 +23,8 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 		this.Container_initialize();
 		this.gfx = gfx;
 
-		this.addChild(new EaselJSGraphics.MenuGraphics.MenuButtonBackground());
+		this.background = new EaselJSGraphics.MenuGraphics.MenuButtonBackground();
+		this.addChild(this.background);
 
 		var G = Graphics.menuButton;
 		this.visibleWidth = G.width;
@@ -32,10 +38,16 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 
 		textGfx.moveTo(this.visibleWidth / 2, this.visibleHeight / 2);
 	}
+	,setActive: function(isActive) {
+		if (this.isActive === isActive) return;
+		this.isActive = isActive;
+		this.background.isActive = isActive;
+	}
 });
 EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraphics.Drawing(), {
-	drawEffects: function(drawing) {
-		var G = Graphics.menuButton;
+	isActive: false
+	,drawEffects: function(drawing) {
+		var G = (Graphics.menuButton);
 		var left = 0, top = 0, right = left + G.width, bottom = top + G.height;
 		var segmentsH = 20, devH = 0.05;
 		var segmentsV = 5, devV = 0.5;
@@ -45,6 +57,6 @@ EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraph
 		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: right, y: top }, { x: right, y: bottom }, segmentsV, devV);
 		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: right, y: bottom }, { x: left, y: bottom }, segmentsH, devH);
 		EaselJSGraphics.SpecialEffects.drawElectricLineTo(drawing, { x: left, y: bottom }, { x: left, y: top }, segmentsV, devV);
-		drawing.endPath(G.buttonStyle);
+		drawing.endPath(this.isActive ? G.buttonActiveStyle : G.buttonStyle);
 	}
 });
