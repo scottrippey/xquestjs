@@ -44,12 +44,14 @@
 				, animDuration = 1
 				;
 			
-			var entrance = this.gfx.getHudPoint('bottom');
-			var middle = this.gfx.getHudPoint('middle');
-
-
 			var buttonHeight = buttons[0].visibleHeight;
-			entrance.y += buttonHeight * 2;
+
+			var fromTop = isBackNavigation;
+
+			var entrance = this.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
+			entrance.y += buttonHeight * (fromTop ? -2 : 2);
+
+			var middle = this.gfx.getHudPoint('middle');
 			var stackedButtonsHeight = (buttons.length - 1) * (buttonHeight + layoutMargin);
 			var currentTop = middle.y - stackedButtonsHeight / 2;
 
@@ -61,7 +63,7 @@
 				button.moveTo(entrance.x, entrance.y);
 				button.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
 				button.animation = this.gfx.addAnimation()
-					.delay(animStagger * i).duration(animDuration).easeOut('quint')
+					.delay(animStagger * (fromTop ? l-i : i)).duration(animDuration).easeOut('quint')
 					.move(button, { x: buttonX, y: buttonY })
 					.rotate(button, 0)
 				;
@@ -72,14 +74,14 @@
 		,_leaveButtons: function(buttons, isBackNavigation) {
 			var animRotation = 30
 				,animStagger = 0.1
-				,animDuration = 0.25
+				,animDuration = 0.5
 				;
+			var toBottom = isBackNavigation;
 
-			var buttonWidth = buttons[0].visibleWidth
-				,buttonHeight = buttons[0].visibleHeight;
-			var exit = this.gfx.getHudPoint('top');
-			exit.y -= buttonHeight * 2;
-			
+			var buttonHeight = buttons[0].visibleHeight;
+			var exit = this.gfx.getHudPoint(toBottom ? 'bottom' : 'top');
+				exit.y += buttonHeight * (toBottom ? 2 : -2);
+
 			var lastAnimation;
 			
 			for (var i = 0, l = buttons.length; i < l; i++) {
@@ -87,7 +89,7 @@
 				if (button.animation) 
 					button.animation.cancelAnimation();
 				button.animation = this.gfx.addAnimation()
-					.delay(animStagger * i).duration(animDuration).easeOut('quint')
+					.delay(animStagger * (toBottom ? l-i : i)).duration(animDuration).easeOut('quint')
 					.move(button, exit)
 					.rotate(animRotation)
 				;
@@ -98,6 +100,7 @@
 			}
 			return lastAnimation;
 		}
+
 	});
 	
 	XQuestGame.BaseMenu.prototype.implementSceneEvents(BaseMenuEvents);

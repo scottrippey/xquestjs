@@ -24,8 +24,9 @@
 			var option1 = this.gfx.createButton("Option 1", this.goBack.bind(this));
 			var option2 = this.gfx.createButton("Option 2", this.goBack.bind(this));
 			var option3 = this.gfx.createButton("Option 3", this.goBack.bind(this));
-			
-			this.loadButtons([option1, option2, option3]);
+			var option4 = this.gfx.createButton("Option 4", this.goBack.bind(this));
+
+			this.loadButtons([option1, option2, option3, option4]);
 		}
 	});
 	XQuestGame.StartMenu.prototype.implementSceneEvents(StartMenuEvents);
