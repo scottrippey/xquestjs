@@ -1,9 +1,11 @@
 EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 	DisplayObject_initialize: createjs.DisplayObject.prototype.initialize
 	,DisplayObject_draw: createjs.DisplayObject.prototype.draw
-
-	,Drawing_initialize: null // Overridden below:
+	,sharedDrawingContext: new EaselJSGraphics.DrawingContext(null)
 	,initialize: function() {
+		this.Drawing_initialize();
+	}
+	,Drawing_initialize: function() {
 		this.DisplayObject_initialize();
 
 		if (this.drawStatic) {
@@ -22,10 +24,8 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 		}
 		if (this.drawEffects && !ignoreCache) {
 			var tickEvent = this.tickEvent;
-			if (!tickEvent.drawingContext) {
-				tickEvent.drawingContext = new EaselJSGraphics.DrawingContext(ctx);
-			}
-			this.drawEffects(tickEvent.drawingContext, tickEvent);
+			this.sharedDrawingContext.setContext(ctx);
+			this.drawEffects(this.sharedDrawingContext, tickEvent);
 		}
 
 		return true;
@@ -34,4 +34,3 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 	,drawStatic: null // Should be overridden
 	,drawEffects: null // Should be overridden
 });
-EaselJSGraphics.Drawing.prototype.Drawing_initialize = EaselJSGraphics.Drawing.prototype.initialize;

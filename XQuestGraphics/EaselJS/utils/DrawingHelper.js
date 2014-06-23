@@ -131,6 +131,9 @@ EaselJSGraphics.DrawingContext = Smart.Class(new EaselJSGraphics.DrawingBase(), 
 	,addCommand: function(command) {
 		command(this.context);
 	}
+	,setContext: function(context) {
+		this.context = context;
+	}
 });
 /**
  * A Drawing Helper that queues and caches the shapes, to be drawn
