@@ -44,20 +44,22 @@
 				, animDuration = 1
 				;
 			
-			var bottom = this.gfx.getHudPoint('bottom');
+			var entrance = this.gfx.getHudPoint('bottom');
 			var middle = this.gfx.getHudPoint('middle');
 
+
 			var buttonHeight = buttons[0].visibleHeight;
-			var stackedButtonsHeight = buttons.length * (buttonHeight + layoutMargin) - layoutMargin;
+			entrance.y += buttonHeight * 2;
+			var stackedButtonsHeight = (buttons.length - 1) * (buttonHeight + layoutMargin);
 			var currentTop = middle.y - stackedButtonsHeight / 2;
 
 			for (var i = 0, l = buttons.length; i < l; i++) {
 				var button = buttons[i];
-				var buttonX = middle.x - button.visibleWidth / 2
+				var buttonX = middle.x
 					,buttonY = currentTop;
 				
-				button.moveTo(buttonX, bottom.y + button.visibleHeight);
-				button.rotation = animRotation;
+				button.moveTo(entrance.x, entrance.y);
+				button.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
 				button.animation = this.gfx.addAnimation()
 					.delay(animStagger * i).duration(animDuration).easeOut('quint')
 					.move(button, { x: buttonX, y: buttonY })
@@ -72,13 +74,11 @@
 				,animStagger = 0.1
 				,animDuration = 0.25
 				;
-			var top = this.gfx.getHudPoint('top');
-			
+
 			var buttonWidth = buttons[0].visibleWidth
-				,buttonHeight = buttons[0].visibleHeight
-				;
-			top.x -= buttonWidth / 2;
-			top.y -= buttonHeight * 1.5;
+				,buttonHeight = buttons[0].visibleHeight;
+			var exit = this.gfx.getHudPoint('top');
+			exit.y -= buttonHeight * 2;
 			
 			var lastAnimation;
 			
@@ -88,7 +88,7 @@
 					button.animation.cancelAnimation();
 				button.animation = this.gfx.addAnimation()
 					.delay(animStagger * i).duration(animDuration).easeOut('quint')
-					.move(button, top)
+					.move(button, exit)
 					.rotate(animRotation)
 				;
 				if (isBackNavigation)

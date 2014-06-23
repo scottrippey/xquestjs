@@ -23,6 +23,8 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 		var G = Graphics.menuButton;
 		this.visibleWidth = G.width;
 		this.visibleHeight = G.height;
+		this.regX = G.width / 2;
+		this.regY = G.height / 2;
 	}
 	,setText: function(text) {
 		var textGfx = this.gfx.addText(text, 'menuButton');
