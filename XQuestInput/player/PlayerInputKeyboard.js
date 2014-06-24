@@ -58,7 +58,6 @@
 	XQuestInput.PlayerInputKeyboard = Smart.Class({
 		initialize: function(game, element) {
 			this.game = game;
-			this.game.input.addGameInput(this);
 
 			if (!element) {
 				element = document;

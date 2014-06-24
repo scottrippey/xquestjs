@@ -76,9 +76,9 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.game = arcadeGame;
 		this.scenes.push(arcadeGame);
 
-		new XQuestInput.PlayerInputKeyboard(this.game, null);
-		new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode);
-		new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode);
+		this.game.input.addGameInput(new XQuestInput.PlayerInputKeyboard(this.game, null));
+		this.game.input.addGameInput(new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode));
+		this.game.input.addGameInput(new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode));
 		
 		this.game.onGamePaused(function(paused) {
 			if (!paused) return;

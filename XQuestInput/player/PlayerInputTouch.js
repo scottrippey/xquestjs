@@ -20,7 +20,6 @@
 
 		initialize: function(game, element) {
 			this.game = game;
-			this.game.input.addGameInput(this);
 			this.element = element;
 			this.touchState = {};
 
