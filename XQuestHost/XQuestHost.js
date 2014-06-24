@@ -81,14 +81,16 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.game.input.addGameInput(new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode));
 		this.game.input.addGameInput(new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode));
 		
-		this.game.onGamePaused(function(paused) {
-			if (!paused) return;
-			var pauseMenu = new XQuestGame.PauseMenu(this.graphics);
-			this.scenes.push(pauseMenu);
-			pauseMenu.onMenuExit(function() {
-				this.scenes.pop();
-				this.game.pauseGame(false);
-			}.bind(this));
+		this.game.onGamePaused(this._onGamePaused.bind(this));
+	}
+	,_onGamePaused: function(paused) {
+		if (!paused) return;
+		this.pauseMenu = new XQuestGame.PauseMenu(this.graphics);
+		this.pauseMenu.addSceneItem(new XQuestInput.MenuInputKeyboard());
+		this.scenes.push(this.pauseMenu);
+		this.pauseMenu.onMenuExit(function() {
+			this.scenes.pop();
+			this.game.pauseGame(false);
 		}.bind(this));
 	}
 
