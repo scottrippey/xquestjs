@@ -19,8 +19,9 @@ XQuestGame.BaseScene = Smart.Class({
 	,updateScene: function(tickEvent) {
 		// Iterate right-to-left, because items could get removed
 		if (!this.scenePaused) {
-			_.forEachRight(this.phases.input, function(gameItem) { gameItem.onInput(tickEvent); });
-			_.forEachRight(this.phases.move, function(gameItem) { gameItem.onMove(tickEvent); });
+			var inputState = {};
+			_.forEachRight(this.phases.input, function(gameItem) { gameItem.onInput(tickEvent, inputState); });
+			_.forEachRight(this.phases.move, function(gameItem) { gameItem.onMove(tickEvent, inputState); });
 			_.forEachRight(this.phases.act, function(gameItem) { gameItem.onAct(tickEvent); });
 		}
 		_.forEachRight(this.phases.draw, function(gameItem) { gameItem.onDraw(tickEvent); });

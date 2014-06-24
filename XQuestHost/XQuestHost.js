@@ -69,6 +69,7 @@ XQuestGame.XQuestHost = Smart.Class({
 	,_setupStartMenu: function() {
 		this.startMenu = new XQuestGame.StartMenu(this.graphics);
 		this.startMenu.onStartArcadeGame(this._startArcadeGame.bind(this));
+		this.startMenu.addSceneItem(new XQuestInput.MenuInputKeyboard());
 		this.scenes.push(this.startMenu);
 	}
 	,_startArcadeGame: function() {
