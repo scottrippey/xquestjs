@@ -35,7 +35,7 @@ var EaselJSGraphics = Smart.Class({
 			trackChildren(stage);
 			stage.autoClear = false;
 		});
-		this.layers.hud.enableMouseOver = true;
+		this.layers.hud.enableMouseOver();
 	}
 	,
 	_setupBackground: function() {
@@ -338,9 +338,9 @@ var EaselJSGraphics = Smart.Class({
 			if (events.invoke)
 				this.addEventListener('click', events.invoke);
 			if (events.hoverEnter)
-				this.addEventListener('rollover', events.hoverEnter);
+				this.addEventListener('mouseover', events.hoverEnter);
 			if (events.hoverLeave)
-				this.addEventListener('rollout', events.hoverLeave);
+				this.addEventListener('mouseout', events.hoverLeave);
 		};
 
 		this.layers.hud.addChild(buttonGfx);
