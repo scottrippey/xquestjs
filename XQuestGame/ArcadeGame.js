@@ -18,10 +18,9 @@
 		, stats: null
 		, powerCrystals: null
 		
-		, initialize: function _ArcadeGame(graphics, input) {
+		, initialize: function _ArcadeGame(graphics) {
 			this.BaseScene_initialize();
 			this.gfx = graphics;
-			this.input = input;
 			
 			// Since all other classes use 'this.game', this will provide consistency:
 			this.game = this;
@@ -30,7 +29,6 @@
 			this.addSceneItem(this);
 	
 			this.stats = {};
-			this._setupInput();
 			this._setupLevelGraphics();
 			this._setupPlayer();
 			this._setupEnemyFactory();
@@ -42,9 +40,6 @@
 			this.activePowerups = {};
 	
 			this._startGame();
-		}
-		, _setupInput: function() {
-			this.input = new XQuestGame.GameInput();
 		}
 		, _setupLevelGraphics: function() {
 			this.levelGraphics = this.game.gfx.createLevelGraphics();
@@ -120,6 +115,16 @@
 	
 		}
 	
+		, getDefaultInputState: function() {
+			var state = {
+				primaryWeapon: false
+				, secondaryWeapon: false
+				, engaged: false
+				, accelerationX: 0
+				, accelerationY: 0
+			};
+			return state;
+		}
 	
 		, killPlayer: function() {
 			this.game.player.killPlayer();

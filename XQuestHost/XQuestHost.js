@@ -77,9 +77,9 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.game = arcadeGame;
 		this.scenes.push(arcadeGame);
 
-		this.game.input.addGameInput(new XQuestInput.PlayerInputKeyboard(this.game, null));
-		this.game.input.addGameInput(new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode));
-		this.game.input.addGameInput(new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode));
+		this.game.addSceneItem(new XQuestInput.PlayerInputKeyboard(this.game, null));
+		this.game.addSceneItem(new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode));
+		this.game.addSceneItem(new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode));
 		
 		this.game.onGamePaused(this._onGamePaused.bind(this));
 	}

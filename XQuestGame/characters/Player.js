@@ -6,7 +6,7 @@ XQuestGame.Player = Smart.Class({
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
-		this.previousState = this.game.input.getDefaultState();
+		this.previousState = {};
 
 		this._setupPlayerGraphics();
 	}
@@ -24,27 +24,26 @@ XQuestGame.Player = Smart.Class({
 		this.velocity.y = 0;
 	}
 
-	, onInput: function(tickEvent) {
+	, _handleInputs: function(tickEvent, inputState) {
 
-		var currentState = this.game.input.getInputState();
 		var previousState = this.previousState;
 
 		if (!this.playerActive) return;
 
-		this.previousState = currentState;
+		this.previousState = inputState;
 
-		if (currentState.accelerationX || currentState.accelerationY) {
+		if (inputState.accelerationX || inputState.accelerationY) {
 			var acceleration = {
-				x: currentState.accelerationX || 0,
-				y: currentState.accelerationY || 0
+				x: inputState.accelerationX || 0,
+				y: inputState.accelerationY || 0
 			};
 			Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
 			Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
 		}
 
-		this.engaged = currentState.engaged;
+		this.engaged = inputState.engaged;
 
-		if (currentState.primaryWeapon) {
+		if (inputState.primaryWeapon) {
 			var isFirstDown = (previousState.primaryWeapon === false);
 			if (isFirstDown) {
 				this.primaryWeaponDownTime = tickEvent.runTime;
@@ -59,7 +58,7 @@ XQuestGame.Player = Smart.Class({
 			}
 		}
 
-		if (currentState.primaryWeapon) {
+		if (inputState.primaryWeapon) {
 			var shotsPerSecond;
 			if (this.game.activePowerups.rapidFire) {
 				shotsPerSecond = Balance.powerups.rapidFire.shotsPerSecond;
@@ -81,7 +80,7 @@ XQuestGame.Player = Smart.Class({
 			this.nextRapidFire = null;
 		}
 		
-		if (currentState.secondaryWeapon) {
+		if (inputState.secondaryWeapon) {
 			var isFirstDown = (previousState.secondaryWeapon === false);
 			if (isFirstDown) {
 				this.game.projectiles.releaseABomb();
@@ -90,7 +89,8 @@ XQuestGame.Player = Smart.Class({
 
 	}
 
-	, onMove: function(tickEvent) {
+	, onMove: function(tickEvent, inputState) {
+		this._handleInputs(tickEvent, inputState);
 		this._movePlayer(tickEvent);
 	}
 	, _movePlayer: function(tickEvent) {

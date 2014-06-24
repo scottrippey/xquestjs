@@ -111,15 +111,15 @@
 			return acceleration;
 		},
 
-		mergeInputState: function(state) {
+		onInput: function(tickEvent, inputState) {
 
 			var touchState = this.touchState;
 
-			if (touchState.primaryWeapon) state.primaryWeapon = true;
-			if (touchState.secondaryWeapon) state.secondaryWeapon = true;
-			if (touchState.accelerationX) state.accelerationX += touchState.accelerationX;
-			if (touchState.accelerationY) state.accelerationY += touchState.accelerationY;
-			if (touchState.engaged) state.engaged = true;
+			if (touchState.primaryWeapon) inputState.primaryWeapon = true;
+			if (touchState.secondaryWeapon) inputState.secondaryWeapon = true;
+			if (touchState.accelerationX) inputState.accelerationX += touchState.accelerationX;
+			if (touchState.accelerationY) inputState.accelerationY += touchState.accelerationY;
+			if (touchState.engaged) inputState.engaged = true;
 
 			touchState.accelerationX = 0;
 			touchState.accelerationY = 0;

@@ -78,23 +78,23 @@
 			}
 		},
 
-		mergeInputState: function(state) {
+		onInput: function(tickEvent, inputState) {
 			var sensitivity = UserSettings.keyboardSensitivity;
 			var downActions = this.keyMapper.getDownActions();
 
-			if (downActions[primaryWeapon]) state.primaryWeapon = true;
-			if (downActions[secondaryWeapon]) state.secondaryWeapon = true;
+			if (downActions[primaryWeapon]) inputState.primaryWeapon = true;
+			if (downActions[secondaryWeapon]) inputState.secondaryWeapon = true;
 
 			var engaged = 2;
-			if (downActions[accelerateUp]) state.accelerationY -= sensitivity;
-			else if (downActions[accelerateDown]) state.accelerationY += sensitivity;
+			if (downActions[accelerateUp]) inputState.accelerationY -= sensitivity;
+			else if (downActions[accelerateDown]) inputState.accelerationY += sensitivity;
 			else engaged -= 1;
 
-			if (downActions[accelerateLeft]) state.accelerationX -= sensitivity;
-			else if (downActions[accelerateRight]) state.accelerationX += sensitivity;
+			if (downActions[accelerateLeft]) inputState.accelerationX -= sensitivity;
+			else if (downActions[accelerateRight]) inputState.accelerationX += sensitivity;
 			else engaged -= 1;
 
-			if (engaged) state.engaged = true;
+			if (engaged) inputState.engaged = true;
 		}
 
 	});

@@ -143,16 +143,16 @@
 				return 1 - distanceFromCenter + (distanceFromCenter / sensitivity);
 			}
 		},
-
-		mergeInputState: function(state) {
-
+		
+		onInput: function(tickEvent, inputState) {
+		
 			var mouseState = this.mouseState;
 
-			if (mouseState.primaryWeapon) state.primaryWeapon = true;
-			if (mouseState.secondaryWeapon) state.secondaryWeapon = true;
-			if (mouseState.accelerationX) state.accelerationX += mouseState.accelerationX;
-			if (mouseState.accelerationY) state.accelerationY += mouseState.accelerationY;
-			if (mouseState.engaged) state.engaged = true;
+			if (mouseState.primaryWeapon) inputState.primaryWeapon = true;
+			if (mouseState.secondaryWeapon) inputState.secondaryWeapon = true;
+			if (mouseState.accelerationX) inputState.accelerationX += mouseState.accelerationX;
+			if (mouseState.accelerationY) inputState.accelerationY += mouseState.accelerationY;
+			if (mouseState.engaged) inputState.engaged = true;
 
 			mouseState.accelerationX = 0;
 			mouseState.accelerationY = 0;
