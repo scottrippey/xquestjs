@@ -96,6 +96,7 @@ Balance.onUpdate(function(mode) {
 				strokeWidth: 8
 				, strokeColor: '#999999'
 			}
+			, gateElectricityFrequency: 1000 / 30
 		}
 		,gate: {
 			strokeStyle: {

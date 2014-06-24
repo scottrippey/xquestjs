@@ -2,7 +2,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	gateStart: null, gateEnd: null, gateOpen: false
 	,
 	initialize: function() {
-
+		this.nextChange = 0;
 	}
 	,
 	setGateWidth: function(gateWidth) {
@@ -28,9 +28,14 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 
 	,
 	onTick: function(tickEvent){
-		this.graphics.clear();
-		this._drawWalls();
-		this._drawGate();
+		
+		if (this.nextChange <= tickEvent.time) {
+			var G = Graphics.level;
+			this.nextChange = tickEvent.time + G.gateElectricityFrequency;
+			this.graphics.clear();
+			this._drawWalls();
+			this._drawGate();
+		}
 	}
 	,
 	_drawWalls: function() {
