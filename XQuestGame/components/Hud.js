@@ -18,12 +18,11 @@ XQuestGame.Hud = Smart.Class({
 
 		this.hudBombsIcon = this.game.gfx.createBombCrystalHUDIcon();
 		this.hudBombsText = this.game.gfx.addText("", 'hudText');
-		
+
 		this.hudPauseButton = this.game.gfx.createPauseButtonHUD();
 		this.hudPauseButton.addEventListener('click', function() { this.game.pauseGame(); }.bind(this));
 	}
-	,
-	_layout: function() {
+	, _layout: function() {
 		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;
 		var spacer = 50;
 
@@ -55,8 +54,7 @@ XQuestGame.Hud = Smart.Class({
 		this.hudPauseButton.moveTo(center - this.hudPauseButton.width / 2, middle - this.hudPauseButton.height / 2);
 
 	}
-	,
-	onDraw: function(tickEvent) {
+	, onAct: function(tickEvent) {
 		this.hudLivesText.text = ' x ' + this.game.stats.lives;
 		this.hudCrystalsText.text = ' x ' + this.game.stats.crystalCount;
 		this.hudBombsText.text = ' x ' + this.game.stats.bombs;

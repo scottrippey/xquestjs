@@ -8,6 +8,7 @@ var EaselJSGraphics = Smart.Class({
 
 		this._setupLayers();
 		this._setupBackground();
+		this._setupAnimations();
 		this._setupParticles();
 	}
 	,
@@ -43,21 +44,19 @@ var EaselJSGraphics = Smart.Class({
 		this.layers.background.addChild(background);
 	}
 	,
+	_setupAnimations: function() {
+		this.animations = new Smart.Animations();
+	}
+	,
 	_setupParticles: function() {
 		this.particleFactory = new EaselJSGraphics.ParticleFactory(this);
 	}
 	,
-	onMove: function(tickEvent) {
-		if (this.animations) {
-			this.animations.update(tickEvent.deltaSeconds);
-		}
-	}
-	,
-	onAct: function(tickEvent) {
+	updateGraphics: function(tickEvent) {
+
+		this.animations.update(tickEvent.deltaSeconds);
 		this.particleFactory.updateParticles(tickEvent);
-	}
-	,
-	onDraw: function(tickEvent) {
+
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
@@ -288,9 +287,6 @@ var EaselJSGraphics = Smart.Class({
 	}
 	,
 	addAnimation: function(animation) {
-		if (!this.animations) {
-			this.animations = new Smart.Animations();
-		}
 		return this.animations.addAnimation(animation);
 	}
 
@@ -331,7 +327,7 @@ var EaselJSGraphics = Smart.Class({
 		return pauseButton;
 	}
 	,
-	createButton: function(text) {
+	createMenuButton: function(text) {
 		var buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
 		buttonGfx.setText(text);
 		buttonGfx.addButtonEvents = function(events) {

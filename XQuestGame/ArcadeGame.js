@@ -20,14 +20,14 @@
 		
 		, initialize: function _ArcadeGame(graphics) {
 			this.BaseScene_initialize();
+
 			this.gfx = graphics;
-			
+
 			// Since all other classes use 'this.game', this will provide consistency:
 			this.game = this;
 			this._events = new Smart.Events();
-	
-			this.addSceneItem(this);
-	
+
+
 			this.stats = {};
 			this._setupLevelGraphics();
 			this._setupPlayer();

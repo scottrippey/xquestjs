@@ -60,10 +60,10 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.timer.addTickHandler(this._tickHandler.bind(this));
 	}
 	,_tickHandler: function(tickEvent) {
-		// Iterate right-to-left, because items could be removed
 		this.scenes.forEach(function(scene) {
 			scene.updateScene(tickEvent);
 		});
+		this.graphics.updateGraphics(tickEvent);
 	}
 
 	,_setupStartMenu: function() {
