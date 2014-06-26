@@ -78,24 +78,35 @@ XQuestGame.EnemyFactory = Smart.Class({
 		var enemies = this.enemies;
 		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
 		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
+			if (enemy.isDead) return;
+
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
 			if (theseSpecificItemsDidCollide) {
-				enemy.mustDie = true;
+				var hitPoints = item.hitPoints || 1;
+				var kickBack = item.velocity || null;
+				var kickBackWeight = item.weight || 1;
+				var stayAlive = enemy.takeDamage(hitPoints, kickBack, kickBackWeight);
+				if (!stayAlive)
+					enemy.isDead = true;
+
 				if (collisionCallback)
 					collisionCallback(enemy, item, ei, ii, distance);
 			}
 		}.bind(this));
 
+		// Remove dead enemies:
 		var i = enemies.length;
 		while (i--) {
-			if (enemies[i].mustDie) {
-				this._killEnemy(enemies[i], i);
+			if (enemies[i].isDead) {
+				this.enemies.splice(i, 1);
 			}
 		}
 	}
 	,
 	killAllEnemies: function() {
-		this.enemies.forEach(function(enemy) { enemy.killEnemy(); });
+		this.enemies.forEach(function(enemy) {
+			enemy.takeDamage(Number.POSITIVE_INFINITY, null, null);
+		}, this);
 		this.enemies.length = 0;
 	}
 	,
@@ -104,11 +115,6 @@ XQuestGame.EnemyFactory = Smart.Class({
 			enemy.clearEnemy();
 		});
 		this.enemies.length = 0;
-	}
-	,
-	_killEnemy: function(enemy, enemyIndex) {
-		enemy.killEnemy();
-		this.enemies.splice(enemyIndex, 1);
 	}
 	,
 	findClosestEnemy: function(location) {

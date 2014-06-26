@@ -30,10 +30,19 @@ XQuestGame.BaseEnemy = Smart.Class({
 		return false;
 	}
 	,
-	/* @public */
-	killEnemy: function() {
-		this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
-		this.game.removeSceneItem(this);
+	/** @public @overridable */
+	takeDamage: function(hitPoints, kickBack, kickBackWeight) {
+
+		if (kickBack) {
+			// Apply the kickback:
+			this.velocity.x += kickBack.x * kickBackWeight;
+			this.velocity.y += kickBack.y * kickBackWeight;
+		}
+
+		if (hitPoints >= 1) {
+			this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
+			this.game.removeSceneItem(this);
+		}
 	}
 	,
 	/* @public */

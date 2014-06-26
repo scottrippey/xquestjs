@@ -14,6 +14,7 @@ XQuestGame.Player = Smart.Class({
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
 		this.location = this.playerGraphics;
 		this.radius = Balance.player.radius;
+		this.weight = Balance.player.weight;
 	}
 	
 	, movePlayerTo: function(x, y) {

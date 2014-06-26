@@ -1,5 +1,6 @@
 EaselJSGraphics.BulletGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
+		this.weight = Balance.bullets.weight;
 		this._setupGraphics();
 	}
 	,
