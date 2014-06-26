@@ -8,7 +8,8 @@
 
 (function() {
 	var UserSettings = {
-		mouseSensitivity: 2,
+		mouseSensitivity: 10,
+		sensitivityScale: 100,
 		mouseBiasSensitivity: 2,
 		maxMouseMove: 40 // Maximum mouse delta per mousemove event
 	};
@@ -54,7 +55,7 @@
 		},
 
 		_onGamePaused: function(paused) {
-			this.element.style.cursor = paused ? null : "none";
+			//this.element.style.cursor = paused ? null : "none";
 			this.previousMousePosition = null;
 		},
 
@@ -100,6 +101,7 @@
 			if (!previousMousePosition) {
 				return;
 			}
+
 			var delta = {
 				x: Math.min(mousePosition.x - previousMousePosition.x, UserSettings.maxMouseMove)
 				, y: Math.min(mousePosition.y - previousMousePosition.y, UserSettings.maxMouseMove)
@@ -112,22 +114,23 @@
 		},
 		_adjustForSensitivity: function(delta, mousePosition) {
 			var elementSize = this.elementSize
-				, sensitivity = UserSettings.mouseSensitivity
+				, sensitivity = UserSettings.mouseSensitivity * UserSettings.sensitivityScale
 				, biasSensitivity = UserSettings.mouseBiasSensitivity;
 
-			var distanceFromCenter = {
-				x: 2 * ((mousePosition.x / elementSize.width) - 0.5)
-				, y: 2 * ((mousePosition.y / elementSize.height) - 0.5)
+			var screenDeltaX = delta.x / elementSize.width,
+				screenDeltaY = delta.y / elementSize.height;
+
+			var distanceFromCenterX = 2 * (mousePosition.x / elementSize.width) - 1,
+				distanceFromCenterY = 2 * (mousePosition.y / elementSize.height) - 1;
+
+			var biasX = this._getBias(distanceFromCenterX, delta.x, biasSensitivity),
+				biasY = this._getBias(distanceFromCenterY, delta.y, biasSensitivity);
+
+			var acceleration = {
+				x: screenDeltaX * sensitivity * biasX
+				, y: screenDeltaY * sensitivity * biasY
 			};
 
-			var bias = {
-				x: this._getBias(distanceFromCenter.x, delta.x, biasSensitivity)
-				, y: this._getBias(distanceFromCenter.y, delta.y, biasSensitivity)
-			};
-			var acceleration = {
-				x: delta.x * sensitivity * bias.x
-				, y: delta.y * sensitivity * bias.y
-			};
 			return acceleration;
 		},
 		_getBias: function(distanceFromCenter, deltaDirection, sensitivity) {
