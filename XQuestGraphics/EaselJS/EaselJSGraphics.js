@@ -189,9 +189,9 @@ var EaselJSGraphics = Smart.Class({
 	createPlayerBullet: function() {
 		var bulletGfx = new EaselJSGraphics.BulletGraphics();
 		this.layers.objects.addChild(bulletGfx);
-		bulletGfx.destroyBullet = function() {
+		bulletGfx.onDispose(function() {
 			this.layers.objects.removeChild(bulletGfx);
-		}.bind(this);
+		}.bind(this));
 		return bulletGfx;
 	}
 	,

@@ -55,13 +55,10 @@ XQuestGame.Projectiles = Smart.Class({
 			var bulletGfx = this.bullets[i];
 			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 			if (!Smart.Point.pointIsInBounds(bulletGfx, bounds)) {
-				bulletGfx.destroyBullet();
+				bulletGfx.dispose();
 				this.bullets.splice(i, 1);
 			}
 		}
-	}
-	, _destroyBullet: function(bullet, bulletIndex) {
-
 	}
 	, _bulletsKillEnemies: function() {
 		if (this.bullets.length) {
@@ -69,8 +66,18 @@ XQuestGame.Projectiles = Smart.Class({
 				Smart.Physics.sortByLocation(this.bullets);
 			}
 			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
-				this._destroyBullet(bullet, bi);
-			}.bind(this));
+				bullet.shouldDisappear = true;
+			});
+
+			// Remove bullets:
+			var i = this.bullets.length;
+			while (i--) {
+				var bulletGfx = this.bullets[i];
+				if (bulletGfx.shouldDisappear) {
+					bulletGfx.dispose();
+					this.bullets.splice(i, 1);
+				}
+			}
 		}
 		
 	}
