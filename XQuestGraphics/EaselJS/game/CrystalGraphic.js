@@ -39,9 +39,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 
 			.tween(function(s) { crystal.spinRate = s; }, [ crystal.spinRate, Graphics.crystals.spinRateGathered ])
 
-			.queue(function(animEvent) {
-				gfx.removeGraphic(crystal);
-			})
+			.queueDispose(crystal)
 		);
 	}
 });

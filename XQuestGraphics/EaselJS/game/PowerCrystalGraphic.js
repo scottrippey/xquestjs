@@ -37,9 +37,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 			.easeOut('quint')
 			.scale(powerCrystal, [1, 2, 2.5, 2, 1, 0])
 
-			.queue(function(animEvent) {
-				gfx.removeGraphic(powerCrystal);
-			})
+			.queueDispose(powerCrystal)
 		);
 	}
 
@@ -50,9 +48,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 			.duration(2).easeIn()
 			.scale(powerCrystal, 0)
 
-			.queue(function() {
-				gfx.removeGraphic(powerCrystal);
-			})
+			.queueDispose(powerCrystal)
 		);
 
 	}

@@ -53,7 +53,7 @@ XQuestGame.BaseEnemy = Smart.Class({
 			.scale(this.enemyGraphics, 0)
 
 			.queue(function() {
-				this.game.gfx.removeGraphic(this.enemyGraphics);
+				this.enemyGraphics.dispose();
 				this.game.removeSceneItem(this);
 			}.bind(this))
 		);

@@ -8,7 +8,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 	startLevel: function() {
 		// Clean up:
 		this.crystals.forEach(function(crystal) {
-			this.game.gfx.removeGraphic(crystal);
+			crystal.dispose();
 		}, this);
 		this.crystals = [];
 

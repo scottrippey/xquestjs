@@ -210,15 +210,11 @@ var EaselJSGraphics = Smart.Class({
 			throw new Error("Unknown enemy: " + enemyName);
 
 		this.layers.characters.addChild(enemyGraphics);
+		enemyGraphics.onDispose(function() {
+			this.layers.characters.removeChild(enemyGraphics);
+		}.bind(this));
 
 		return enemyGraphics;
-	}
-	,
-	removeGraphic: function(graphic) {
-		this.layers.background.removeChild(graphic);
-		this.layers.objects.removeChild(graphic);
-		this.layers.characters.removeChild(graphic);
-		this.layers.hud.removeChild(graphic);
 	}
 	,
 	createCrystalGraphic: function() {
@@ -242,6 +238,9 @@ var EaselJSGraphics = Smart.Class({
 	createPowerCrystalGraphic: function() {
 		var powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
 		this.layers.characters.addChild(powerCrystal);
+		powerCrystal.onDispose(function() {
+			this.layers.characters.removeChild(powerCrystal);
+		}.bind(this));
 		return powerCrystal;
 	}
 	,
@@ -260,6 +259,9 @@ var EaselJSGraphics = Smart.Class({
 		bombCrystal.scaleTo(scale);
 		bombCrystal.visibleRadius *= scale;
 		this.layers.hud.addChild(bombCrystal);
+		bombCrystal.onDispose(function() {
+			this.layers.hud.removeChild(bombCrystal);
+		}.bind(this));
 		return bombCrystal;
 	}
 	,

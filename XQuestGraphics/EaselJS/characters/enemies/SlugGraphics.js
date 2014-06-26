@@ -57,7 +57,7 @@ EaselJSGraphics.SlugGraphics = Smart.Class(new createjs.Shape(), {
 	,
 	killEnemy: function(gfx, velocity) {
 		var enemyGraphics = this, G = Graphics.enemies.slug;
-		gfx.removeGraphic(enemyGraphics);
+		enemyGraphics.dispose();
 
 		var particleOptions = G.particles;
 		gfx.createExplosion(enemyGraphics, velocity, particleOptions);
