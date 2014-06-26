@@ -6,7 +6,7 @@
 	cursor: move;
 }
 .mouse-engaged canvas {
-	cursor: none;
+	/*cursor: none;*/
 }
 
 .fill-screen {
