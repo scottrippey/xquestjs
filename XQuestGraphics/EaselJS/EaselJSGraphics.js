@@ -1,5 +1,5 @@
 var EaselJSGraphics = Smart.Class({
-	initialize: function(canvas) {
+	initialize: function(canvas, transparentBackground) {
 		this.canvas = canvas;
 
 		this.debugStats = {
@@ -7,7 +7,8 @@ var EaselJSGraphics = Smart.Class({
 		};
 
 		this._setupLayers();
-		this._setupBackground();
+		if (!transparentBackground)
+			this._setupBackgroundGraphics();
 		this._setupAnimations();
 		this._setupParticles();
 	}
@@ -15,7 +16,7 @@ var EaselJSGraphics = Smart.Class({
 	_setupLayers: function() {
 		this.layers = {
 			background: new createjs.Stage(this.canvas)
-			, effects: new createjs.Stage(this.canvas)
+			, objects: new createjs.Stage(this.canvas)
 			, characters: new createjs.Stage(this.canvas)
 			, hud: new createjs.Stage(this.canvas)
 		};
@@ -38,8 +39,7 @@ var EaselJSGraphics = Smart.Class({
 		});
 		this.layers.hud.enableMouseOver();
 	}
-	,
-	_setupBackground: function() {
+	,_setupBackgroundGraphics: function() {
 		var background = new EaselJSGraphics.BackgroundGraphics();
 		this.layers.background.addChild(background);
 	}
@@ -59,7 +59,7 @@ var EaselJSGraphics = Smart.Class({
 	,
 	onDraw: function(tickEvent) {
 		this.layers.background.update(tickEvent);
-		this.layers.effects.update(tickEvent);
+		this.layers.objects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
 		this.layers.hud.update(tickEvent);
 	}
@@ -81,11 +81,11 @@ var EaselJSGraphics = Smart.Class({
 		};
 
 		this.layers.background.x = -this._offset.x;
-		this.layers.effects.x = -this._offset.x;
+		this.layers.objects.x = -this._offset.x;
 		this.layers.characters.x = -this._offset.x;
 
 		this.layers.background.y = -this._offset.y;
-		this.layers.effects.y = -this._offset.y;
+		this.layers.objects.y = -this._offset.y;
 		this.layers.characters.y = -this._offset.y;
 
 	}
@@ -188,9 +188,9 @@ var EaselJSGraphics = Smart.Class({
 	,
 	createPlayerBullet: function() {
 		var bulletGfx = new EaselJSGraphics.BulletGraphics();
-		this.layers.effects.addChild(bulletGfx);
+		this.layers.objects.addChild(bulletGfx);
 		bulletGfx.destroyBullet = function() {
-			this.layers.effects.removeChild(bulletGfx);
+			this.layers.objects.removeChild(bulletGfx);
 		}.bind(this);
 		return bulletGfx;
 	}
@@ -216,14 +216,17 @@ var EaselJSGraphics = Smart.Class({
 	,
 	removeGraphic: function(graphic) {
 		this.layers.background.removeChild(graphic);
-		this.layers.effects.removeChild(graphic);
+		this.layers.objects.removeChild(graphic);
 		this.layers.characters.removeChild(graphic);
 		this.layers.hud.removeChild(graphic);
 	}
 	,
 	createCrystalGraphic: function() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
-		this.layers.background.addChild(crystal);
+		this.layers.objects.addChild(crystal);
+		crystal.onDispose(function() {
+			this.layers.objects.removeChild(crystal);
+		}.bind(this));
 		return crystal;
 	}
 	,
@@ -244,9 +247,9 @@ var EaselJSGraphics = Smart.Class({
 	,
 	createBombCrystalGraphic: function() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
-		this.layers.background.addChild(bombCrystal);
+		this.layers.objects.addChild(bombCrystal);
 		bombCrystal.onDispose(function() {
-			this.layers.background.removeChild(bombCrystal);
+			this.layers.objects.removeChild(bombCrystal);
 		}.bind(this));
 		return bombCrystal;
 	}
@@ -262,9 +265,9 @@ var EaselJSGraphics = Smart.Class({
 	,
 	createBombGraphic: function() {
 		var bomb = new EaselJSGraphics.BombGraphic();
-		this.layers.effects.addChild(bomb);
+		this.layers.objects.addChild(bomb);
 		bomb.onDispose(function() {
-			this.layers.effects.removeChild(bomb);
+			this.layers.objects.removeChild(bomb);
 		}.bind(this));
 		return bomb;
 	}
@@ -280,9 +283,9 @@ var EaselJSGraphics = Smart.Class({
 			particleOptions.velocity.y = velocity.y + partSpeed * random();
 
 			var particle = this.particleFactory.createParticle(particleOptions);
-			this.layers.effects.addChild(particle);
+			this.layers.background.addChild(particle);
 			particle.onDispose(function(particle) {
-				this.layers.effects.removeChild(particle);
+				this.layers.background.removeChild(particle);
 			}.bind(this, particle));
 		}
 	}

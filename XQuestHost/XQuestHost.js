@@ -1,12 +1,13 @@
 XQuestGame.XQuestHost = Smart.Class({
 	initialize: function(canvas) {
-
+		
 		this.scenes = [];
 
 		Balance.setGameMode('arcade');
 
 		this._setupCanvas(canvas);
 		this._setupTimer();
+		this._setupGraphics();
 		this._setupStartMenu();
 	}
 
@@ -60,10 +61,13 @@ XQuestGame.XQuestHost = Smart.Class({
 		});
 	}
 
+	,_setupGraphics: function() {
+		this.graphics = new EaselJSGraphics(this.canvas);
+	}
+	
 	,_setupStartMenu: function() {
 		// Create Start Menu:
-		var graphics = new EaselJSGraphics(this.canvas);
-		this.startMenu = new XQuestGame.StartMenu(graphics);
+		this.startMenu = new XQuestGame.StartMenu(this.graphics);
 		this.scenes.push(this.startMenu);
 		// Menu Inputs:
 		this.startMenu.addSceneItem(new XQuestInput.MenuInputKeyboard());
@@ -75,8 +79,7 @@ XQuestGame.XQuestHost = Smart.Class({
 	}
 	,_startArcadeGame: function() {
 		// Create Game:
-		var graphics = new EaselJSGraphics(this.canvas);
-		this.game = new XQuestGame.ArcadeGame(graphics);
+		this.game = new XQuestGame.ArcadeGame(this.graphics);
 		this.scenes.push(this.game);
 		// Game Inputs:
 		this.game.addSceneItem(new XQuestInput.PlayerInputKeyboard(this.game, null));
@@ -88,7 +91,9 @@ XQuestGame.XQuestHost = Smart.Class({
 	,_showPauseMenu: function(paused) {
 		if (!paused) return;
 		// Create Pause Menu:
-		var graphics = new EaselJSGraphics(this.canvas);
+		// Currently there can only be 1 scene that uses this.graphics;
+		// otherwise we would be double-drawing everything:
+		var graphics = new EaselJSGraphics(this.canvas, true);
 		this.pauseMenu = new XQuestGame.PauseMenu(graphics);
 		this.scenes.push(this.pauseMenu);
 		// Menu Inputs:
