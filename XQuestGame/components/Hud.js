@@ -18,7 +18,7 @@ XQuestGame.Hud = Smart.Class({
 
 		this.hudBombsIcon = this.game.gfx.createBombCrystalHUDIcon();
 		this.hudBombsText = this.game.gfx.addText("", 'hudText');
-
+		
 		this.hudPauseButton = this.game.gfx.createPauseButtonHUD();
 		this.hudPauseButton.addEventListener('click', function() { this.game.pauseGame(); }.bind(this));
 	}

@@ -63,7 +63,6 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.scenes.forEach(function(scene) {
 			scene.updateScene(tickEvent);
 		});
-		this.graphics.updateGraphics(tickEvent);
 	}
 
 	,_setupStartMenu: function() {

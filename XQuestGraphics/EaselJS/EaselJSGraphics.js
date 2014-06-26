@@ -52,11 +52,12 @@ var EaselJSGraphics = Smart.Class({
 		this.particleFactory = new EaselJSGraphics.ParticleFactory(this);
 	}
 	,
-	updateGraphics: function(tickEvent) {
-
+	onMove: function(tickEvent) {
 		this.animations.update(tickEvent.deltaSeconds);
 		this.particleFactory.updateParticles(tickEvent);
-
+	}
+	,
+	onDraw: function(tickEvent) {
 		this.layers.background.update(tickEvent);
 		this.layers.effects.update(tickEvent);
 		this.layers.characters.update(tickEvent);

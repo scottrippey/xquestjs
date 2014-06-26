@@ -15,8 +15,11 @@
 	XQuestGame.BaseMenu = Smart.Class(new XQuestGame.BaseScene(), {
 		BaseMenu_initialize: function (gfx) {
 			this.BaseScene_initialize();
-			this.buttonStack = [];
+			this.addSceneItem(this);
 			this.gfx = gfx;
+			this.addSceneItem(this.gfx);
+
+			this.buttonStack = [];			
 		}
 
 		,loadButtons: function(buttons) {

@@ -4,7 +4,6 @@ XQuestGame.BaseScene = Smart.Class({
 		this.debugStats = { sceneItems: [] };
 		this._setupEvents();
 		this._setupPhases();
-		this.addSceneItem(this);
 	}
 	,_setupEvents: function() {
 		this._events = new Smart.Events();
@@ -14,6 +13,7 @@ XQuestGame.BaseScene = Smart.Class({
 			input: []
 			, move: []
 			, act: []
+			, draw: []
 		};
 	}
 	,updateScene: function(tickEvent) {
@@ -24,6 +24,7 @@ XQuestGame.BaseScene = Smart.Class({
 			_.forEachRight(this.phases.move, function(gameItem) { gameItem.onMove(tickEvent, inputState); });
 			_.forEachRight(this.phases.act, function(gameItem) { gameItem.onAct(tickEvent); });
 		}
+		_.forEachRight(this.phases.draw, function(gameItem) { gameItem.onDraw(tickEvent); });
 	}
 	,addSceneItem: function(sceneItem) {
 		// Determine which methods the sceneItem implements,
@@ -34,6 +35,8 @@ XQuestGame.BaseScene = Smart.Class({
 			this.phases.move.push(sceneItem);
 		if (sceneItem.onAct)
 			this.phases.act.push(sceneItem);
+		if (sceneItem.onDraw)
+			this.phases.draw.push(sceneItem);
 
 		this.debugStats.sceneItems.push(sceneItem);
 	}
@@ -44,6 +47,8 @@ XQuestGame.BaseScene = Smart.Class({
 			_.eliminate(this.phases.move, sceneItem);
 		if (sceneItem.onAct)
 			_.eliminate(this.phases.act, sceneItem);
+		if (sceneItem.onDraw)
+			_.eliminate(this.phases.draw, sceneItem);
 
 		_.eliminate(this.debugStats.sceneItems, sceneItem);
 	}
