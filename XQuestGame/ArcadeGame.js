@@ -22,6 +22,7 @@
 			this.BaseScene_initialize();
 			this.addSceneItem(this);
 			this.gfx = graphics;
+			this.addSceneItem(this.gfx);
 			
 			// Since all other classes use 'this.game', this will provide consistency:
 			this.game = this;
