@@ -3,7 +3,7 @@
 }
 
 .mouse-engaged {
-	cursor: move;
+	cursor: crosshair;
 }
 .mouse-engaged canvas {
 	/*cursor: none;*/
