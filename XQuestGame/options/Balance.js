@@ -70,20 +70,21 @@ Balance.merge({
 			}
 			,player: {
 				radius: 12
-				,weight: 2
+				,kickBack: 2
 				,looseFriction: 0.8
 				,bounceDampening : 0.0
 				,lives: 5
 			}
 			,bullets: {
 				radius: 2
-				,weight: 0.5
+				,kickBack: 0.5
 				,speed: 3 // * player speed
 				,shotsPerSecond: 1.0
 			}
 			,bombs: {
 				startCount: 3
 				, speed: 1300
+				, kickBack: 0.3
 			}
 			,crystals: {
 				radius: 10

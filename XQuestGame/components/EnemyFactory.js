@@ -82,10 +82,9 @@ XQuestGame.EnemyFactory = Smart.Class({
 
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
 			if (theseSpecificItemsDidCollide) {
-				var hitPoints = item.hitPoints || 1;
-				var kickBack = item.velocity || null;
-				var kickBackWeight = item.weight || 1;
-				var stayAlive = enemy.takeDamage(hitPoints, kickBack, kickBackWeight);
+				var hitPoints = item.hitPoints || 1,
+					kickBack = (item.getKickBack && item.getKickBack(enemy, distance)) || null,
+					stayAlive = enemy.takeDamage(hitPoints, kickBack);
 				if (!stayAlive)
 					enemy.isDead = true;
 
@@ -105,7 +104,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 	,
 	killAllEnemies: function() {
 		this.enemies.forEach(function(enemy) {
-			enemy.takeDamage(Number.POSITIVE_INFINITY, null, null);
+			enemy.takeDamage(Number.POSITIVE_INFINITY, null);
 		}, this);
 		this.enemies.length = 0;
 	}

@@ -1,6 +1,5 @@
 EaselJSGraphics.BulletGraphics = Smart.Class(new createjs.Shape(), {
 	initialize: function() {
-		this.weight = Balance.bullets.weight;
 		this._setupGraphics();
 	}
 	,
@@ -12,5 +11,9 @@ EaselJSGraphics.BulletGraphics = Smart.Class(new createjs.Shape(), {
 		 .drawCircle(0, 0, Graphics.bullets.radius)
 		 .endStroke();
 
+	}
+	,
+	getKickBack: function(enemy, distance) {
+		return Smart.Point.multiply(this.velocity, Balance.bullets.kickBack);
 	}
 });

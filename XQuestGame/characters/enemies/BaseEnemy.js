@@ -31,14 +31,15 @@ XQuestGame.BaseEnemy = Smart.Class({
 	}
 	,
 	/** @public @overridable */
-	takeDamage: function(hitPoints, kickBack, kickBackWeight) {
+	takeDamage: function(hitPoints, kickBack) {
 
+		// Apply the kickback:
 		if (kickBack) {
-			// Apply the kickback:
-			this.velocity.x += kickBack.x * kickBackWeight;
-			this.velocity.y += kickBack.y * kickBackWeight;
+			this.velocity.x += kickBack.x;
+			this.velocity.y += kickBack.y;
 		}
 
+		// Apply the damage:
 		if (hitPoints >= 1) {
 			this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
 			this.game.removeSceneItem(this);

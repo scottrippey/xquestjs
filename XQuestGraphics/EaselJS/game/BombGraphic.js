@@ -1,7 +1,7 @@
 EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 	initialize: function BombGraphic() {
+		this.location = this;
 		this.radius = Balance.player.radius;
-
 	}
 	,
 	_setupGraphics: function() {
@@ -22,5 +22,10 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 			this.dispose();
 		}
 		this._setupGraphics();
+	}
+	,
+	getKickBack: function(enemy, distance) {
+		var impactVector = Smart.Point.subtract(enemy.location, this.location);
+		return Smart.Point.scaleVector(impactVector, Balance.bombs.speed * Balance.bombs.kickBack);
 	}
 });

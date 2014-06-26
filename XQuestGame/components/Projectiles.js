@@ -82,7 +82,7 @@ XQuestGame.Projectiles = Smart.Class({
 
 		if (canBomb) {
 			this.game.stats.bombs--;
-			this.bomb = this._createBomb();
+			this._createBomb();
 		}
 
 		return canBomb;
@@ -90,10 +90,11 @@ XQuestGame.Projectiles = Smart.Class({
 	, _createBomb: function() {
 		var player = this.game.player;
 		var bomb = this.game.gfx.createBombGraphic();
+		this.bomb = bomb;
 		bomb.onDispose(function(){
 			this.bomb = null;
 		}.bind(this));
-		bomb.location = bomb;
+
 		bomb.location.moveTo(player.location.x, player.location.y);
 		return bomb;
 	}

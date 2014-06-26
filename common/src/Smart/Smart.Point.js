@@ -2,6 +2,12 @@
 	var RadiansPerDegree = Math.PI / 180;
 
 	Smart.Point = {
+		subtract: function(pointA, pointB) {
+			return { x: pointA.x - pointB.x, y: pointA.y - pointB.y };
+		},
+		multiply: function(point, factor) {
+			return { x: point.x * factor, y: point.y * factor };
+		},
 		clonePoint: function(point) {
 			return { x: point.x, y: point.y };
 		},
