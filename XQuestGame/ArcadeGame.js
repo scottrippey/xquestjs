@@ -39,8 +39,7 @@
 			this._setupHUD();
 
 			this.activePowerups = {};
-	
-			this._startGame();
+
 		}
 		, _setupLevelGraphics: function() {
 			this.levelGraphics = this.game.gfx.createLevelGraphics();
@@ -72,8 +71,8 @@
 			this.debug = function() { return debug; };
 			return this.debug();
 		}
-	
-		, _startGame: function() {
+
+		, startArcadeGame: function() {
 			this.currentLevel = 1;
 			this.stats.lives = Balance.player.lives;
 			this.stats.bombs = Balance.bombs.startCount;
@@ -106,6 +105,7 @@
 			this.game.player.showPlayer(true);
 	
 			this.followPlayer = true;
+			this.game.gfx.followPlayer(this.game.player.location);
 		}
 	
 		, onAct: function(tickEvent) {
@@ -162,7 +162,7 @@
 					this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
 				}.bind(this)).delay(5)
 				.queue(function() {
-					this._startGame();
+					this.startArcadeGame();
 				}.bind(this))
 			);
 	

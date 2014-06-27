@@ -87,6 +87,8 @@ XQuestGame.XQuestHost = Smart.Class({
 		this.game.addSceneItem(new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode));
 		// Game Events:
 		this.game.onGamePaused(this._showPauseMenu.bind(this));
+		
+		this.game.startArcadeGame();
 	}
 	,_showPauseMenu: function(paused) {
 		if (!paused) return;
