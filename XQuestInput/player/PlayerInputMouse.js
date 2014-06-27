@@ -29,7 +29,6 @@
 		initialize: function(game, element) {
 			this.game = game;
 			this.element = element;
-			this.mouseState = {};
 			this.mouseMap = mouseMap;
 
 			addEventListeners(this.element, {
@@ -47,6 +46,11 @@
 			
 			this.game.onGamePaused(this._onGamePaused.bind(this));
 			this._onGamePaused(false);
+			
+			this._resetMouseState();
+		},
+		_resetMouseState: function() {
+			this.mouseState = { engaged: true, accelerationX: 0, accelerationY: 0 };
 		},
 
 		_onWindowResize: function() {
@@ -55,22 +59,22 @@
 		},
 
 		_onGamePaused: function(paused) {
-			//this.element.style.cursor = paused ? null : "none";
+			this.element.style.cursor = paused ? null : "none";
 			this.previousMousePosition = null;
+			this._resetMouseState();
 		},
 
 		_onMouseOver: function(ev) {
 			var isInsideElement = elementContains(this.element, ev.target);
 			if (isInsideElement) {
 				this.mouseState.engaged = true;
-				this._inactive(false);
 			}
 		},
 		_onMouseOut: function(ev) {
 			var isInsideElement = elementContains(this.element, ev.relatedTarget);
 			if (!isInsideElement) {
 				this.mouseState.engaged = false;
-				this._inactive(true);
+				this.game.pauseGame(true);				
 			}
 		},
 		_onMouseDown: function(ev) {
@@ -89,18 +93,12 @@
 			}
 		},
 		
-		_inactive: function(inactive) {
-			if (inactive) {
-				this.game.pauseGame(true);				
-			}
-		},
-
 		_onMouseMove: function(ev) {
 			var mousePosition = getMousePosition(ev), previousMousePosition = this.previousMousePosition;
 			this.previousMousePosition = mousePosition;
-			if (!previousMousePosition) {
+			if (!previousMousePosition)
 				return;
-			}
+			
 
 			var delta = {
 				x: Math.min(mousePosition.x - previousMousePosition.x, UserSettings.maxMouseMove)
