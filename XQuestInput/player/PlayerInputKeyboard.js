@@ -82,19 +82,24 @@
 			var sensitivity = UserSettings.keyboardSensitivity;
 			var downActions = this.keyMapper.getDownActions();
 
+			var activeInputs = 4;
+
 			if (downActions[primaryWeapon]) inputState.primaryWeapon = true;
+			else activeInputs--;
+
 			if (downActions[secondaryWeapon]) inputState.secondaryWeapon = true;
+			else activeInputs--;
 
-			var engaged = 2;
-			if (downActions[accelerateUp]) inputState.accelerationY -= sensitivity;
-			else if (downActions[accelerateDown]) inputState.accelerationY += sensitivity;
-			else engaged -= 1;
-
-			if (downActions[accelerateLeft]) inputState.accelerationX -= sensitivity;
+			if (downActions[accelerateLeft]) inputState.accelerationX += -sensitivity;
 			else if (downActions[accelerateRight]) inputState.accelerationX += sensitivity;
-			else engaged -= 1;
+			else activeInputs--;
 
-			if (engaged) inputState.engaged = true;
+			if (downActions[accelerateUp]) inputState.accelerationY += -sensitivity;
+			else if (downActions[accelerateDown]) inputState.accelerationY += sensitivity;
+			else activeInputs--;
+			
+			if (activeInputs >= 1)
+				inputState.engaged = true;
 		}
 
 	});

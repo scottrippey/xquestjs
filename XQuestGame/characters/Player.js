@@ -37,6 +37,16 @@ XQuestGame.Player = Smart.Class({
 				x: inputState.accelerationX || 0,
 				y: inputState.accelerationY || 0
 			};
+
+			// Increase the sensitivity when decelerating
+			var neutralizingFactor = 2.0;
+			var isSameDirectionX = (this.velocity.x <= 0) === (inputState.accelerationX <= 0),
+				isSameDirectionY = (this.velocity.y <= 0) === (inputState.accelerationY <= 0);
+			if (!isSameDirectionX)
+				acceleration.x *= neutralizingFactor;
+			if (!isSameDirectionY)
+				acceleration.y *= neutralizingFactor;
+			
 			Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
 			Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
 		}
