@@ -12,8 +12,7 @@ _.extend(createjs.Graphics.prototype, {
 
 		return this;
 	}
-	,
-	endStyle: function(styles) {
+	, endStyle: function(styles) {
 		var gfx = this;
 		if (styles.fillColor)
 			gfx.endFill();
@@ -22,8 +21,7 @@ _.extend(createjs.Graphics.prototype, {
 
 		return this;
 	}
-	,
-	drawPolygon: function(points) {
+	, drawPolygon: function(points) {
 		var gfx = this;
 		var startX = points[0][0], startY = points[0][1];
 		gfx.moveTo(startX, startY);
@@ -37,45 +35,19 @@ _.extend(createjs.Graphics.prototype, {
 	}
 });
 
+_.extend(createjs.DisplayObject.prototype, Smart.Disposable.prototype);
 _.extend(createjs.DisplayObject.prototype, {
 	moveTo: function(x, y) {
 		this.x = x; this.y = y;
 	}
-	,
-	scaleTo: function(x, y) {
+	, scaleTo: function(x, y) {
 		if (y === undefined) y = x;
 		this.scaleX = x;
 		this.scaleY = y;
 	}
-	,
-	toggleVisible: function(force) {
+	, toggleVisible: function(force) {
 		if (force === undefined) force = !this.visible;
 		this.visible = force;
 	}
-	,
-	dispose: function() {
-		console.assert(this._onDispose !== null, "Object is already disposed!");
-
-		if (this._onDispose) {
-			this._onDispose.forEach(function(callback) {
-				callback.call(this, this);
-			}, this);
-			this._onDispose = null;
-		}
-	}
-	,
-	/**
-	 * Adds a "cleanup" handler that will be called when `dispose` is called.
-	 * @param {Function} callback
-	 */
-	onDispose: function(callback) {
-		console.assert(this._onDispose !== null, "Object is already disposed!");
-
-		if (this._onDispose === undefined)
-			this._onDispose = [ callback ];
-		else
-			this._onDispose.push(callback);
-	}
-
 });
 
