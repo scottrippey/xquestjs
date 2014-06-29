@@ -8,8 +8,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this._setupCanvas(canvas);
 		this._setupTimer();
 		this._setupGraphics();
-		//this._setupStartMenu();
-		this._startArcadeGame();
+		this._setupStartMenu();
 	}
 
 	,_setupCanvas: function(canvas) {
