@@ -1,4 +1,4 @@
-XQuestGame.BaseScene = Smart.Class({
+XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	initialize: function BaseScene() { }
 	,BaseScene_initialize: function() {
 		this.debugStats = { sceneItems: [] };

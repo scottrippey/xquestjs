@@ -1,13 +1,13 @@
 (function() {
 	
 	var menuKeyMap = {
-		up: XQuestGame.BaseMenuInputs.menuUp,
-		down: XQuestGame.BaseMenuInputs.menuDown,
-		left: XQuestGame.BaseMenuInputs.menuLeft,
-		right: XQuestGame.BaseMenuInputs.menuRight,
-		enter: XQuestGame.BaseMenuInputs.menuInvoke,
-		escape: XQuestGame.BaseMenuInputs.menuBack,
-		backspace: XQuestGame.BaseMenuInputs.menuBack
+		up: XQuestGame.MenuSceneInputs.menuUp,
+		down: XQuestGame.MenuSceneInputs.menuDown,
+		left: XQuestGame.MenuSceneInputs.menuLeft,
+		right: XQuestGame.MenuSceneInputs.menuRight,
+		enter: XQuestGame.MenuSceneInputs.menuInvoke,
+		escape: XQuestGame.MenuSceneInputs.menuBack,
+		backspace: XQuestGame.MenuSceneInputs.menuBack
 	};
 	
 	XQuestInput.MenuInputKeyboard = Smart.Class({

@@ -1,201 +1,141 @@
-(function init_StartMenu() {
-	var BaseMenuEvents = {
-		onMenuExit: 'MenuExit'
-	};
-	
-	XQuestGame.BaseMenuInputs = {
-		menuUp: 'menuUp',
-		menuDown: 'menuDown',
-		menuLeft: 'menuLeft',
-		menuRight: 'menuRight',
-		menuInvoke: 'menuInvoke',
-		menuBack: 'menuBack'
-	};
-	
-	XQuestGame.BaseMenu = Smart.Class(new XQuestGame.BaseScene(), {
-		BaseMenu_initialize: function (gfx) {
-			this.BaseScene_initialize();
-			this.addSceneItem(this);
-			this.gfx = gfx;
-			this.addSceneItem(this.gfx);
-
-			this.buttonStack = [];
-			
-			//this._setupBackButton(); // Too ugly for now
+(function init_BaseMenu() {
+	XQuestGame.BaseMenu = Smart.Class(new Smart.Events(), {
+		initialize: function(menuScene) {
+			this.BaseMenu_initialize(menuScene);
 		}
-		
-		,_setupBackButton: function() {
-			var backButton = this.gfx.createMenuButton("Back");
-			backButton.addButtonEvents({
-				invoke: this.goBack.bind(this)
+		,BaseMenu_initialize: function(menuScene) {
+			this.menuScene = menuScene;
+			this.activeRowIndex = 0;
+			this.rows = this.getRows();
+			this._setActiveRowIndex(this.activeRowIndex);
+		}
+		,
+		/** @protected @mustOverride */
+		getRows: function() {
+			return [];
+		}
+		,createMenuButton: function(text, onInvoke) {
+			var buttonRow = this.menuScene.gfx.createMenuButton(text);
+			buttonRow.addButtonEvents({
+				invoke: onInvoke
+				, hoverEnter: this._setActiveRow.bind(this, buttonRow)
+				, hoverLeave: this._setActiveRowIndex.bind(this, -1)
 			});
-			var top = this.gfx.getHudPoint('top');
-			backButton.moveTo(top.x, top.y + backButton.visibleHeight);
-
-			this.backButton = backButton;
-			this.backButton.visible = false;
+			buttonRow.invoke = onInvoke;
+			return buttonRow;
 		}
-
-		,loadMenuButtons: function(buttons) {
-			if (this.currentButtons) {
-				this._leaveButtons(this.currentButtons, false);
-			}
-			this.buttonStack.push(buttons);
-			this.currentButtons = buttons;
-			this._setActiveButtonIndex(0);
-			
-			if (this.buttonStack.length >= 2 && this.backButton)
-				this.backButton.visible = true;
-			
-			this._enterButtons(buttons, false);
+	
+		,menuEnter: function(isBackNavigation) {
+			this._enterRows(this.rows, isBackNavigation);
 		}
-		,goBack: function() {
-			if (this.buttonStack.length >= 2) {
-				this._leaveButtons(this.buttonStack.pop(), true);
-				
-				this.currentButtons = this.buttonStack[this.buttonStack.length - 1];
-				this.currentButtons.forEach(function(button, index) {
-					if (button.isActive)
-						this.activeIndex = index;
-				}, this);
-
-				this._enterButtons(this.currentButtons, true);
-				
-				if (this.buttonStack.length === 1 && this.backButton)
-					this.backButton.visible = false;
-				
-			}
+		,menuLeave: function(isBackNavigation) {
+			return this._leaveRows(this.rows, isBackNavigation);
 		}
-		,exitMenu: function(callback) {
-			var currentButtons = this.buttonStack.pop();
-			this.buttonStack.length = 0;
-			this._leaveButtons(currentButtons).queue(function() {
-				this.fireSceneEvent(BaseMenuEvents.onMenuExit);
-				callback();
-			}.bind(this));
-		}
-
-		,_enterButtons: function(buttons, isBackNavigation) {
+		,_enterRows: function(rows, isBackNavigation) {
 			var layoutMargin = 20
 				, animRotation = 30
 				, animStagger = 0.25
 				, animDuration = 1
 				;
 			
-			var buttonHeight = buttons[0].visibleHeight;
-
+			var rowHeight = rows[0].visibleHeight;
+	
 			var fromTop = isBackNavigation;
-
-			var entrance = this.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
-			entrance.y += buttonHeight * (fromTop ? -2 : 2);
-
-			var middle = this.gfx.getHudPoint('middle');
-			var stackedButtonsHeight = (buttons.length - 1) * (buttonHeight + layoutMargin);
-			var currentTop = middle.y - stackedButtonsHeight / 2;
-
-			for (var i = 0, l = buttons.length; i < l; i++) {
-				var button = buttons[i];
-				var buttonX = middle.x
-					,buttonY = currentTop;
+	
+			var entrance = this.menuScene.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
+			entrance.y += rowHeight * (fromTop ? -2 : 2);
+	
+			var middle = this.menuScene.gfx.getHudPoint('middle');
+			var stackedRowsHeight = (rows.length - 1) * (rowHeight + layoutMargin);
+			var currentTop = middle.y - stackedRowsHeight / 2;
+	
+			for (var i = 0, l = rows.length; i < l; i++) {
+				var row = rows[i];
+				var rowX = middle.x
+					,rowY = currentTop;
 				
-				button.moveTo(entrance.x, entrance.y);
-				button.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
-				button.animation = this.gfx.addAnimation()
+				row.moveTo(entrance.x, entrance.y);
+				row.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
+				row.animation = this.menuScene.gfx.addAnimation()
 					.delay(animStagger * (fromTop ? l-i : i)).duration(animDuration).easeOut('quint')
-					.move(button, { x: buttonX, y: buttonY })
-					.rotate(button, 0)
+					.move(row, { x: rowX, y: rowY })
+					.rotate(row, 0)
 				;
 				
-				currentTop += button.visibleHeight + layoutMargin;
+				currentTop += row.visibleHeight + layoutMargin;
 			}
 		}
-		,_leaveButtons: function(buttons, isBackNavigation) {
+		,_leaveRows: function(rows, isBackNavigation) {
 			var animRotation = 30
 				,animStagger = 0.1
 				,animDuration = 0.5
 				;
 			var toBottom = isBackNavigation;
-
-			var buttonHeight = buttons[0].visibleHeight;
-			var exit = this.gfx.getHudPoint(toBottom ? 'bottom' : 'top');
-				exit.y += buttonHeight * (toBottom ? 2 : -2);
-
+	
+			var rowHeight = rows[0].visibleHeight;
+			var exit = this.menuScene.gfx.getHudPoint(toBottom ? 'bottom' : 'top');
+				exit.y += rowHeight * (toBottom ? 2 : -2);
+	
 			var lastAnimation;
 			
-			for (var i = 0, l = buttons.length; i < l; i++) {
-				var button = buttons[i];
-				if (button.animation) 
-					button.animation.cancelAnimation();
-				button.animation = this.gfx.addAnimation()
+			for (var i = 0, l = rows.length; i < l; i++) {
+				var row = rows[i];
+				if (row.animation) 
+					row.animation.cancelAnimation();
+				row.animation = this.menuScene.gfx.addAnimation()
 					.delay(animStagger * (toBottom ? l-i : i)).duration(animDuration).easeOut('quint')
-					.move(button, exit)
+					.move(row, exit)
 					.rotate(animRotation)
 				;
 				if (isBackNavigation)
-					button.animation.queueDispose(button);
+					row.animation.queueDispose(row);
 				
-				lastAnimation = button.animation;
+				lastAnimation = row.animation;
 			}
 			return lastAnimation;
 		}
-
-		,onMove: function(tickEvent, inputState) {
-			if (inputState.menuDown) {
-				this._moveActiveButtonIndex(1);
-			} else if (inputState.menuUp) {
-				this._moveActiveButtonIndex(-1);
-			}
+	
+		,menuInput: function(inputState) {
+			if (inputState.menuUp || inputState.menuLeft)
+				this._moveActiveRowIndex(-1);
+			else if (inputState.menuDown || inputState.menuRight)
+				this._moveActiveRowIndex(1);
 			
-			if (inputState.menuInvoke) {
-				var currentButton = this._getActiveButton();
-				if (currentButton && currentButton.onInvoke) {
-					currentButton.onInvoke();
-				}
-			}
-			if (inputState.menuBack && this.buttonStack.length >= 2) {
-				this.goBack();
-			}
+			if (inputState.menuInvoke)
+				this._invokeActiveRow();
+			
 		}
-
-		,createMenuButton: function(text, onInvoke) {
-			var buttonGfx = this.gfx.createMenuButton(text);
-			buttonGfx.addButtonEvents({
-				invoke: onInvoke
-				, hoverEnter: this._setActiveButton.bind(this, buttonGfx)
-				, hoverLeave: this._setActiveButtonIndex.bind(this, -1)
-			});
-			buttonGfx.onInvoke = onInvoke;
-			return buttonGfx;
-		}
-		,_setActiveButton: function(activeButton) {
-			var activeButtonIndex = this.currentButtons.indexOf(activeButton);
-			this._setActiveButtonIndex(activeButtonIndex);
-		}
-		,_moveActiveButtonIndex: function(offset) {
-			var activeButtonIndex = this.activeIndex + offset;
+		,_moveActiveRowIndex: function(offset) {
+			var activeRowIndex = this.activeRowIndex + offset;
 			// Loop:
-			if (activeButtonIndex < 0) activeButtonIndex += this.currentButtons.length;
-			if (activeButtonIndex >= this.currentButtons.length) activeButtonIndex -= this.currentButtons.length;
+			if (activeRowIndex < 0) activeRowIndex += this.rows.length;
+			if (activeRowIndex >= this.rows.length) activeRowIndex -= this.rows.length;
 			
-			this._setActiveButtonIndex(activeButtonIndex);
-		}
-		,_setActiveButtonIndex: function(activeButtonIndex) {
-			var currentButtons = this.currentButtons;
-			for (var i = 0, l = currentButtons.length; i < l; i++) {
-				var button = currentButtons[i];
-
-				var isActive = (i === activeButtonIndex);
-				button.setActive(isActive);
-			}
-			this.activeIndex = activeButtonIndex;
-		}
-		,_getActiveButton: function() {
-			return this.currentButtons[this.activeIndex] || null;
+			this._setActiveRowIndex(activeRowIndex);
 		}
 		
-
-
-	});
+		,_setActiveRow: function(activeRow) {
+			var activeRowIndex = this.rows.indexOf(activeRow);
+			this._setActiveRowIndex(activeRowIndex);
+		}
+		,_setActiveRowIndex: function(activeRowIndex) {
+			var rows = this.rows;
+			for (var i = 0, l = rows.length; i < l; i++) {
+				rows[i].setActive(i === activeRowIndex);
+			}
+			this.activeRowIndex = activeRowIndex;
+		}
+		,_getActiveRow: function() {
+			return this.rows[this.activeRowIndex] || null;
+		}
+		,_invokeActiveRow: function() {
+			var activeRow = this._getActiveRow();
+			if (activeRow)
+				activeRow.invoke();
+			
+		}
 	
-	XQuestGame.BaseMenu.prototype.implementSceneEvents(BaseMenuEvents);
+		
+	});
 })();
+	

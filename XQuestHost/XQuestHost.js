@@ -7,8 +7,11 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 
 		this._setupCanvas(canvas);
 		this._setupTimer();
-		this._setupGraphics();
-		this._setupStartMenu();
+
+		this._setupBackgroundGraphics();
+		this._setupMenuScene();
+		
+		this._loadStartMenu();
 	}
 
 	,_setupCanvas: function(canvas) {
@@ -65,30 +68,33 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		}.bind(this));
 	}
 	,_tickHandler: function(tickEvent) {
+		this.backgroundGraphics.onDraw(tickEvent);
 		this.scenes.forEach(function(scene) {
 			scene.updateScene(tickEvent);
 		});
 	}
+	,_setupBackgroundGraphics: function() {
+		this.backgroundGraphics = new EaselJSGraphics(this.canvas);
+	}
 
-	,_setupGraphics: function() {
-		this.graphics = new EaselJSGraphics(this.canvas);
+	,_setupMenuScene: function() {
+		var host = this;
+		var graphics = new EaselJSGraphics(this.canvas, true);
+		this.menuScene = new XQuestGame.MenuScene(graphics, host);
+		this.menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard());
+		this.scenes.push(this.menuScene);
+	}
+	,_loadStartMenu: function() {
+		var startMenu = new XQuestGame.CommonMenus.StartMenu(this.menuScene);
+		this.menuScene.addMenu(startMenu);
+		
+		startMenu.onStartGame(this._startArcadeGame.bind(this));
 	}
 	
-	,_setupStartMenu: function() {
-		// Create Start Menu:
-		this.startMenu = new XQuestGame.StartMenu(this.graphics);
-		this.scenes.push(this.startMenu);
-		// Menu Inputs:
-		this.startMenu.addSceneItem(new XQuestInput.MenuInputKeyboard());
-		// Menu Events:
-		this.startMenu.onStartArcadeGame(function() {
-			this.scenes.pop();
-			this._startArcadeGame();
-		}.bind(this));
-	}
 	,_startArcadeGame: function() {
 		// Create Game:
-		this.game = new XQuestGame.ArcadeGame(this.graphics);
+		var graphics = new EaselJSGraphics(this.canvas, true);
+		this.game = new XQuestGame.ArcadeGame(graphics);
 		this.scenes.push(this.game);
 		// Game Inputs:
 		this.game.addSceneItem(new XQuestInput.PlayerInputKeyboard(this.game, null));
@@ -99,7 +105,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		
 		this.game.startArcadeGame();
 	}
-	,_showPauseMenu: function(paused) {
+	,X_showPauseMenu: function(paused) {
 		if (!paused) return;
 		// Create Pause Menu:
 		// Currently there can only be 1 scene that uses this.graphics;
@@ -115,6 +121,15 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 			this.game.pauseGame(false);
 		}.bind(this));
 	}
+	,_showPauseMenu: function(paused) {
+		if (!paused) return;
+
+		var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
+		this.menuScene.addMenu(pauseMenu);
+		pauseMenu.onResumeGame(function() {
+			this.game.pauseGame(false);
+		}.bind(this));
+	}	
 
 
 });

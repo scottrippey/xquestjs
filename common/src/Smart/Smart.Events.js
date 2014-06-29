@@ -15,4 +15,13 @@ Smart.Events = Smart.Class({
 			callbacks[i].apply(null, eventArgs);
 		}
 	}
+	,
+	implementEvents: function(events) {
+		_.forOwn(events, function(eventName, eventMethodName) {
+			this[eventMethodName] = function(eventHandler) {
+				this.addEvent(eventName, eventHandler);
+			};
+		}, this);
+		return this;
+	}
 });
