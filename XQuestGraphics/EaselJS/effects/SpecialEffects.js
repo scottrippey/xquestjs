@@ -17,4 +17,17 @@ EaselJSGraphics.SpecialEffects = {
 		}
 
 	}
+	,
+	drawElectricRectangle: function(drawing, rectangle, electricOptions) {
+		var left = rectangle.x || 0, top = rectangle.y || 0, right = left + rectangle.width, bottom = top + rectangle.height;
+		var segmentsH = electricOptions.segmentsH, devH = electricOptions.deviationH;
+		var segmentsV = electricOptions.segmentsV, devV = electricOptions.deviationV;
+		
+		drawing.moveTo(left, top);
+		this.drawElectricLineTo(drawing, { x: left, y: top }, { x: right, y: top }, segmentsH, devH);
+		this.drawElectricLineTo(drawing, { x: right, y: top }, { x: right, y: bottom }, segmentsV, devV);
+		this.drawElectricLineTo(drawing, { x: right, y: bottom }, { x: left, y: bottom }, segmentsH, devH);
+		this.drawElectricLineTo(drawing, { x: left, y: bottom }, { x: left, y: top }, segmentsV, devV);
+		
+	}
 };
