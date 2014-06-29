@@ -21,7 +21,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	,_createFullScreenCanvas: function(canvasWidth, canvasHeight) {
 		var div = document.createElement('div');
 		div.innerHTML =
-			'<section tabindex="1" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: hsl(0, 0%, 5%);">' +
+			'<section tabindex="1" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: hsl(0, 0%, 5%); outline: none; ">' +
 			'<canvas style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto;"></canvas>' +
 			'</section>';
 		var container = div.childNodes[0], canvas = container.childNodes[0];
