@@ -10,9 +10,9 @@
 		}
 		,_loadStartMenu: function() {
 			var startButton = this.createMenuButton("Start Game", this._startArcadeGame.bind(this));
-			var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
+			//var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
 			
-			this.loadMenuButtons([startButton, gameOptions]);
+			this.loadMenuButtons([ startButton ]);
 		}
 		,_startArcadeGame: function() {
 			this.exitMenu(function() {

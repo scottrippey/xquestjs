@@ -10,9 +10,9 @@
 		}
 		,_loadPauseMenu: function() {
 			var resumeButton = this.createMenuButton("Resume Game", this._resumeGame.bind(this));
-			var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
+			//var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
 			
-			this.loadMenuButtons([resumeButton, gameOptions]);
+			this.loadMenuButtons([ resumeButton ]);
 		}
 		,_resumeGame: function() {
 			this.exitMenu(function() {
