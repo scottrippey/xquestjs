@@ -203,13 +203,18 @@
 			this.downActions[action] = downActionCount;
 		},
 		_getKeyName: function(ev) {
-			var keyName =
+			var modifiers = "";
+			if (ev.ctrlKey) modifiers += "ctrl+";
+			if (ev.altKey) modifiers += "alt+";
+			if (ev.shiftKey) modifiers += "shift+";
+			var key =
 				this.codes[ev.keyCode]
 				|| (ev.keyIdentifier && ev.keyIdentifier.indexOf('U+') === -1 && ev.keyIdentifier.toLowerCase())
 				|| (ev.key && ev.key.indexOf('U+') === -1 && ev.key.toLowerCase())
 				|| String.fromCharCode(ev.keyCode)
 				|| 'unknown';
-			return keyName;
+			
+			return modifiers + key;
 		},
 
 		getDownActions: function() {
