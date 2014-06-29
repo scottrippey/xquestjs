@@ -5,15 +5,14 @@
 
 
 
-		<link rel="stylesheet" href="XQuestHost/css/base.css" />
-		<link rel="stylesheet" href="XQuestHost/css/game.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<style>
+			.page-loading .show-after-load { display: none; }
+			.page-loaded .hide-after-load { display: none; } 
+		</style>
 
 	</head>
-	<body ng-app="XQuestHost" ng-controller="NavigationController as nav"
-			common-keymap
-			common-keymap-prevent-default
-			common-keymap-f4="nav.showTestGraphics()"
-			>
+	<body class="page-loading">
 
 		<h1>XQuest JS</h1>
 		<h2>
@@ -23,9 +22,137 @@
 			</a>
 		</h2>
 
-		<ng-include src="nav.page">
-			<span>      Loading game assets...   </span>
-		</ng-include>
+		<section class="play-game">
+			<span class="hide-after-load">
+				Loading game assets...
+			</span>
+			<button id="startGame" class="show-after-load" autofocus>
+				Play the game!
+			</button>
+		</section>
+		
+		<section class="instructions show-after-load">
+		
+			<p><strong>
+				The game is under development ...  please see below for the development progress.
+			</strong></p>
+			<h2> How to Play </h2>
+				<ul>
+					<li> Move your player around the field, but don't touch the walls </li>
+					<li> Shoot at enemies, but don't touch them either </li>
+					<li> Gather all the stars to open the gate </li>
+					<li> Go through the gate to advance to the next level </li>
+					<li> Look for "Power Stars", which give you special abilities </li>
+					<li> If you get overwhelmed, release a bomb! </li>
+					<li> To <strong>get a high score</strong>, learn to program and help me develop that feature. </li>
+				</ul>
+			
+			<h2> Tips </h2>
+				<ul>
+					<li> The player keeps its momentum, so be very careful around walls </li>
+					<li> Your player shoots the direction it's moving </li>
+					<li> Power Stars might be hard to catch, but are completely worth it </li>
+				</ul>
+			
+			<h2> Controls </h2>
+				<h3> Mouse </h3>
+				<ul>
+					<li> Move the mouse to accelerate. </li>
+					<li> Left-click to shoot </li>
+					<li> Right-click to release a bomb </li>
+					<li> If your mouse travels outside the browser window, the game will be auto-paused. </li>
+				</ul>
+				<h3> Touch </h3>
+				<ul>
+					<li> Touch and drag your 1st finger to accelerate </li>
+					<li> Tap a 2nd finger to shoot  </li>
+					<li> Tap a 2nd and 3rd finger to release a bomb </li>
+				</ul>
+				<h3> Keyboard </h3>
+					<ul>
+						<li> Arrow keys accelerate the player </li>
+						<li> Space shoots </li>
+						<li> Enter releases a bomb </li>
+					</ul>
+		</section>
+		<section class="to-do-list">
+			<h2>To Do List</h2>
+			
+			<h3> To make the game awesome </h3>
+			<pre>
+			
+			Google Analytics
+			
+			✓ Touch input
+			
+			HUD:
+				Animated Powerups
+				Score
+			
+			Scoring:
+				Time Bonus
+				Extra Life
+				Increase Powerup spawns
+			
+			Bullets:
+				Destroyed with enemies
+			
+			Land Mines
+			
+			Enemies:
+				✓ Slug - slow, random changes
+				✓ Locust - fast, curved trajectories
+				Mantis - camouflages to look like stars
+				Moth - attracted to crystals?
+				Spider - creates webs that hinder you
+				Spider 2 - Lays mines?
+			
+				Roach - takes 3 hits to destroy
+				Hissing Roach - takes 5 hits to destroy
+			
+				Bee - moves away when you get close
+				Wasp - moves at you when you fire toward it and miss
+				Hornet - tracks you and pursues you, all the time
+			
+				Beetle - shoots randomly
+				Stink Beetle - shoots at you when killed
+				Stink Beetle 2 - shoots everywhere when killed
+				Fire Beetle - shoots directly at you, all the time
+			
+			Layers:
+				Characters <-> Effects
+			
+			Powerups:
+				✓ Rapid fire
+				✓ Auto-aim
+				✓ Invincible
+				Invincible Giant
+				Bullet bounce
+				Shoot the crystals
+				✓ Triple-shot
+				Spread-shot
+				Chain-reaction shots
+				✓ Bombs
+				Gravity?
+				Slow Time
+			
+			</pre>
+			
+			
+			<h3> To make the game legendary </h3>
+			<pre>
+			Save States, Rewind Feature
+			
+			Arcade mode, puzzle mode
+			Bosses
+			
+			Scale, depending on auto-framerate detection
+			
+			Windows 8 App
+			Xbox One App
+			
+			</pre>			
+		</section>
 
 
 
@@ -40,9 +167,6 @@
 		<script src="common/lib/easeljs-0.6.1.min.js"></script>
 		<script src="common/lib/lodash.2.2.1.js"></script>
 		<script src="common/lib/smoothsort.js"></script>
-
-		<script src="common/lib/angular.1.2.0rc1/angular.js"></script>
-		<script src="common/lib/angular.1.2.0rc1/angular-animate.js"></script>
 
 		<script src="common/src/Smart/Smart.js"></script>
 		<script src="common/src/Smart/Smart.Class.js"></script>
@@ -63,13 +187,7 @@
 		<script src="common/src/extensions/console.js"></script>
 		<script src="common/src/extensions/EaselJS.js"></script>
 		<script src="common/src/extensions/lodash-extensions.js"></script>
-		<script src="common/src/extensions/angular/common.js"></script>
-		<script src="common/src/extensions/angular/directives/commonFillParent.js"></script>
-		<script src="common/src/extensions/angular/directives/commonInitCanvas.js"></script>
-		<script src="common/src/extensions/angular/directives/commonKeymap.js"></script>
-
-
-
+		
 
 		<script src="XQuestGame/XQuestGame.js"></script>
 		
@@ -124,14 +242,18 @@
 		<script src="XQuestInput/player/PlayerInputMouse.js"></script>
 		<script src="XQuestInput/player/PlayerInputTouch.js"></script>
 
-
-		<script src="XQuestHost/Angular/XQuestHost.js"></script>
-		<script src="XQuestHost/Angular/controllers/XQuestHostController.js"></script>
-		<script src="XQuestHost/Angular/controllers/NavigationController.js"></script>
-		<script src="XQuestHost/Angular/controllers/TestGraphicsController.js"></script>
-		<script src="XQuestHost/Angular/services/UserSettings.js"></script>
-
 		<script src="XQuestHost/XQuestHost.js"></script>
+	
+		
+		<script>
+			document.body.classList.remove("page-loading");
+			document.body.classList.add("page-loaded");
+			
+			document.getElementById("startGame").addEventListener('click', function() {
+				window.xquest = new XQuestGame.XQuestHost();
+			});
+			
+		</script>
 
 	</body>
 </html>

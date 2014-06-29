@@ -1,18 +1,19 @@
 /*
-
+ TODO: Map the following:
  common-keymap-c="ui.currentGame.debug().gatherClosestCrystal()"
  common-keymap-s="ui.currentGame.debug().spawnEnemy()"
  common-keymap-d="ui.currentGame.debug().killPlayer()"
+ common-keymap-p="ui.currentGame.debug().toggleFPS()"
+ common-keymap-i="ui.currentGame.debug().toggleDebugStats()"
 
  common-keymap-1="ui.currentGame.debug().activatePowerup('invincible')"
  common-keymap-2="ui.currentGame.debug().activatePowerup('rapidFire')"
  common-keymap-3="ui.currentGame.debug().activatePowerup('tripleShot')"
  common-keymap-4="ui.currentGame.debug().activatePowerup('autoAim')"
- common-keymap-5="ui.currentGame.debug().activatePowerup('powerShot')"
- common-keymap-6="ui.currentGame.debug().addBomb()"
+ common-keymap-5="ui.currentGame.debug().addBomb()"
 
  common-keymap-0="ui.currentGame.debug().spawnPowerCrystal()"
-
+  
  */
 
 (function() {
@@ -170,32 +171,36 @@
 		},
 		_onKeydown: function(ev) {
 			var keyName = this._getKeyName(ev);
+			var action = this.keyMap[keyName];
+			if (!action) return;
+
+			ev.preventDefault();
+
 			var downIndex = this.downKeys.indexOf(keyName);
-			var isDown = (downIndex !== -1);
-			if (!isDown) {
-				this.downKeys.push(keyName);
-				var action = this.keyMap[keyName];
-				if (action) {
-					var downAction = (this.downActions[action] || 0) + 1;
-					this.downActions[action] = downAction;
-					if (downAction === 1) {
-						this.onActionDown(action);
-					}
-				}
+			var isAlreadyDown = (downIndex !== -1);
+			if (isAlreadyDown) return;
+			this.downKeys.push(keyName);
+			
+			var downActionCount = (this.downActions[action] || 0) + 1;
+			this.downActions[action] = downActionCount;
+			if (downActionCount === 1) {
+				this.onActionDown(action);
 			}
 		},
 		_onKeyup: function(ev) {
 			var keyName = this._getKeyName(ev);
+			var action = this.keyMap[keyName];
+			if (!action) return;
+			
 			var downIndex = this.downKeys.indexOf(keyName);
 			var wasDown = (downIndex !== -1);
-			if (wasDown) {
-				this.downKeys.splice(downIndex, 1);
-				var action = this.keyMap[keyName];
-				if (action) {
-					var downAction = (this.downActions[action] || 1) - 1;
-					this.downActions[action] = downAction;
-				}
-			}
+			if (!wasDown) return;
+			this.downKeys.splice(downIndex, 1);
+			
+			ev.preventDefault();
+			
+			var downActionCount = (this.downActions[action] || 1) - 1;
+			this.downActions[action] = downActionCount;
 		},
 		_getKeyName: function(ev) {
 			var keyName =

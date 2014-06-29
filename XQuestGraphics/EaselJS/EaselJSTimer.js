@@ -16,7 +16,7 @@ var EaselJSTimer = Smart.Class({
 		});
 	}
 	,
-	pauseTimer: function(paused) {
-		createjs.Ticker.setPaused(paused);
+	dispose: function() {
+		createjs.Ticker.removeAllEventListeners();
 	}
 });

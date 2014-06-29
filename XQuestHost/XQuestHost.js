@@ -1,4 +1,4 @@
-XQuestGame.XQuestHost = Smart.Class({
+XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	initialize: function(canvas) {
 		
 		this.scenes = [];
@@ -21,7 +21,7 @@ XQuestGame.XQuestHost = Smart.Class({
 	,_createFullScreenCanvas: function(canvasWidth, canvasHeight) {
 		var div = document.createElement('div');
 		div.innerHTML =
-			'<section style="position: fixed; top: 0; left: 0; bottom: 0; right: 0;">' +
+			'<section tabindex="1" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: hsl(0, 0%, 5%);">' +
 			'<canvas style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto;"></canvas>' +
 			'</section>';
 		var container = div.childNodes[0], canvas = container.childNodes[0];
@@ -29,6 +29,12 @@ XQuestGame.XQuestHost = Smart.Class({
 		canvas.setAttribute('height', canvasHeight);
 
 		document.body.appendChild(container);
+		document.body.style.overflow = "hidden";
+		this.onDispose(function() {
+			document.body.removeChild(container);
+			document.body.style.overflow = null;
+		});
+		container.focus();
 
 		this._contain(container, canvas, canvasWidth, canvasHeight);
 
@@ -54,6 +60,9 @@ XQuestGame.XQuestHost = Smart.Class({
 	,_setupTimer: function() {
 		this.timer = new EaselJSTimer();
 		this.timer.addTickHandler(this._tickHandler.bind(this));
+		this.onDispose(function() {
+			this.timer.dispose();
+		}.bind(this));
 	}
 	,_tickHandler: function(tickEvent) {
 		this.scenes.forEach(function(scene) {
