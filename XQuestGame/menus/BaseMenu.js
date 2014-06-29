@@ -36,7 +36,7 @@
 			this.backButton.visible = false;
 		}
 
-		,loadButtons: function(buttons) {
+		,loadMenuButtons: function(buttons) {
 			if (this.currentButtons) {
 				this._leaveButtons(this.currentButtons, false);
 			}

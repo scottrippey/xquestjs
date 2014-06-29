@@ -12,7 +12,7 @@
 			var resumeButton = this.createMenuButton("Resume Game", this._resumeGame.bind(this));
 			var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
 			
-			this.loadButtons([resumeButton, gameOptions]);
+			this.loadMenuButtons([resumeButton, gameOptions]);
 		}
 		,_resumeGame: function() {
 			this.exitMenu(function() {
@@ -25,7 +25,7 @@
 			var option2 = this.createMenuButton("Option 2", this.goBack.bind(this));
 			var option3 = this.createMenuButton("Option 3", this.goBack.bind(this));
 			
-			this.loadButtons([option1, option2, option3]);
+			this.loadMenuButtons([option1, option2, option3]);
 		}
 	});
 	XQuestGame.PauseMenu.prototype.implementSceneEvents(PauseMenuEvents);

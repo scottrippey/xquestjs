@@ -12,7 +12,7 @@
 			var startButton = this.createMenuButton("Start Game", this._startArcadeGame.bind(this));
 			var gameOptions = this.createMenuButton("Game Options", this._loadGameOptions.bind(this));
 			
-			this.loadButtons([startButton, gameOptions]);
+			this.loadMenuButtons([startButton, gameOptions]);
 		}
 		,_startArcadeGame: function() {
 			this.exitMenu(function() {
@@ -21,12 +21,23 @@
 		}
 		
 		,_loadGameOptions: function() {
-			var option1 = this.createMenuButton("Option 1", this.goBack.bind(this));
-			var option2 = this.createMenuButton("Option 2", this.goBack.bind(this));
-			var option3 = this.createMenuButton("Option 3", this.goBack.bind(this));
-			var option4 = this.createMenuButton("Option 4", this.goBack.bind(this));
+			var testGraphics = this.createMenuButton("Test Graphics", this._startTestGraphics.bind(this));
+			var back = this.createMenuButton("Back", this.goBack.bind(this));
+			this.loadMenuButtons([ testGraphics, back ]);
+		}
+		,_startTestGraphics: function() {
+			var player = this._createMenuButtonWithIcon("Player", this.gfx.createPlayerGraphics(), null);
+			var enemies = this._createMenuButtonWithIcon("Enemies", this.gfx.createEnemyGraphics("Locust"), null);
+			var items = this._createMenuButtonWithIcon("Items", this.gfx.createCrystalGraphic(), null);
+			var back = this.createMenuButton("Back", this.goBack.bind(this));
 
-			this.loadButtons([option1, option2, option3, option4]);
+			this.loadMenuButtons([ player, enemies, items, back ]);
+		}
+		,_createMenuButtonWithIcon: function(text, icon, callback) {
+			var button = this.createMenuButton(text, callback || function(){ icon.scaleX *= 1.2; icon.scaleY *= 1.2; });
+			button.addChild(icon);
+			icon.moveTo(-icon.visibleRadius * 2, button.visibleHeight / 2);
+			return button;
 		}
 	});
 	XQuestGame.StartMenu.prototype.implementSceneEvents(StartMenuEvents);

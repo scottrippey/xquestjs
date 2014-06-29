@@ -45,6 +45,9 @@ EaselJSGraphics.LocustGraphics = Smart.Class(new createjs.Shape(), {
 	,
 	_setupGraphics: function(){
 		var g = this.graphics, G = Graphics.enemies.locust;
+
+		this.visibleRadius = G.radius; 
+
 		g.clear();
 
 		g.beginStyle(G.outerStyle)
