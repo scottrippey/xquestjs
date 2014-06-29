@@ -19,7 +19,21 @@
 			this.gfx = gfx;
 			this.addSceneItem(this.gfx);
 
-			this.buttonStack = [];			
+			this.buttonStack = [];
+			
+			//this._setupBackButton(); // Too ugly for now
+		}
+		
+		,_setupBackButton: function() {
+			var backButton = this.gfx.createMenuButton("Back");
+			backButton.addButtonEvents({
+				invoke: this.goBack.bind(this)
+			});
+			var top = this.gfx.getHudPoint('top');
+			backButton.moveTo(top.x, top.y + backButton.visibleHeight);
+
+			this.backButton = backButton;
+			this.backButton.visible = false;
 		}
 
 		,loadButtons: function(buttons) {
@@ -29,6 +43,9 @@
 			this.buttonStack.push(buttons);
 			this.currentButtons = buttons;
 			this._setActiveButtonIndex(0);
+			
+			if (this.buttonStack.length >= 2 && this.backButton)
+				this.backButton.visible = true;
 			
 			this._enterButtons(buttons, false);
 		}
@@ -42,7 +59,11 @@
 						this.activeIndex = index;
 				}, this);
 
-				this._enterButtons(this.currentButtons, true)
+				this._enterButtons(this.currentButtons, true);
+				
+				if (this.buttonStack.length === 1 && this.backButton)
+					this.backButton.visible = false;
+				
 			}
 		}
 		,exitMenu: function(callback) {
