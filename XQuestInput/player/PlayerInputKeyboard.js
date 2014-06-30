@@ -1,21 +1,3 @@
-/*
- TODO: Map the following:
- common-keymap-c="ui.currentGame.debug().gatherClosestCrystal()"
- common-keymap-s="ui.currentGame.debug().spawnEnemy()"
- common-keymap-d="ui.currentGame.debug().killPlayer()"
- common-keymap-p="ui.currentGame.debug().toggleFPS()"
- common-keymap-i="ui.currentGame.debug().toggleDebugStats()"
-
- common-keymap-1="ui.currentGame.debug().activatePowerup('invincible')"
- common-keymap-2="ui.currentGame.debug().activatePowerup('rapidFire')"
- common-keymap-3="ui.currentGame.debug().activatePowerup('tripleShot')"
- common-keymap-4="ui.currentGame.debug().activatePowerup('autoAim')"
- common-keymap-5="ui.currentGame.debug().addBomb()"
-
- common-keymap-0="ui.currentGame.debug().spawnPowerCrystal()"
-  
- */
-
 (function() {
 
 	var UserSettings = {
@@ -31,6 +13,20 @@
 	var secondaryWeapon = 'secondaryWeapon';
 	var pauseGame = 'pauseGame';
 
+	var debugActions = {
+		gatherClosestCrystal: 'gatherClosestCrystal'
+		, spawnEnemy: 'spawnEnemy'
+		, killPlayer: 'killPlayer'
+		, toggleFPS: 'toggleFPS'
+		, toggleDebugStats: 'toggleDebugStats'
+		, activateInvincible: 'activateInvincible'
+		, activateRapidFire: 'activateRapidFire'
+		, activateTripleShot: 'activateTripleShot'
+		, activateAutoAim: 'activateAutoAim'
+		, addBomb: 'addBomb'
+		, spawnPowerCrystal: 'spawnPowerCrystal'
+	};
+	
 	var keyMap = {
 		escape: pauseGame,
 		contextMenu: pauseGame,
@@ -42,18 +38,27 @@
 		space: primaryWeapon,
 		enter: secondaryWeapon,
 
-
-		w: accelerateUp,
-		s: accelerateDown,
-		a: accelerateLeft,
-		d: accelerateRight,
-
-		8: accelerateUp,
-		2: accelerateDown,
-		4: accelerateLeft,
-		6: accelerateRight,
+		numpad8: accelerateUp,
+		numpad2: accelerateDown,
+		numpad4: accelerateLeft,
+		numpad6: accelerateRight,
 		numpadadd: primaryWeapon,
-		numpadenter: secondaryWeapon
+		numpadenter: secondaryWeapon,
+
+
+		c: debugActions.gatherClosestCrystal,
+		s: debugActions.spawnEnemy,
+		d: debugActions.killPlayer,
+		
+		p: debugActions.toggleFPS,
+		i: debugActions.toggleDebugStats,
+		
+		1: debugActions.activateInvincible,
+		2: debugActions.activateRapidFire,
+		3: debugActions.activateTripleShot,
+		4: debugActions.activateAutoAim,
+		5: debugActions.addBomb,
+		0: debugActions.spawnPowerCrystal
 	};
 
 	XQuestInput.PlayerInputKeyboard = Smart.Class({
@@ -75,6 +80,39 @@
 			switch (action) {
 				case pauseGame:
 					this.game.pauseGame();
+					break;
+				case debugActions.gatherClosestCrystal:
+					this.game.debug().gatherClosestCrystal();
+					break;
+				case debugActions.spawnEnemy:
+					this.game.debug().spawnEnemy();
+					break;
+				case debugActions.spawnPowerCrystal:
+					this.game.debug().spawnPowerCrystal();
+					break;
+				case debugActions.killPlayer:
+					this.game.debug().killPlayer();
+					break;
+				case debugActions.toggleFPS:
+					this.game.debug().toggleFPS();
+					break;
+				case debugActions.toggleDebugStats:
+					this.game.debug().toggleDebugStats();
+					break;
+				case debugActions.activateInvincible:
+					this.game.debug().activatePowerup('invincible');
+					break;
+				case debugActions.activateRapidFire:
+					this.game.debug().activatePowerup('rapidFire');
+					break;
+				case debugActions.activateTripleShot:
+					this.game.debug().activatePowerup('tripleShot');
+					break;
+				case debugActions.activateAutoAim:
+					this.game.debug().activatePowerup('autoAim');
+					break;
+				case debugActions.addBomb:
+					this.game.debug().addBomb();
 					break;
 			}
 		},
@@ -211,7 +249,7 @@
 				this.codes[ev.keyCode]
 				|| (ev.keyIdentifier && ev.keyIdentifier.indexOf('U+') === -1 && ev.keyIdentifier.toLowerCase())
 				|| (ev.key && ev.key.indexOf('U+') === -1 && ev.key.toLowerCase())
-				|| String.fromCharCode(ev.keyCode)
+				|| String.fromCharCode(ev.keyCode).toLowerCase()
 				|| 'unknown';
 			
 			return modifiers + key;
