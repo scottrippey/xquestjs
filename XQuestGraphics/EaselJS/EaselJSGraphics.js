@@ -1,5 +1,5 @@
 var EaselJSGraphics = Smart.Class({
-	initialize: function(canvas, transparentBackground) {
+	initialize: function(canvas) {
 		this.canvas = canvas;
 
 		this.debugStats = {
@@ -7,8 +7,6 @@ var EaselJSGraphics = Smart.Class({
 		};
 
 		this._setupLayers();
-		if (!transparentBackground)
-			this._setupBackgroundGraphics();
 		this._setupAnimations();
 		this._setupParticles();
 	}
@@ -39,9 +37,17 @@ var EaselJSGraphics = Smart.Class({
 		});
 		this.layers.hud.enableMouseOver();
 	}
-	,_setupBackgroundGraphics: function() {
-		var background = new EaselJSGraphics.BackgroundGraphics();
-		this.layers.background.addChild(background);
+	,showBackgroundStars: function(visible) {
+		if (visible) {
+			if (!this.backgroundStars) {
+				this.backgroundStars = new EaselJSGraphics.BackgroundGraphics();
+			}
+			this.layers.background.addChild(this.backgroundStars);
+		} else {
+			if (this.backgroundStars) {
+				this.layers.background.removeChild(this.backgroundStars);
+			}
+		}
 	}
 	,
 	_setupAnimations: function() {
