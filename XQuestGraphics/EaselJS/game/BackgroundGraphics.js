@@ -1,5 +1,5 @@
-EaselJSGraphics.BackgroundGraphics = Smart.Class(new createjs.Shape(), {
-	initialize: function() {
+EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
+	BackgroundGraphicsBase_initialize: function() {
 		var bounds = Balance.level.bounds;
 		this._size = {
 			width: bounds.x*2 + bounds.width
@@ -38,10 +38,19 @@ EaselJSGraphics.BackgroundGraphics = Smart.Class(new createjs.Shape(), {
 			while (starCount--) {
 				var x = Math.floor(Math.random() * size.width)
 					,y = Math.floor(Math.random() * size.height);
-				g.moveTo(x, y).lineTo(x+1,y);
+				g.moveTo(x, y).lineTo(x+1,y+1);
 			}
 		}
 
 		g.endStroke();
+	}
+});
+EaselJSGraphics.BackgroundGraphics = Smart.Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
+	initialize: function() {
+		if (!this.initialized) {
+			// Using a prototype ensures the stars will be the same between the menu and game
+			EaselJSGraphics.BackgroundGraphics.prototype.initialized = true;
+			EaselJSGraphics.BackgroundGraphics.prototype.BackgroundGraphicsBase_initialize();
+		} 
 	}
 });
