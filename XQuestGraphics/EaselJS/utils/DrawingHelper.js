@@ -94,46 +94,17 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 			return this;
 		}
 		,star: function(x, y, radius, sides, pointSize, angle) {
-			if (typeof x === 'object') {
-				var options = x;
-				x = options.x;
-				y = options.y;
-				radius = options.radius;
-				sides = options.sides;
-				pointSize = options.pointSize;
-				angle = options.angle;
-			}
-			if (!x) x = 0;
-			if (!y) y = 0;
-			if (!pointSize) pointSize = 0;
-			if (!angle) angle = 0;
-
-			pointSize = 1-pointSize;
-			if (angle == null) { angle = 0; }
-			else { angle /= 180/Math.PI; }
-			var a = Math.PI/sides;
-
-			this.moveTo(x+Math.cos(angle)*radius, y+Math.sin(angle)*radius);
-			for (var i=0; i<sides; i++) {
-				angle += a;
-				if (pointSize != 1) {
-					this.lineTo(x+Math.cos(angle)*radius*pointSize, y+Math.sin(angle)*radius*pointSize);
-				}
-				angle += a;
-				this.lineTo(x+Math.cos(angle)*radius, y+Math.sin(angle)*radius);
-			}
+			var starPolygon = EaselJSGraphics.DrawingBase.createStarPolygon(x, y, radius, sides, pointSize, angle);
+			this.polygon(starPolygon, false);
 			return this;
 		}
-		,polygon: function(points, leaveOpen) {
-			var startX = points[0][0], startY = points[0][1];
-			this.moveTo(startX, startY);
+		,polygon: function(points) {
+			var start = points[0];
+			this.moveTo(start[0], start[1]);
 			for (var i = 1, l = points.length; i < l; i++) {
-				var x = points[i][0], y = points[i][1];
-				this.lineTo(x, y);
+				var point = points[i];
+				this.lineTo(point[0], point[1]);
 			}
-			if (!leaveOpen)
-				this.lineTo(startX, startY);
-
 			return this;
 		}
 		,drawingQueue: function(drawingQueue) {
@@ -161,6 +132,41 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 
 (function DrawingBase_static_methods() {
 	_.extend(EaselJSGraphics.DrawingBase, {
+		createStarPolygon: function(x, y, radius, sides, pointSize, angle) {
+			if (typeof x === 'object') {
+				var options = x;
+				x = options.x;
+				y = options.y;
+				radius = options.radius;
+				sides = options.sides;
+				pointSize = options.pointSize;
+				angle = options.angle;
+			}
+			if (!radius || !sides) return null;
+			if (!x) x = 0;
+			if (!y) y = 0;
+			if (!pointSize) pointSize = 0;
+			if (!angle) angle = 0;
+
+			pointSize = 1-pointSize;
+			 
+			angle /= 180/Math.PI;
+			
+			var a = Math.PI/sides;
+
+			var starPolygon = [];
+			starPolygon.push([ x+Math.cos(angle)*radius, y+Math.sin(angle)*radius ]);
+			for (var i=0; i<sides; i++) {
+				angle += a;
+				if (pointSize != 1) {
+					starPolygon.push([ x+Math.cos(angle)*radius*pointSize, y+Math.sin(angle)*radius*pointSize ]);
+				}
+				angle += a;
+				starPolygon.push([ x+Math.cos(angle)*radius, y+Math.sin(angle)*radius ]);
+			}
+			return starPolygon;
+		}
+		,
 		createImage: function(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
