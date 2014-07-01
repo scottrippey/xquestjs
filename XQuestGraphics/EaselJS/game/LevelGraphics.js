@@ -85,6 +85,8 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	}
 	,
 	_drawElectricLine: function(graphics, gate, gateStart, gateEnd) {
+		var segments = gate.segments;
+		
 		graphics.beginStyle(gate.strokeStyle)
 			.moveTo(gateStart.x, gateStart.y);
 
@@ -92,9 +94,11 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 			x: (gateEnd.x - gateStart.x)
 			,y: (gateEnd.y - gateStart.y)
 		};
-		var segments = gate.segments;
+
+		var interpolate = Smart.Interpolate.points(gateStart, gateEnd);
+
 		for (var i = 1; i <= segments; i++) {
-			var pos = Smart.Interpolate.points(gateStart, gateEnd, i / segments);
+			var pos = interpolate(i / segments);
 			var dist = Math.min(segments - i, i) / segments
 				,deviation = dist * gate.deviation * (Math.random() - 0.5);
 			if (diff.y)

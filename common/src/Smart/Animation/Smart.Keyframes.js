@@ -8,33 +8,24 @@ Smart.Keyframes = {
 	fromNumbers: function(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
-		return function(pct) {
-			return Smart.Interpolate.keyframes(keyframes, pct, Smart.Interpolate.numbers);
-		}
+		return Smart.Interpolate.keyframes(keyframes, Smart.Interpolate.numbers);
 	}
 	,
 	fromPoints: function(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
-		return function(pct) {
-			return Smart.Interpolate.keyframes(keyframes, pct, Smart.Interpolate.points);
-		};
+		return Smart.Interpolate.keyframes(keyframes, Smart.Interpolate.points);
 	}
 	,
 	fromColors: function(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
-		var colorKeyframes = _.map(keyframes, Smart.Color.parseToArray);
-		return function(pct) {
-			return Smart.Interpolate.keyframes(colorKeyframes, pct, Smart.Interpolate.colors);
-		}
+		return Smart.Interpolate.keyframes(keyframes, Smart.Interpolate.colors);
 	}
 	,
 	step: function(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
-		return function(pct) {
-			return Smart.Interpolate.keyframes(keyframes, pct, false);
-		}
+		return Smart.Interpolate.keyframes(keyframes, false);
 	}
 };

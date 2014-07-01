@@ -5,8 +5,10 @@ EaselJSGraphics.SpecialEffects = {
 			x: (lineEnd.x - lineStart.x)
 			,y: (lineEnd.y - lineStart.y)
 		};
+		var interpolate = Smart.Interpolate.points(lineStart, lineEnd);
+		
 		for (var i = 1; i <= segments; i++) {
-			var pos = Smart.Interpolate.points(lineStart, lineEnd, i / segments);
+			var pos = interpolate(i / segments);
 			var dist = Math.min(segments - i, i) / segments
 				,deviation = dist * maxDeviation * (Math.random() - 0.5);
 			if (diff.y)
