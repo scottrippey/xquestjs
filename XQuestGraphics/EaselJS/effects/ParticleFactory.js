@@ -24,9 +24,6 @@ EaselJSGraphics.ParticleFactory = Smart.Class({
 		g.drawCircle(0, 0, particleOptions.radius);
 		g.endStyle(particleOptions.style);
 
-		// Cache for a small bump in speed:
-		particle.cache(-particleOptions.radius, -particleOptions.radius, particleOptions.radius * 2, particleOptions.radius * 2);
-
 		if (particleOptions.getAnimation) {
 			particle.animation = particleOptions.getAnimation(particle).queueDispose(particle);
 		}
