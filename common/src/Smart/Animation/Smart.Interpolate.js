@@ -4,6 +4,32 @@
  */
 Smart.Interpolate = {
 	/**
+	 * Determines the type of the values, and interpolates between them
+	 * @param {Number|Color|Point|Array} from
+	 * @param {Number|Color|Point|Array} to
+	 * @returns {interpolate}
+	 */
+	from: function(from, to) {
+		var fromType = (typeof from);
+		if (fromType !== typeof to) return null;
+		
+		if (fromType === 'number')
+			return Smart.Interpolate.numbers(from, to);
+		
+		if (fromType === 'string')
+			return Smart.Interpolate.colors(from, to);
+		
+		if (fromType === 'object') {
+			if ('x' in fromType && 'y' in fromType)
+				return Smart.Interpolate.points(from, to);
+			if (typeof fromType.length === 'number')
+				return Smart.Interpolate.arrays(from, to);
+		}
+			
+	}
+	
+	,
+	/**
 	 * Interpolates between two numbers	 
 	 * @param {Number} from
 	 * @param {Number} to
