@@ -51,7 +51,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 	 * Custom drawing helper methods, for drawing shapes and patterns
 	 */
 	_.extend(EaselJSGraphics.DrawingBase.prototype, {
-		endPath: function(drawStyle) {
+		drawPath: function(drawStyle) {
 			if (drawStyle.fillStyle) {
 				this.fillStyle(drawStyle.fillStyle);
 				this.fill();
