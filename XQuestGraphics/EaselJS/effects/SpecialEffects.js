@@ -28,6 +28,7 @@ EaselJSGraphics.SpecialEffects = {
 		this.drawElectricLineTo(drawing, { x: right, y: top }, { x: right, y: bottom }, segmentsV, devV);
 		this.drawElectricLineTo(drawing, { x: right, y: bottom }, { x: left, y: bottom }, segmentsH, devH);
 		this.drawElectricLineTo(drawing, { x: left, y: bottom }, { x: left, y: top }, segmentsV, devV);
+		drawing.closePath();
 		
 	}
 };

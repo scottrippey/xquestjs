@@ -7,8 +7,8 @@
 			getRows: function() {
 				return [
 					this.createMenuButton("Start Game", this._onStartGame.bind(this))
-					,
-					this.createMenuButton("Game Options", this._onGameOptions.bind(this))
+//					,
+//					this.createMenuButton("Game Options", this._onGameOptions.bind(this))
 				];
 			}
 			,_onStartGame: function() {
