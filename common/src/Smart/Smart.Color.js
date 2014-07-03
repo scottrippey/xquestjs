@@ -38,9 +38,9 @@
 		parseHSL: function(color) {
 			if (typeof color !== 'string') return null;
 			
-			color = color.replace(/\s+/s, "");
+			color = color.replace(/\s+/g, "");
 			
-			var hsla = color.match(/^hsla?\((\d{1,3}),(\d{1,3})%,(\d{1,3})%(?:,(\d?\.?\d*))\)$/);
+			var hsla = color.match(/^hsla?\((\d{1,3}),(\d{1,3})%,(\d{1,3})%(?:,(\d?\.?\d*))?\)$/);
 			if (hsla)
 				return hsla.slice(1, (hsla[4] ? 5 : 4)).map(function(d) { return parseFloat(d); });
 			
@@ -48,15 +48,23 @@
 		}
 		,
 		toHSL: function(array) {
+			var hue = array[0];
+			if (hue < 0)
+				hue = 360 - (-hue % 360);
+			else if (hue >= 360)
+				hue = hue % 360;
+			
 			if (array.length === 4)
-				return "hsla(" + array[0].toFixed(0)
+				return "hsla(" + hue.toFixed(0)
 						+ "," + str(array[1], 0, 100, 0)
-						+ "," + str(array[2], 0, 100, 0)
-						+ "," + str(array[3], 0, 1, 2) + ")";
+						+ "%," + str(array[2], 0, 100, 0)
+						+ "%," + str(array[3], 0, 1, 2)
+						+ ")";
 			if (array.length === 3)
-				return "hsl(" + array[0].toFixed(0)
+				return "hsl(" + hue.toFixed(0)
 						+ "," + str(array[1], 0, 100, 0)
-						+ "," + str(array[2], 0, 100, 0) + ")";
+						+ "%," + str(array[2], 0, 100, 0)
+						+ "%)";
 			
 			return null;
 		}
