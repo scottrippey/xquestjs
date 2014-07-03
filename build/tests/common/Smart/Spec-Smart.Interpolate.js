@@ -1,6 +1,5 @@
 describe("Smart.Interpolate", function() {
 	describe("Smart.Interpolate.numbers", function() {
-		
 		var interpolate = Smart.Interpolate.numbers(100, 200);
 		
 		it("should return a function that accepts 1 parameter", function() {
@@ -9,12 +8,20 @@ describe("Smart.Interpolate", function() {
 		});
 		
 		it("should interpolate between positive values", function() {
-			expect(interpolate(0.00)).toBe(100);
-			expect(interpolate(0.25)).toBe(125);
-			expect(interpolate(0.50)).toBe(150);
-			expect(interpolate(0.75)).toBe(175);
-			expect(interpolate(1.00)).toBe(200);
+			expect([ 0.00, 0.25, 0.50, 0.75, 1.00 ].map(interpolate))
+				.toEqual([ 100, 125, 150, 175, 200 ]);
+		});
+
+		var interpolateNeg = Smart.Interpolate.numbers(-200, -100);
+		it("should interpolate between negative values", function() {
+			expect([ 0.00, 0.25, 0.50, 0.75, 1.00 ].map(interpolateNeg))
+				.toEqual([ -200, -175, -150, -125, -100 ]);
 		});
 		
+		var interpolateDown = Smart.Interpolate.numbers(200, 100);
+		it("should interpolate from high to low", function() {
+			expect([ 0.00, 0.25, 0.50, 0.75, 1.00 ].map(interpolateDown))
+				.toEqual([ 200, 175, 150, 125, 100 ]);
+		});
 	});
 });
