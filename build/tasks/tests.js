@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 	
-	grunt.registerTask('tests', [ 'jasmine' ]);
+	grunt.registerTask('tests', [ 'jasmine:SMART' ]);
 	
 	grunt.mergeConfig({
 		jasmine: {
@@ -14,6 +14,12 @@ module.exports = function(grunt) {
 				, options: {
 					specs: 'tests/common/Smart/**/*.js'
 				}
+			}
+		}
+		, watch: {
+			'TESTS': {
+				files: [ '<%= jasmine.SMART.src %>', '<%= jasmine.SMART.options.specs %>' ]
+				, tasks: [ 'tests' ]
 			}
 		}
 	});
