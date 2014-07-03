@@ -16,7 +16,7 @@
 			
 			var rgba = color.match(/^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(?:,(\d?\.?\d*))?\)$/);
 			if (rgba)
-				return rgba.slice(1, (rgba[4] ? 5 : 4)).map(function(d) { return parseInt(d, 10); });
+				return rgba.slice(1, (rgba[4] ? 5 : 4)).map(function(d) { return parseFloat(d); });
 			
 			return null;
 		}
@@ -42,7 +42,7 @@
 			
 			var hsla = color.match(/^hsla?\((\d{1,3}),(\d{1,3})%,(\d{1,3})%(?:,(\d?\.?\d*))\)$/);
 			if (hsla)
-				return hsla.slice(1, (hsla[4] ? 5 : 4)).map(function(d) { return parseInt(d, 10); });
+				return hsla.slice(1, (hsla[4] ? 5 : 4)).map(function(d) { return parseFloat(d); });
 			
 			return null;
 		}
