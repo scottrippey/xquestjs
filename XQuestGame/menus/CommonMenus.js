@@ -7,8 +7,8 @@
 			getRows: function() {
 				return [
 					this.createMenuButton("Start Game", this._onStartGame.bind(this))
-//					,
-//					this.createMenuButton("Game Options", this._onGameOptions.bind(this))
+//					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
+					,this.createMenuButton("Graphics Test", this._showGraphicsTest.bind(this))
 				];
 			}
 			,_onStartGame: function() {
@@ -16,8 +16,11 @@
 					this.fireEvent(StartMenuEvents.onStartGame);
 				}.bind(this));
 			}
-			,_onGameOptions: function() {
+			,_showGameOptions: function() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
+			}
+			,_showGraphicsTest: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.GraphicsTestMenu(this.menuScene));
 			}
 		})
 		,
