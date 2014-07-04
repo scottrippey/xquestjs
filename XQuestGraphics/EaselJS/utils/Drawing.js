@@ -22,10 +22,9 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 		if (!DisplayObject_handled && this.drawingQueue) {
 			this.drawingQueue.draw(ctx);
 		}
-		if (this.drawEffects && !ignoreCache) {
-			var tickEvent = this.tickEvent;
+		if (this.drawEffects && !ignoreCache && this.tickEvent) {
 			this.sharedDrawingContext.setContext(ctx);
-			this.drawEffects(this.sharedDrawingContext, tickEvent);
+			this.drawEffects(this.sharedDrawingContext, this.tickEvent);
 		}
 
 		return true;
