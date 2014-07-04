@@ -20,10 +20,10 @@ Smart.Interpolate = {
 			return Smart.Interpolate.colors(from, to);
 		
 		if (fromType === 'object') {
-			if ('x' in fromType && 'y' in fromType)
-				return Smart.Interpolate.points(from, to);
 			if (typeof fromType.length === 'number')
 				return Smart.Interpolate.arrays(from, to);
+			if ('x' in fromType && 'y' in fromType)
+				return Smart.Interpolate.points(from, to);
 		}
 			
 	}

@@ -210,6 +210,9 @@ var EaselJSGraphics = Smart.Class({
 			case 'Locust':
 				enemyGraphics = new EaselJSGraphics.LocustGraphics();
 				break;
+			case 'Mantis':
+				enemyGraphics = new EaselJSGraphics.MantisGraphics();
+				break;
 		}
 
 		if (enemyGraphics == null)

@@ -155,7 +155,6 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 			var a = Math.PI/sides;
 
 			var starPolygon = [];
-			starPolygon.push([ x+Math.cos(angle)*radius, y+Math.sin(angle)*radius ]);
 			for (var i=0; i<sides; i++) {
 				angle += a;
 				if (pointSize != 1) {
