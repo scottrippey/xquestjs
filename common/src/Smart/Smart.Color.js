@@ -70,6 +70,33 @@
 		}
 	};
 	
+	_.extend(Smart.Color, {
+		_shift: function(hslColor, amount, hslaIndex) {
+			hslColor = Smart.Color.parseHSL(hslColor);
+			hslColor[hslaIndex] += amount;
+			return Smart.Color.toHSL(hslColor);
+		},
+		darken: function(hslColor, darkenPct) {
+			return this._shift(hslColor, -darkenPct, 2);
+		}
+		,
+		lighten: function(hslColor, lightenPct) {
+			return this._shift(hslColor, lightenPct, 2);
+		}
+		,
+		spin: function(hslColor, spinAmt) {
+			return this._shift(hslColor, spinAmt, 0);
+		}
+		,
+		saturate: function(hslColor, saturateAmt) {
+			return this._shift(hslColor, saturateAmt, 1);
+		}
+		,
+		desaturate: function(hslColor, desaturateAmt) {
+			return this._shift(hslColor, -desaturateAmt, 1);
+		}
+	});
+	
 	function str(number, min, max, decimalPoints) {
 		if (number < min) number = min;
 		else if (number > max) number = max;
