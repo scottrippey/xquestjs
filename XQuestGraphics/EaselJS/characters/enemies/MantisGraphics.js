@@ -13,12 +13,7 @@ Balance.onUpdate(function(gameMode) {
 });
 
 EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
-	initialize: function() {
-		this.BaseEnemyGraphics_initialize();
-		
-		this._setupStar();
-	}
-	, _setupStar: function() {
+	setup: function() {
 		var G = Graphics.enemies.mantis;
 
 		this.visibleRadius = G.radius;
