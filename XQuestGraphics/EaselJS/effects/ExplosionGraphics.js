@@ -6,14 +6,9 @@ Balance.onUpdate(function(gameMode) {
 			,style: {
 				fillColor: 'hsl(60, 100%, 50%)'
 			}
-			,radius: 6
+			,radius: 4
 			,friction: 0.9
-			,getAnimation: function(particle) {
-				return new Smart.Animation()
-					.duration(3).easeOut()
-					.fade(particle, 0)
-					;
-			}
+			,duration: 3
 		}
 	});
 });
@@ -36,13 +31,11 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
 			};
 		}
 		
-		this.anim = new Smart.Animation()
-			.duration(3).easeOut().fade(this, 0).queueDispose(this);
+		this.addAnimation()
+			.duration(explosionOptions.duration).easeOut().fade(this, 0).queueDispose(this);
 		
 	}
 	,drawEffects: function(drawing, tickEvent) {
-		this.anim.update(tickEvent.deltaSeconds);
-
 		var explosionOptions = this.explosionOptions,
 			particles = this.particles,
 			deltaSeconds = tickEvent.deltaSeconds,

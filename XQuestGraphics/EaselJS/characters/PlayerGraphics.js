@@ -25,7 +25,7 @@ EaselJSGraphics.PlayerGraphics = Smart.Class(new createjs.Shape(), {
 	killPlayerGraphics: function(gfx, velocity) {
 		var G = Graphics.player;
 		this.toggleVisible(false);
-		gfx.createExplosion(this, velocity, G.particles);
+		gfx.createExplosion(this, velocity, G.explosionOptions);
 	}
 	,
 	restorePlayerGraphics: function() {

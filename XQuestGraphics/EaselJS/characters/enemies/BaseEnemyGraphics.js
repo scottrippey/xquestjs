@@ -38,7 +38,7 @@ EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 		var enemyGraphics = this;
 		enemyGraphics.dispose();
 
-		var particleOptions = this.getParticleOptions();
-		gfx.createExplosion(enemyGraphics, velocity, particleOptions);
+		var explosionOptions = this.getExplosionOptions();
+		gfx.createExplosion(enemyGraphics, velocity, explosionOptions);
 	}
 });

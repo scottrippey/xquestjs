@@ -26,13 +26,6 @@ Balance.onUpdate(function(mode) {
 					fillStyle: 'hsl(60, 100%, 50%)'
 				}
 				,radius: 6
-				,friction: 0.9
-				,getAnimation: function(particle) {
-					return new Smart.Animation()
-						.duration(3).easeOut()
-						.fade(particle, 0)
-						;
-				}
 			}
 		}
 		,bullets: {

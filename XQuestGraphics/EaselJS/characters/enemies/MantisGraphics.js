@@ -14,13 +14,6 @@ Balance.onUpdate(function(gameMode) {
 					,style: {
 						fillStyle: red
 					}
-					,radius: 4
-					,friction: 0.95
-					,getAnimation: function(particle) {
-						return new Smart.Animation()
-							.duration(3).easeOut()
-							.fade(particle, 0);
-					}
 				}
 			}
 			

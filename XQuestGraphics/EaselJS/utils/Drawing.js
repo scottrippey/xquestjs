@@ -50,6 +50,9 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 		if (!DisplayObject_handled && this.drawingQueue) {
 			this.drawingQueue.draw(ctx);
 		}
+		if (this._anim) {
+			this._anim.update(this.tickEvent.deltaSeconds);
+		}
 		if (this.drawEffects && !ignoreCache && this.tickEvent) {
 			this.sharedDrawingContext.setContext(ctx);
 			this.drawEffects(this.sharedDrawingContext, this.tickEvent);
@@ -57,4 +60,16 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 
 		return true;
 	}
+	
+	,addAnimation: function() {
+		var anim = new Smart.Animation();
+		if (!this._anim) {
+			this._anim = anim;
+		} else {
+			// TODO: What if we need multiple animations?
+			throw "Multiple animations not yet supported";
+		}
+		return anim;
+	}
+	
 });
