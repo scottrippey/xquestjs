@@ -54,7 +54,7 @@ EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraph
 	,drawEffects: function(drawing, tickEvent) {
 		if (!this.shape || this.nextChange <= tickEvent.time) {
 			var G = Graphics.menuButton;
-			var backgroundShape = this.shape = new EaselJSGraphics.DrawingQueue();
+			var backgroundShape = this.shape = new Smart.DrawingQueue();
 			this.nextChange = tickEvent.time + G.backgroundShape.changeFrequency;
 			
 			backgroundShape.beginPath();

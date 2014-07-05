@@ -25,7 +25,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 
 	,DisplayObject_initialize: createjs.DisplayObject.prototype.initialize
 	,DisplayObject_draw: createjs.DisplayObject.prototype.draw
-	,sharedDrawingContext: new EaselJSGraphics.DrawingContext(null)
+	,sharedDrawingContext: new Smart.DrawingContext(null)
 	,initialize: function(args_) {
 		this.Drawing_initialize.apply(this, arguments);
 	}
@@ -37,7 +37,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 		}
 		
 		if (this.drawStatic) {
-			this.drawingQueue = new EaselJSGraphics.DrawingQueue();
+			this.drawingQueue = new Smart.DrawingQueue();
 			this.drawStatic(this.drawingQueue);
 		}
 	}

@@ -18,8 +18,8 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 
 		this.visibleRadius = G.radius;
 		
-		var star1 = EaselJSGraphics.DrawingBase.createStarPolygon(0, 0, G.star1.radius, G.star1.sides, G.star1.pointSize, 0);
-		var star2 = EaselJSGraphics.DrawingBase.createStarPolygon(0, 0, G.star2.radius, G.star2.sides, G.star2.pointSize, G.star2.angle);
+		var star1 = Smart.Drawing.createStarPolygon(0, 0, G.star1.radius, G.star1.sides, G.star1.pointSize, 0);
+		var star2 = Smart.Drawing.createStarPolygon(0, 0, G.star2.radius, G.star2.sides, G.star2.pointSize, G.star2.angle);
 		
 		star2.push(star2.shift());
 		

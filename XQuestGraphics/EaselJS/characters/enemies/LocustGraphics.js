@@ -10,10 +10,10 @@ Balance.onUpdate(function(mode) {
 			locust: {
 				visibleRadius: Balance.enemies.locust.radius + 1
 				,triangleTriangle: {
-					outerTriangle: EaselJSGraphics.DrawingBase.polygonFromAngles(0, outerOffset, outerRadius, [ 0, 130, 230 ])
+					outerTriangle: Smart.Drawing.polygonFromAngles(0, outerOffset, outerRadius, [ 0, 130, 230 ])
 					,outerStyle: { fillStyle: orange }
 					
-					,innerTriangle: EaselJSGraphics.DrawingBase.polygonFromAngles(0, innerOffset, innerRadius, [ 0, 130, 230 ])
+					,innerTriangle: Smart.Drawing.polygonFromAngles(0, innerOffset, innerRadius, [ 0, 130, 230 ])
 					,innerStyle: { fillStyle: red, strokeStyle: 'black' }
 				}
 				,particles: {

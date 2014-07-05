@@ -1,8 +1,15 @@
-EaselJSGraphics.DrawingBase = Smart.Class({
+/**
+ * Smart.Drawing
+ * 
+ * A wrapper around a CanvasRenderingContext2D,
+ * providing a chainable syntax and shape helper methods.
+ * 
+ */
+Smart.Drawing = Smart.Class({
 	addCommand: null // Must be overridden
 });
 
-(function DrawingBase_native_canvas() {
+(function Drawing_native_canvas() {
 	/**
 	 * The following is a list of native canvas context methods.
 	 * We will create chainable proxies for each method.
@@ -27,7 +34,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 		'strokeStyle', 'fillStyle', 'lineWidth', 'lineCap', 'lineJoin', 'miterLimit'
 	];
 	canvasMethods.forEach(function(methodName) {
-		EaselJSGraphics.DrawingBase.prototype[methodName] = function _canvas_method_() {
+		Smart.Drawing.prototype[methodName] = function _canvas_method_() {
 			var methodArgs = arguments;
 			this.addCommand(function(context) {
 				context[methodName].apply(context, methodArgs);
@@ -37,7 +44,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 	});
 
 	canvasProperties.forEach(function(propName) {
-		EaselJSGraphics.DrawingBase.prototype[propName] = function _canvas_property_setter_(value) {
+		Smart.Drawing.prototype[propName] = function _canvas_property_setter_(value) {
 			this.addCommand(function(context) {
 				context[propName] = value;
 			});
@@ -46,11 +53,11 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 	});
 })();
 
-(function DrawingBase_custom_methods() {
+(function Drawing_custom_methods() {
 	/**
 	 * Custom drawing helper methods, for drawing shapes and patterns
 	 */
-	_.extend(EaselJSGraphics.DrawingBase.prototype, {
+	_.extend(Smart.Drawing.prototype, {
 		endPath: function(drawStyle) {
 			if (drawStyle.fillStyle) {
 				this.fillStyle(drawStyle.fillStyle);
@@ -94,7 +101,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 			return this;
 		}
 		,star: function(x, y, radius, sides, pointSize, angle) {
-			var starPolygon = EaselJSGraphics.DrawingBase.createStarPolygon(x, y, radius, sides, pointSize, angle);
+			var starPolygon = Smart.Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
 			this.polygon(starPolygon, false);
 			return this;
 		}
@@ -130,8 +137,8 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 
 })();
 
-(function DrawingBase_static_methods() {
-	_.extend(EaselJSGraphics.DrawingBase, {
+(function Drawing_static_methods() {
+	_.extend(Smart.Drawing, {
 		/**
 		 * Creates a star with the specified number of sides.
 		 * 
@@ -204,7 +211,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 		createImage: function(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
-			var drawing = new EaselJSGraphics.DrawingContext(context);
+			var drawing = new Smart.DrawingContext(context);
 
 			drawingCallback(drawing);
 
@@ -214,7 +221,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 		createPattern: function(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
-			var drawing = new EaselJSGraphics.DrawingContext(context);
+			var drawing = new Smart.DrawingContext(context);
 
 			drawingCallback(drawing);
 
@@ -235,7 +242,7 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 /**
  * A Drawing Helper that immediately draws to the supplied canvas context.
  */
-EaselJSGraphics.DrawingContext = Smart.Class(new EaselJSGraphics.DrawingBase(), {
+Smart.DrawingContext = Smart.Class(new Smart.Drawing(), {
 	initialize: function Drawing(context) {
 		this.context = context;
 	}
@@ -250,7 +257,7 @@ EaselJSGraphics.DrawingContext = Smart.Class(new EaselJSGraphics.DrawingBase(), 
 /**
  * A Drawing Helper that queues and caches the shapes, to be drawn
  */
-EaselJSGraphics.DrawingQueue = Smart.Class(new EaselJSGraphics.DrawingBase(), {
+Smart.DrawingQueue = Smart.Class(new Smart.Drawing(), {
 	initialize: function DrawingQueue() {
 		this._commands = [];
 	}
