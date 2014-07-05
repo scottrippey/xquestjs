@@ -16,7 +16,8 @@ Smart.Disposable = Smart.Class({
 	 * Calls all "cleanup" handlers that were added via `onDispose`
 	 */
 	dispose: function() {
-		if (this._onDispose === null) throw new Error("Object is already disposed!");
+		if (this._onDispose === null) 
+			throw new Error("Object is already disposed!");
 
 		if (this._onDispose) {
 			this._onDispose.forEach(function(callback) {

@@ -8,7 +8,6 @@ var EaselJSGraphics = Smart.Class({
 
 		this._setupLayers();
 		this._setupAnimations();
-		this._setupParticles();
 	}
 	,
 	_setupLayers: function() {
@@ -54,13 +53,8 @@ var EaselJSGraphics = Smart.Class({
 		this.animations = new Smart.Animations();
 	}
 	,
-	_setupParticles: function() {
-		this.particleFactory = new EaselJSGraphics.ParticleFactory(this);
-	}
-	,
 	onMove: function(tickEvent) {
 		this.animations.update(tickEvent.deltaSeconds);
-		this.particleFactory.updateParticles(tickEvent);
 	}
 	,
 	onDraw: function(tickEvent) {
@@ -283,22 +277,12 @@ var EaselJSGraphics = Smart.Class({
 		return bomb;
 	}
 	,
-	createExplosion: function(position, velocity, particleOptions) {
-		particleOptions.position = position;
-		particleOptions.velocity = { x: 0, y: 0 };
-
-		var particleCount = particleOptions.count, partSpeed = particleOptions.speed;
-		var random = function() { return 1 - Math.random() - Math.random(); }; // provides a more even spread than just Math.random()
-		for (var i = 0; i < particleCount; i++) {
-			particleOptions.velocity.x = velocity.x + partSpeed * random();
-			particleOptions.velocity.y = velocity.y + partSpeed * random();
-
-			var particle = this.particleFactory.createParticle(particleOptions);
-			this.layers.background.addChild(particle);
-			particle.onDispose(function(particle) {
-				this.layers.background.removeChild(particle);
-			}.bind(this, particle));
-		}
+	createExplosion: function(position, velocity, explosionOptions) {
+		var explosion = new EaselJSGraphics.ExplosionGraphic(position, velocity, explosionOptions);
+		this.layers.objects.addChild(explosion);
+		explosion.onDispose(function() {
+			this.layers.objects.removeChild(explosion);
+		}.bind(this));
 	}
 	,
 	addAnimation: function(animation) {

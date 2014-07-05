@@ -14,11 +14,11 @@ Balance.onUpdate(function(mode) {
 					, innerRadius: Balance.enemies.slug.radius * 0.7
 					, innerStyle: { fillStyle: green, strokeStyle: black }
 				}
-				, particles: {
+				, explosionOptions: {
 					count: 20
 					,speed: 300
 					,style: {
-						fillColor: 'hsl(100, 100%, 50%)'
+						fillStyle: 'hsl(100, 100%, 50%)'
 					}
 					,radius: 4
 					,friction: 0.95
@@ -45,8 +45,9 @@ EaselJSGraphics.SlugGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics
 		this.drawCircleCircle(drawing, G.circleCircle);
 	}
 	,
-	getParticleOptions: function() {
-		return Graphics.enemies.slug.particles;
+	getExplosionOptions: function() {
+		var G = Graphics.enemies.slug;
+		return G.explosionOptions;
 	}
 });
 

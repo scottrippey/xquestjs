@@ -8,11 +8,11 @@ Balance.onUpdate(function(gameMode) {
 				, star1: { radius: radius, sides: 7, pointSize: 0.5, color: yellow }
 				, star2: { radius: radius, sides: 7, pointSize: 0.7, angle: 360 / 7 * .5, color: red }
 				, pulse: 4
-				,particles: {
+				,explosionOptions: {
 					count: 20
 					,speed: 500
 					,style: {
-						fillColor: red
+						fillStyle: red
 					}
 					,radius: 4
 					,friction: 0.95
@@ -63,8 +63,8 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 			.fill()
 		;
 	}
-	, getParticleOptions: function() {
+	, getExplosionOptions: function() {
 		var G = Graphics.enemies.mantis;
-		return G.particles;
+		return G.explosionOptions;
 	}
 });

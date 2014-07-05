@@ -51,7 +51,7 @@
 		d: debugActions.killPlayer,
 		
 		p: debugActions.toggleFPS,
-		i: debugActions.toggleDebugStats,
+		//i: debugActions.toggleDebugStats,
 		
 		1: debugActions.activateInvincible,
 		2: debugActions.activateRapidFire,

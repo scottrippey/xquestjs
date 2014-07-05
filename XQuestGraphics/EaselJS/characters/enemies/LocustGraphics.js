@@ -16,11 +16,11 @@ Balance.onUpdate(function(mode) {
 					,innerTriangle: Smart.Drawing.polygonFromAngles(0, innerOffset, innerRadius, [ 0, 130, 230 ])
 					,innerStyle: { fillStyle: red, strokeStyle: 'black' }
 				}
-				,particles: {
+				,explosionOptions: {
 					count: 20
 					,speed: 500
 					,style: {
-						fillColor: 'hsl(40, 100%, 50%)'
+						fillStyle: 'hsl(40, 100%, 50%)'
 					}
 					,radius: 4
 					,friction: 0.95
@@ -44,8 +44,8 @@ EaselJSGraphics.LocustGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 		var G = Graphics.enemies.locust;
 		this.drawTriangleTriangle(drawing, G.triangleTriangle);
 	}
-	,getParticleOptions: function() {
+	,getExplosionOptions: function() {
 		var G = Graphics.enemies.locust;
-		return G.particles;
+		return G.explosionOptions;
 	}
 });

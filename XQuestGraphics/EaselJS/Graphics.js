@@ -19,11 +19,11 @@ Balance.onUpdate(function(mode) {
 			, innerStarPoints: 3
 			, innerStarSize: 0.7
 			, spinRate: 0.3 * 360
-			, particles: {
+			, explosionOptions: {
 				count: 200
 				,speed: 800
 				,style: {
-					fillColor: 'hsl(60, 100%, 50%)'
+					fillStyle: 'hsl(60, 100%, 50%)'
 				}
 				,radius: 6
 				,friction: 0.9
