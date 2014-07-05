@@ -11,10 +11,12 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
 			.clear()
 			.beginStyle(G.style)
 			.drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
+			.closePath()
 			.endStyle(G.style)
 
 			.beginStyle(G.styleInner)
 			.drawPolyStar(0, 0, G.radiusInner, G.sides, G.pointSize, 0)
+			.closePath()
 			.endStyle(G.styleInner)
 		;
 		this.rotation = 360 * Math.random();
