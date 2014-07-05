@@ -128,7 +128,7 @@ Balance.merge({
 			,enemies: {
 				maxRadius: 13
 				,safeSpawnDistance: 13*10
-				,spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(2, 4)
+				,spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(1, 2)
 				,spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently
 				,roster: gameOptions.enemyRoster || [ XQuestGame.Slug, XQuestGame.Locust, XQuestGame.Mantis ]
 				,slug: {
