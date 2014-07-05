@@ -1,18 +1,18 @@
 
 Balance.onUpdate(function(mode) {
+	var green = 'hsl(100, 100%, 50%)';
+	var darkGreen = Smart.Color.darken(green, 30);
+	var black = 'black';
+	
 	_.merge(Graphics, {
 		enemies: {
 			slug: {
 				radius: Balance.enemies.slug.radius + 1
-				, outerFillStyle: {
-					fillColor: 'hsl(100, 100%, 30%)'
-				}
-				, innerRadius: Balance.enemies.slug.radius * (0.7)
-				, innerFillStyle: {
-					fillColor: 'hsl(100, 100%, 50%)'
-				}
-				, innerStyle: {
-					strokeColor: 'black'
+				, circleCircle: {
+					outerRadius: Balance.enemies.slug.radius + 1
+					, outerStyle: { fillStyle: darkGreen }
+					, innerRadius: Balance.enemies.slug.radius * 0.7
+					, innerStyle: { fillStyle: green, strokeStyle: black }
 				}
 				, particles: {
 					count: 20
@@ -34,36 +34,19 @@ Balance.onUpdate(function(mode) {
 	});
 });
 
-EaselJSGraphics.SlugGraphics = Smart.Class(new createjs.Shape(), {
-	initialize: function() {
-		this._setupGraphics();
+EaselJSGraphics.SlugGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+	setup: function() {
+		var G = Graphics.enemies.slug;
+		this.visibleRadius = G.radius;		
+	},
+	drawStatic: function(drawing, tickEvent) {
+		var G = Graphics.enemies.slug;
+
+		this.drawCircleCircle(drawing, G.circleCircle);
 	}
 	,
-	_setupGraphics: function(){
-		var g = this.graphics, G = Graphics.enemies.slug;
-		
-		this.visibleRadius = G.radius; 
-
-		g.clear();
-
-		g.beginStyle(G.outerFillStyle)
-			.drawCircle(0, 0, G.radius)
-			.endFill();
-		g.beginStyle(G.innerFillStyle)
-			.drawCircle(0, 0, G.innerRadius)
-			.endFill()
-			.beginStyle(G.innerStyle)
-			.drawCircle(0, 0, G.innerRadius)
-			.endStyle(G.innerStyle);
-
-	}
-	,
-	killEnemy: function(gfx, velocity) {
-		var enemyGraphics = this, G = Graphics.enemies.slug;
-		enemyGraphics.dispose();
-
-		var particleOptions = G.particles;
-		gfx.createExplosion(enemyGraphics, velocity, particleOptions);
+	getParticleOptions: function() {
+		return Graphics.enemies.slug.particles;
 	}
 });
 

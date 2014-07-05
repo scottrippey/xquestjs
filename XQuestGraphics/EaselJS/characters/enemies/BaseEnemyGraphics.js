@@ -1,54 +1,42 @@
 EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
-	initialize: function() {
-		this.BaseEnemyGraphics_initialize();
-	}
-	,BaseEnemyGraphics_initialize: function() {
-		this.Drawing_initialize();
-	}
-	,drawCircleCircle: function(drawing, G) {
-		var radius = G.radius,
-			outerRadius = G.radius,
+	drawCircleCircle: function(drawing, G) {
+		var outerRadius = G.outerRadius,
 			outerStyle = G.outerStyle,
 			innerRadius = G.innerRadius,
 			innerStyle = G.innerStyle;
 		
-		this.visibleRadius = radius;
-		
 		drawing
 			.beginPath()
 			.circle(0, 0, outerRadius)
-			.drawPath(outerStyle)
+			.endPath(outerStyle)
 		
 			.beginPath()
 			.circle(0, 0, innerRadius)
-			.drawPath(innerStyle)
+			.endPath(innerStyle)
 		;
 		
 	}
 	,drawTriangleTriangle: function(drawing, G) {
-		var radius = G.radius,
-			outerTriangle = G.triangle,
+		var outerTriangle = G.outerTriangle,
 			outerStyle = G.outerStyle,
 			innerTriangle = G.innerTriangle,
 			innerStyle = G.innerStyle;
 		
-		this.visibleRadius = radius;
-		
 		drawing
 			.beginPath()
 			.polygon(outerTriangle)
-			.drawPath(outerStyle)
+			.endPath(outerStyle)
 			
 			.beginPath()
 			.polygon(innerTriangle)
-			.drawPath(innerStyle)
+			.endPath(innerStyle)
 		;
 	}
 	,killEnemy: function(gfx, velocity) {
-		var enemyGraphics = this, G = Graphics.enemies.locust;
+		var enemyGraphics = this;
 		enemyGraphics.dispose();
 
-		var particleOptions = G.particles;
+		var particleOptions = this.getParticleOptions();
 		gfx.createExplosion(enemyGraphics, velocity, particleOptions);
 	}
 });
