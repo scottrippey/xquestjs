@@ -59,7 +59,7 @@ EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraph
 			
 			backgroundShape.beginPath();
 			EaselJSGraphics.SpecialEffects.drawElectricRectangle(backgroundShape, G, G.backgroundShape);
-			backgroundShape.drawPath(this.isActive ? G.buttonActiveStyle : G.buttonStyle);
+			backgroundShape.endPath(this.isActive ? G.buttonActiveStyle : G.buttonStyle);
 		}
 		drawing.drawingQueue(this.shape);
 	}
