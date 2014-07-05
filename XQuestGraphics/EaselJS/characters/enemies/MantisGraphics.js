@@ -1,13 +1,29 @@
 Balance.onUpdate(function(gameMode) {
+	var radius = Balance.enemies.mantis.radius;
+	var red = 'hsl(10, 100%, 50%)', yellow = 'hsl(60, 100%, 50%)';
 	Graphics.merge({
 		enemies: {
 			mantis: {
-				radius: 12
-				, star1: { radius: 12, sides: 7, pointSize: 0.5, color: 'hsl(40, 100%, 50%)' }
-				, star2: { radius: 12, sides: 7, pointSize: 0.7, angle: 36, color: 'hsl(15, 100%, 50%)' }
-				, starStyle: { fillStyle: 'red' }
-				, pulse: 2
+				radius: radius
+				, star1: { radius: radius, sides: 7, pointSize: 0.5, color: yellow }
+				, star2: { radius: radius, sides: 7, pointSize: 0.7, angle: 360 / 7 * .5, color: red }
+				, pulse: 4
+				,particles: {
+					count: 20
+					,speed: 500
+					,style: {
+						fillColor: red
+					}
+					,radius: 4
+					,friction: 0.95
+					,getAnimation: function(particle) {
+						return new Smart.Animation()
+							.duration(3).easeOut()
+							.fade(particle, 0);
+					}
+				}
 			}
+			
 		}
 	});
 });
@@ -27,10 +43,13 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 		this.getStarStyle = Smart.Interpolate.colors(G.star1.color, G.star2.color);
 		this.star1 = star1;
 		this.star2 = star2;
+		
+		this.time = 0;
 	}
 	, drawEffects: function(drawing, tickEvent) {
 		var G = Graphics.enemies.mantis;
-		var pulse = (Math.sin(tickEvent.time / 1000 * Math.PI * 2 / G.pulse) + 1) / 2;
+		this.time += tickEvent.deltaSeconds;
+		var pulse = (Math.sin(this.time * Math.PI * 2 / G.pulse) + 1) / 2;
 		
 		drawing
 //			.beginPath().polygon(this.star1).fillStyle('hsla(0, 100%, 50%, 0.2)').fill()
@@ -43,5 +62,9 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 			.fillStyle(this.getStarStyle(pulse))
 			.fill()
 		;
+	}
+	, getParticleOptions: function() {
+		var G = Graphics.enemies.mantis;
+		return G.particles;
 	}
 });
