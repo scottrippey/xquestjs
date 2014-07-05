@@ -25,10 +25,12 @@ EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 		drawing
 			.beginPath()
 			.polygon(outerTriangle)
+			.closePath()
 			.endPath(outerStyle)
 			
 			.beginPath()
 			.polygon(innerTriangle)
+			.closePath()
 			.endPath(innerStyle)
 		;
 	}

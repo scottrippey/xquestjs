@@ -132,6 +132,17 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 
 (function DrawingBase_static_methods() {
 	_.extend(EaselJSGraphics.DrawingBase, {
+		/**
+		 * Creates a star with the specified number of sides.
+		 * 
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} radius
+		 * @param {Number} sides
+		 * @param {Number} pointSize
+		 * @param {Number} angle
+		 * @returns {Array}
+		 */
 		createStarPolygon: function(x, y, radius, sides, pointSize, angle) {
 			if (typeof x === 'object') {
 				var options = x;
@@ -164,6 +175,30 @@ EaselJSGraphics.DrawingBase = Smart.Class({
 				starPolygon.push([ x+Math.cos(angle)*radius, y+Math.sin(angle)*radius ]);
 			}
 			return starPolygon;
+		}
+		,
+		/**
+		 * Creates a polygon around the edges of a circle, connecting the specified angles.
+		 * For example, [ 0, 120, 240 ] would create an equilateral triangle,
+		 * and [ 0, 20, 180, 340 ] would create a kite-like shape.
+		 * 
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} radius
+		 * @param {Number[]} angles
+		 * @returns {Array}
+		 */
+		polygonFromAngles: function(x, y, radius, angles) {
+			var polygon = [];
+			var ANGLE_ADJUST = 90,
+				RAD_PER_DEG = Math.PI / -180;
+			for (var i = 0, l = angles.length; i < l; i++) {
+				var angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG
+					, px = Math.cos(angle) * radius
+					, py = Math.sin(angle) * radius;
+				polygon.push([ px + x, py + y ]);
+			}
+			return polygon;
 		}
 		,
 		createImage: function(width, height, drawingCallback) {

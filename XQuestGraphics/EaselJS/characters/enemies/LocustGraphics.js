@@ -1,25 +1,22 @@
 Balance.onUpdate(function(mode) {
-	var radius = Balance.enemies.locust.radius
-		, offset = radius * 0.3
-		, innerRadius = radius * 0.6
-		, innerOffset = innerRadius * -0.2
-		, edge = 0.9
-		;
+	var outerRadius = Balance.enemies.locust.radius
+		, outerOffset = 0
+		, innerRadius = outerRadius * 6 / 11
+		, innerOffset = outerRadius * 3 / 11;
+	var orange = 'hsl(40, 100%, 50%)', red = 'hsl(0, 100%, 30%)';
 
 	_.merge(Graphics, {
 		enemies: {
 			locust: {
-				radius: radius + 1
-				, triangle: [[0, -radius - offset], [radius * edge, radius - offset], [-radius * edge, radius - offset]]
-				, outerStyle: {
-					fillColor: 'hsl(40, 100%, 50%)'
+				visibleRadius: Balance.enemies.locust.radius + 1
+				,triangleTriangle: {
+					outerTriangle: EaselJSGraphics.DrawingBase.polygonFromAngles(0, outerOffset, outerRadius, [ 0, 130, 230 ])
+					,outerStyle: { fillStyle: orange }
+					
+					,innerTriangle: EaselJSGraphics.DrawingBase.polygonFromAngles(0, innerOffset, innerRadius, [ 0, 130, 230 ])
+					,innerStyle: { fillStyle: red, strokeStyle: 'black' }
 				}
-				, innerTriangle: [[0, -innerRadius - innerOffset], [innerRadius * edge, innerRadius - innerOffset], [-innerRadius * edge, innerRadius - innerOffset]]
-				, innerStyle: {
-					fillColor: 'hsl(0, 100%, 30%)'
-					,strokeColor: 'black'
-				}
-				, particles: {
+				,particles: {
 					count: 20
 					,speed: 500
 					,style: {
@@ -38,33 +35,17 @@ Balance.onUpdate(function(mode) {
 	});
 });
 
-EaselJSGraphics.LocustGraphics = Smart.Class(new createjs.Shape(), {
-	initialize: function() {
-		this._setupGraphics();
+EaselJSGraphics.LocustGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+	setup: function(){
+		var G = Graphics.enemies.locust;
+		this.visibleRadius = G.visibleRadius; 
 	}
-	,
-	_setupGraphics: function(){
-		var g = this.graphics, G = Graphics.enemies.locust;
-
-		this.visibleRadius = G.radius; 
-
-		g.clear();
-
-		g.beginStyle(G.outerStyle)
-			.drawPolygon(G.triangle)
-			.endStyle(G.outerStyle);
-
-		g.beginStyle(G.innerStyle)
-			.drawPolygon(G.innerTriangle)
-			.endStyle(G.innerStyle);
-
+	,drawEffects: function(drawing) {
+		var G = Graphics.enemies.locust;
+		this.drawTriangleTriangle(drawing, G.triangleTriangle);
 	}
-	,
-	killEnemy: function(gfx, velocity) {
-		var enemyGraphics = this, G = Graphics.enemies.locust;
-		enemyGraphics.dispose();
-
-		var particleOptions = G.particles;
-		gfx.createExplosion(enemyGraphics, velocity, particleOptions);
+	,getParticleOptions: function() {
+		var G = Graphics.enemies.locust;
+		return G.particles;
 	}
 });
