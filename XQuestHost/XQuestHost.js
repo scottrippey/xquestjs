@@ -68,6 +68,10 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		}.bind(this));
 	}
 	,_tickHandler: function(tickEvent) {
+		if (this.timeAdjust) {
+			tickEvent.deltaSeconds *= this.timeAdjust;
+		}
+		
 		this.backgroundGraphics.onDraw(tickEvent);
 		this.scenes.forEach(function(scene) {
 			scene.updateScene(tickEvent);
