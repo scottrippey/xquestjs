@@ -33,7 +33,7 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 		star2.push(star2.shift());
 		
 		this.getStar = Smart.Interpolate.arrays(star1, star2);
-		this.getStarStyle = Smart.Interpolate.colors(G.star1.color, G.star2.color);
+		this.getStarColor = Smart.Interpolate.colors(G.star1.color, G.star2.color);
 		this.star1 = star1;
 		this.star2 = star2;
 		
@@ -44,20 +44,19 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 		this.time += tickEvent.deltaSeconds;
 		var pulse = (Math.sin(this.time * Math.PI * 2 / G.pulse) + 1) / 2;
 		
+		this.starColor = this.getStarColor(pulse);
+		
 		drawing
-//			.beginPath().polygon(this.star1).fillStyle('hsla(0, 100%, 50%, 0.2)').fill()
-//			.beginPath().polygon(this.star2).fillStyle('hsla(200, 100%, 50%, 0.2)').fill()
-//			.beginPath().polygon(this.getStar(pulse)).strokeStyle('hsla(0,100%,100%, 0.3)').stroke()
 			.beginPath()
 			.polygon(this.getStar(pulse))
-			//.circle(0, 0, G.radius)
 			.closePath()
-			.fillStyle(this.getStarStyle(pulse))
+			.fillStyle(this.starColor)
 			.fill()
 		;
 	}
 	, getExplosionOptions: function() {
 		var G = Graphics.enemies.mantis;
-		return G.explosionOptions;
+		var explosionOptions = _.defaults({ style: { fillStyle: this.starColor } }, G.explosionOptions);
+		return explosionOptions;
 	}
 });
