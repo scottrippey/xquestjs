@@ -57,6 +57,7 @@
 
 			this._updateBackButton();
 			this.currentMenu.menuEnter(false);
+			this.scenePaused = false;
 		}
 		,goBack: function() {
 			if (this.menuStack.length <= 1) return;
@@ -74,6 +75,7 @@
 				this.fireSceneEvent(MenuSceneEvents.onMenuExit);
 				callback();
 				this.dispose();
+				this.scenePaused = true;
 			}.bind(this));
 		}
 
