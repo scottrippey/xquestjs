@@ -9,12 +9,12 @@ Balance.onUpdate(function(mode) {
 		player: {
 			radius: Balance.player.radius
 			, outerStrokeStyle: {
-				strokeWidth: 3
-				, strokeColor: 'white'
+				lineWidth: Balance.player.radius * 0.25
+				, strokeStyle: 'white'
 			}
 			, innerRadius: Balance.player.radius - 2
 			, innerStyle: {
-				fillColor: 'hsl(60, 100%, 50%)'
+				fillStyle: 'hsl(60, 100%, 50%)'
 			}
 			, innerStarPoints: 3
 			, innerStarSize: 0.7

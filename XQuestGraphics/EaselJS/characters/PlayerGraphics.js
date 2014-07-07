@@ -1,34 +1,28 @@
-EaselJSGraphics.PlayerGraphics = Smart.Class(new createjs.Shape(), {
-	initialize: function() {
-		this._setupGraphics();
-	}
-	,
-	_setupGraphics: function(){
-		var g = this.graphics, G = Graphics.player;
-		this.visibleRadius = G.radius;
-		g.clear();
+EaselJSGraphics.PlayerGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
+	drawStatic: function(drawing) {
+		var G = Graphics.player;
+		this.radius = G.radius;
 
-		g.beginStyle(G.outerStrokeStyle)
-		 .drawCircle(0, 0, G.radius)
-		 .endStroke();
+		drawing.beginPath()
+			.circle(0, 0, G.radius)
+			.endPath(G.outerStrokeStyle);
 
-		g.beginStyle(G.innerStyle)
-		 .drawPolyStar(0, 0, G.innerRadius, G.innerStarPoints, G.innerStarSize, 0)
-		 .endStyle(G.innerStyle);
+		drawing.beginPath()
+			.star(0, 0, G.innerRadius, G.innerStarPoints, G.innerStarSize, 0)
+			.endPath(G.innerStyle);
 
 	}
-	,
-	onTick: function(tickEvent) {
-		this.rotation += (Graphics.player.spinRate * tickEvent.deltaSeconds);
+	,drawEffects: function(drawing, tickEvent){
+		var G = Graphics.player;
+
+		this.rotation += (G.spinRate * tickEvent.deltaSeconds);
 	}
-	,
-	killPlayerGraphics: function(gfx, velocity) {
+	,killPlayerGraphics: function(gfx, velocity) {
 		var G = Graphics.player;
 		this.toggleVisible(false);
 		gfx.createExplosion(this, velocity, G.explosionOptions);
 	}
-	,
-	restorePlayerGraphics: function() {
+	,restorePlayerGraphics: function() {
 		this.toggleVisible(true);
 	}
 });
