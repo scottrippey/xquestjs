@@ -5,13 +5,15 @@
 	};
 
 	// Available actions:
-	var accelerateUp = 'accelerateUp';
-	var accelerateDown = 'accelerateDown';
-	var accelerateLeft = 'accelerateLeft';
-	var accelerateRight = 'accelerateRight';
-	var primaryWeapon = 'primaryWeapon';
-	var secondaryWeapon = 'secondaryWeapon';
-	var pauseGame = 'pauseGame';
+	var playerActions = {
+		accelerateUp: 'accelerateUp'
+		,accelerateDown: 'accelerateDown'
+		,accelerateLeft: 'accelerateLeft'
+		,accelerateRight: 'accelerateRight'
+		,primaryWeapon: 'primaryWeapon'
+		,secondaryWeapon: 'secondaryWeapon'
+		,pauseGame: 'pauseGame'
+	};
 
 	var debugActions = {
 		gatherClosestCrystal: 'gatherClosestCrystal'
@@ -28,22 +30,22 @@
 	};
 	
 	var keyMap = {
-		escape: pauseGame,
-		contextMenu: pauseGame,
+		escape: playerActions.pauseGame,
+		contextMenu: playerActions.pauseGame,
 
-		up: accelerateUp,
-		down: accelerateDown,
-		left: accelerateLeft,
-		right: accelerateRight,
-		space: primaryWeapon,
-		enter: secondaryWeapon,
+		up: playerActions.accelerateUp,
+		down: playerActions.accelerateDown,
+		left: playerActions.accelerateLeft,
+		right: playerActions.accelerateRight,
+		space: playerActions.primaryWeapon,
+		enter: playerActions.secondaryWeapon,
 
-		numpad8: accelerateUp,
-		numpad2: accelerateDown,
-		numpad4: accelerateLeft,
-		numpad6: accelerateRight,
-		numpadadd: primaryWeapon,
-		numpadenter: secondaryWeapon,
+		numpad8: playerActions.accelerateUp,
+		numpad2: playerActions.accelerateDown,
+		numpad4: playerActions.accelerateLeft,
+		numpad6: playerActions.accelerateRight,
+		numpadadd: playerActions.primaryWeapon,
+		numpadenter: playerActions.secondaryWeapon,
 
 
 		c: debugActions.gatherClosestCrystal,
@@ -78,7 +80,7 @@
 		},
 		_onActionDown: function(action) {
 			switch (action) {
-				case pauseGame:
+				case playerActions.pauseGame:
 					this.game.pauseGame();
 					break;
 				case debugActions.gatherClosestCrystal:
@@ -123,18 +125,18 @@
 
 			var activeInputs = 4;
 
-			if (downActions[primaryWeapon]) inputState.primaryWeapon = true;
+			if (downActions[playerActions.primaryWeapon]) inputState.primaryWeapon = true;
 			else activeInputs--;
 
-			if (downActions[secondaryWeapon]) inputState.secondaryWeapon = true;
+			if (downActions[playerActions.secondaryWeapon]) inputState.secondaryWeapon = true;
 			else activeInputs--;
 
-			if (downActions[accelerateLeft]) inputState.accelerationX += -sensitivity;
-			else if (downActions[accelerateRight]) inputState.accelerationX += sensitivity;
+			if (downActions[playerActions.accelerateLeft]) inputState.accelerationX += -sensitivity;
+			else if (downActions[playerActions.accelerateRight]) inputState.accelerationX += sensitivity;
 			else activeInputs--;
 
-			if (downActions[accelerateUp]) inputState.accelerationY += -sensitivity;
-			else if (downActions[accelerateDown]) inputState.accelerationY += sensitivity;
+			if (downActions[playerActions.accelerateUp]) inputState.accelerationY += -sensitivity;
+			else if (downActions[playerActions.accelerateDown]) inputState.accelerationY += sensitivity;
 			else activeInputs--;
 			
 			if (activeInputs >= 1)
