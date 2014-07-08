@@ -42,8 +42,9 @@
 			getRows: function() {
 				return [
 					this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
-					,this.createMenuButton("Mouse Settings", function() {})
-					,this.createMenuButton("Keyboard Settings", function() {})
+//					,this.createMenuButton("Mouse Settings", function() {})
+//					,this.createMenuButton("Keyboard Settings", function() {})
+					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 			}
 			, _showDifficultyMenu: function() {
