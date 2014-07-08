@@ -130,6 +130,10 @@ Balance.merge({
 					, shots: 15
 					, speed: 200
 				}
+				, powerShot: {
+					duration: 30
+					, frequency: 20
+				}
 			}
 			,enemies: {
 				maxRadius: 13
