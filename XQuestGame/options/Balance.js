@@ -124,6 +124,12 @@ Balance.merge({
 					duration: 20
 					, frequency: 10
 				}
+				, ambushShot: {
+					duration: 15
+					, frequency: 10
+					, shots: 15
+					, speed: 200
+				}
 			}
 			,enemies: {
 				maxRadius: 13
