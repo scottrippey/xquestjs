@@ -37,6 +37,19 @@ Balance.merge({
 			,bombCrystalsSpawnQuantity: function(game) { return 3; }
 			,powerupSpawnRate: Balance.randomBetween(5, 5)
 		}
+		, 'easy': {
+			easyMode: true
+			, powerupSpawnRate: Balance.randomBetween(10, 20)
+			, enemySpawnRate: Balance.randomBetween(4, 6)
+		}
+		, 'normal': {
+			
+		}
+		, 'hard': {
+			hardMode: true
+			, enemySpawnRate: Balance.randomBetween(0.2, 1)
+			, powerupSpawnRate: Balance.randomBetween(30, 60)
+		}
 	}
 	,
 	setGameMode: function(gameMode) {
@@ -66,7 +79,7 @@ Balance.merge({
 						, totalHeight: hudHeight + padding + levelHeight + padding
 					};
 				})()
-				, gateWidth: 200
+				, gateWidth: gameOptions.easyMode ? 300 : 200
 			}
 			,player: {
 				radius: 12
@@ -82,17 +95,22 @@ Balance.merge({
 				,shotsPerSecond: 1.0
 			}
 			,bombs: {
-				startCount: 3
+				startCount: gameOptions.easyMode ? 5 : 3
 				, speed: 1300
 				, kickBack: 0.3
 			}
 			,crystals: {
 				radius: 10
-				,spawnQuantity: function(game) { return Math.min(12 + game.currentLevel, 40); }
+				,spawnQuantity: function(game) {
+					var min = gameOptions.hardMode ? 30 : 12
+						, multiplier = gameOptions.hardMode ? 4 : 2
+						, max = gameOptions.hardMode ? 80 : 40;
+					return Math.min(min + multiplier * game.currentLevel, max); 
+				}
 			}
 			,powerCrystals: {
 				radius: 15
-				, speed: 300
+				, speed: gameOptions.easyMode ? 200 : 300
 				, spawnAngle: Balance.randomBetween(-70, 70)
 				, turnSpeed: Balance.randomBetween(-40, 40)
 				, spawnRate: gameOptions.powerupSpawnRate || Balance.randomBetween(20, 40)
@@ -143,12 +161,12 @@ Balance.merge({
 				,roster: gameOptions.enemyRoster || [ XQuestGame.Slug, XQuestGame.Locust, XQuestGame.Mantis ]
 				,slug: {
 					radius: 13
-					,speed: 80
+					,speed: gameOptions.easyMode ? 60 : 80
 					,movementInterval: Balance.randomBetween(3, 10)
 				}
 				,locust: {
 					radius: 11
-					,speed: 150
+					,speed: gameOptions.easyMode ? 100 : 150
 					,movementInterval: Balance.randomBetween(3, 5)
 					,turnSpeed: Balance.randomBetween(-100, 100)
 				}

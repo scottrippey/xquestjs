@@ -7,7 +7,7 @@
 			getRows: function() {
 				return [
 					this.createMenuButton("Start Game", this._onStartGame.bind(this))
-//					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
+					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
 					,this.createMenuButton("Graphics Test", this._showGraphicsTest.bind(this))
 				];
 			}
@@ -41,10 +41,22 @@
 		GameOptions: Smart.Class(new XQuestGame.BaseMenu(), {
 			getRows: function() {
 				return [
-					this.createMenuButton("Option 1", function() {})
-					,this.createMenuButton("Option 2", function() {})
-					,this.createMenuButton("Option 3", function() {})
-					,this.createMenuButton("Option 4", function() {})
+					this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
+					,this.createMenuButton("Mouse Settings", function() {})
+					,this.createMenuButton("Keyboard Settings", function() {})
+				];
+			}
+			, _showDifficultyMenu: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
+			}
+		})
+		,
+		DifficultySettings: Smart.Class(new XQuestGame.BaseMenu(), {
+			getRows: function() {
+				return [
+					this.createMenuButton("Easy", function() { Balance.setGameMode('easy'); this.menuScene.goBack(); }.bind(this))
+					,this.createMenuButton("Normal", function() { Balance.setGameMode('normal'); this.menuScene.goBack(); }.bind(this))
+					,this.createMenuButton("Crazy Hard", function() { Balance.setGameMode('hard'); this.menuScene.goBack(); }.bind(this))
 				];
 			}
 		})
