@@ -111,8 +111,6 @@ module.exports = function(grunt) {
 		return results;
 	}
 
-	console.dir(sources.allSources);
-
 	grunt.mergeConfig({
 		sources: sources
 	});
