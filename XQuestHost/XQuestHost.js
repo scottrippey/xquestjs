@@ -25,11 +25,12 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		// Create elements manually, because parsing isn't "safe" for WinJS:
 		var container = document.createElement('section'), canvas = document.createElement('canvas');
 		container.appendChild(canvas);
-		_.extend(container.style, { position: 'fixed', top: 0, left: 0, bottom: 0, right: 0, 'background-color': 'hsl(0, 0%, 5%)', outline: 'none' });
+		container.setAttribute('tabindex', '1');
+		_.extend(container.style, { position: 'fixed', top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'hsl(0, 0%, 5%)', outline: 'none' });
 		_.extend(canvas.style, { position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, margin: 'auto' });
 
-		canvas.setAttribute('width', canvasWidth);
-		canvas.setAttribute('height', canvasHeight);
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
 
 		document.body.appendChild(container);
 		document.body.style.overflow = "hidden";
@@ -45,17 +46,20 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	}
 	,_contain: function(container, canvas, canvasWidth, canvasHeight) {
 		window.addEventListener('resize', scaleCanvas);
+		this.onDispose(function() {
+			window.removeEventListener('resize', scaleCanvas);
+		});
 		scaleCanvas();
 
 		function scaleCanvas() {
 			var containerWidth = container.offsetWidth, containerHeight = container.offsetHeight;
-			var fitWidth = (canvasWidth / canvasHeight > containerWidth / containerHeight);
-			if (fitWidth) {
-				canvas.style.width = "100%";
-				canvas.style.height = "auto";
+			var canvasWidthRatio = (canvasWidth / canvasHeight), containerWidthRatio = (containerWidth / containerHeight);
+			if (canvasWidthRatio > containerWidthRatio) {
+				canvas.style.width = containerWidth + 'px';
+				canvas.style.height = (containerWidth / canvasWidthRatio) + 'px';
 			} else {
-				canvas.style.width = "auto";
-				canvas.style.height = "100%";
+				canvas.style.height = containerHeight + 'px';
+				canvas.style.width = (containerHeight * canvasWidthRatio) + 'px';
 			}
 		}
 	}
@@ -68,6 +72,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		}.bind(this));
 	}
 	,_tickHandler: function(tickEvent) {
+		// timeAdjust is currrently unused, but can be set in the console for testing purposes
 		if (this.timeAdjust) {
 			tickEvent.deltaSeconds *= this.timeAdjust;
 		}
