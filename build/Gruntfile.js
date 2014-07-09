@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 	grunt.mergeConfig = grunt.config.merge;
 	
-	//require("./tasks/combine.js")(grunt);
+	require("./tasks/combine.js")(grunt);
 	require("./tasks/default.js")(grunt);
 	require("./tasks/index.js")(grunt);
 	require("./tasks/sources.js")(grunt);
