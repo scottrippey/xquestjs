@@ -18,10 +18,11 @@
 		}
 		,MenuScene_initialize: function (gfx, host) {
 			this.BaseScene_initialize();
-			this.menuScene = this; // For consistency
-			this.menuScene.host = host;
-			this.addSceneItem(this);
+
 			this.gfx = gfx;
+			this.host = host;
+			this.menuScene = this; // For consistency
+			this.addSceneItem(this);
 			this.addSceneItem(this.gfx);
 
 			this.menuStack = [];

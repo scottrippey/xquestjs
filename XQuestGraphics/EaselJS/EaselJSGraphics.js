@@ -36,7 +36,8 @@ var EaselJSGraphics = Smart.Class({
 		});
 		this.layers.hud.enableMouseOver();
 	}
-	,showBackgroundStars: function(visible) {
+	,
+	showBackgroundStars: function(visible) {
 		if (visible) {
 			if (!this.backgroundStars) {
 				this.backgroundStars = new EaselJSGraphics.BackgroundGraphics();
@@ -51,6 +52,11 @@ var EaselJSGraphics = Smart.Class({
 	,
 	_setupAnimations: function() {
 		this.animations = new Smart.Animations();
+	}
+	,
+	/** Creates a clone */
+	createNewGraphics: function() {
+		return new EaselJSGraphics(this.canvas);
 	}
 	,
 	onMove: function(tickEvent) {
@@ -168,6 +174,9 @@ var EaselJSGraphics = Smart.Class({
 	createLevelGraphics: function() {
 		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
+		levelGraphics.onDispose(function() {
+			this.layers.background.removeChild(levelGraphics);
+		}.bind(this));
 		return levelGraphics;
 	}
 	,

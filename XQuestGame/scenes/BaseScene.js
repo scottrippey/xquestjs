@@ -18,13 +18,18 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	}
 	,updateScene: function(tickEvent) {
 		// Iterate right-to-left, because items could get removed
-		if (!this.scenePaused) {
+		var childScene = this.childScene;
+		if (!childScene) {
 			var inputState = (this.getDefaultInputState && this.getDefaultInputState()) || {};
 			_.forEachRight(this.phases.input, function(gameItem) { gameItem.onInput(tickEvent, inputState); });
 			_.forEachRight(this.phases.move, function(gameItem) { gameItem.onMove(tickEvent, inputState); });
 			_.forEachRight(this.phases.act, function(gameItem) { gameItem.onAct(tickEvent); });
 		}
 		_.forEachRight(this.phases.draw, function(gameItem) { gameItem.onDraw(tickEvent); });
+
+		if (childScene) {
+			childScene.updateScene(tickEvent);
+		}
 	}
 	,addSceneItem: function(sceneItem) {
 		// Determine which methods the sceneItem implements,
@@ -70,6 +75,7 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 				this._events.addEvent(eventName, eventHandler);
 			};
 		}, this);
+		return this;
 	}
 	,
 	/**
@@ -80,5 +86,14 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	fireSceneEvent: function(eventName, args) {
 		this._events.fireEvent(eventName, args);
 	}
-
+	,
+	/** @protected */
+	setChildScene: function(childScene) {
+		this.childScene = childScene;
+		if (childScene) {
+			this.childScene.onDispose(function() {
+				this.childScene = null;
+			}.bind(this));
+		}
+	}
 });

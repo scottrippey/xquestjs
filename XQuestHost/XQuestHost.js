@@ -1,17 +1,11 @@
 XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	initialize: function(canvas) {
-		
-		this.scenes = [];
-
 		Balance.setGameMode('arcade');
 
 		this._setupCanvas(canvas);
 		this._setupTimer();
 
-		this._setupBackgroundGraphics();
-		this._setupMenuScene();
-		
-		this._loadStartMenu();
+		this._startHostScene();
 	}
 
 	,_setupCanvas: function(canvas) {
@@ -76,77 +70,26 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		if (this.timeAdjust) {
 			tickEvent.deltaSeconds *= this.timeAdjust;
 		}
-		
-		this.backgroundGraphics.onDraw(tickEvent);
-		this.scenes.forEach(function(scene) {
-			scene.updateScene(tickEvent);
-		});
-	}
-	,_setupBackgroundGraphics: function() {
-		this.backgroundGraphics = new EaselJSGraphics(this.canvas);
+
+		this.hostScene.updateScene(tickEvent);
 	}
 
-	,_setupMenuScene: function() {
-		var host = this;
+	,_startHostScene: function() {
 		var graphics = new EaselJSGraphics(this.canvas);
-		graphics.showBackgroundStars(true);
-		this.menuScene = new XQuestGame.MenuScene(graphics, host);
-		this.menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard());
-		this.scenes.push(this.menuScene);
-	}
-	,_loadStartMenu: function() {
-		var startMenu = new XQuestGame.CommonMenus.StartMenu(this.menuScene);
-		this.menuScene.addMenu(startMenu);
-		
-		startMenu.onStartGame(this._startArcadeGame.bind(this));
-	}
-	
-	,_startArcadeGame: function() {
-		
-		// Create Game:
-		var graphics = new EaselJSGraphics(this.canvas);
-		graphics.showBackgroundStars(true);
-		this.game = new XQuestGame.ArcadeGame(graphics);
-				
-		// Game Inputs:
-		this.game.addSceneItem(new XQuestInput.PlayerInputKeyboard(this.game, null));
-		this.game.addSceneItem(new XQuestInput.PlayerInputMouse(this.game, this.canvas.parentNode));
-		this.game.addSceneItem(new XQuestInput.PlayerInputTouch(this.game, this.canvas.parentNode));
-		// Game Events:
-		this.game.onGamePaused(this._showPauseMenu.bind(this));
-		
-		this.game.startArcadeGame();
+		this.hostScene = new XQuestGame.HostScene(graphics);
 
-		// Put the menu over the game:
-		this.scenes = [ this.game, this.menuScene ];
-		this.menuScene.gfx.showBackgroundStars(false);
-		
+		// Setup Inputs:
+		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
+		this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
 	}
-	,X_showPauseMenu: function(paused) {
-		if (!paused) return;
-		// Create Pause Menu:
-		// Currently there can only be 1 scene that uses this.graphics;
-		// otherwise we would be double-drawing everything:
-		var graphics = new EaselJSGraphics(this.canvas);
-		this.pauseMenu = new XQuestGame.PauseMenu(graphics);
-		this.scenes.push(this.pauseMenu);
-		// Menu Inputs:
-		this.pauseMenu.addSceneItem(new XQuestInput.MenuInputKeyboard());
-		// Menu Events:
-		this.pauseMenu.onMenuExit(function() {
-			this.scenes.pop();
-			this.game.pauseGame(false);
-		}.bind(this));
+	,_addMenuInputs: function(menuScene) {
+		menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard());
 	}
-	,_showPauseMenu: function(paused) {
-		if (!paused) return;
-
-		var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
-		this.menuScene.addMenu(pauseMenu);
-		pauseMenu.onResumeGame(function() {
-			this.game.pauseGame(false);
-		}.bind(this));
-	}	
+	,_addPlayerInputs: function(arcadeGame) {
+		arcadeGame.addSceneItem(new XQuestInput.PlayerInputKeyboard(arcadeGame, null));
+		arcadeGame.addSceneItem(new XQuestInput.PlayerInputMouse(arcadeGame, this.canvas.parentNode));
+		arcadeGame.addSceneItem(new XQuestInput.PlayerInputTouch(arcadeGame, this.canvas.parentNode));
+	}
 
 
 });

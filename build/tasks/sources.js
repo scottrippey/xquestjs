@@ -34,8 +34,11 @@ module.exports = function(grunt) {
 		}
 		,XQuestGame: [
 			"../XQuestGame/XQuestGame.js"
-			,"../XQuestGame/BaseScene.js"
-			,"../XQuestGame/ArcadeGame.js"
+
+			,"../XQuestGame/scenes/BaseScene.js"
+			,"../XQuestGame/scenes/ArcadeGame.js"
+			,"../XQuestGame/scenes/HostScene.js"
+			,"../XQuestGame/scenes/MenuScene.js"
 			,"../XQuestGame/characters/BombCrystal.js"
 			,"../XQuestGame/characters/Player.js"
 			,"../XQuestGame/characters/PowerCrystal.js"
@@ -50,7 +53,6 @@ module.exports = function(grunt) {
 			,"../XQuestGame/components/PowerupFactory.js"
 			,"../XQuestGame/components/Projectiles.js"
 			,"../XQuestGame/options/Balance.js"
-			,"../XQuestGame/menus/MenuScene.js"
 			,"../XQuestGame/menus/BaseMenu.js"
 			,"../XQuestGame/menus/CommonMenus.js"
 			,"../XQuestGame/menus/GraphicsTestMenu.js"
