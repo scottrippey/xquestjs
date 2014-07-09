@@ -6,3 +6,18 @@ _.mixin({
 		}
 	}
 });
+
+if (!_.forEachRight) {
+	_.mixin({
+		forEachRight: function forEachRight(collection, callback, thisArg) {
+			var length = collection ? collection.length : 0;
+			while (length--) {
+				if (callback(collection[length], length, collection) === false) {
+					break;
+				}
+			}
+			return collection;
+		}
+
+	})
+}

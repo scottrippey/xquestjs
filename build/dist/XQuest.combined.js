@@ -10442,14 +10442,18 @@ Smart.Keyframes = {
 	}
 };
 
-var console = window.console || {};
+(function() {
 
-var noop = function(){};
-_.forEach([ 'log','debug','warn','error','assert' ], function(consoleMethod) {
-	if (!consoleMethod in console) {
-		console[consoleMethod] = noop;
-	}
-});
+	if (!window.console) console = {};
+
+	var noop = function(){};
+	_.forEach([ 'log','debug','warn','error','assert' ], function(consoleMethod) {
+		if (!consoleMethod in console) {
+			console[consoleMethod] = noop;
+		}
+	});
+
+})();
 
 
 _.extend(createjs.Graphics.prototype, {
@@ -10514,6 +10518,20 @@ _.mixin({
 	}
 });
 
+if (!_.forEachRight) {
+	_.mixin({
+		forEachRight: function forEachRight(collection, callback, thisArg) {
+			var length = collection ? collection.length : 0;
+			while (length--) {
+				if (callback(collection[length], length, collection) === false) {
+					break;
+				}
+			}
+			return collection;
+		}
+
+	})
+}
 // Global Namespace:
 XQuestGame = {};
 XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
@@ -14643,12 +14661,12 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this.canvas = canvas;
 	}
 	,_createFullScreenCanvas: function(canvasWidth, canvasHeight) {
-		var div = document.createElement('div');
-		div.innerHTML =
-			'<section tabindex="1" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: hsl(0, 0%, 5%); outline: none; ">' +
-			'<canvas style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto;"></canvas>' +
-			'</section>';
-		var container = div.childNodes[0], canvas = container.childNodes[0];
+		// Create elements manually, because parsing isn't "safe" for WinJS:
+		var container = document.createElement('section'), canvas = document.createElement('canvas');
+		container.appendChild(canvas);
+		_.extend(container.style, { position: 'fixed', top: 0, left: 0, bottom: 0, right: 0, 'background-color': 'hsl(0, 0%, 5%)', outline: 'none' });
+		_.extend(canvas.style, { position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, margin: 'auto' });
+
 		canvas.setAttribute('width', canvasWidth);
 		canvas.setAttribute('height', canvasHeight);
 
