@@ -23,6 +23,8 @@
 		, activateRapidFire: 'activateRapidFire'
 		, activateTripleShot: 'activateTripleShot'
 		, activateAutoAim: 'activateAutoAim'
+		, activateAmbushShot: 'activateAmbushShot'
+		, activatePowerShot: 'activatePowerShot'
 		, addBomb: 'addBomb'
 		, spawnPowerCrystal: 'spawnPowerCrystal'
 	};
@@ -57,7 +59,9 @@
 		2: debugActions.activateRapidFire,
 		3: debugActions.activateTripleShot,
 		4: debugActions.activateAutoAim,
-		5: debugActions.addBomb,
+		5: debugActions.activateAmbushShot,
+		6: debugActions.activatePowerShot,
+		9: debugActions.addBomb,
 		0: debugActions.spawnPowerCrystal
 	};
 
@@ -110,6 +114,12 @@
 					break;
 				case debugActions.activateAutoAim:
 					this.game.debug().activatePowerup('autoAim');
+					break;
+				case debugActions.activateAmbushShot:
+					this.game.debug().activatePowerup('ambushShot');
+					break;
+				case debugActions.activatePowerShot:
+					this.game.debug().activatePowerup('powerShot');
 					break;
 				case debugActions.addBomb:
 					this.game.debug().addBomb();

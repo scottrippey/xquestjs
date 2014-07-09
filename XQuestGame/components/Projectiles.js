@@ -23,7 +23,16 @@ XQuestGame.Projectiles = Smart.Class({
 		this.addBullet(angle);
 		this.addBullet(-angle);
 	}
-	, addBullet: function(angle) {
+	, addAmbushShot: function() {
+		var B = Balance.powerups.ambushShot;
+		var shots = B.shots, speed = B.speed;
+		var angle = 360 / shots;
+		
+		for (var i = 0; i < shots; i++) {
+			this.addBullet(i * angle, speed);
+		}
+	}
+	, addBullet: function(angle, speed) {
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		var player = this.game.player;
 		bulletGfx.moveTo(player.location.x, player.location.y);
@@ -34,6 +43,9 @@ XQuestGame.Projectiles = Smart.Class({
 			if (targetEnemy) {
 				velocity = Smart.Physics.trajectory(player.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
 			}
+		}
+		if (speed) {
+			velocity = Smart.Point.fromAngle(angle, speed);
 		}
 		if (!velocity) {
 			velocity = {
@@ -54,6 +66,10 @@ XQuestGame.Projectiles = Smart.Class({
 		while (i--) {
 			var bulletGfx = this.bullets[i];
 			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
+			
+			if (this.game.activePowerups.powerShot) {
+				Smart.Physics.bounceOffWalls(bulletGfx, bulletGfx.radius, bulletGfx.velocity, bounds, 0);
+			}
 			if (!Smart.Point.pointIsInBounds(bulletGfx, bounds)) {
 				bulletGfx.dispose();
 				this.bullets.splice(i, 1);
@@ -66,8 +82,9 @@ XQuestGame.Projectiles = Smart.Class({
 				Smart.Physics.sortByLocation(this.bullets);
 			}
 			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
-				bullet.shouldDisappear = true;
-			});
+				if (!this.game.activePowerups.powerShot)
+					bullet.shouldDisappear = true;
+			}.bind(this));
 
 			// Remove bullets:
 			var i = this.bullets.length;
