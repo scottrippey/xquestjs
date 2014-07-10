@@ -59,7 +59,7 @@ XQuestGame.Player = Smart.Class({
 				this.primaryWeaponDownTime = tickEvent.runTime;
 
 				if (this.game.activePowerups.ambushShot) {
-					this.game.projectiles.addAmbushShot();
+					this.game.projectiles.addAmbushShot(tickEvent);
 				} else if (this.game.activePowerups.tripleShot) {
 					this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
 				} else {
@@ -83,7 +83,7 @@ XQuestGame.Player = Smart.Class({
 			} else if (this.nextRapidFire <= tickEvent.runTime) {
 				this.nextRapidFire += period;
 				if (this.game.activePowerups.ambushShot) {
-					this.game.projectiles.addAmbushShot();
+					this.game.projectiles.addAmbushShot(tickEvent);
 				} else if (this.game.activePowerups.tripleShot) {
 					this.game.projectiles.addTripleShot(Balance.powerups.tripleShot);
 				} else {

@@ -144,9 +144,10 @@ Balance.merge({
 				}
 				, ambushShot: {
 					duration: 15
-					, frequency: 10
+					, frequency: 5
 					, shots: 15
-					, speed: 200
+					, speed: 300
+					, spinSpeed: 15
 				}
 				, powerShot: {
 					duration: 30
