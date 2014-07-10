@@ -20,6 +20,9 @@
 		}
 		, _setupBackground: function() {
 			this.gfx.showBackgroundStars(true);
+			
+			var middle = this.gfx.getGamePoint('middle');
+			this.gfx.followPlayer(middle);
 		}
 		, start: function() {
 			this._showStartMenu();
