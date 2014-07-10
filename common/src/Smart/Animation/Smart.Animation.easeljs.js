@@ -9,7 +9,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `x` and `y` properties of the target.
 	 * @param {Point} target
 	 * @param {Function|Point[]|Point} keyframes
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	move: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -19,8 +19,8 @@ _.extend(Smart.Animation.prototype, {
 				|| Smart.Keyframes.fromPoints([ Smart.Point.clonePoint(target), keyframes ]);
 			return interpolate(position);
 		};
-		return this.addAction(function _move_(animEvent) {
-			var p = interpolate(animEvent.position);
+		return this.frame(function _move_(position, animEvent) {
+			var p = interpolate(position);
 			target.x = p.x; target.y = p.y;
 		});
 
@@ -31,7 +31,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `alpha` property of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	fade: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -42,8 +42,8 @@ _.extend(Smart.Animation.prototype, {
 			return interpolate(position);
 		};
 
-		return this.addAction(function _fade_(animEvent) {
-			target.alpha = interpolate(animEvent.position);
+		return this.frame(function _fade_(position, animEvent) {
+			target.alpha = interpolate(position);
 		});
 	}
 
@@ -52,7 +52,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `color` property of the target.
 	 * @param {Object} target
 	 * @param {Function|String[]|String} keyframes
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	color: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -63,8 +63,8 @@ _.extend(Smart.Animation.prototype, {
 			return interpolate(position);
 		};
 
-		return this.addAction(function _color_(animEvent) {
-			target.color = interpolate(animEvent.position);
+		return this.frame(function _color_(position, animEvent) {
+			target.color = interpolate(position);
 		});
 	}
 
@@ -73,7 +73,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `scale` properties (scaleX, scaleY) of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	scale: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -83,8 +83,8 @@ _.extend(Smart.Animation.prototype, {
 				|| Smart.Keyframes.fromNumbers([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
 			return interpolate(position);
 		};
-		return this.addAction(function _scale_(animEvent) {
-			target.scaleX = target.scaleY = interpolate(animEvent.position);
+		return this.frame(function _scale_(position, animEvent) {
+			target.scaleX = target.scaleY = interpolate(position);
 		});
 	}
 
@@ -93,7 +93,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Animates the `rotation` property of the target.
 	 * @param {Object} target
 	 * @param {Function|Number[]|Number} keyframes
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	rotate: function(target, keyframes) {
 		var interpolate = function(position) {
@@ -104,25 +104,25 @@ _.extend(Smart.Animation.prototype, {
 			return interpolate(position);
 		};
 
-		return this.addAction(function _rotate_(animEvent) {
-			target.rotation = interpolate(animEvent.position);
+		return this.frame(function _rotate_(position, animEvent) {
+			target.rotation = interpolate(position);
 		});
 	}
 	,
 	/**
 	 * Animates by calling `update` with the interpolated keyframe values.
-	 * @param {function(pct:Number)} update
 	 * @param {Function|Number[]} keyframes
-	 * @returns {Animation} this
+	 * @param {function(pct:Number)} update
+	 * @returns {Smart.Animation} this
 	 */
-	tween: function(update, keyframes) {
+	tween: function(keyframes, update) {
 		var interpolate =
 			Smart.Keyframes.fromFunction(keyframes)
 			|| Smart.Keyframes.fromNumbers(keyframes)
 			|| Smart.Keyframes.fromNumbers([ keyframes ]);
 
-		return this.addAction(function _tween_(animEvent) {
-			update(interpolate(animEvent.position));
+		return this.frame(function _tween_(position, animEvent) {
+			update(interpolate(position));
 		});
 	}
 
@@ -130,10 +130,12 @@ _.extend(Smart.Animation.prototype, {
 	/**
 	 * Disposes the object once animations are finished
 	 * @param disposable - Any object -- must have a `dispose` method
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	queueDispose: function(disposable) {
-		return this.queue(function() { disposable.dispose(); });
+		return this.queue(function() {
+			disposable.dispose();
+		});
 	}
 });
 

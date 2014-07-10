@@ -8,20 +8,19 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-in-out function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	ease: function(easing) {
 		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
-		return this.addAction(function _ease_(animEvent){
-			var pos = animEvent.position;
-			if (pos <= 0){
-				animEvent.position = 0;
-			} else if (pos >= 1) {
-				animEvent.position = 1;
-			} else if (pos <= 0.5) {
-				animEvent.position = easing(pos * 2) / 2;
+		return this.frame(function _ease_(position, animEvent){
+			if (position <= 0){
+				return 0;
+			} else if (position >= 1) {
+				return 1;
+			} else if (position <= 0.5) {
+				return easing(position * 2) / 2;
 			} else {
-				animEvent.position = 1 - easing((1 - pos) * 2) / 2;
+				return 1 - easing((1 - position) * 2) / 2;
 			}
 		});
 	}
@@ -30,18 +29,17 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-in function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	easeIn: function(easing) {
 		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
-		return this.addAction(function _easeIn_(animEvent){
-			var pos = animEvent.position;
-			if (pos <= 0){
-				animEvent.position = 0;
-			} else if (pos >= 1) {
-				animEvent.position = 1;
+		return this.frame(function _easeIn_(position, animEvent){
+			if (position <= 0){
+				return 0;
+			} else if (position >= 1) {
+				return 1;
 			} else {
-				animEvent.position = easing(pos);
+				return easing(position);
 			}
 		});
 	}
@@ -50,18 +48,17 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-out function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {Animation} this
+	 * @returns {Smart.Animation} this
 	 */
 	easeOut: function(easing) {
 		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
-		return this.addAction(function _easeOut_(animEvent) {
-			var pos = animEvent.position;
-			if (pos <= 0){
-				animEvent.position = 0;
-			} else if (pos >= 1) {
-				animEvent.position = 1;
+		return this.frame(function _easeOut_(position, animEvent) {
+			if (position <= 0){
+				return 0;
+			} else if (position >= 1) {
+				return 1;
 			} else {
-				animEvent.position = 1 - easing(1 - pos);
+				return 1 - easing(1 - position);
 			}
 		});
 	}
