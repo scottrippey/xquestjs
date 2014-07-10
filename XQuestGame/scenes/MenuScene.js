@@ -26,6 +26,7 @@
 			
 			var middle = this.gfx.getGamePoint('middle');
 			this.gfx.followPlayer(middle);
+			this.host.gfx.followPlayer(middle);
 			//this._setupBackButton(); // Too ugly for now
 		}
 		

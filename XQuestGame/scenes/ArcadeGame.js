@@ -107,13 +107,16 @@
 	
 			this.followPlayer = true;
 			this.game.gfx.followPlayer(this.game.player.location);
+			this.host.gfx.followPlayer(this.game.player.location);
 		}
 	
 		, onAct: function(tickEvent) {
 			this._updateActivePowerups(tickEvent);
 	
-			if (this.followPlayer)
+			if (this.followPlayer) {
 				this.game.gfx.followPlayer(this.game.player.location);
+				this.host.gfx.followPlayer(this.game.player.location);				
+			}
 	
 		}
 	
@@ -156,7 +159,7 @@
 				}.bind(this)).delay(5)
 				.queue(function() {
 					this.game.gfx.addText("Highest Level: " + this.currentLevel).flyIn(2).delay(2).flyOut(2);
-				}.bind(this)).delay(6)
+				}.bind(this)).delay(8)
 				.queue(function() {
 					this._events.fireEvent(GameEvents.onGameOver);						
 				}.bind(this))
@@ -198,6 +201,7 @@
 				.duration(2).ease()
 				.tween(function(p) {
 					this.game.gfx.followPlayer(p);
+					this.host.gfx.followPlayer(p);
 				}.bind(this), Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]));
 			this.game.gfx.addAnimation(animation);
 			return animation;
