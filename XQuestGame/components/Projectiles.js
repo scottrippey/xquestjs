@@ -23,8 +23,8 @@ XQuestGame.Projectiles = Smart.Class({
 		this.addBullet(angle);
 		this.addBullet(-angle);
 	}
-	, addAmbushShot: function(tickEvent) {
-		var B = Balance.powerups.ambushShot;
+	, addSprayShot: function(tickEvent) {
+		var B = Balance.powerups.sprayShot;
 		var shots = B.shots, speed = B.speed, spinSpeed = B.spinSpeed;
 		var angle = 360 / shots;
 		

@@ -142,7 +142,7 @@ Balance.merge({
 					duration: 20
 					, frequency: 10
 				}
-				, ambushShot: {
+				, sprayShot: {
 					duration: 15
 					, frequency: 5
 					, shots: 15
