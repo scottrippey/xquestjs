@@ -1,7 +1,7 @@
 EaselJSGraphics.PlayerGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 	drawStatic: function(drawing) {
 		var G = Graphics.player;
-		this.radius = G.radius;
+		this.visibleRadius = G.radius;
 
 		drawing.beginPath()
 			.circle(0, 0, G.radius)
