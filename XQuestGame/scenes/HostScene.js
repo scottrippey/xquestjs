@@ -21,18 +21,19 @@
 		, _setupBackground: function() {
 			this.gfx.showBackgroundStars(true);
 		}
-		, showStartMenu: function() {
-			var gfx = this.gfx.createNewGraphics();
-			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
-			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
+		, start: function() {
+			this._showStartMenu();
+		}
+		, _showStartMenu: function() {
+			var menuScene = this.createMenuScene();
+
 			this.setChildScene(menuScene);
 
-			var startMenu = new XQuestGame.CommonMenus.StartMenu(menuScene);
-			menuScene.addMenu(startMenu);
-			startMenu.onStartGame(function() {
+			menuScene.onStartGame(function() {
 				menuScene.dispose();
 				this._startArcadeGame();
 			}.bind(this));
+			menuScene.showStartMenu();
 		}
 		, _startArcadeGame: function() {
 			var gfx = this.gfx.createNewGraphics();
@@ -42,10 +43,17 @@
 
 			arcadeGame.onGameOver(function() {
 				arcadeGame.dispose();
-				this.showStartMenu();
+				this._showStartMenu();
 			}.bind(this));
 			
 			arcadeGame.startArcadeGame();
+		}
+		, createMenuScene: function() {
+			var gfx = this.gfx.createNewGraphics();
+			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
+			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
+			
+			return menuScene;
 		}
 	});
 

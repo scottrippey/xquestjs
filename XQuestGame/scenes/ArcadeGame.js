@@ -215,14 +215,32 @@
 		}
 	
 		, pauseGame: function(paused) {
-			paused = (paused !== undefined) ? paused : !this.scenePaused;
+			if (paused === undefined) paused = !this.scenePaused;
+			else if (this.scenePaused === paused) return;
 			
-			if (this.scenePaused === paused) return;
 			this.scenePaused = paused;
 			
 			this.game.player.cancelVelocity();
 			
 			this._events.fireEvent(GameEvents.onGamePaused, [ this.scenePaused ]);
+			
+			this._togglePauseMenu(this.scenePaused);
+		}
+		, _togglePauseMenu: function(paused) {
+			if (paused) {
+				var pauseMenu = this.host.createMenuScene();
+				pauseMenu.showPauseMenu();
+				pauseMenu.onResumeGame(function() {
+					this.pauseGame(false);
+				}.bind(this));
+				
+				this.setChildScene(pauseMenu);
+				this.pauseMenu = pauseMenu;
+			} else {
+				this.pauseMenu && this.pauseMenu.dispose();
+				this.setChildScene(null);
+			}
+			
 		}
 	
 		, activatePowerup: function(powerupName) {

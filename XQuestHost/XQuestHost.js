@@ -82,7 +82,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
 		this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
 		
-		this.hostScene.showStartMenu();
+		this.hostScene.start();
 
 	}
 	,_addMenuInputs: function(menuScene) {

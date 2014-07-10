@@ -8,8 +8,13 @@
 		menuInvoke: 'menuInvoke',
 		menuBack: 'menuBack'
 	};
+
+	var MenuSceneEvents = {
+		onResumeGame: 'onResumeGame'
+		, onStartGame: 'onStartGame'
+	};
 	
-	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene(), {
+	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuSceneEvents), {
 		initialize: function(gfx, host) {
 			this.MenuScene_initialize(gfx, host);
 		}
@@ -78,6 +83,23 @@
 			if (inputState.menuBack && this.menuStack.length >= 2) {
 				this.goBack();
 			}
+		}
+		
+		,showStartMenu: function() {
+			var startMenu = new XQuestGame.CommonMenus.StartMenu(this.menuScene);
+			startMenu.onStartGame(function() {
+				this.fireSceneEvent(MenuSceneEvents.onStartGame);
+			}.bind(this));
+			
+			this.addMenu(startMenu);
+		}
+		,showPauseMenu: function() {
+			var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
+			pauseMenu.onResumeGame(function() {
+				this.fireSceneEvent(MenuSceneEvents.onResumeGame);
+			}.bind(this));
+			
+			this.addMenu(pauseMenu);
 		}
 
 	});
