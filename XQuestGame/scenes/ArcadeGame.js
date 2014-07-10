@@ -149,22 +149,25 @@
 		, _gameOver: function() {
 			// bew wew wew wew wew
 			this._animateBackToCenter();
-			
-			this._events.fireEvent(GameEvents.onGameOver);
-	
+				
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.queue(function() {
 					this.game.gfx.addText("Game Over").flyIn(2).delay(2).flyOut(2);
 				}.bind(this)).delay(5)
 				.queue(function() {
 					this.game.gfx.addText("Highest Level: " + this.currentLevel).flyIn(2).delay(2).flyOut(2);
-				}.bind(this)).delay(5)
+				}.bind(this)).delay(6)
+				.queue(function() {
+					this._events.fireEvent(GameEvents.onGameOver);						
+				}.bind(this))
+				/*
 				.queue(function() {
 					this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
 				}.bind(this)).delay(5)
 				.queue(function() {
 					this.startArcadeGame();
 				}.bind(this))
+				*/
 			);
 	
 		}

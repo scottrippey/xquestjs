@@ -1,7 +1,4 @@
 (function init_MenuScene() {
-	var MenuSceneEvents = {
-		onMenuExit: 'MenuExit'
-	};
 	
 	XQuestGame.MenuSceneInputs = {
 		menuUp: 'menuUp',
@@ -58,7 +55,6 @@
 
 			this._updateBackButton();
 			this.currentMenu.menuEnter(false);
-			this.scenePaused = false;
 		}
 		,goBack: function() {
 			if (this.menuStack.length <= 1) return;
@@ -70,14 +66,9 @@
 			
 			this._updateBackButton();
 		}
-		,exitMenu: function(callback) {
+		,exitMenu: function() {
 			this.menuStack.length = 0;
-			this.currentMenu.menuLeave(true).queue(function() {
-				this.fireSceneEvent(MenuSceneEvents.onMenuExit);
-				callback();
-				this.dispose();
-				this.scenePaused = true;
-			}.bind(this));
+			return this.currentMenu.menuLeave(true);
 		}
 
 		,onMove: function(tickEvent, inputState) {
@@ -89,7 +80,5 @@
 		}
 
 	});
-	
-	XQuestGame.MenuScene.prototype.implementSceneEvents(MenuSceneEvents);
 })();
 	

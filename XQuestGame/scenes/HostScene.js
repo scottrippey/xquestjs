@@ -17,12 +17,11 @@
 
 			this._setupBackground();
 
-			this._showStartMenu();
 		}
 		, _setupBackground: function() {
 			this.gfx.showBackgroundStars(true);
 		}
-		, _showStartMenu: function() {
+		, showStartMenu: function() {
 			var gfx = this.gfx.createNewGraphics();
 			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
 			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
@@ -43,8 +42,10 @@
 
 			arcadeGame.onGameOver(function() {
 				arcadeGame.dispose();
-				this._showStartMenu();
+				this.showStartMenu();
 			}.bind(this));
+			
+			arcadeGame.startArcadeGame();
 		}
 	});
 

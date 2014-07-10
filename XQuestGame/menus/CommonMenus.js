@@ -12,7 +12,7 @@
 				];
 			}
 			,_onStartGame: function() {
-				this.menuScene.exitMenu(function() {
+				this.menuScene.exitMenu().queue(function() {
 					this.fireEvent(StartMenuEvents.onStartGame);
 				}.bind(this));
 			}
@@ -32,7 +32,7 @@
 			}
 			,
 			_onResumeGame: function() {
-				this.menuScene.exitMenu(function() {
+				this.menuScene.exitMenu().queue(function() {
 					this.fireEvent(PauseMenuEvents.onResumeGame);
 				}.bind(this));
 			}
