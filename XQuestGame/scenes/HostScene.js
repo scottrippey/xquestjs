@@ -25,7 +25,25 @@
 			this.gfx.followPlayer(middle);
 		}
 		, start: function() {
-			this._showStartMenu();
+			this._showIntroScene();
+		}
+		, _showIntroScene: function() {
+			var introScene = this._createIntroScene();
+			this.setChildScene(introScene);
+			
+			introScene.onPlayGame(function() {
+				introScene.dispose();
+				this._showStartMenu();
+			}.bind(this));
+			
+			introScene.startIntro();
+		}
+		, _createIntroScene: function() {
+			var gfx = this.gfx.createNewGraphics();
+			var introScene = new XQuestGame.IntroScene(gfx, this.host);
+			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ introScene ]);
+			
+			return introScene;
 		}
 		, _showStartMenu: function() {
 			var menuScene = this.createMenuScene();
