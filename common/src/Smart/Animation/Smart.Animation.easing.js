@@ -11,17 +11,9 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	ease: function(easing) {
-		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
-		return this.frame(function _ease_(position, animEvent){
-			if (position <= 0){
-				return 0;
-			} else if (position >= 1) {
-				return 1;
-			} else if (position <= 0.5) {
-				return easing(position * 2) / 2;
-			} else {
-				return 1 - easing((1 - position) * 2) / 2;
-			}
+		easing = Smart.Animation.Easing.easeInOut(easing || this.defaultEasing);
+		return this.frame(function(animEvent) {
+			animEvent.position = easing(animEvent.position);
 		});
 	}
 	,
@@ -32,15 +24,9 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	easeIn: function(easing) {
-		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
-		return this.frame(function _easeIn_(position, animEvent){
-			if (position <= 0){
-				return 0;
-			} else if (position >= 1) {
-				return 1;
-			} else {
-				return easing(position);
-			}
+		easing = Smart.Animation.Easing.easeIn(easing || this.defaultEasing);
+		return this.frame(function(animEvent) {
+			animEvent.position = easing(animEvent.position);
 		});
 	}
 	,
@@ -51,8 +37,43 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	easeOut: function(easing) {
-		easing = Smart.Animation.Easing.from(easing || this.defaultEasing);
-		return this.frame(function _easeOut_(position, animEvent) {
+		easing = Smart.Animation.Easing.easeOut(easing || this.defaultEasing);
+		return this.frame(function(animEvent) {
+			animEvent.position = easing(animEvent.position);
+		});
+	}
+});
+
+Smart.Animation.Easing = {
+	easeInOut: function(easing) {
+		easing = Smart.Animation.Easing.from(easing);
+		return function _easeInOut_(position){
+			if (position <= 0){
+				return 0;
+			} else if (position >= 1) {
+				return 1;
+			} else if (position <= 0.5) {
+				return easing(position * 2) / 2;
+			} else {
+				return 1 - easing((1 - position) * 2) / 2;
+			}
+		};
+	},
+	easeIn: function(easing) {
+		easing = Smart.Animation.Easing.from(easing);
+		return function _easeIn_(position){
+			if (position <= 0){
+				return 0;
+			} else if (position >= 1) {
+				return 1;
+			} else {
+				return easing(position);
+			}
+		};
+	},
+	easeOut: function(easing) {
+		easing = Smart.Animation.Easing.from(easing);
+		return function _easeOut_(position) {
 			if (position <= 0){
 				return 0;
 			} else if (position >= 1) {
@@ -60,11 +81,9 @@ _.extend(Smart.Animation.prototype, {
 			} else {
 				return 1 - easing(1 - position);
 			}
-		});
-	}
-});
+		};
+	},
 
-Smart.Animation.Easing = {
 	/**
 	 * Returns an easing function from the specified string.
 	 * Alternatively, a custom function can be supplied.

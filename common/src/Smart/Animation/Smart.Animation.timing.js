@@ -9,12 +9,12 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	duration: function(duration) {
-		return this.frame(function _duration_(position, animEvent){
-			if (position >= duration) {
-				return 1;
+		return this.frame(function _duration_(animEvent){
+			if (animEvent.position >= duration) {
+				animEvent.position = 1;
 			} else {
 				animEvent.stillRunning = true;
-				return position / duration;
+				animEvent.position = animEvent.position / duration;
 			}
 		});
 	}
@@ -29,20 +29,20 @@ _.extend(Smart.Animation.prototype, {
 	loop: function(duration, maxLoops) {
 		if (maxLoops === undefined)
 			maxLoops = Number.MAX_VALUE;
-		return this.frame(function _loop_(position, animEvent) {
+		return this.frame(function _loop_(animEvent) {
 			if (animEvent._loops === undefined)
 				animEvent._loops = 0;
 
-			while (position >= duration) {
-				position -= duration;
+			while (animEvent.position >= duration) {
+				animEvent.position -= duration;
 				animEvent._loops++;
 			}
 			if (animEvent._loops >= maxLoops) {
 				animEvent._loops = maxLoops;
-				return 1;
+				animEvent.position = 1;
 			} else {
 				animEvent.stillRunning = true;
-				return position / duration;
+				animEvent.position = animEvent.position / duration;
 			}
 		});
 	}
@@ -54,9 +54,9 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	continuous: function(duration) {
-		return this.frame(function _continuous_(position, animEvent) {
+		return this.frame(function _continuous_(animEvent) {
 			animEvent.stillRunning = true;
-			return position / duration;
+			animEvent.position = animEvent.position / duration;
 		});
 	}
 	,
@@ -66,10 +66,12 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	delay: function(duration) {
-		return this.frame(function _delay_(position, animEvent) {
-			if (position < duration) {
+		return this.frame(function _delay_(animEvent) {
+			if (animEvent.position < duration) {
 				animEvent.stillRunning = true;
 				animEvent.stopUpdate();
+			} else {
+				animEvent.position -= duration;
 			}
 		});
 	}
@@ -80,8 +82,8 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	savePosition: function() {
-		return this.frame(function _savePosition_(position, animEvent) {
-			animEvent.savedPosition = position;
+		return this.frame(function _savePosition_(animEvent) {
+			animEvent.savedPosition = animEvent.position;
 		});
 	}
 	,
@@ -91,8 +93,8 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	restorePosition: function() {
-		return this.frame(function _restorePosition_(position, animEvent) {
-			return animEvent.savedPosition;
+		return this.frame(function _restorePosition_(animEvent) {
+			animEvent.position = animEvent.savedPosition;
 		});
 	}
 });

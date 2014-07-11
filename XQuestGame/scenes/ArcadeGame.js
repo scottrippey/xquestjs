@@ -199,10 +199,10 @@
 			this.followPlayer = false;
 			var animation = new Smart.Animation()
 				.duration(2).ease()
-				.tween(function(p) {
+				.tween(Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]), function(p) {
 					this.game.gfx.followPlayer(p);
 					this.host.gfx.followPlayer(p);
-				}.bind(this), Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]));
+				}.bind(this));
 			this.game.gfx.addAnimation(animation);
 			return animation;
 		}

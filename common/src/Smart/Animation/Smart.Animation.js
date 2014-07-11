@@ -8,11 +8,14 @@ Smart.Animation = Smart.Class({
 
 		/**
 		 * @name Smart.AnimationEvent
+		 * @property {number} position
 		 * @property {boolean} stillRunning
 		 * @property {function(value:boolean)} clearCurrentActions
 		 * @property {function(value:boolean)} stopUpdate
 		 */
 		this._animEvent = {
+			/** The current position, according to the duration and easing functions. */
+			position: 0,
 
 			/** Indicates that the animation is still running */
 			stillRunning: false,
@@ -43,19 +46,15 @@ Smart.Animation = Smart.Class({
 		var thisAnimation = this,
 			animEvent = this._animEvent;
 
-		var position = this._position;
+		animEvent.position = this._position;
 		animEvent.stillRunning = false;
 
 		for (var i = 0; i < this._actions.length; i++) {
-			var frame = this._actions[i];
-			var result = frame(position, animEvent, thisAnimation);
-			if (result !== undefined) {
-				position = result;
-			}
+			this._actions[i](animEvent, thisAnimation);
 
 			if (animEvent._clearCurrentActions) {
 				animEvent._clearCurrentActions = false;
-				position = this._position = 0;
+				animEvent.position = this._position = 0;
 				this._actions.splice(0, i + 1);
 				i = -1;
 			}
@@ -73,7 +72,7 @@ Smart.Animation = Smart.Class({
 	,
 	/**
 	 * Adds an action to the animation queue.
-	 * @param {function(position:Number, animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
+	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
 	 * @returns {Smart.Animation} this
 	 */
 	frame: function(frameCallback) {
@@ -84,16 +83,16 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Waits for the current animations to complete, before continuing the chain.
 	 * If supplied, the callback will be executed.
-	 * @param {function(position:Number, animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} [callback]
+	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} [callback]
 	 * @returns {Smart.Animation} this
 	 */
 	queue: function(callback) {
-		return this.frame(function _queue_(position, animEvent, thisAnimation) {
+		return this.frame(function _queue_(animEvent, thisAnimation) {
 			if (animEvent.stillRunning === true) {
 				animEvent.stopUpdate();
 			} else {
 				if (callback)
-					callback(position, animEvent, thisAnimation);
+					callback(animEvent.position, animEvent, thisAnimation);
 				animEvent.clearCurrentActions();
 			}
 		});

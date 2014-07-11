@@ -19,8 +19,8 @@ _.extend(Smart.Animation.prototype, {
 				|| Smart.Keyframes.fromPoints([ Smart.Point.clonePoint(target), keyframes ]);
 			return interpolate(position);
 		};
-		return this.frame(function _move_(position, animEvent) {
-			var p = interpolate(position);
+		return this.frame(function _move_(animEvent) {
+			var p = interpolate(animEvent.position);
 			target.x = p.x; target.y = p.y;
 		});
 
@@ -42,8 +42,8 @@ _.extend(Smart.Animation.prototype, {
 			return interpolate(position);
 		};
 
-		return this.frame(function _fade_(position, animEvent) {
-			target.alpha = interpolate(position);
+		return this.frame(function _fade_(animEvent) {
+			target.alpha = interpolate(animEvent.position);
 		});
 	}
 
@@ -63,8 +63,8 @@ _.extend(Smart.Animation.prototype, {
 			return interpolate(position);
 		};
 
-		return this.frame(function _color_(position, animEvent) {
-			target.color = interpolate(position);
+		return this.frame(function _color_(animEvent) {
+			target.color = interpolate(animEvent.position);
 		});
 	}
 
@@ -83,8 +83,8 @@ _.extend(Smart.Animation.prototype, {
 				|| Smart.Keyframes.fromNumbers([ target.scaleX !== undefined ? target.scaleX : 1, keyframes ]);
 			return interpolate(position);
 		};
-		return this.frame(function _scale_(position, animEvent) {
-			target.scaleX = target.scaleY = interpolate(position);
+		return this.frame(function _scale_(animEvent) {
+			target.scaleX = target.scaleY = interpolate(animEvent.position);
 		});
 	}
 
@@ -104,8 +104,8 @@ _.extend(Smart.Animation.prototype, {
 			return interpolate(position);
 		};
 
-		return this.frame(function _rotate_(position, animEvent) {
-			target.rotation = interpolate(position);
+		return this.frame(function _rotate_(animEvent) {
+			target.rotation = interpolate(animEvent.position);
 		});
 	}
 	,
@@ -118,11 +118,10 @@ _.extend(Smart.Animation.prototype, {
 	tween: function(keyframes, update) {
 		var interpolate =
 			Smart.Keyframes.fromFunction(keyframes)
-			|| Smart.Keyframes.fromNumbers(keyframes)
-			|| Smart.Keyframes.fromNumbers([ keyframes ]);
+			|| Smart.Keyframes.fromNumbers(keyframes);
 
-		return this.frame(function _tween_(position, animEvent) {
-			update(interpolate(position));
+		return this.frame(function _tween_(animEvent) {
+			update(interpolate(animEvent.position));
 		});
 	}
 
