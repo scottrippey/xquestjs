@@ -26,7 +26,6 @@
 			this.logo = this.gfx.createXQuestLogoGraphic();
 			this.logo.moveTo(180, 350);
 			return this.logo.showLogo()
-				.restorePosition()
 				.easeOut()
 				.move(this.logo, { x: 180, y: 200 });
 		}
@@ -39,23 +38,27 @@
 			this.playButton.setActive(true);
 			this.playButton.moveTo(bottom.x, bottom.y + 100);
 			this.playButton.animation = this.gfx.addAnimation()
-				.delay(1).duration(3).easeOut()
+				.delay(1).duration(2)
+				.easeOut()
 				.fade(this.playButton, [0, 1])
 				.move(this.playButton, dest);
 		}
 		, _onInvoke: function() {
+			var bottom = this.gfx.getHudPoint('bottom');
 			if (this.playButton) {
-				var bottom = this.gfx.getHudPoint('bottom');
 				this.playButton.animation.cancelAnimation();
 				this.playButton.animation = this.gfx.addAnimation()
-					.duration(1).easeOut()
+					.duration(1)
+					.easeOut()
 					.fade(this.playButton, 0)
 					.move(this.playButton, bottom);
 			}
 				
-			this.logo.hideLogo().queue(function() {
-				this.fireSceneEvent(IntroSceneEvents.onPlayGame);
-			}.bind(this));
+			this.logo.hideLogo()
+				.move(this.logo, { x: 180, y: 350})
+				.queue(function() {
+					this.fireSceneEvent(IntroSceneEvents.onPlayGame);
+				}.bind(this));
 		}
 	});
 
