@@ -7,30 +7,26 @@ Smart.Animation = Smart.Class({
 		this._position = 0;
 
 		/**
-		 * @name AnimationEvent
-		 * @property {number} loops
+		 * @name Smart.AnimationEvent
 		 * @property {boolean} stillRunning
 		 * @property {function(value:boolean)} clearCurrentActions
 		 * @property {function(value:boolean)} stopUpdate
 		 */
 		this._animEvent = {
-			loops: 0
-			,
+
 			/** Indicates that the animation is still running */
-			stillRunning: false
-			,
+			stillRunning: false,
+
 			/** Dequeues the current actions */
 			clearCurrentActions: function(value) {
 				this._clearCurrentActions = (value === undefined) ? true : value;
-			}
-			,
-			_clearCurrentActions: false
-			,
+			},
+			_clearCurrentActions: false,
+
 			/** Prevents the rest of the queue from executing */
 			stopUpdate: function(value) {
 				this._stopUpdate = (value === undefined) ? true : value;
-			}
-			,
+			},
 			_stopUpdate: false
 		};
 	}
@@ -39,7 +35,7 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Updates the animation with the elapsed time.
 	 * @param {Number} deltaSeconds
-	 * @returns {AnimationEvent}
+	 * @returns {Smart.AnimationEvent}
 	 */
 	update: function(deltaSeconds) {
 		this._position += deltaSeconds;
@@ -77,7 +73,7 @@ Smart.Animation = Smart.Class({
 	,
 	/**
 	 * Adds an action to the animation queue.
-	 * @param {function(position:Number, animEvent:AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
+	 * @param {function(position:Number, animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
 	 * @returns {Smart.Animation} this
 	 */
 	frame: function(frameCallback) {
@@ -88,7 +84,7 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Waits for the current animations to complete, before continuing the chain.
 	 * If supplied, the callback will be executed.
-	 * @param {function(position:Number, animEvent:AnimationEvent, thisAnimation:Smart.Animation)} [callback]
+	 * @param {function(position:Number, animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} [callback]
 	 * @returns {Smart.Animation} this
 	 */
 	queue: function(callback) {
@@ -104,7 +100,7 @@ Smart.Animation = Smart.Class({
 	}
 	,
 	/**
-	 * Cancels the animation queue and removes the animation
+	 * Cancels the animation queue
 	 */
 	cancelAnimation: function() {
 		this._actions.length = 0;

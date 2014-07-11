@@ -30,12 +30,15 @@ _.extend(Smart.Animation.prototype, {
 		if (maxLoops === undefined)
 			maxLoops = Number.MAX_VALUE;
 		return this.frame(function _loop_(position, animEvent) {
+			if (animEvent._loops === undefined)
+				animEvent._loops = 0;
+
 			while (position >= duration) {
 				position -= duration;
-				animEvent.loops++;
+				animEvent._loops++;
 			}
-			if (animEvent.loops >= maxLoops) {
-				animEvent.loops = maxLoops;
+			if (animEvent._loops >= maxLoops) {
+				animEvent._loops = maxLoops;
 				return 1;
 			} else {
 				animEvent.stillRunning = true;
