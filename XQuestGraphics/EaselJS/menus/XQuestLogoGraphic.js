@@ -8,7 +8,7 @@ Balance.onUpdate(function(gameMode) {
 			, textColor: 'white'
 			, xColor: 'yellow'
 			, show: { duration: 3 }
-			, hide: { duration: 1 }
+			, hide: { duration: 2 }
 		}
 	});
 });
@@ -71,18 +71,21 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 	
 	, hideLogo: function() {
 		var G = Graphics.xquestLogo, logo = this, X = this.X, Q = this.Q, QTail = this.QTail, UEST = this.UEST;
+		var spinRate = 270, firstSpin;
 		this.animation.cancelAnimation();
 		this.animation = this.gfx.addAnimation()
-			.duration(G.hide.duration)
-			.ease()
+			.duration(G.hide.duration).savePosition()
 
-			.move(X, Q).scale(X, 0.8).rotate(X, 180)
-			.tween(function(scaleX) { Q.scaleX = scaleX; }, [ Q.scaleX, 1 ])
+			.ease().move(X, Q).scale(X, 0.8).restorePosition()
+			.easeIn('swing').rotate(X, firstSpin = (spinRate * G.hide.duration * 0.5)).restorePosition()
+			.ease()
+			.tween([ Q.scaleX, 1 ], function(scaleX) { Q.scaleX = scaleX; })
 			.fade(QTail, 0)
 			.fade(UEST, 0)
 
-			.queue()
-			.duration(G.hide.duration).easeOut().savePosition()
+			.queue().duration(G.hide.duration / 2)
+			.rotate(X, firstSpin + (spinRate * G.hide.duration / 2))
+			.easeIn().savePosition()
 			.fade(logo, 0)
 			.restorePosition()
 		;

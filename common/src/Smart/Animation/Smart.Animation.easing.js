@@ -2,7 +2,7 @@
  * Animation Easing functions
  */
 _.extend(Smart.Animation.prototype, {
-	defaultEasing: 'swing'
+	defaultEasing: 'quart'
 	,
 	/**
 	 * Applies an ease-in-out function to the current animation.
