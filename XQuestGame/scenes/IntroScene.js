@@ -30,7 +30,10 @@
 				.move(this.logo, { x: 180, y: 200 });
 		}
 		, _addPlayButton: function() {
-			this.playButton = this.gfx.createMenuButton("Play XQuest", this._onInvoke.bind(this));
+			this.playButton = this.gfx.createMenuButton("Play XQuest");
+			this.playButton.addButtonEvents({
+				invoke: this._onInvoke.bind(this)
+			});
 
 			var bottom = this.gfx.getHudPoint('bottom');
 			var dest = { x: bottom.x, y: bottom.y - 100 };
