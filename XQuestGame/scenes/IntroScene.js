@@ -24,13 +24,13 @@
 		}
 		, _addLogo: function() {
 			this.logo = this.gfx.createXQuestLogoGraphic();
-			this.logo.moveTo(180, 350);
+			this.logo.moveTo(100, 350);
 			return this.logo.showLogo()
 				.easeOut()
-				.move(this.logo, { x: 180, y: 200 });
+				.move(this.logo, { x: this.logo.x, y: 200 });
 		}
 		, _addPlayButton: function() {
-			this.playButton = this.gfx.createMenuButton("Play XQuest");
+			this.playButton = this.gfx.createMenuButton("Play xQuest");
 			this.playButton.addButtonEvents({
 				invoke: this._onInvoke.bind(this)
 			});
@@ -58,7 +58,7 @@
 			}
 				
 			this.logo.hideLogo()
-				.move(this.logo, { x: 180, y: 350})
+				.move(this.logo, { x: this.logo.x, y: 350})
 				.queue(function() {
 					this.fireSceneEvent(IntroSceneEvents.onPlayGame);
 				}.bind(this));

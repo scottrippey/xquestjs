@@ -1,9 +1,9 @@
 Balance.onUpdate(function(gameMode) {
 	Graphics.merge({
 		xquestLogo: {
-			height: 80
+			height: 160
 			, QThickness: 15
-			, QTailLength: 50
+			, QTailLength: 30
 			, fontSize: 150
 			, textColor: 'white'
 			, xColor: 'yellow'
@@ -27,16 +27,31 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 		
 		var Q = new EaselJSGraphics.XQuestLogoGraphic.Q();
 		this.addChild(Q);
+		var QTail = new EaselJSGraphics.XQuestLogoGraphic.QTail();
+		this.addChild(QTail);
 		
 		var UEST = new EaselJSGraphics.XQuestLogoGraphic.UEST();
 		this.addChild(UEST);
-		
-		X.moveTo(0, 0);
-		Q.moveTo(150, 0);
-		UEST.moveTo(250, 70);
+
+		var left = 0;
+
+		left += X.visibleWidth / 2;
+		X.moveTo(left, 20);
+		left += X.visibleWidth / 2 + 10;
+
+		left += Q.visibleWidth / 2;
+		Q.moveTo(left, 0);
+		Q.scaleX = 0.8;
+		QTail.moveTo(left, 0);
+		QTail.scaleX = 0.8;
+		left += Q.visibleWidth / 2 + 10;
+
+		UEST.moveTo(left, 70);
+
 		
 		this.X = X;
 		this.Q = Q;
+		this.QTail = QTail;
 		this.UEST = UEST;
 	}
 
@@ -55,12 +70,17 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 	}
 	
 	, hideLogo: function() {
-		var G = Graphics.xquestLogo, logo = this, X = this.X, Q = this.Q, UEST = this.UEST;
+		var G = Graphics.xquestLogo, logo = this, X = this.X, Q = this.Q, QTail = this.QTail, UEST = this.UEST;
 		this.animation.cancelAnimation();
 		this.animation = this.gfx.addAnimation()
 			.duration(G.hide.duration)
 			.ease()
-			.move(X, Q).rotate(X, 360).scale(X, 0.8)
+
+			.move(X, Q).scale(X, 0.8).rotate(X, 180)
+			.tween(function(scaleX) { Q.scaleX = scaleX; }, [ Q.scaleX, 1 ])
+			.fade(QTail, 0)
+			.fade(UEST, 0)
+
 			.queue()
 			.duration(G.hide.duration).easeOut().savePosition()
 			.fade(logo, 0)
@@ -72,24 +92,40 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 
 EaselJSGraphics.XQuestLogoGraphic.X = Smart.Class(new EaselJSGraphics.Drawing(), {
 	drawStatic: function(drawing) {
-		var G = Graphics.xquestLogo;
-		
+		var G = Graphics.xquestLogo, radius = G.height / 2;
+		this.visibleWidth = G.height * 0.7;
+
 		drawing
 			.beginPath()
-			.star(0, 0, G.height, 4, 0.8, 45)
+			.star(0, 0, radius, 4, 0.8, 45)
 			.endPath({ fillStyle: G.xColor });
 	}
 });
 EaselJSGraphics.XQuestLogoGraphic.Q = Smart.Class(new EaselJSGraphics.Drawing(), {
 	drawStatic: function(drawing) {
 		var G = Graphics.xquestLogo;
-		var radius = G.height, QThickness = G.QThickness, QTailLength = G.QTailLength;
+		var radius = G.height / 2, QThickness = G.QThickness, QTailLength = G.QTailLength;
+
+		this.visibleWidth = G.height;
+
 		drawing
 			.beginPath()
 			.circle(0, 0, radius)
-			.rect(radius - QTailLength / 2, -QThickness / 4, QTailLength, QThickness / 4 )
 			.endPath({ strokeStyle: G.textColor, lineWidth: QThickness });
-		
+
+		this.rotation = 45;
+	}
+});
+EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawing(), {
+	drawStatic: function(drawing) {
+		var G = Graphics.xquestLogo;
+		var radius = G.height / 2, QThickness = G.QThickness, QTailLength = G.QTailLength;
+
+		drawing
+			.beginPath()
+			.rect(radius + QThickness - 1, -QThickness / 4, QTailLength, QThickness / 4)
+			.endPath({ strokeStyle: G.textColor, lineWidth: QThickness });
+
 		this.rotation = 45;
 	}
 });
