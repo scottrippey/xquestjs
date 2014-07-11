@@ -354,4 +354,15 @@ var EaselJSGraphics = Smart.Class({
 
 		return buttonGfx;
 	}
+	
+	,
+	createXQuestLogoGraphic: function() {
+		var introGraphics = new EaselJSGraphics.XQuestLogoGraphic(this);
+		this.layers.hud.addChild(introGraphics);
+		introGraphics.onDispose(function() {
+			this.layers.hud.removeChild(introGraphics);
+		}.bind(this));
+		
+		return introGraphics;
+	}
 });

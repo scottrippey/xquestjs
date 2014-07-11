@@ -32,6 +32,7 @@ Smart.Drawing = Smart.Class({
 	 */
 	var canvasProperties = [
 		'strokeStyle', 'fillStyle', 'lineWidth', 'lineCap', 'lineJoin', 'miterLimit'
+		, 'font'
 	];
 	canvasMethods.forEach(function(methodName) {
 		Smart.Drawing.prototype[methodName] = function _canvas_method_() {
