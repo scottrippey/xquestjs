@@ -34,10 +34,8 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 	}
 	, addBullet: function(angle, speed) {
-		var B = Balance.bullets;
-		var bulletGfx = this.bulletsGraphics.addBullet();
-		var player = this.game.player;
-		bulletGfx.moveTo(player.location.x, player.location.y);
+		var B = Balance.bullets, player = this.game.player;
+
 		var velocity;
 		if (this.game.activePowerups.autoAim) {
 			var autoAim = Balance.powerups.autoAim;
@@ -50,11 +48,18 @@ XQuestGame.Projectiles = Smart.Class({
 			velocity = Smart.Point.fromAngle(angle, speed);
 		}
 		if (!velocity) {
+			if (player.velocity.x === 0 && player.velocity.y === 0) {
+				return;
+			}
 			velocity = {
 				x: player.velocity.x * B.speed
 				, y: player.velocity.y * B.speed
 			};
 		}
+
+		var bulletGfx = this.bulletsGraphics.addBullet();
+		bulletGfx.moveTo(player.location.x, player.location.y);
+
 		bulletGfx.velocity = velocity;
 		if (angle) {
 			Smart.Point.rotate(bulletGfx.velocity, angle);
