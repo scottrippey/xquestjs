@@ -105,7 +105,7 @@
     <Content Include="XQuestGraphics\EaselJS\characters\PlayerGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\EaselJSGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\EaselJSTimer.js" />
-    <Content Include="XQuestGraphics\EaselJS\effects\BulletGraphics.js" />
+    <Content Include="XQuestGraphics\EaselJS\effects\BulletsGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\effects\ParticleFactory.js" />
     <Content Include="XQuestGraphics\EaselJS\game\BackgroundGraphics.js" />
     <Content Include="XQuestGraphics\EaselJS\game\CrystalGraphic.js" />

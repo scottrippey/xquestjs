@@ -35,6 +35,7 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 	}
 	, addBullet: function(angle, speed) {
+		var B = Balance.bullets;
 		var bulletGfx = this.game.gfx.createPlayerBullet();
 		var player = this.game.player;
 		bulletGfx.moveTo(player.location.x, player.location.y);
@@ -51,8 +52,8 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 		if (!velocity) {
 			velocity = {
-				x: player.velocity.x * Balance.bullets.speed
-				, y: player.velocity.y * Balance.bullets.speed
+				x: player.velocity.x * B.speed
+				, y: player.velocity.y * B.speed
 			};
 		}
 		bulletGfx.velocity = velocity;
@@ -60,7 +61,7 @@ XQuestGame.Projectiles = Smart.Class({
 			Smart.Point.rotate(bulletGfx.velocity, angle);
 		}
 		bulletGfx.location = bulletGfx;
-		bulletGfx.radius = Balance.bullets.radius;
+		bulletGfx.radius = B.radius;
 		this.bullets.push(bulletGfx);
 	}
 	, _moveBullets: function(tickEvent) {

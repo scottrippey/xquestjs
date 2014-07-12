@@ -8,6 +8,7 @@ var EaselJSGraphics = Smart.Class({
 
 		this._setupLayers();
 		this._setupAnimations();
+		this._setupBulletsGraphics();
 	}
 	,
 	_setupLayers: function() {
@@ -195,12 +196,13 @@ var EaselJSGraphics = Smart.Class({
 		return playerGraphics;
 	}
 	,
+	_setupBulletsGraphics: function() {
+		this.bulletsGraphics = new EaselJSGraphics.BulletsGraphics();
+		this.layers.objects.addChild(this.bulletsGraphics);
+	}
+	,
 	createPlayerBullet: function() {
-		var bulletGfx = new EaselJSGraphics.BulletGraphics();
-		this.layers.objects.addChild(bulletGfx);
-		bulletGfx.onDispose(function() {
-			this.layers.objects.removeChild(bulletGfx);
-		}.bind(this));
+		var bulletGfx = this.bulletsGraphics.addBullet();
 		return bulletGfx;
 	}
 	,

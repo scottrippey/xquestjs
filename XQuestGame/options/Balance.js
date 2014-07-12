@@ -89,7 +89,7 @@ Balance.merge({
 				,lives: 5
 			}
 			,bullets: {
-				radius: 2
+				radius: 3
 				,kickBack: 0.5
 				,speed: 3 // * player speed
 				,shotsPerSecond: 1.0

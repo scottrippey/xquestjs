@@ -28,13 +28,6 @@ Balance.onUpdate(function(mode) {
 				,radius: 6
 			}
 		}
-		,bullets: {
-			radius: Balance.bullets.radius
-			, strokeStyle: {
-				strokeWidth: 2
-				, strokeColor: 'white'
-			}
-		}
 		,crystals: {
 			radius: Balance.crystals.radius
 			,style: {

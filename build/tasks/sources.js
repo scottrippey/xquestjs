@@ -68,7 +68,7 @@ module.exports = function(grunt) {
 			,"../XQuestGraphics/EaselJS/characters/enemies/LocustGraphics.js"
 			,"../XQuestGraphics/EaselJS/characters/enemies/MantisGraphics.js"
 			,"../XQuestGraphics/EaselJS/characters/enemies/SlugGraphics.js"
-			,"../XQuestGraphics/EaselJS/effects/BulletGraphics.js"
+			,"../XQuestGraphics/EaselJS/effects/BulletsGraphics.js"
 			,"../XQuestGraphics/EaselJS/effects/ExplosionGraphics.js"
 			,"../XQuestGraphics/EaselJS/effects/SpecialEffects.js"
 			,"../XQuestGraphics/EaselJS/effects/TextGraphics.js"
