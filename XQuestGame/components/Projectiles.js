@@ -3,9 +3,8 @@ XQuestGame.Projectiles = Smart.Class({
 		this.game = game;
 		this.game.addSceneItem(this);
 
-		this.bullets = [];
+		this.bulletsGraphics = this.game.gfx.createBulletsGraphics();
 		this.bomb = null;
-
 	}
 	, onMove: function(tickEvent) {
 		this._moveBullets(tickEvent);
@@ -36,7 +35,7 @@ XQuestGame.Projectiles = Smart.Class({
 	}
 	, addBullet: function(angle, speed) {
 		var B = Balance.bullets;
-		var bulletGfx = this.game.gfx.createPlayerBullet();
+		var bulletGfx = this.bulletsGraphics.addBullet();
 		var player = this.game.player;
 		bulletGfx.moveTo(player.location.x, player.location.y);
 		var velocity;
@@ -62,44 +61,51 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = B.radius;
-		this.bullets.push(bulletGfx);
 	}
 	, _moveBullets: function(tickEvent) {
-		var bounds = Balance.level.bounds, i = this.bullets.length;
+		var bounds = Balance.level.bounds, bullets = this.bulletsGraphics.bullets, i = bullets.length;
 		while (i--) {
-			var bulletGfx = this.bullets[i];
+			var bulletGfx = bullets[i];
 			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 			
 			if (this.game.activePowerups.powerShot) {
 				Smart.Physics.bounceOffWalls(bulletGfx, bulletGfx.radius, bulletGfx.velocity, bounds, 0);
 			}
 			if (!Smart.Point.pointIsInBounds(bulletGfx, bounds)) {
-				bulletGfx.dispose();
-				this.bullets.splice(i, 1);
+				bullets.splice(i, 1);
 			}
 		}
 	}
 	, _bulletsKillEnemies: function() {
-		if (this.bullets.length) {
-			if (this.bullets.length >= 2) {
-				Smart.Physics.sortByLocation(this.bullets);
+		var bullets = this.bulletsGraphics.bullets;
+		if (bullets.length) {
+			if (bullets.length >= 2) {
+				Smart.Physics.sortByLocation(bullets);
 			}
-			this.game.enemies.killEnemiesOnCollision(this.bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
+			this.game.enemies.killEnemiesOnCollision(bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
 				if (!this.game.activePowerups.powerShot)
 					bullet.shouldDisappear = true;
 			}.bind(this));
 
 			// Remove bullets:
-			var i = this.bullets.length;
+			var i = bullets.length;
 			while (i--) {
-				var bulletGfx = this.bullets[i];
+				var bulletGfx = bullets[i];
 				if (bulletGfx.shouldDisappear) {
-					bulletGfx.dispose();
-					this.bullets.splice(i, 1);
+					bullets.splice(i, 1);
 				}
 			}
 		}
 		
+	}
+	, clearBullets: function() {
+		this.game.gfx.addAnimation()
+			.duration(1)
+			.fade(this.bulletsGraphics, 0)
+			.queue(function() {
+				this.bulletsGraphics.alpha = 1;
+				this.bulletsGraphics.bullets.length = 0;
+			}.bind(this));
 	}
 	
 

@@ -134,8 +134,10 @@
 		, killPlayer: function() {
 			this.game.player.killPlayer();
 			this._events.fireEvent(GameEvents.onPlayerKilled);
+			
 			this.game.enemies.clearAllEnemies();
 			this.game.powerCrystals.clearAllPowerCrystals();
+			this.game.projectiles.clearBullets();
 	
 			if (this.game.stats.lives === 0) {
 				this._gameOver();
@@ -181,6 +183,7 @@
 			// Let's kill all enemies:
 			this.game.enemies.killAllEnemies();
 			this.game.powerCrystals.clearAllPowerCrystals();
+			this.game.projectiles.clearBullets();
 	
 			this.currentLevel++;
 	
@@ -206,7 +209,7 @@
 			this.game.gfx.addAnimation(animation);
 			return animation;
 		}
-	
+
 		, crystalsGathered: function(remainingCrystals, gatheredCrystals) {
 			if (remainingCrystals === 0) {
 				this.game.levelGraphics.openGate();
