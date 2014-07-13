@@ -1,12 +1,12 @@
 XQuestGame.XQuestHost.Settings = Smart.Class({
 	defaultSettings: {
 		mouseSettings: {
-			mouseSensitivity: 8,
+			mouseSensitivity: 5,
 			maxMouseSensitivity: 10,
 			sensitivityMultiplier: 100,
 			
 			mouseBiasSensitivity: 5,
-			biasMultiplier: 0.2,
+			biasMultiplier: 0.7,
 			maxMouseBias: 10,
 			
 			maxMouseMove: 40 // Maximum mouse delta per mousemove event
