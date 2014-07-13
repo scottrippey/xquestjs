@@ -55,16 +55,18 @@
 		},
 
 		_onMouseOver: function(ev) {
-			var isInsideElement = elementContains(this.element, ev.target);
-			if (isInsideElement) {
+			var currentMouseOver = ev.target;
+			var mouseIsIn = elementContains(this.element, currentMouseOver);
+			if (mouseIsIn) {
 				this.mouseState.engaged = true;
 			}
 		},
 		_onMouseOut: function(ev) {
-			var isInsideElement = elementContains(this.element, ev.relatedTarget);
-			if (!isInsideElement) {
+			var currentMouseOver = ev.relatedTarget;
+			var mouseIsOut = !elementContains(this.element, currentMouseOver);
+			if (mouseIsOut) {
 				this.mouseState.engaged = false;
-				this.game.pauseGame(true);				
+				this.game.pauseGame(true);
 			}
 		},
 		_onMouseDown: function(ev) {
