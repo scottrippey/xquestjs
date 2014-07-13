@@ -1,13 +1,5 @@
-/*
- ng-mousemove="ui.onMouseMove($event)"
- ng-mousedown="ui.primaryWeapon(true); $event.preventDefault();"
- ng-mouseup="ui.primaryWeapon(false);"
- ng-mouseleave="ui.togglePause(true)"
-
- */
-
-(function() {
-	var UserSettings = {
+(function _init_PlayerInputTouch() {
+	var defaultTouchSettings = {
 		touchSensitivity: 2,
 		inactiveTouchTimeout: 4
 	};
@@ -18,10 +10,14 @@
 		touches: null,
 		touchState: null,
 
-		initialize: function(game, element) {
+		initialize: function(game, element, settings) {
 			this.game = game;
 			this.element = element;
 			this.touchState = {};
+			
+			settings.watchSetting('touchSettings', defaultTouchSettings, function(touchSettings){
+				this.touchSettings = touchSettings;
+			}.bind(this));
 
 			addEventListeners(this.element, {
 				'touchstart': this._onTouchStart.bind(this),
@@ -103,7 +99,7 @@
 			return delta;
 		},
 		_adjustForSensitivity: function(delta, touchPosition, elementSize) {
-			var sensitivity = UserSettings.touchSensitivity;
+			var sensitivity = this.touchSettings.touchSensitivity;
 			var acceleration = {
 				x: delta.x * sensitivity
 				, y: delta.y * sensitivity

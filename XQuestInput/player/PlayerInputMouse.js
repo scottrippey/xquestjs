@@ -1,13 +1,5 @@
-/*
- ng-mousemove="ui.onMouseMove($event)"
- ng-mousedown="ui.primaryWeapon(true); $event.preventDefault();"
- ng-mouseup="ui.primaryWeapon(false);"
- ng-mouseleave="ui.togglePause(true)"
-
- */
-
-(function() {
-	var UserSettings = {
+(function _init_PlayerInputMouse() {
+	var defaultMouseSettings = {
 		mouseSensitivity: 10,
 		sensitivityScale: 100,
 		mouseBiasSensitivity: 2,
@@ -26,10 +18,14 @@
 		mouseState: null,
 		previousMousePosition: null,
 
-		initialize: function(game, element) {
+		initialize: function(game, element, settings) {
 			this.game = game;
 			this.element = element;
 			this.mouseMap = mouseMap;
+			
+			settings.watchSetting('mouseSettings', defaultMouseSettings, function(mouseSettings) {
+				this.mouseSettings = mouseSettings;
+			}.bind(this));
 
 			addEventListeners(this.element, {
 				'mouseover': this._onMouseOver.bind(this),
@@ -94,15 +90,17 @@
 		},
 		
 		_onMouseMove: function(ev) {
-			var mousePosition = getMousePosition(ev), previousMousePosition = this.previousMousePosition;
+			var mousePosition = getMousePosition(ev)
+				, previousMousePosition = this.previousMousePosition
+				, mouseSettings = this.mouseSettings;
 			this.previousMousePosition = mousePosition;
 			if (!previousMousePosition)
 				return;
 			
 
 			var delta = {
-				x: Math.min(mousePosition.x - previousMousePosition.x, UserSettings.maxMouseMove)
-				, y: Math.min(mousePosition.y - previousMousePosition.y, UserSettings.maxMouseMove)
+				x: Math.min(mousePosition.x - previousMousePosition.x, mouseSettings.maxMouseMove)
+				, y: Math.min(mousePosition.y - previousMousePosition.y, mouseSettings.maxMouseMove)
 			};
 
 			var acceleration = this._adjustForSensitivity(delta, mousePosition);
@@ -112,8 +110,9 @@
 		},
 		_adjustForSensitivity: function(delta, mousePosition) {
 			var elementSize = this.elementSize
-				, sensitivity = UserSettings.mouseSensitivity * UserSettings.sensitivityScale
-				, biasSensitivity = UserSettings.mouseBiasSensitivity;
+				, mouseSettings = this.mouseSettings
+				, sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityScale
+				, biasSensitivity = mouseSettings.mouseBiasSensitivity;
 
 			var screenDeltaX = delta.x / elementSize.width,
 				screenDeltaY = delta.y / elementSize.height;

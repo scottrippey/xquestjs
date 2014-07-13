@@ -1,6 +1,6 @@
-(function() {
+(function _init_PlayerInputKeyboard() {
 
-	var UserSettings = {
+	var defaultKeyboardSettings = {
 		keyboardSensitivity: 5
 	};
 
@@ -68,8 +68,12 @@
 	};
 
 	XQuestInput.PlayerInputKeyboard = Smart.Class({
-		initialize: function(game, element) {
+		initialize: function(game, element, settings) {
 			this.game = game;
+			
+			settings.watchSetting('keyboardSettings', defaultKeyboardSettings, function(keyboardSettings) {
+				this.keyboardSettings = keyboardSettings;
+			}.bind(this));
 
 			if (!element) {
 				element = document;
@@ -130,7 +134,7 @@
 		},
 
 		onInput: function(tickEvent, inputState) {
-			var sensitivity = UserSettings.keyboardSensitivity;
+			var sensitivity = this.keyboardSettings.keyboardSensitivity;
 			var downActions = this.keyMapper.getDownActions();
 
 			var activeInputs = 4;

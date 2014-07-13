@@ -93,7 +93,8 @@ module.exports = function(grunt) {
 			,"../XQuestInput/player/PlayerInputTouch.js"
 		]
 		,XQuestHost: [
-			"../XQuestHost/XQuestHost.js"
+			"../XQuestHost/XQuestHost.js",
+			"../XQuestHost/Settings.js"
 		]
 	};
 	sources.allSources = concatAll(
