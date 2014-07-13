@@ -94,7 +94,8 @@
 			return delta;
 		},
 		_adjustForSensitivity: function(delta, touchPosition, elementSize) {
-			var sensitivity = this.touchSettings.touchSensitivity;
+			var touchSettings = this.touchSettings,
+				sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
 			var acceleration = {
 				x: delta.x * sensitivity
 				, y: delta.y * sensitivity

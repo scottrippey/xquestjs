@@ -12,10 +12,13 @@ XQuestGame.XQuestHost.Settings = Smart.Class({
 			maxMouseMove: 40 // Maximum mouse delta per mousemove event
 		}
 		, keyboardSettings: {
-			keyboardSensitivity: 5
+			keyboardSensitivity: 5,
+			maxKeyboardSensitivity: 10
 		}
 		, touchSettings: {
-			touchSensitivity: 2,
+			touchSensitivity: 5,
+			maxTouchSensitivity: 10,
+			touchSensitivityMultiplier: 0.5,
 			inactiveTouchTimeout: 4
 		}
 		, gameSettings: {

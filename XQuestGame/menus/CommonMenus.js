@@ -55,10 +55,10 @@
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.MouseSettings(this.menuScene));
 			}
 			, _showKeyboardSensitivity: function() {
-				//this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
 			}
 			, _showTouchSensitivity: function() {
-				//this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
 			}
 			, _showDifficultyMenu: function() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
@@ -103,6 +103,62 @@
 				var rows = [
 					sensitivity
 					,bias
+					,reset
+					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
+				];
+				return rows;
+			}
+		})
+		,
+		KeyboardSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+			onMenuLeave: function() {
+				this.menuScene.host.settings.saveSetting('keyboardSettings', this.keyboardSettings);
+			},
+			getRows: function() {
+				var keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.retrieveSetting('keyboardSettings');
+				
+				var sensitivity = this.createMenuButton(function() { 
+					return "Sensitivity: " + keyboardSettings.keyboardSensitivity;
+				}, function() {
+					keyboardSettings.keyboardSensitivity = (keyboardSettings.keyboardSensitivity % keyboardSettings.maxKeyboardSensitivity) + 1;
+					sensitivity.updateText();
+				});
+				var reset = this.createMenuButton("Reset", function() {
+					keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.saveSetting('keyboardSettings', null);
+					rows.forEach(function(row) { row.updateText && row.updateText(); });
+				}.bind(this));
+				
+				 
+				var rows = [
+					sensitivity
+					,reset
+					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
+				];
+				return rows;
+			}
+		})
+		,
+		TouchSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+			onMenuLeave: function() {
+				this.menuScene.host.settings.saveSetting('touchSettings', this.touchSettings);
+			},
+			getRows: function() {
+				var touchSettings = this.touchSettings = this.menuScene.host.settings.retrieveSetting('touchSettings');
+				
+				var sensitivity = this.createMenuButton(function() { 
+					return "Sensitivity: " + touchSettings.touchSensitivity;
+				}, function() {
+					touchSettings.touchSensitivity = (touchSettings.touchSensitivity % touchSettings.maxTouchSensitivity) + 1;
+					sensitivity.updateText();
+				});
+				var reset = this.createMenuButton("Reset", function() {
+					touchSettings = this.touchSettings = this.menuScene.host.settings.saveSetting('touchSettings', null);
+					rows.forEach(function(row) { row.updateText && row.updateText(); });
+				}.bind(this));
+				
+				 
+				var rows = [
+					sensitivity
 					,reset
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
