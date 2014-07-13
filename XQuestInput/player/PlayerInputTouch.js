@@ -1,9 +1,4 @@
 (function _init_PlayerInputTouch() {
-	var defaultTouchSettings = {
-		touchSensitivity: 2,
-		inactiveTouchTimeout: 4
-	};
-
 	XQuestInput.PlayerInputTouch = Smart.Class({
 		element: null,
 		elementSize: null,
@@ -15,7 +10,7 @@
 			this.element = element;
 			this.touchState = {};
 			
-			settings.watchSetting('touchSettings', defaultTouchSettings, function(touchSettings){
+			settings.watchSetting('touchSettings', function(touchSettings){
 				this.touchSettings = touchSettings;
 			}.bind(this));
 

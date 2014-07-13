@@ -81,7 +81,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	
 	,_startHostScene: function() {
 		var graphics = new EaselJSGraphics(this.canvas);
-		this.hostScene = new XQuestGame.HostScene(graphics);
+		this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
 		
 		// Setup Inputs:
 		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));

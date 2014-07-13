@@ -1,9 +1,5 @@
 (function _init_PlayerInputKeyboard() {
 
-	var defaultKeyboardSettings = {
-		keyboardSensitivity: 5
-	};
-
 	// Available actions:
 	var playerActions = {
 		accelerateUp: 'accelerateUp'
@@ -71,7 +67,7 @@
 		initialize: function(game, element, settings) {
 			this.game = game;
 			
-			settings.watchSetting('keyboardSettings', defaultKeyboardSettings, function(keyboardSettings) {
+			settings.watchSetting('keyboardSettings', function(keyboardSettings) {
 				this.keyboardSettings = keyboardSettings;
 			}.bind(this));
 

@@ -5,15 +5,14 @@
 	};
 
 	XQuestGame.HostScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(HostSceneEvents), {
-		initialize: function(gfx) {
-			this.HostScene_initialize(gfx);
-		}
-		, HostScene_initialize: function(gfx) {
+		initialize: function(gfx, settings) {
 			this.BaseScene_initialize();
 
-			this.host = this; // For consistency
-			this.host.gfx = gfx;
+			this.gfx = gfx;
 			this.addSceneItem(gfx);
+			this.settings = settings;
+			
+			this.host = this; // For consistency
 
 			this._setupBackground();
 

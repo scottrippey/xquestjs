@@ -28,24 +28,37 @@
 			getRows: function() {
 				return [
 					this.createMenuButton("Resume Game", this._onResumeGame.bind(this))
+					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
 				];
 			}
-			,
-			_onResumeGame: function() {
+			,_onResumeGame: function() {
 				this.menuScene.exitMenu().queue(function() {
 					this.fireEvent(PauseMenuEvents.onResumeGame);
 				}.bind(this));
+			}
+			,_showGameOptions: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
 			}
 		})
 		,
 		GameOptions: Smart.Class(new XQuestGame.BaseMenu(), {
 			getRows: function() {
 				return [
-					this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
-//					,this.createMenuButton("Mouse Settings", function() {})
-//					,this.createMenuButton("Keyboard Settings", function() {})
+					this.createMenuButton("Mouse", this._showMouseSensitivity.bind(this))
+					,this.createMenuButton("Keyboard", this._showKeyboardSensitivity.bind(this))
+					,this.createMenuButton("Touch", this._showTouchSensitivity.bind(this))
+					,this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
+			}
+			, _showMouseSensitivity: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.MouseSettings(this.menuScene));
+			}
+			, _showKeyboardSensitivity: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
+			}
+			, _showTouchSensitivity: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
 			}
 			, _showDifficultyMenu: function() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
@@ -61,6 +74,37 @@
 				];
 			}
 		})
+		,
+		MouseSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+			onMenuLeave: function() {
+				this.menuScene.host.settings.saveSetting('mouseSettings', this.mouseSettings);
+			},
+			getRows: function() {
+				var mouseSettings = this.mouseSettings = this.menuScene.host.settings.retrieveSetting('mouseSettings');
+				
+				var rows = [
+					this.createMenuButton(function() { 
+							return "Sensitivity: " + mouseSettings.mouseSensitivity;
+						}, function() {
+							mouseSettings.mouseSensitivity = (mouseSettings.mouseSensitivity % mouseSettings.maxMouseSensitivity) + 1;
+							this.updateText();
+						})
+					,this.createMenuButton(function(){
+							return "Center Bias: " + mouseSettings.mouseBiasSensitivity;
+						}, function() {
+							mouseSettings.mouseBiasSensitivity = (mouseSettings.mouseBiasSensitivity % mouseSettings.maxMouseBias) + 1;
+							this.updateText();
+						})
+					,this.createMenuButton("Reset", function() {
+						mouseSettings = this.mouseSettings = this.menuScene.host.settings.saveSetting('mouseSettings', null);
+						rows.forEach(function(row) { row.updateText && row.updateText(); });
+					}.bind(this))
+					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
+				];
+				return rows;
+			}
+		})
+		
 	};
 })();
 	

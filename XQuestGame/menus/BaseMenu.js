@@ -14,21 +14,38 @@
 		getRows: function() {
 			return [];
 		}
-		,createMenuButton: function(text, onInvoke) {
-			var buttonRow = this.menuScene.gfx.createMenuButton(text);
+		,
+		/**
+		 * 
+		 * @param {string|function():string} text
+		 * @param {function()} onInvoke
+		 * @returns {MenuButton}
+		 */
+		createMenuButton: function(text, onInvoke) {
+			var isUpdatableText = (typeof text === 'function');
+			var buttonRow = this.menuScene.gfx.createMenuButton(isUpdatableText ? "" : text);
 			buttonRow.addButtonEvents({
 				invoke: onInvoke
 				, hoverEnter: this._setActiveRow.bind(this, buttonRow)
 				, hoverLeave: this._setActiveRowIndex.bind(this, -1)
 			});
 			buttonRow.invoke = onInvoke;
+			if (isUpdatableText) {
+				buttonRow.updateText = function() {
+					var updatedText = text();
+					buttonRow.setText(updatedText);
+				};
+				buttonRow.updateText();
+			}
 			return buttonRow;
 		}
 	
 		,menuEnter: function(isBackNavigation) {
+			if (this.onMenuEnter) this.onMenuEnter(isBackNavigation);
 			this._enterRows(this.rows, isBackNavigation);
 		}
 		,menuLeave: function(isBackNavigation) {
+			if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
 			return this._leaveRows(this.rows, isBackNavigation);
 		}
 		,_enterRows: function(rows, isBackNavigation) {

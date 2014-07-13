@@ -38,10 +38,14 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 		this.regY = G.height / 2;
 	}
 	,setText: function(text) {
-		var textGfx = this.gfx.addText(text, 'menuButton');
-		this.addChild(textGfx);
+		if (this.textGfx) {
+			this.textGfx.text = text;
+			return;
+		}
+		this.textGfx = this.gfx.addText(text, 'menuButton');
+		this.addChild(this.textGfx);
 
-		textGfx.moveTo(this.visibleWidth / 2, this.visibleHeight / 2);
+		this.textGfx.moveTo(this.visibleWidth / 2, this.visibleHeight / 2);
 	}
 	,setActive: function(isActive) {
 		if (this.isActive === isActive) return;

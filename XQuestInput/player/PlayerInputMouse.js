@@ -1,10 +1,4 @@
 (function _init_PlayerInputMouse() {
-	var defaultMouseSettings = {
-		mouseSensitivity: 10,
-		sensitivityScale: 100,
-		mouseBiasSensitivity: 2,
-		maxMouseMove: 40 // Maximum mouse delta per mousemove event
-	};
 
 	var primaryWeapon = 'primaryWeapon', secondaryWeapon = 'secondaryWeapon';
 	var mouseMap = {
@@ -23,7 +17,7 @@
 			this.element = element;
 			this.mouseMap = mouseMap;
 			
-			settings.watchSetting('mouseSettings', defaultMouseSettings, function(mouseSettings) {
+			settings.watchSetting('mouseSettings', function(mouseSettings) {
 				this.mouseSettings = mouseSettings;
 			}.bind(this));
 
@@ -111,8 +105,8 @@
 		_adjustForSensitivity: function(delta, mousePosition) {
 			var elementSize = this.elementSize
 				, mouseSettings = this.mouseSettings
-				, sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityScale
-				, biasSensitivity = mouseSettings.mouseBiasSensitivity;
+				, sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier
+				, biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
 
 			var screenDeltaX = delta.x / elementSize.width,
 				screenDeltaY = delta.y / elementSize.height;
