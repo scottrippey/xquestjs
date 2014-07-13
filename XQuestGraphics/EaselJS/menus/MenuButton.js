@@ -1,7 +1,7 @@
 Balance.onUpdate(function(gameMode) {
 	Graphics.merge({
 		menuButton: {
-			width: 300
+			width: 370
 			,height: 60
 			,borderRadius: 6
 			,buttonStyle: {

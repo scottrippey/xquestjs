@@ -55,10 +55,10 @@
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.MouseSettings(this.menuScene));
 			}
 			, _showKeyboardSensitivity: function() {
-				this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
+				//this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
 			}
 			, _showTouchSensitivity: function() {
-				this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
+				//this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
 			}
 			, _showDifficultyMenu: function() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
@@ -82,23 +82,28 @@
 			getRows: function() {
 				var mouseSettings = this.mouseSettings = this.menuScene.host.settings.retrieveSetting('mouseSettings');
 				
+				var sensitivity = this.createMenuButton(function() { 
+					return "Sensitivity: " + mouseSettings.mouseSensitivity;
+				}, function() {
+					mouseSettings.mouseSensitivity = (mouseSettings.mouseSensitivity % mouseSettings.maxMouseSensitivity) + 1;
+					sensitivity.updateText();
+				});
+				var bias = this.createMenuButton(function(){
+					return "Edge Sensitivity: " + mouseSettings.mouseBiasSensitivity;
+				}, function() {
+					mouseSettings.mouseBiasSensitivity = (mouseSettings.mouseBiasSensitivity % mouseSettings.maxMouseBias) + 1;
+					bias.updateText();
+				});
+				var reset = this.createMenuButton("Reset", function() {
+					mouseSettings = this.mouseSettings = this.menuScene.host.settings.saveSetting('mouseSettings', null);
+					rows.forEach(function(row) { row.updateText && row.updateText(); });
+				}.bind(this));
+				
+				 
 				var rows = [
-					this.createMenuButton(function() { 
-							return "Sensitivity: " + mouseSettings.mouseSensitivity;
-						}, function() {
-							mouseSettings.mouseSensitivity = (mouseSettings.mouseSensitivity % mouseSettings.maxMouseSensitivity) + 1;
-							this.updateText();
-						})
-					,this.createMenuButton(function(){
-							return "Center Bias: " + mouseSettings.mouseBiasSensitivity;
-						}, function() {
-							mouseSettings.mouseBiasSensitivity = (mouseSettings.mouseBiasSensitivity % mouseSettings.maxMouseBias) + 1;
-							this.updateText();
-						})
-					,this.createMenuButton("Reset", function() {
-						mouseSettings = this.mouseSettings = this.menuScene.host.settings.saveSetting('mouseSettings', null);
-						rows.forEach(function(row) { row.updateText && row.updateText(); });
-					}.bind(this))
+					sensitivity
+					,bias
+					,reset
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 				return rows;
