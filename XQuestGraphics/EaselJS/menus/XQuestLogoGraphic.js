@@ -126,8 +126,8 @@ EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawin
 
 		drawing
 			.beginPath()
-			.rect(radius + QThickness - 1, -QThickness / 4, QTailLength, QThickness / 4)
-			.endPath({ strokeStyle: G.textColor, lineWidth: QThickness });
+			.rect(radius + QThickness / 2 - 1, -QThickness / 2, QTailLength, QThickness - 2)
+			.endPath({ fillStyle: G.textColor });
 
 		this.rotation = 45;
 	}
