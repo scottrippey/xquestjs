@@ -2,8 +2,8 @@ Smart.Animations = Smart.Class({
 	/**
 	 * Adds or creates an animation to the list.
 	 *
-	 * @param {Animation} [animation]
-	 * @returns {Animation}
+	 * @param {Smart.Animation} [animation]
+	 * @returns {Smart.Animation}
 	 */
 	addAnimation: function(animation) {
 		if (!animation) animation = new Smart.Animation();

@@ -33,6 +33,13 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 		var UEST = new EaselJSGraphics.XQuestLogoGraphic.UEST();
 		this.addChild(UEST);
 
+		this.X = X;
+		this.Q = Q;
+		this.QTail = QTail;
+		this.UEST = UEST;
+
+
+		// Layout:
 		var left = 0;
 
 		left += X.visibleWidth / 2;
@@ -47,12 +54,14 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 		left += Q.visibleWidth / 2 + 10;
 
 		UEST.moveTo(left, 70);
+		left += UEST.visibleWidth;
 
-		
-		this.X = X;
-		this.Q = Q;
-		this.QTail = QTail;
-		this.UEST = UEST;
+
+
+
+		var G = Graphics.xquestLogo;
+		this.visibleHeight = G.height;
+		this.visibleWidth = left;
 	}
 
 	, showLogo: function() {
@@ -61,7 +70,7 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 		this.animation = this.gfx.addAnimation()
 			.duration(G.show.duration)
 			.savePosition()
-			.ease()
+			.easeOut()
 			.fade(logo, 1)
 			.restorePosition()
 		;
@@ -135,6 +144,9 @@ EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawin
 EaselJSGraphics.XQuestLogoGraphic.UEST = Smart.Class(new EaselJSGraphics.Drawing(), {
 	drawStatic: function(drawing) {
 		var G = Graphics.xquestLogo;
+
+		this.visibleWidth = G.height * 2;
+
 		drawing
 			.font(G.fontSize + 'px "Segoe UI"')
 			.fillStyle(G.textColor)

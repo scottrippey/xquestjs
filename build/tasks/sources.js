@@ -38,7 +38,6 @@ module.exports = function(grunt) {
 			,"../XQuestGame/scenes/BaseScene.js"
 			,"../XQuestGame/scenes/ArcadeGame.js"
 			,"../XQuestGame/scenes/HostScene.js"
-			,"../XQuestGame/scenes/IntroScene.js"
 			,"../XQuestGame/scenes/MenuScene.js"
 			,"../XQuestGame/characters/BombCrystal.js"
 			,"../XQuestGame/characters/Player.js"
@@ -57,6 +56,7 @@ module.exports = function(grunt) {
 			,"../XQuestGame/menus/BaseMenu.js"
 			,"../XQuestGame/menus/CommonMenus.js"
 			,"../XQuestGame/menus/GraphicsTestMenu.js"
+			,"../XQuestGame/menus/StartMenu.js"
 		]
 		,XQuestGraphics: [
 			"../XQuestGraphics/EaselJS/EaselJSGraphics.js"

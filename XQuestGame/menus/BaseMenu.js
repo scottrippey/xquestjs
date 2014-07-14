@@ -1,13 +1,14 @@
 (function init_BaseMenu() {
 	XQuestGame.BaseMenu = Smart.Class(new Smart.Events(), {
 		initialize: function(menuScene) {
-			this.BaseMenu_initialize(menuScene);
+			if (menuScene)
+				this.BaseMenu_initialize(menuScene);
 		}
 		,BaseMenu_initialize: function(menuScene) {
 			this.menuScene = menuScene;
-			this.activeRowIndex = 0;
+			this.activeRowIndex = -1;
 			this.rows = this.getRows();
-			this._setActiveRowIndex(this.activeRowIndex);
+			this._moveActiveRowIndex(1);
 		}
 		,
 		/** @protected @mustOverride */
@@ -39,79 +40,108 @@
 			}
 			return buttonRow;
 		}
-	
+
+
 		,menuEnter: function(isBackNavigation) {
 			if (this.onMenuEnter) this.onMenuEnter(isBackNavigation);
-			this._enterRows(this.rows, isBackNavigation);
+			this.layoutRows(this.rows, isBackNavigation);
+			this.flyInRows(this.rows, isBackNavigation);
 		}
-		,menuLeave: function(isBackNavigation) {
-			if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
-			return this._leaveRows(this.rows, isBackNavigation);
-		}
-		,_enterRows: function(rows, isBackNavigation) {
-			var layoutMargin = 20
-				, animRotation = 30
-				, animStagger = 0.25
-				, animDuration = 1
-				;
-			
-			var rowHeight = rows[0].visibleHeight;
-	
-			var fromTop = isBackNavigation;
-	
-			var entrance = this.menuScene.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
-			entrance.y += rowHeight * (fromTop ? -2 : 2);
-	
+		,
+		/**
+		 * @overridable
+		 * @protected
+		 */
+		layoutRows: function(rows, isBackNavigation) {
+			var layoutMargin = 20;
+
 			var middle = this.menuScene.gfx.getHudPoint('middle');
-			var stackedRowsHeight = (rows.length - 1) * (rowHeight + layoutMargin);
-			var currentTop = middle.y - stackedRowsHeight / 2;
-	
+			var stackedRowsHeight = -layoutMargin;
 			for (var i = 0, l = rows.length; i < l; i++) {
 				var row = rows[i];
-				var rowX = middle.x
-					,rowY = currentTop;
-				
-				row.moveTo(entrance.x, entrance.y);
-				row.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
-				row.animation = this.menuScene.gfx.addAnimation()
-					.delay(animStagger * (fromTop ? l-i : i)).duration(animDuration).easeOut('quint')
-					.move(row, { x: rowX, y: rowY })
-					.rotate(row, 0)
-				;
-				
+				stackedRowsHeight += layoutMargin + row.visibleHeight;
+			}
+
+
+			var currentTop = middle.y - stackedRowsHeight / 2;
+			for (var i = 0, l = rows.length; i < l; i++) {
+				var row = rows[i];
+
+				row.moveTo(middle.x, currentTop);
+
 				currentTop += row.visibleHeight + layoutMargin;
 			}
 		}
-		,_leaveRows: function(rows, isBackNavigation) {
+		,
+		/**
+		 * @overridable
+		 * @protected
+		 */
+		flyInRows: function(rows, isBackNavigation, delay) {
+			var animRotation = 30
+				, animStagger = 0.25
+				, animDuration = 1
+				, animDelay = delay || 0;
+
+			var fromTop = isBackNavigation;
+			var entrance = this.menuScene.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
+
+			for (var i = 0, l = rows.length; i < l; i++) {
+				var row = rows[i];
+				var destination = { x: row.x, y: row.y };
+
+				var safeHeight = row.visibleHeight * (fromTop ? -2 : 2);
+
+				row.moveTo(row.x, entrance.y + safeHeight);
+				row.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
+				row.animation = this.menuScene.gfx.addAnimation()
+					.delay(animDelay + animStagger * (fromTop ? l - i : i)).duration(animDuration).easeOut('quint')
+					.move(row, destination)
+					.rotate(row, 0)
+				;
+			}
+		}
+
+		,menuLeave: function(isBackNavigation) {
+			if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
+			return this.flyOutRows(this.rows, isBackNavigation);
+		}
+		,/**
+		 * @overridable
+		 * @protected
+		 */
+		flyOutRows: function(rows, isBackNavigation) {
 			var animRotation = 30
 				,animStagger = 0.1
 				,animDuration = 0.5
 				;
 			var toBottom = isBackNavigation;
-	
-			var rowHeight = rows[0].visibleHeight;
+
 			var exit = this.menuScene.gfx.getHudPoint(toBottom ? 'bottom' : 'top');
-				exit.y += rowHeight * (toBottom ? 2 : -2);
-	
+
 			var lastAnimation;
-			
+
 			for (var i = 0, l = rows.length; i < l; i++) {
 				var row = rows[i];
-				if (row.animation) 
+				var rowHeight = row.visibleHeight;
+				var safeHeight = rowHeight * (toBottom ? 2 : -2);
+
+				if (row.animation)
 					row.animation.cancelAnimation();
 				row.animation = this.menuScene.gfx.addAnimation()
 					.delay(animStagger * (toBottom ? l-i : i)).duration(animDuration).easeOut('quint')
-					.move(row, exit)
+					.move(row, { x: row.x, y: exit.y + safeHeight})
 					.rotate(animRotation)
 				;
 				if (isBackNavigation)
 					row.animation.queueDispose(row);
-				
+
 				lastAnimation = row.animation;
 			}
 			return lastAnimation;
 		}
-	
+
+
 		,menuInput: function(inputState) {
 			if (inputState.menuUp || inputState.menuLeft)
 				this._moveActiveRowIndex(-1);
@@ -122,12 +152,24 @@
 				this._invokeActiveRow();
 			
 		}
-		,_moveActiveRowIndex: function(offset) {
-			var activeRowIndex = this.activeRowIndex + offset;
-			// Loop:
-			if (activeRowIndex < 0) activeRowIndex += this.rows.length;
-			if (activeRowIndex >= this.rows.length) activeRowIndex -= this.rows.length;
-			
+		,_moveActiveRowIndex: function(direction) {
+			var activeRowIndex = this.activeRowIndex;
+			while (true) {
+				activeRowIndex = activeRowIndex + direction;
+				// Cycle top-to-bottom:
+				if (activeRowIndex < 0) activeRowIndex += this.rows.length;
+				if (activeRowIndex >= this.rows.length) activeRowIndex -= this.rows.length;
+
+				var currentRow = this.rows[activeRowIndex];
+				var isSelectable = currentRow.setActive;
+				if (isSelectable) {
+					break;
+				} else if (activeRowIndex === this.activeRowIndex) {
+					// Safeguard against infinite loops:
+					break;
+				}
+			}
+
 			this._setActiveRowIndex(activeRowIndex);
 		}
 		
@@ -138,7 +180,10 @@
 		,_setActiveRowIndex: function(activeRowIndex) {
 			var rows = this.rows;
 			for (var i = 0, l = rows.length; i < l; i++) {
-				rows[i].setActive(i === activeRowIndex);
+				var row = rows[i];
+				if (row.setActive) {
+					row.setActive(i === activeRowIndex);
+				}
 			}
 			this.activeRowIndex = activeRowIndex;
 		}
@@ -147,7 +192,7 @@
 		}
 		,_invokeActiveRow: function() {
 			var activeRow = this._getActiveRow();
-			if (activeRow)
+			if (activeRow && activeRow.invoke)
 				activeRow.invoke();
 			
 		}

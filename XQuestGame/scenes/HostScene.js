@@ -24,25 +24,7 @@
 			this.gfx.followPlayer(middle);
 		}
 		, start: function() {
-			this._showIntroScene();
-		}
-		, _showIntroScene: function() {
-			var introScene = this._createIntroScene();
-			this.setChildScene(introScene);
-			
-			introScene.onPlayGame(function() {
-				introScene.dispose();
-				this._showStartMenu();
-			}.bind(this));
-			
-			introScene.startIntro();
-		}
-		, _createIntroScene: function() {
-			var gfx = this.gfx.createNewGraphics();
-			var introScene = new XQuestGame.IntroScene(gfx, this.host);
-			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ introScene ]);
-			
-			return introScene;
+			this._showStartMenu();
 		}
 		, _showStartMenu: function() {
 			var menuScene = this.createMenuScene();
@@ -54,6 +36,13 @@
 				this._startArcadeGame();
 			}.bind(this));
 			menuScene.showStartMenu();
+		}
+		, createMenuScene: function() {
+			var gfx = this.gfx.createNewGraphics();
+			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
+			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
+
+			return menuScene;
 		}
 		, _startArcadeGame: function() {
 			var gfx = this.gfx.createNewGraphics();
@@ -67,13 +56,6 @@
 			}.bind(this));
 			
 			arcadeGame.startArcadeGame();
-		}
-		, createMenuScene: function() {
-			var gfx = this.gfx.createNewGraphics();
-			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
-			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
-			
-			return menuScene;
 		}
 	});
 

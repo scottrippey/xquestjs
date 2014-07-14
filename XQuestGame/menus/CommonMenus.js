@@ -1,29 +1,7 @@
 (function init_CommonMenus() {
-	var StartMenuEvents = { onStartGame: 'onStartGame' };
 	var PauseMenuEvents = { onResumeGame: 'onResumeGame' };
 	
 	XQuestGame.CommonMenus = {
-		StartMenu: Smart.Class(new XQuestGame.BaseMenu().implementEvents(StartMenuEvents), {
-			getRows: function() {
-				return [
-					this.createMenuButton("Start Game", this._onStartGame.bind(this))
-					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
-					,this.createMenuButton("Graphics Test", this._showGraphicsTest.bind(this))
-				];
-			}
-			,_onStartGame: function() {
-				this.menuScene.exitMenu().queue(function() {
-					this.fireEvent(StartMenuEvents.onStartGame);
-				}.bind(this));
-			}
-			,_showGameOptions: function() {
-				this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
-			}
-			,_showGraphicsTest: function() {
-				this.menuScene.addMenu(new XQuestGame.CommonMenus.GraphicsTestMenu(this.menuScene));
-			}
-		})
-		,
 		PauseMenu: Smart.Class(new XQuestGame.BaseMenu().implementEvents(PauseMenuEvents), {
 			getRows: function() {
 				return [
@@ -44,10 +22,29 @@
 		GameOptions: Smart.Class(new XQuestGame.BaseMenu(), {
 			getRows: function() {
 				return [
+					this.createMenuButton("Input Settings", this._showInputSettings.bind(this))
+					,this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
+					,this.createMenuButton("Graphics Test", this._showGraphicsTest.bind(this))
+					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
+				];
+			}
+			,_showInputSettings: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.InputSettings(this.menuScene));
+			}
+			,_showGraphicsTest: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.GraphicsTestMenu(this.menuScene));
+			}
+			, _showDifficultyMenu: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
+			}
+		})
+		,
+		InputSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+			getRows: function() {
+				return [
 					this.createMenuButton("Mouse", this._showMouseSensitivity.bind(this))
 					,this.createMenuButton("Keyboard", this._showKeyboardSensitivity.bind(this))
 					,this.createMenuButton("Touch", this._showTouchSensitivity.bind(this))
-					,this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 			}
@@ -59,9 +56,6 @@
 			}
 			, _showTouchSensitivity: function() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
-			}
-			, _showDifficultyMenu: function() {
-				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
 			}
 		})
 		,

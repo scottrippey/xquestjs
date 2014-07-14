@@ -81,7 +81,7 @@
 		}
 		
 		,showStartMenu: function() {
-			var startMenu = new XQuestGame.CommonMenus.StartMenu(this.menuScene);
+			var startMenu = new XQuestGame.StartMenu(this.menuScene);
 			startMenu.onStartGame(function() {
 				this.fireSceneEvent(MenuSceneEvents.onStartGame);
 			}.bind(this));
