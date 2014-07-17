@@ -147,7 +147,7 @@ XQuestGame.Player = Smart.Class({
 
 
 		var killPlayer = false;
-		this.game.enemies.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
+		this.game.enemyFactory.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
 			if (this.game.activePowerups.invincible) return;
 
 			killPlayer = true;

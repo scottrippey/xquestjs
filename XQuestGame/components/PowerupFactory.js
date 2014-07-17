@@ -54,7 +54,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 	,
 	createPowerCrystal: function() {
 		var powerCrystal = new XQuestGame.PowerCrystal(this.game);
-		var spawnInfo = this.game.enemies.getRandomSpawn(powerCrystal.radius);
+		var spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
 		powerCrystal.spawn(spawnInfo);
 		this.powerCrystals.push(powerCrystal);
 	}

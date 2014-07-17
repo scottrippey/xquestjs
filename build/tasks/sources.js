@@ -50,6 +50,7 @@ module.exports = function(grunt) {
 			,"../XQuestGame/components/EnemyFactory.js"
 			,"../XQuestGame/components/GameDebugger.js"
 			,"../XQuestGame/components/Hud.js"
+			,"../XQuestGame/components/LevelFactory.js"
 			,"../XQuestGame/components/PowerupFactory.js"
 			,"../XQuestGame/components/Projectiles.js"
 			,"../XQuestGame/options/Balance.js"

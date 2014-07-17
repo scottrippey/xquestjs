@@ -34,6 +34,7 @@
 			this._setupLevelGraphics();
 			this._setupPlayer();
 			this._setupEnemyFactory();
+			this._setupLevelFactory();
 			this._setupCrystals();
 			this._setupPowerCrystals();
 			this._setupProjectiles();
@@ -50,8 +51,12 @@
 			this.game.addSceneItem(this.player);
 		}
 		, _setupEnemyFactory: function() {
-			this.enemies = new XQuestGame.EnemyFactory(this.game);
-			this.addSceneItem(this.enemies);
+			this.enemyFactory = new XQuestGame.EnemyFactory(this.game);
+			this.addSceneItem(this.enemyFactory);
+		}
+		, _setupLevelFactory: function() {
+			this.levelFactory = new XQuestGame.LevelFactory(this.game);
+			this.addSceneItem(this.levelFactory);
 		}
 		, _setupCrystals: function() {
 			this.crystals = new XQuestGame.CrystalFactory(this.game);
@@ -94,10 +99,9 @@
 			this.game.levelGraphics.closeGate();
 			this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 	
-			this._events.fireEvent(GameEvents.onNewLevel);
 			this.game.crystals.startLevel();
-			this.game.enemies.startLevel();
 			this.game.powerCrystals.startLevel();
+			this._events.fireEvent(GameEvents.onNewLevel);
 		}
 		, _startLevel: function() {
 			var middleOfGame = this.game.gfx.getGamePoint('middle');
@@ -135,7 +139,7 @@
 			this.game.player.killPlayer();
 			this._events.fireEvent(GameEvents.onPlayerKilled);
 			
-			this.game.enemies.clearAllEnemies();
+			this.game.enemyFactory.clearAllEnemies();
 			this.game.powerCrystals.clearAllPowerCrystals();
 			this.game.projectiles.clearBullets();
 	
@@ -181,7 +185,7 @@
 			this.game.player.showPlayer(false);
 						
 			// Let's kill all enemies:
-			this.game.enemies.killAllEnemies();
+			this.game.enemyFactory.killAllEnemies();
 			this.game.powerCrystals.clearAllPowerCrystals();
 			this.game.projectiles.clearBullets();
 	

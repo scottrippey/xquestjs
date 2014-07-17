@@ -7,7 +7,7 @@ XQuestGame.GameDebugger = Smart.Class({
 		this.game.crystals.gatherClosestCrystal(this.game.player.location);
 	}
 	, spawnEnemy: function() {
-		this.game.enemies.spawnNextEnemy();
+		this.game.enemyFactory.spawnNextEnemy();
 	}
 	, activatePowerup: function(powerupName) {
 		this.game.activatePowerup(powerupName);

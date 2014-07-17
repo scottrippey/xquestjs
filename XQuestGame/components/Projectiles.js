@@ -39,7 +39,7 @@ XQuestGame.Projectiles = Smart.Class({
 		var velocity;
 		if (this.game.activePowerups.autoAim) {
 			var autoAim = Balance.powerups.autoAim;
-			var targetEnemy = this.game.enemies.findClosestEnemy(player.location);
+			var targetEnemy = this.game.enemyFactory.findClosestEnemy(player.location);
 			if (targetEnemy) {
 				velocity = Smart.Physics.trajectory(player.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
 			}
@@ -87,7 +87,7 @@ XQuestGame.Projectiles = Smart.Class({
 			if (bullets.length >= 2) {
 				Smart.Physics.sortByLocation(bullets);
 			}
-			this.game.enemies.killEnemiesOnCollision(bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
+			this.game.enemyFactory.killEnemiesOnCollision(bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
 				if (!this.game.activePowerups.powerShot)
 					bullet.shouldDisappear = true;
 			}.bind(this));
@@ -138,7 +138,7 @@ XQuestGame.Projectiles = Smart.Class({
 	}
 	, _bombsKillEnemies: function() {
 		if (this.bomb) {
-			this.game.enemies.killEnemiesOnCollision([ this.bomb ], this.bomb.radius);
+			this.game.enemyFactory.killEnemiesOnCollision([ this.bomb ], this.bomb.radius);
 		}
 	}
 

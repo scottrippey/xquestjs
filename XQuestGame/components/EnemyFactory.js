@@ -4,22 +4,8 @@ XQuestGame.EnemyFactory = Smart.Class({
 		this.enemies = [];
 	}
 	,
-	startLevel: function() {
-		var currentLevel = this.game.currentLevel;
-		var currentEnemyLineupIndex = Math.floor(currentLevel / 2);
-
-		var enemyLineup = Balance.enemies.roster;
-
-		if (currentEnemyLineupIndex >= enemyLineup.length) {
-			// Very high levels include all enemies:
-			this.enemyPool = enemyLineup;
-		} else if ((currentLevel % 2) === 0) {
-			// Even levels only include the current enemy:
-			this.enemyPool = [ enemyLineup[currentEnemyLineupIndex] ];
-		} else {
-			// Odd levels include a variety of enemies, up to the current level index:
-			this.enemyPool = enemyLineup.slice(0, currentEnemyLineupIndex + 1);
-		}
+	setEnemyPool: function(enemyPool) {
+		this.enemyPool = enemyPool;
 	}
 	,
 	onAct: function(tickEvent) {
