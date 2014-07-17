@@ -22,6 +22,11 @@ Balance.onUpdate(function(gameMode){
 				, textBaseline: 'bottom'
 			}
 			,
+			bonusLevel: {
+				fontSize: '40px'
+				, color: 'hsl(60, 100%, 80%)'
+			}
+			,
 			hudText: {
 				fontSize: '12px'
 				, color: 'white'

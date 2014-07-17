@@ -3,6 +3,8 @@ XQuestGame.PowerupFactory = Smart.Class({
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.powerCrystals = [];
+		
+		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
 	,
 	onMove: function(tickEvent) {
@@ -107,7 +109,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 	}
 
 	,
-	startLevel: function() {
+	_onNewLevel: function() {
 		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
 		while (bombCrystalQuantity--) {
 			this.createBombCrystal();

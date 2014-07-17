@@ -3,16 +3,26 @@ XQuestGame.CrystalFactory = Smart.Class({
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.crystals = [];
+		
+		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
 	,
-	startLevel: function() {
+	setCrystalQuantity: function(spawnQuantity) {
+		this.spawnQuantity = spawnQuantity;
+	}
+	,
+	_onNewLevel: function() {
+		this._spawnCrystals();
+	},
+	_spawnCrystals: function() {
+		var spawnQuantity = this.spawnQuantity;
+		
 		// Clean up:
 		this.crystals.forEach(function(crystal) {
 			crystal.dispose();
 		}, this);
 		this.crystals = [];
 
-		var spawnQuantity = Balance.crystals.spawnQuantity(this.game);
 		var radius = Balance.crystals.radius;
 
 		this.game.stats.crystalCount = spawnQuantity;

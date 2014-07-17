@@ -101,11 +101,11 @@ Balance.merge({
 			}
 			,crystals: {
 				radius: 10
-				,spawnQuantity: function(game) {
+				,spawnQuantity: function(currentLevel) {
 					var min = gameOptions.hardMode ? 30 : 12
 						, multiplier = gameOptions.hardMode ? 4 : 2
 						, max = gameOptions.hardMode ? 80 : 40;
-					return Math.min(min + multiplier * game.currentLevel, max); 
+					return Math.min(min + multiplier * currentLevel, max); 
 				}
 			}
 			,powerCrystals: {
@@ -176,6 +176,12 @@ Balance.merge({
 					,speed: 50
 					,movementInterval: Balance.randomBetween(3, 6)
 				}
+			}
+			,bonusLevel1: {
+				bonusLevel: 3
+				,bonusEnemySpawnRate: Balance.randomBetween(1/10, 1/10)
+				,bonusPowerups: [ 'invincible', 'rapidFire' ]
+				,bonusEnemyPool: [ XQuestGame.Slug ]
 			}
 		});
 

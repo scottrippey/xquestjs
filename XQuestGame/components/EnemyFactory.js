@@ -20,8 +20,13 @@ XQuestGame.EnemyFactory = Smart.Class({
 		}
 	}
 	,
+	overrideEnemySpawnRate: function(spawnRateOverride) {
+		this.spawnRateOverride = spawnRateOverride || null;
+	}
+	,
 	_calculateNextEnemySpawn: function(runTime) {
 		var spawnRate = Balance.enemies.spawnRate();
+		if (this.spawnRateOverride) spawnRate = this.spawnRateOverride();
 		this.nextEnemySpawn = runTime + spawnRate * 1000;
 	}
 	,

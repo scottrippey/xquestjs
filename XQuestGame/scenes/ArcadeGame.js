@@ -1,13 +1,14 @@
 (function() {
 	var GameEvents = {
-		onNewGame: 'NewGame'
-		,onNewLevel: 'NewLevel'
-		,onPlayerKilled: 'PlayerKilled'
-		,onGameOver: 'GameOver'
-		,onNextLevel: 'NextLevel'
-		,onAllCrystalsGathered: 'AllCrystalsGathered'
-		,onGamePaused: 'GamePaused'
-		,onPowerupChanged: 'PowerupChanged'
+		onNewGame: 'onNewGame'
+		,onNewLevel: 'onNewLevel'
+		,onBeforeNewLevel: 'onBeforeNewLevel'
+		,onPlayerKilled: 'onPlayerKilled'
+		,onGameOver: 'onGameOver'
+		,onNextLevel: 'onNextLevel'
+		,onAllCrystalsGathered: 'onAllCrystalsGathered'
+		,onGamePaused: 'onGamePaused'
+		,onPowerupChanged: 'onPowerupChanged'
 	};
 
 	XQuestGame.ArcadeGame = Smart.Class(new XQuestGame.BaseScene(), {
@@ -59,7 +60,7 @@
 			this.addSceneItem(this.levelFactory);
 		}
 		, _setupCrystals: function() {
-			this.crystals = new XQuestGame.CrystalFactory(this.game);
+			this.crystalFactory = new XQuestGame.CrystalFactory(this.game);
 		}
 		, _setupPowerCrystals: function() {
 			this.powerCrystals = new XQuestGame.PowerupFactory(this.game);
@@ -99,8 +100,7 @@
 			this.game.levelGraphics.closeGate();
 			this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 	
-			this.game.crystals.startLevel();
-			this.game.powerCrystals.startLevel();
+			this._events.fireEvent(GameEvents.onBeforeNewLevel);
 			this._events.fireEvent(GameEvents.onNewLevel);
 		}
 		, _startLevel: function() {
