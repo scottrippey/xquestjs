@@ -159,19 +159,24 @@ Balance.merge({
 				,safeSpawnDistance: 13*10
 				,spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(1, 2)
 				,spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently
-				,roster: gameOptions.enemyRoster || [ XQuestGame.Slug, XQuestGame.Locust, XQuestGame.Mantis ]
+				,roster: gameOptions.enemyRoster || [ XQuestGame.Slug, XQuestGame.Locust, XQuestGame.Mantis, XQuestGame.Roach ]
 				,slug: {
 					radius: 13
 					,speed: gameOptions.easyMode ? 60 : 80
 					,movementInterval: Balance.randomBetween(3, 10)
 				}
 				,locust: {
-					radius: 11
+					radius: 13
 					,speed: gameOptions.easyMode ? 100 : 150
 					,movementInterval: Balance.randomBetween(3, 5)
 					,turnSpeed: Balance.randomBetween(-100, 100)
 				}
 				,mantis: {
+					radius: 12
+					,speed: 50
+					,movementInterval: Balance.randomBetween(3, 6)
+				}
+				,roach: {
 					radius: 12
 					,speed: 50
 					,movementInterval: Balance.randomBetween(3, 6)
