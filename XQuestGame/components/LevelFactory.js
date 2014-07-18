@@ -2,37 +2,30 @@ XQuestGame.LevelFactory = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		
-		this.game.onBeforeNewLevel(this._onBeforeNewLevel.bind(this));
+		this.game.onConfigureLevel(this._onConfigureLevel.bind(this));
 	},
-	_onBeforeNewLevel: function() {
-		var level = this.game.currentLevel
-			,numberOfRegularLevels = level
-			,B = Balance.bonusLevel1
-			,bonusLevel1 = B.bonusLevel
-			;
+	_onConfigureLevel: function(levelConfig) {
+		var level = this.game.currentLevel;
+
+		levelConfig.numberOfRegularLevels = level;
 		
-		/*
+		var B = Balance.bonusLevel1,
+			bonusLevel1 = B.bonusLevel;
 		if (level === bonusLevel1) {
-			this._setupBonusLevel1();
+			this._setupBonusLevel1(levelConfig);
 			return;
+		} else if (level > bonusLevel1) {
+			levelConfig.numberOfRegularLevels--;
 		}
-		if (level === bonusLevel1 + 1) {
-			this._clearBonusLevel1();
-		}
-		if (level > bonusLevel1) {
-			numberOfRegularLevels--;
-		}
-		*/
 		
 		// Set up regular level:
-		this._setAlternatingEnemyPool(numberOfRegularLevels);
-		this._setCrystalQuantity(numberOfRegularLevels);
+		this._setAlternatingEnemyPool(levelConfig);
 	},
-	_setAlternatingEnemyPool: function(numberOfRegularLevels) {
+	_setAlternatingEnemyPool: function(levelConfig) {
 		var enemyLineup = Balance.enemies.roster;
-		var numberOfAlternateLevels = Math.floor(numberOfRegularLevels / 2)
+		var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2)
 			,isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length)
-			,isEvenLevel = (numberOfRegularLevels % 2) === 0; 
+			,isEvenLevel = (levelConfig.numberOfRegularLevels % 2) === 0; 
 
 		var enemyPool;
 		if (isMaxLevel) {
@@ -46,15 +39,10 @@ XQuestGame.LevelFactory = Smart.Class({
 			enemyPool = enemyLineup.slice(0, numberOfAlternateLevels + 1);
 		}
 		
-		this.game.enemyFactory.setEnemyPool(enemyPool);
-		
-	},
-	_setCrystalQuantity: function(numberOfRegularLevels) {
-		var spawnQuantity = Balance.crystals.spawnQuantity(numberOfRegularLevels);
-		this.game.crystalFactory.setCrystalQuantity(spawnQuantity);
+		levelConfig.enemyPool = enemyPool;
 	},
 	
-	_setupBonusLevel1: function() {
+	_setupBonusLevel1: function(levelConfig) {
 		var B = Balance.bonusLevel1;
 		var roster = Balance.enemies.roster;
 		
@@ -62,17 +50,16 @@ XQuestGame.LevelFactory = Smart.Class({
 		bonusLevelText.flyIn(2).flyOut(1);
 		
 		var enemyPool = [ roster[0] ];
-		this.game.enemyFactory.setEnemyPool(B.bonusEnemyPool);
 		
-		this.game.enemyFactory.overrideEnemySpawnRate(B.bonusEnemySpawnRate);
+		levelConfig.enemyPool = enemyPool;
+		levelConfig.enemySpawnRateOverride = B.bonusEnemySpawnRate;
+		levelConfig.crystalSpawnQuantityOverride = 0;
+		levelConfig.bombCrystalQuantityOverride = 0;
 		
 		B.bonusPowerups.forEach(function(powerup) {
 			this.game.activatePowerup(powerup);
 		}, this);
 		
 		this.game.crystalsGathered(0, 0);
-	},
-	_clearBonusLevel1: function() {
-		this.game.enemyFactory.overrideEnemySpawnRate(null);
 	},
 });

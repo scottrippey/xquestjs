@@ -131,6 +131,8 @@ Smart.Physics = {
 
 	,
 	sortByLocation: function(points) {
+		if (points.length < 2) 
+			return points;
 		return Smart.Sort.smoothSort(points, Smart.Physics._compareLocations);
 	}
 	,

@@ -2,7 +2,7 @@
 	var GameEvents = {
 		onNewGame: 'onNewGame'
 		,onNewLevel: 'onNewLevel'
-		,onBeforeNewLevel: 'onBeforeNewLevel'
+		,onConfigureLevel: 'onConfigureLevel'
 		,onPlayerKilled: 'onPlayerKilled'
 		,onGameOver: 'onGameOver'
 		,onNextLevel: 'onNextLevel'
@@ -100,8 +100,9 @@
 			this.game.levelGraphics.closeGate();
 			this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 	
-			this._events.fireEvent(GameEvents.onBeforeNewLevel);
-			this._events.fireEvent(GameEvents.onNewLevel);
+			var levelConfig = {};
+			this._events.fireEvent(GameEvents.onConfigureLevel, [ levelConfig ]);
+			this._events.fireEvent(GameEvents.onNewLevel, [ levelConfig ]);
 		}
 		, _startLevel: function() {
 			var middleOfGame = this.game.gfx.getGamePoint('middle');

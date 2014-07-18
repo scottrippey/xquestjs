@@ -7,15 +7,15 @@ XQuestGame.CrystalFactory = Smart.Class({
 		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
 	,
-	setCrystalQuantity: function(spawnQuantity) {
-		this.spawnQuantity = spawnQuantity;
-	}
-	,
-	_onNewLevel: function() {
-		this._spawnCrystals();
+	_onNewLevel: function(levelConfig) {
+		this._spawnCrystals(levelConfig);
 	},
-	_spawnCrystals: function() {
-		var spawnQuantity = this.spawnQuantity;
+	_spawnCrystals: function(levelConfig) {
+		var spawnQuantity = Balance.crystals.spawnQuantity(levelConfig.numberOfRegularLevels);
+		
+		if ('crystalSpawnQuantityOverride' in levelConfig) {
+			spawnQuantity = levelConfig.crystalSpawnQuantityOverride;
+		}
 		
 		// Clean up:
 		this.crystals.forEach(function(crystal) {

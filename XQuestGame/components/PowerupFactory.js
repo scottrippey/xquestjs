@@ -109,8 +109,13 @@ XQuestGame.PowerupFactory = Smart.Class({
 	}
 
 	,
-	_onNewLevel: function() {
+	_onNewLevel: function(levelConfig) {
 		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
+		
+		if ('bombCrystalQuantityOverride' in levelConfig) {
+			bombCrystalQuantity = levelConfig.bombCrystalQuantityOverride;
+		}
+		
 		while (bombCrystalQuantity--) {
 			this.createBombCrystal();
 		}

@@ -2,10 +2,12 @@ XQuestGame.EnemyFactory = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		this.enemies = [];
+		this.game.onNewLevel(this._onNewLevel.bind(this))
 	}
 	,
-	setEnemyPool: function(enemyPool) {
-		this.enemyPool = enemyPool;
+	_onNewLevel: function(levelConfig) {
+		this.enemyPool = levelConfig.enemyPool;
+		this.spawnRateOverride = levelConfig.enemySpawnRateOverride || null;
 	}
 	,
 	onAct: function(tickEvent) {
@@ -18,10 +20,6 @@ XQuestGame.EnemyFactory = Smart.Class({
 		if (this.enemies.length >= 2) {
 			Smart.Physics.sortByLocation(this.enemies);
 		}
-	}
-	,
-	overrideEnemySpawnRate: function(spawnRateOverride) {
-		this.spawnRateOverride = spawnRateOverride || null;
 	}
 	,
 	_calculateNextEnemySpawn: function(runTime) {
