@@ -13,9 +13,10 @@ XQuestGame.CommonMenus.GraphicsTestMenu = Smart.Class(new XQuestGame.BaseMenu(),
 		objects.addChild(this.menuScene.gfx.createPowerCrystalGraphic()).moveTo(-halfButtonHeight * 2, halfButtonHeight);
 		objects.addChild(this.menuScene.gfx.createBombCrystalGraphic()).moveTo(-halfButtonHeight, halfButtonHeight);
 		
-		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Slug")).moveTo(-halfButtonHeight * 3, halfButtonHeight);
-		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Locust")).moveTo(-halfButtonHeight * 2, halfButtonHeight);
-		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Mantis")).moveTo(-halfButtonHeight, halfButtonHeight);
+		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Slug")).moveTo(-halfButtonHeight * 4, halfButtonHeight);
+		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Locust")).moveTo(-halfButtonHeight * 3, halfButtonHeight);
+		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Mantis")).moveTo(-halfButtonHeight * 2, halfButtonHeight);
+		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Roach")).moveTo(-halfButtonHeight * 1, halfButtonHeight);
 		
 		return [
 			player

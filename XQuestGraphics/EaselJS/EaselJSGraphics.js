@@ -216,6 +216,9 @@ var EaselJSGraphics = Smart.Class({
 			case 'Mantis':
 				enemyGraphics = new EaselJSGraphics.MantisGraphics();
 				break;
+			case 'Roach':
+				enemyGraphics = new EaselJSGraphics.RoachGraphics();
+				break;
 		}
 
 		if (enemyGraphics == null)

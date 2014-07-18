@@ -177,8 +177,8 @@ Balance.merge({
 					,movementInterval: Balance.randomBetween(3, 6)
 				}
 				,roach: {
-					radius: 12
-					,speed: 50
+					radius: 10
+					,speed: 80
 					,movementInterval: Balance.randomBetween(3, 6)
 				}
 			}
