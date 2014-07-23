@@ -103,7 +103,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 			this.powerCrystals.splice(crystalIndex, 1);
 			powerCrystal.gatherPowerCrystal();
 			var powerupName = this._nextPowerup();
-			this.game.activatePowerup(powerupName);
+			this.game.activePowerups.activate(powerupName);
 		}.bind(this));
 
 	}

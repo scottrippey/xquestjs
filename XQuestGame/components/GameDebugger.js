@@ -10,7 +10,7 @@ XQuestGame.GameDebugger = Smart.Class({
 		this.game.enemyFactory.spawnNextEnemy();
 	}
 	, activatePowerup: function(powerupName) {
-		this.game.activatePowerup(powerupName);
+		this.game.activePowerups.activate(powerupName);
 	}
 	, addBomb: function() {
 		this.game.stats.bombs++;

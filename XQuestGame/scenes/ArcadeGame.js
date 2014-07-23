@@ -8,7 +8,6 @@
 		,onNextLevel: 'onNextLevel'
 		,onAllCrystalsGathered: 'onAllCrystalsGathered'
 		,onGamePaused: 'onGamePaused'
-		,onPowerupChanged: 'onPowerupChanged'
 	};
 
 	XQuestGame.ArcadeGame = Smart.Class(new XQuestGame.BaseScene(), {
@@ -40,8 +39,7 @@
 			this._setupPowerCrystals();
 			this._setupProjectiles();
 			this._setupHUD();
-
-			this.activePowerups = {};
+			this._setupActivePowerups();
 
 		}
 		, _setupLevelGraphics: function() {
@@ -72,6 +70,9 @@
 			this.hud = new XQuestGame.Hud(this.game);
 			this.addSceneItem(this.hud);
 		}
+		, _setupActivePowerups: function() {
+			this.activePowerups = new XQuestGame.ActivePowerups(this.game);
+		}
 		
 		, debug: function() {
 			var debug = new XQuestGame.GameDebugger(this.game);
@@ -86,15 +87,8 @@
 	
 			this._events.fireEvent(GameEvents.onNewGame);
 			
-			this._showLevelNumber();
 			this._arrangeNewLevel();
 			this._startLevel();
-		}
-		, _showLevelNumber: function() {
-			var level = "Level " + this.currentLevel;
-	
-			var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });
-			textGfx.flyIn(1.5).flyOut(2);
 		}
 		, _arrangeNewLevel: function() {
 			this.game.levelGraphics.closeGate();
@@ -116,13 +110,10 @@
 		}
 	
 		, onAct: function(tickEvent) {
-			this._updateActivePowerups(tickEvent);
-	
 			if (this.followPlayer) {
 				this.game.gfx.followPlayer(this.game.player.location);
 				this.host.gfx.followPlayer(this.game.player.location);				
 			}
-	
 		}
 	
 		, getDefaultInputState: function() {
@@ -163,10 +154,7 @@
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.queue(function() {
 					this.game.gfx.addText("Game Over").flyIn(2).delay(2).flyOut(2);
-				}.bind(this)).delay(5)
-				.queue(function() {
-					this.game.gfx.addText("Highest Level: " + this.currentLevel).flyIn(2).delay(2).flyOut(2);
-				}.bind(this)).delay(8)
+				}.bind(this)).delay(7)
 				.queue(function() {
 					this._events.fireEvent(GameEvents.onGameOver);						
 				}.bind(this))
@@ -192,7 +180,6 @@
 	
 			this.currentLevel++;
 	
-			this._showLevelNumber();
 			this._arrangeNewLevel();
 			this._animateBackToCenter().queue(function() {
 				this._startLevel();
@@ -251,50 +238,6 @@
 			
 		}
 	
-		, activatePowerup: function(powerupName) {
-			this.game.activePowerups[powerupName] = 'newPowerup';
-	
-			var powerupDisplayName = powerupName + "!";
-			var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupActive');
-			textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
-			
-			this._events.fireEvent(GameEvents.onPowerupChanged, [ powerupName, true ]);
-		}
-		, powerupDeactivated: function(powerupName) {
-			this._events.fireEvent(GameEvents.onPowerupChanged, [ powerupName, false ]);
-			var powerupDisplayName = powerupName + " inactive";
-			var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupDeactive');
-			return textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
-		}
-		, _updateActivePowerups: function(tickEvent) {
-			var B = Balance.powerups;
-			var updatedValues = {};
-			var deactivating = 'deactivating';
-			
-			// Update new and old powerups: (never make changes to an object while iterating)
-			_.forOwn(this.game.activePowerups, function(powerupValue, powerupName) {
-				if (powerupValue === 'newPowerup') {
-					// New
-					var powerupExpires = tickEvent.runTime + B[powerupName].duration * 1000;
-					updatedValues[powerupName] = powerupExpires;
-				} else if (powerupValue === deactivating) {
-					// Old
-				} else if (powerupValue <= tickEvent.runTime) {
-					// Expired
-					updatedValues[powerupName] = deactivating;
-				}
-			});
-			_.forOwn(updatedValues, function(updatedValue, powerupName) {
-				if (updatedValue === deactivating) {
-					this.game.powerupDeactivated(powerupName).queue(function() {
-						delete this.game.activePowerups[powerupName];
-					}.bind(this));
-				}
-				this.game.activePowerups[powerupName] = updatedValue;
-			}, this);
-	
-		}
-
 		, toggleFPS: function() {
 			if (this.fpsText) {
 				this.fpsText.dispose();

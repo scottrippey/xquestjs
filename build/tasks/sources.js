@@ -46,6 +46,7 @@ module.exports = function(grunt) {
 			,"../XQuestGame/characters/enemies/Locust.js"
 			,"../XQuestGame/characters/enemies/Mantis.js"
 			,"../XQuestGame/characters/enemies/Slug.js"
+			,"../XQuestGame/components/ActivePowerups.js"
 			,"../XQuestGame/components/CrystalFactory.js"
 			,"../XQuestGame/components/EnemyFactory.js"
 			,"../XQuestGame/components/GameDebugger.js"

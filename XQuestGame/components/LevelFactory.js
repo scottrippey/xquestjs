@@ -3,8 +3,8 @@ XQuestGame.LevelFactory = Smart.Class({
 		this.game = game;
 		
 		this.game.onConfigureLevel(this._onConfigureLevel.bind(this));
-	},
-	_onConfigureLevel: function(levelConfig) {
+	}
+	,_onConfigureLevel: function(levelConfig) {
 		var level = this.game.currentLevel;
 
 		levelConfig.numberOfRegularLevels = level;
@@ -20,8 +20,9 @@ XQuestGame.LevelFactory = Smart.Class({
 		
 		// Set up regular level:
 		this._setAlternatingEnemyPool(levelConfig);
-	},
-	_setAlternatingEnemyPool: function(levelConfig) {
+		this._showLevelNumber(levelConfig);
+	}
+	,_setAlternatingEnemyPool: function(levelConfig) {
 		var enemyLineup = Balance.enemies.roster;
 		var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2)
 			,isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length)
@@ -40,13 +41,13 @@ XQuestGame.LevelFactory = Smart.Class({
 		}
 		
 		levelConfig.enemyPool = enemyPool;
-	},
+	}
 	
-	_setupBonusLevel1: function(levelConfig) {
+	,_setupBonusLevel1: function(levelConfig) {
 		var B = Balance.bonusLevel1;
 		var roster = Balance.enemies.roster;
 		
-		var bonusLevelText = this.game.gfx.addText("Bonus Level!", 'bonusLevel');
+		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", 'bonusLevel');
 		bonusLevelText.flyIn(2).flyOut(1);
 		
 		var enemyPool = [ roster[0] ];
@@ -57,9 +58,18 @@ XQuestGame.LevelFactory = Smart.Class({
 		levelConfig.bombCrystalQuantityOverride = 0;
 		
 		B.bonusPowerups.forEach(function(powerup) {
-			this.game.activatePowerup(powerup);
+			this.game.activePowerups.activate(powerup);
 		}, this);
 		
 		this.game.crystalsGathered(0, 0);
-	},
+	}
+	
+	
+	,_showLevelNumber: function(levelConfig) {
+		var level = "Level " + levelConfig.numberOfRegularLevels;
+
+		var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });
+		textGfx.flyIn(1.5).flyOut(2);
+	}
+	
 });
