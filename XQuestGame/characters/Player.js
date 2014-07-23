@@ -53,7 +53,7 @@ XQuestGame.Player = Smart.Class({
 
 		this.engaged = inputState.engaged;
 
-		if (inputState.primaryWeapon) {
+		if (inputState.primaryWeapon && !this.game.levelConfig.shootingDisabled) {
 			var isFirstDown = (previousState.primaryWeapon === false);
 			if (isFirstDown) {
 				this.primaryWeaponDownTime = tickEvent.runTime;
@@ -70,7 +70,7 @@ XQuestGame.Player = Smart.Class({
 			}
 		}
 
-		if (inputState.primaryWeapon) {
+		if (inputState.primaryWeapon && !this.game.levelConfig.shootingDisabled) {
 			var shotsPerSecond;
 			if (this.game.activePowerups.rapidFire) {
 				shotsPerSecond = Balance.powerups.rapidFire.shotsPerSecond;

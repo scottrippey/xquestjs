@@ -183,6 +183,12 @@ Balance.merge({
 				,bonusPowerups: [ 'rapidFire' ]
 				,bonusEnemyPool: [ XQuestGame.Slug ]
 			}
+			,bonusLevel2: {
+				bonusLevel: 7
+				,bonusEnemySpawnRate: Balance.randomBetween(1/10, 1/10)
+				,bonusPowerups: [ 'invincible' ]
+				,bonusEnemyPool: [ XQuestGame.Locust ]
+			}
 		});
 
 		this._fireUpdate(gameOptions);

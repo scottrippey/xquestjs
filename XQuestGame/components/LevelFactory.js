@@ -9,12 +9,19 @@ XQuestGame.LevelFactory = Smart.Class({
 
 		levelConfig.numberOfRegularLevels = level;
 		
-		var B = Balance.bonusLevel1,
-			bonusLevel1 = B.bonusLevel;
+		var bonusLevel1 = Balance.bonusLevel1.bonusLevel;
 		if (level === bonusLevel1) {
 			this._setupBonusLevel1(levelConfig);
 			return;
 		} else if (level > bonusLevel1) {
+			levelConfig.numberOfRegularLevels--;
+		}
+		
+		var bonusLevel2 = Balance.bonusLevel2.bonusLevel;
+		if (level === bonusLevel2) {
+			this._setupBonusLevel2(levelConfig);
+			return
+		} else if (level > bonusLevel2) {
 			levelConfig.numberOfRegularLevels--;
 		}
 		
@@ -45,18 +52,34 @@ XQuestGame.LevelFactory = Smart.Class({
 	
 	,_setupBonusLevel1: function(levelConfig) {
 		var B = Balance.bonusLevel1;
-		var roster = Balance.enemies.roster;
 		
 		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nRapid Fire!", 'bonusLevel');
 		bonusLevelText.flyIn(2).flyOut(1);
 		
-		var enemyPool = [ roster[0] ];
-		
-		levelConfig.enemyPool = enemyPool;
+		levelConfig.enemyPool = B.bonusEnemyPool;
 		levelConfig.enemySpawnRateOverride = B.bonusEnemySpawnRate;
 		levelConfig.crystalsDisabled = true;
 		levelConfig.bombCrystalsDisabled = true;
 		levelConfig.bombsDisabled = true;
+		levelConfig.powerCrystalsDisabled = true;
+		levelConfig.skipLevelOnPlayerDeath = true;
+		
+		B.bonusPowerups.forEach(function(powerup) {
+			this.game.activePowerups.activate(powerup, true);
+		}, this);
+	}
+	,_setupBonusLevel2: function(levelConfig) {
+		var B = Balance.bonusLevel2;
+		
+		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", 'bonusLevel');
+		bonusLevelText.flyIn(2).flyOut(1);
+		
+		levelConfig.enemyPool = B.bonusEnemyPool;
+		levelConfig.enemySpawnRateOverride = B.bonusEnemySpawnRate;
+		levelConfig.crystalsDisabled = true;
+		levelConfig.bombCrystalsDisabled = true;
+		levelConfig.bombsDisabled = true;
+		levelConfig.shootingDisabled = true;
 		levelConfig.powerCrystalsDisabled = true;
 		levelConfig.skipLevelOnPlayerDeath = true;
 		
