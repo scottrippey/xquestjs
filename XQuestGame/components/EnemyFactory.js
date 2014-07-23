@@ -2,12 +2,6 @@ XQuestGame.EnemyFactory = Smart.Class({
 	initialize: function(game) {
 		this.game = game;
 		this.enemies = [];
-		this.game.onNewLevel(this._onNewLevel.bind(this))
-	}
-	,
-	_onNewLevel: function(levelConfig) {
-		this.enemyPool = levelConfig.enemyPool;
-		this.spawnRateOverride = levelConfig.enemySpawnRateOverride || null;
 	}
 	,
 	onAct: function(tickEvent) {
@@ -24,22 +18,24 @@ XQuestGame.EnemyFactory = Smart.Class({
 	,
 	_calculateNextEnemySpawn: function(runTime) {
 		var spawnRate = Balance.enemies.spawnRate();
-		if (this.spawnRateOverride) spawnRate = this.spawnRateOverride();
+		var spawnRateOverride = this.game.levelConfig.enemySpawnRateOverride;
+		if (spawnRateOverride) spawnRate = spawnRateOverride();
 		this.nextEnemySpawn = runTime + spawnRate * 1000;
 	}
 	,
 	spawnNextEnemy: function() {
+		var enemyPool = this.game.levelConfig.enemyPool;
 
 		var randomEnemyIndex;
-		if (this.enemyPool.length === 1) {
+		if (enemyPool.length === 1) {
 			randomEnemyIndex = 0;
 		} else {
 			// Prefer to spawn more difficult enemies:
 			var weightedRandom = (1 - Math.pow(Math.random(), Balance.enemies.spawnDifficulty));
-			randomEnemyIndex = Math.floor(weightedRandom * this.enemyPool.length);
+			randomEnemyIndex = Math.floor(weightedRandom * enemyPool.length);
 		}
 
-		var enemyCtor = this.enemyPool[randomEnemyIndex];
+		var enemyCtor = enemyPool[randomEnemyIndex];
 
 		var enemy = new enemyCtor(this.game);
 		this.enemies.push(enemy);

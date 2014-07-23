@@ -97,7 +97,7 @@ XQuestGame.Player = Smart.Class({
 		if (inputState.secondaryWeapon) {
 			var isFirstDown = (previousState.secondaryWeapon === false);
 			if (isFirstDown) {
-				this.game.projectiles.releaseABomb();
+				this.game.projectiles.tryReleasingABomb();
 				this.cancelVelocity();
 			}
 		}

@@ -95,8 +95,10 @@
 			this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 	
 			var levelConfig = {};
+			this.game.levelConfig = levelConfig;
 			this._events.fireEvent(GameEvents.onConfigureLevel, [ levelConfig ]);
-			this._events.fireEvent(GameEvents.onNewLevel, [ levelConfig ]);
+			this._events.fireEvent(GameEvents.onNewLevel);
+			
 		}
 		, _startLevel: function() {
 			var middleOfGame = this.game.gfx.getGamePoint('middle');
@@ -135,7 +137,9 @@
 			this.game.powerCrystals.clearAllPowerCrystals();
 			this.game.projectiles.clearBullets();
 	
-			if (this.game.stats.lives === 0) {
+			if (this.game.levelConfig.skipLevelOnPlayerDeath) {
+				this.levelUp();
+			} else if (this.game.stats.lives === 0) {
 				this._gameOver();
 			} else {
 				this._loseALife();

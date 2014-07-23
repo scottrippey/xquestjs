@@ -115,8 +115,8 @@ XQuestGame.Projectiles = Smart.Class({
 	
 
 	
-	, releaseABomb: function() {
-		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null);
+	, tryReleasingABomb: function() {
+		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null && !this.game.levelConfig.bombsDisabled);
 
 		if (canBomb) {
 			this.game.stats.bombs--;

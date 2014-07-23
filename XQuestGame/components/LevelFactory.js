@@ -47,21 +47,22 @@ XQuestGame.LevelFactory = Smart.Class({
 		var B = Balance.bonusLevel1;
 		var roster = Balance.enemies.roster;
 		
-		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", 'bonusLevel');
+		var bonusLevelText = this.game.gfx.addText("Bonus Level:\n Rapid Fire!", 'bonusLevel');
 		bonusLevelText.flyIn(2).flyOut(1);
 		
 		var enemyPool = [ roster[0] ];
 		
 		levelConfig.enemyPool = enemyPool;
 		levelConfig.enemySpawnRateOverride = B.bonusEnemySpawnRate;
-		levelConfig.crystalSpawnQuantityOverride = 0;
-		levelConfig.bombCrystalQuantityOverride = 0;
+		levelConfig.crystalsDisabled = true;
+		levelConfig.bombCrystalsDisabled = true;
+		levelConfig.bombsDisabled = true;
+		levelConfig.powerCrystalsDisabled = true;
+		levelConfig.skipLevelOnPlayerDeath = true;
 		
 		B.bonusPowerups.forEach(function(powerup) {
-			this.game.activePowerups.activate(powerup);
+			this.game.activePowerups.activate(powerup, true);
 		}, this);
-		
-		this.game.crystalsGathered(0, 0);
 	}
 	
 	

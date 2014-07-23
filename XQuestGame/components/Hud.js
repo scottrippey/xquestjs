@@ -3,6 +3,8 @@ XQuestGame.Hud = Smart.Class({
 		this.game = game;
 		this._setupGraphics();
 		this._layout();
+		
+		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
 	, _setupGraphics: function() {
 
@@ -58,6 +60,16 @@ XQuestGame.Hud = Smart.Class({
 		this.hudLivesText.text = ' x ' + this.game.stats.lives;
 		this.hudCrystalsText.text = ' x ' + this.game.stats.crystalCount;
 		this.hudBombsText.text = ' x ' + this.game.stats.bombs;
+	}
+	
+	, _onNewLevel: function() {
+		var levelConfig = this.game.levelConfig;
+		
+		var faded = 0.3;
+		
+		this.hudLivesIcon.alpha = this.hudLivesText.alpha = levelConfig.skipLevelOnPlayerDeath ? faded : 1;
+		this.hudCrystalsIcon.alpha = this.hudCrystalsText.alpha = levelConfig.crystalsDisabled ? faded : 1;
+		this.hudBombsIcon.alpha = this.hudBombsText.alpha = levelConfig.bombsDisabled ? faded : 1;
 	}
 
 });

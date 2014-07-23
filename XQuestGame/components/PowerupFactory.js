@@ -15,6 +15,10 @@ XQuestGame.PowerupFactory = Smart.Class({
 	,
 	_shouldSpawn: function(tickEvent) {
 		var B = Balance.powerCrystals;
+		
+		if (this.game.levelConfig.powerCrystalsDisabled) {
+			return false;
+		}
 
 		// TODO: Make this performance-based instead of time-based:
 		var isFirstRun = (this.nextSpawn === undefined);
@@ -109,11 +113,11 @@ XQuestGame.PowerupFactory = Smart.Class({
 	}
 
 	,
-	_onNewLevel: function(levelConfig) {
+	_onNewLevel: function() {
 		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
-		
-		if ('bombCrystalQuantityOverride' in levelConfig) {
-			bombCrystalQuantity = levelConfig.bombCrystalQuantityOverride;
+
+		if (this.game.levelConfig.bombCrystalsDisabled) {
+			bombCrystalQuantity = 0;
 		}
 		
 		while (bombCrystalQuantity--) {

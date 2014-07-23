@@ -180,7 +180,7 @@ Balance.merge({
 			,bonusLevel1: {
 				bonusLevel: 3
 				,bonusEnemySpawnRate: Balance.randomBetween(1/10, 1/10)
-				,bonusPowerups: [ 'invincible', 'rapidFire' ]
+				,bonusPowerups: [ 'rapidFire' ]
 				,bonusEnemyPool: [ XQuestGame.Slug ]
 			}
 		});
