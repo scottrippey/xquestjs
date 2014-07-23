@@ -3,6 +3,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.powerCrystals = [];
+		this.bombCrystals = [];
 		
 		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
@@ -40,7 +41,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);
 
-		if (this.bombCrystals && this.bombCrystals.length) {
+		if (this.bombCrystals.length) {
 			if (this.bombCrystals.length >= 2) {
 				Smart.Physics.sortByLocation(this.bombCrystals);
 			}
@@ -114,6 +115,8 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 	,
 	_onNewLevel: function() {
+		this._clearBombCrystals();
+		
 		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
 
 		if (this.game.levelConfig.bombCrystalsDisabled) {
@@ -130,8 +133,6 @@ XQuestGame.PowerupFactory = Smart.Class({
 		var randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
 		bombCrystal.spawnBomb(randomSpawnLocation);
 
-		if (!this.bombCrystals)
-			this.bombCrystals = [];
 		this.bombCrystals.push(bombCrystal);
 	}
 
@@ -141,6 +142,13 @@ XQuestGame.PowerupFactory = Smart.Class({
 			powerCrystal.clearPowerCrystal();
 		}, this);
 		this.powerCrystals.length = 0;
+	}
+	,
+	_clearBombCrystals: function() {
+		_.forEach(this.bombCrystals, function(bombCrystal) {
+			bombCrystal.clearBombCrystal();
+		}, this);
+		this.bombCrystals.length = 0;
 	}
 
 });

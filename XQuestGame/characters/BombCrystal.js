@@ -10,4 +10,7 @@ XQuestGame.BombCrystal = Smart.Class({
 	, gatherBombCrystal: function() {
 		this.location.gatherBombCrystal(this.game.gfx, this.game.player.location);
 	}
+	, clearBombCrystal: function() {
+		this.location.dispose();
+	}
 });
