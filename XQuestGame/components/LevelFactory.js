@@ -47,7 +47,7 @@ XQuestGame.LevelFactory = Smart.Class({
 		var B = Balance.bonusLevel1;
 		var roster = Balance.enemies.roster;
 		
-		var bonusLevelText = this.game.gfx.addText("Bonus Level:\n Rapid Fire!", 'bonusLevel');
+		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nRapid Fire!", 'bonusLevel');
 		bonusLevelText.flyIn(2).flyOut(1);
 		
 		var enemyPool = [ roster[0] ];
