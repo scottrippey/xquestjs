@@ -2,8 +2,8 @@ module.exports = function(grunt) {
 	var sources = {
 		common: {
 			vendor: [
-				'../common/lib/easeljs-0.6.1.min.js'
-				,'../common/lib/lodash.2.2.1.js'
+				'../common/lib/lodash.2.2.1.js'
+				,'../common/lib/easeljs-0.6.1.min.js'
 				,'../common/lib/smoothsort.js'
 			]
 			,Smart: [
