@@ -155,7 +155,7 @@
 
 	});
 
-	XQuestInput.KeyMapper = Smart.Class({
+	XQuestInput.KeyMapper = Smart.Class(new Smart.Disposable(), {
 		element: null,
 		onActionDown: null,
 		codes: {
@@ -203,7 +203,15 @@
 			122: 'f11',
 			123: 'f12',
 			144: 'numlock',
-			145: 'scrolllock'
+			145: 'scrolllock',
+			193: 'gamepada',
+			194: 'gamepadb',
+			195: 'gamepadx',
+			196: 'gamepady',
+			201: 'gamepaddpadup',
+			202: 'gamepaddpaddown',
+			203: 'gamepaddpadleft',
+			204: 'gamepaddpadright'	
 		},
 		keyMap: null,
 		downKeys: null,
@@ -215,9 +223,18 @@
 			this.codes = _.clone(this.codes);
 			this.downKeys = [];
 			this.downActions = {};
-
-			this.element.addEventListener('keydown', this._onKeydown.bind(this));
-			this.element.addEventListener('keyup', this._onKeyup.bind(this));
+			
+			this._setupEvents();
+		}
+		, _setupEvents: function() {
+			this._onKeydown = this._onKeydown.bind(this);
+			this._onKeyup = this._onKeyup.bind(this);
+			this.element.addEventListener('keydown', this._onKeydown);
+			this.element.addEventListener('keyup', this._onKeyup);
+			this.onDispose(function() {
+				this.element.removeEventListener('keydown', this._onKeydown);
+				this.element.removeEventListener('keyup', this._onKeyup);
+			});
 		},
 		_onKeydown: function(ev) {
 			var keyName = this._getKeyName(ev);
@@ -290,4 +307,41 @@
 		ev.preventDefault();
 	}
 
+})();
+(function () {
+	// The Konami code can be used to start XQuest:
+	var mapper = null;
+	XQuestInput.startKeyCodes = function() {
+		var code = 'uuddlrlrba';
+		var keyQueue = code.split('');
+		mapper = new XQuestInput.KeyMapper(document, function(key) {
+			if (keyQueue.shift() !== key) {
+				keyQueue = code.split('');
+			} else if (keyQueue.length === 0) {
+				window.xquest = new XQuestGame.XQuestHost();
+				XQuestInput.stopKeyCodes();
+			}
+		});
+		var keyMap = {
+			'up': 'u'
+			,'down': 'd'
+			,'left': 'l'
+			,'right': 'r'
+			,'b': 'b'
+			,'a': 'a'
+			
+			,'gamepaddpadup': 'u'
+			,'gamepaddpaddown': 'd'
+			,'gamepaddpadleft': 'l'
+			,'gamepaddpadright': 'r'
+			,'gamepadb': 'b'
+			,'gamepada': 'a'
+		};
+		mapper.setKeyMap(keyMap);
+	};
+	XQuestInput.stopKeyCodes = function() {
+		if (!mapper) return;
+		mapper.dispose();
+		mapper = null;
+	};
 })();
