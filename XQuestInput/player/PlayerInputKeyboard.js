@@ -311,37 +311,26 @@
 (function () {
 	// The Konami code can be used to start XQuest:
 	var mapper = null;
-	XQuestInput.startKeyCodes = function() {
-		var code = 'uuddlrlrba';
-		var keyQueue = code.split('');
-		mapper = new XQuestInput.KeyMapper(document, function(key) {
-			if (keyQueue.shift() !== key) {
-				keyQueue = code.split('');
-			} else if (keyQueue.length === 0) {
-				window.xquest = new XQuestGame.XQuestHost();
-				XQuestInput.stopKeyCodes();
-			}
-		});
-		var keyMap = {
-			'up': 'u'
-			,'down': 'd'
-			,'left': 'l'
-			,'right': 'r'
-			,'b': 'b'
-			,'a': 'a'
-			
-			,'gamepaddpadup': 'u'
-			,'gamepaddpaddown': 'd'
-			,'gamepaddpadleft': 'l'
-			,'gamepaddpadright': 'r'
-			,'gamepadb': 'b'
-			,'gamepada': 'a'
-		};
-		mapper.setKeyMap(keyMap);
-	};
-	XQuestInput.stopKeyCodes = function() {
-		if (!mapper) return;
-		mapper.dispose();
-		mapper = null;
+	XQuestInput.startKeyCodes = function(enabled) {
+		if (enabled !== false) {
+			var code = 'uuddlrlrba';
+			var keyQueue = code.split('');
+			mapper = new XQuestInput.KeyMapper(document, function (key) {
+				if (keyQueue.shift() !== key) {
+					keyQueue = code.split('');
+				} else if (keyQueue.length === 0) {
+					window.xquest = new XQuestGame.XQuestHost();
+					XQuestInput.startKeyCodes(false);
+				}
+			});
+			var keyMap = {
+				'up': 'u', 'down': 'd', 'left': 'l', 'right': 'r', 'b': 'b', 'a': 'a', 'gamepaddpadup': 'u', 'gamepaddpaddown': 'd', 'gamepaddpadleft': 'l', 'gamepaddpadright': 'r', 'gamepadb': 'b', 'gamepada': 'a'
+			};
+			mapper.setKeyMap(keyMap);
+		} else {
+			if (!mapper) return;
+			mapper.dispose();
+			mapper = null;
+		}
 	};
 })();
