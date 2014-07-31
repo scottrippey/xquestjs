@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 	
 	require("./tasks/combine.js")(grunt);
 	require("./tasks/default.js")(grunt);
+	require("./tasks/extras.js")(grunt);
 	require("./tasks/index.js")(grunt);
 	require("./tasks/sources.js")(grunt);
 	require("./tasks/tests.js")(grunt);
