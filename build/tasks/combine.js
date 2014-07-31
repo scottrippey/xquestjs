@@ -1,30 +1,21 @@
 module.exports = function(grunt) {
 	grunt.registerTask('combine-js', [ 'concat:COMBINE-JS', 'uglify:COMBINE-JS' ]);
 
-	var exportCode;
-	var exportToWinJS = false;
-	if (!exportToWinJS) {
-		exportCode =
-			"    \n" +
-			"    window.XQuestGame = XQuestGame;\n"
-		;
-	} else {
-		exportCode =
-			"    var enable = 'enable', KeyCodes = 'KeyCodes';\n" +
-			"    WinJS.Utilities[enable + KeyCodes] = XQuestInput.startKeyCodes;\n"
-		;
-	}
-
 	grunt.mergeConfig({
+		data: {
+			banner: "(function(){ \n" +
+					"    var Smart, XQuestGame, XQuestInput, EaselJSGraphics, EaselJSTimer, Balance, Graphics;\n"
+			,footer:"    \n" +
+					"    window.XQuestGame = XQuestGame;\n" +
+					"})();"
+		},
 		concat: {
 			'COMBINE-JS': {
 				src: [ '<%= sources.allSources %>' ]
 				, dest: 'dist/XQuest.combined.js'
 				, options: {
-					banner:   "(function(){ \n" +
-						      "    var Smart, XQuestGame, XQuestInput, EaselJSGraphics, EaselJSTimer, Balance, Graphics;\n"
-					, footer:      exportCode + "\n" +
-						      "})();"
+					banner: "<%= data.banner %>"
+					, footer: "<%= data.footer %>"
 				}
 			}
 		}

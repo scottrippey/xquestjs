@@ -311,8 +311,8 @@
 (function () {
 	// The Konami code can be used to start XQuest:
 	var mapper = null;
-	XQuestInput.startKeyCodes = function(enabled) {
-		if (enabled !== false) {
+	XQuestInput.startKeyCodes = function(callback) {
+		if (callback !== false) {
 			var code = 'uuddlrlrba';
 			var keyQueue = code.split('');
 			mapper = new XQuestInput.KeyMapper(document, function (key) {
@@ -321,6 +321,7 @@
 				} else if (keyQueue.length === 0) {
 					window.xquest = new XQuestGame.XQuestHost();
 					XQuestInput.startKeyCodes(false);
+					if (callback) callback(window.xquest);
 				}
 			});
 			var keyMap = {
