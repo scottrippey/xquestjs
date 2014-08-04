@@ -90,6 +90,7 @@ module.exports = function(grunt) {
 		,XQuestInput: [
 			"../XQuestInput/XQuestInput.js"
 			,"../XQuestInput/menus/MenuInputKeyboard.js"
+			,"../XQuestInput/player/PlayerInputGamepad.js"
 			,"../XQuestInput/player/PlayerInputKeyboard.js"
 			,"../XQuestInput/player/PlayerInputMouse.js"
 			,"../XQuestInput/player/PlayerInputTouch.js"

@@ -5,6 +5,8 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this._setupCanvas(canvas);
 		this._setupTimer();
 		this._setupSettings();
+		
+		this._setupGamepad();
 
 		this._startHostScene();
 	}
@@ -79,6 +81,10 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this.settings = new XQuestGame.XQuestHost.Settings();
 	}
 	
+	,_setupGamepad: function() {
+		this.gamepadInput = XQuestInput.PlayerInputGamepad.createGamepadInput() || null;
+	}
+	
 	,_startHostScene: function() {
 		var graphics = new EaselJSGraphics(this.canvas);
 		this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
@@ -92,11 +98,13 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	}
 	,_addMenuInputs: function(menuScene) {
 		menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard(null));
+		if (this.gamepadInput) menuScene.addSceneItem(this.gamepadInput);
 	}
 	,_addPlayerInputs: function(arcadeGame) {
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputKeyboard(arcadeGame, null, this.settings));
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings));
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings));
+		if (this.gamepadInput) arcadeGame.addSceneItem(this.gamepadInput);
 	}
 
 

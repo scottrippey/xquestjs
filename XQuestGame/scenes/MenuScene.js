@@ -47,6 +47,13 @@
 			this.backButton.visible = (this.menuStack.length >= 2);
 		}
 		
+		,getDefaultInputState: function() {
+			var state = {
+				menuMode: true
+			};
+			return state;
+		}
+		
 		,addMenu: function(menu) {
 			if (this.currentMenu)
 				this.currentMenu.menuLeave(false);
