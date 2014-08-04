@@ -143,7 +143,7 @@
 		//rightThumbstickY: ,
 		//isRightThumbstickPressed: 
 	};
-	XQuestGame.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
+	XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
 		initialize: function(xboxGamepad, playerMap, menuMap) {
 			this.xboxGamepad = xboxGamepad;
 			this.playerMap = playerMap;
