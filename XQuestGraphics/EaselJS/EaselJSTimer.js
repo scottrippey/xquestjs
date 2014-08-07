@@ -17,6 +17,6 @@ var EaselJSTimer = Smart.Class({
 	}
 	,
 	dispose: function() {
-		createjs.Ticker.removeAllEventListeners();
+		createjs.Ticker.removeAllEventListeners('tick');
 	}
 });

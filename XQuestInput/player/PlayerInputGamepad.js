@@ -19,7 +19,7 @@
 	};
 		
 
-	XQuestInput.PlayerInputGamepad = Smart.Class({
+	XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
 		initialize: function(game) {
 			this.game = game;
 			this.allGamepads = [];
@@ -78,7 +78,6 @@
 				inputState.accelerationY += analogY * analogSensitivity;
 			}
 		}
-
 	}).extend({
 		/**
 		 * (returns null if not supported)
@@ -226,12 +225,20 @@
 		for (var i = 0; i < gamepads.size; i++) {
 			addXboxGamepad(gamepads[i]);
 		}
-		Gamepad.addEventListener('gamepadadded', function(eventArgs) {
+
+		function onGamepadAdded(eventArgs) {
 			addXboxGamepad(eventArgs.gamepad);
-		});
-		Gamepad.removeEventListener('gamepadremoved', function(eventArgs) {
+		}
+		function onGamepadRemoved(eventArgs) {
 			removeXboxGamepad(eventArgs.gamepad);
+		}
+		Gamepad.addEventListener('gamepadadded', onGamepadAdded);
+		Gamepad.addEventListener('gamepadremoved', onGamepadRemoved);
+		gamepadInput.onDispose(function() {
+			Gamepad.removeEventListener('gamepadadded', onGamepadAdded);
+			Gamepad.removeEventListener('gamepadremoved', onGamepadRemoved);
 		});
+		
 		
 		
 	}

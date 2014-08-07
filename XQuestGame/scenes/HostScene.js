@@ -2,6 +2,7 @@
 	var HostSceneEvents = {
 		onMenuCreated: 'onMenuCreated'
 		, onGameCreated: 'onGameCreated'
+		, onQuitGame: 'onQuitGame'
 	};
 
 	XQuestGame.HostScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(HostSceneEvents), {
@@ -56,6 +57,9 @@
 			}.bind(this));
 			
 			arcadeGame.startArcadeGame();
+		}
+		, quitGame: function() {
+			this.fireSceneEvent(HostSceneEvents.onQuitGame);
 		}
 	});
 

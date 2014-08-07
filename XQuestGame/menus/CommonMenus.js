@@ -25,6 +25,7 @@
 					this.createMenuButton("Input Settings", this._showInputSettings.bind(this))
 					,this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
 					,this.createMenuButton("Graphics Test", this._showGraphicsTest.bind(this))
+					,this.createMenuButton("Quit XQuest", this._showQuitConfirm.bind(this))
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 			}
@@ -36,6 +37,9 @@
 			}
 			, _showDifficultyMenu: function() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
+			}
+			, _showQuitConfirm: function() {
+				this.menuScene.addMenu(new XQuestGame.CommonMenus.ConfirmQuitGame(this.menuScene))
 			}
 		})
 		,
@@ -154,6 +158,16 @@
 				var rows = [
 					sensitivity
 					,reset
+					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
+				];
+				return rows;
+			}
+		})
+		,
+		ConfirmQuitGame: Smart.Class(new XQuestGame.BaseMenu(), {
+			getRows: function() {
+				var rows = [
+					this.createMenuButton("Quit XQuest", this.menuScene.host.quitGame.bind(this.menuScene.host))
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 				return rows;
