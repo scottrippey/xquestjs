@@ -70,8 +70,19 @@
 			if (!currentGamepad) return;
 
 			var actions = currentGamepad.getPlayerActions();
-			if (actions[PlayerActions.primaryWeapon]) inputState.primaryWeapon = true;
-			if (actions[PlayerActions.secondaryWeapon]) inputState.secondaryWeapon = true;
+			if (actions[PlayerActions.primaryWeapon])
+				inputState.primaryWeapon = true;
+			if (actions[PlayerActions.secondaryWeapon])
+				inputState.secondaryWeapon = true;
+			if (actions[PlayerActions.pauseGame]) {
+				if (!this.isPauseDown) {
+					this.isPauseDown = true;
+					this.game.pauseGame();
+				}
+			} else {
+				this.isPauseDown = false;
+			}
+				
 			var analogX = actions[PlayerActions.analogX],
 				analogY = -actions[PlayerActions.analogY];
 			if (Math.abs(analogX) > analogThreshold
@@ -113,8 +124,8 @@
 		isViewPressed: PlayerActions.pauseGame,
 
 		isAPressed: PlayerActions.primaryWeapon,
-		isBPressed: PlayerActions.secondaryWeapon,
-		isXPressed: PlayerActions.pauseGame,
+		isBPressed: PlayerActions.pauseGame,
+		isXPressed: PlayerActions.secondaryWeapon,
 		isYPressed: PlayerActions.pauseGame,
 
 		//isDPadDownPressed: PlayerActions.accelerateDown,
@@ -172,22 +183,6 @@
 		, getPlayerActions: function() {
 			return this._mapXboxGamepadActions(this.playerMap);
 		}
-		, _mapXboxGamepadActions: function(actionsMap) {
-			var currentReading = this.xboxGamepad.getCurrentReading();
-			var gamepadActions = {};
-			for (var gamepadButtonName in actionsMap) {
-				if (!actionsMap.hasOwnProperty(gamepadButtonName)) continue;
-
-				var action = actionsMap[gamepadButtonName],
-					value = currentReading[gamepadButtonName];
-
-				if (value !== false) {
-					gamepadActions[action] = value;
-				}
-			}
-
-			return gamepadActions;
-		}
 		, getMenuActions: function() {
 			var currentActionValues = this._mapXboxGamepadActions(this.menuMap);
 			
@@ -222,7 +217,23 @@
 			}
 			return menuActions;
 		}
-		,_analogToBoolean: function(analogValue, wasAlreadyDown) {
+		, _mapXboxGamepadActions: function(actionsMap) {
+			var currentReading = this.xboxGamepad.getCurrentReading();
+			var gamepadActions = {};
+			for (var gamepadButtonName in actionsMap) {
+				if (!actionsMap.hasOwnProperty(gamepadButtonName)) continue;
+
+				var actionName = actionsMap[gamepadButtonName],
+					readingValue = currentReading[gamepadButtonName];
+
+				if (readingValue !== false) {
+					gamepadActions[actionName] = readingValue;
+				}
+			}
+
+			return gamepadActions;
+		}
+		, _analogToBoolean: function(analogValue, wasAlreadyDown) {
 			var threshold = (wasAlreadyDown ? UserSettings.analogUpThreshold : UserSettings.analogDownThreshold);
 			return (analogValue >= threshold);
 		}
