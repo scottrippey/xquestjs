@@ -265,7 +265,7 @@
 			this.downKeys.splice(downIndex, 1);
 			
 			ev.preventDefault();
-			
+
 			var downActionCount = (this.downActions[action] || 1) - 1;
 			this.downActions[action] = downActionCount;
 		},
@@ -316,11 +316,16 @@
 			var code = 'uuddlrlrba';
 			var keyQueue = code.split('');
 			mapper = new XQuestInput.KeyMapper(document, function (key) {
+				if (window.xquest) {
+					return;
+				}
 				if (keyQueue.shift() !== key) {
 					keyQueue = code.split('');
 				} else if (keyQueue.length === 0) {
 					window.xquest = new XQuestGame.XQuestHost();
-					XQuestInput.startKeyCodes(false);
+					window.xquest.onDispose(function() {
+						window.xquest = null;
+					});
 					if (callback) callback(window.xquest);
 				}
 			});

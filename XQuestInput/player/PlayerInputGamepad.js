@@ -4,7 +4,7 @@
 
 	var UserSettings = {
 		analogThreshold: 0.05,
-		analogSensitivity: 20,
+		analogSensitivity: 8,
 		analogDownThreshold: 0.6,
 		analogUpThreshold: 0.4
 	};
@@ -23,6 +23,8 @@
 		initialize: function(game) {
 			this.game = game;
 			this.allGamepads = [];
+
+			this._disableAllKeystrokes();
 		}
 		,addGamepad: function(gamepadId, gamepad) {
 			gamepad.gamepadId = gamepadId;
@@ -54,7 +56,7 @@
 					var downKey = downQueue[j];
 					inputState[downKey] = true;
 					
-					if (downKey = MenuActions.invoke) {
+					if (downKey = MenuActions.menuInvoke) {
 						this.currentGamepad = gamepad;
 					}
 				}
@@ -71,12 +73,30 @@
 			if (actions[PlayerActions.primaryWeapon]) inputState.primaryWeapon = true;
 			if (actions[PlayerActions.secondaryWeapon]) inputState.secondaryWeapon = true;
 			var analogX = actions[PlayerActions.analogX],
-				analogY = actions[PlayerActions.analogY];
+				analogY = -actions[PlayerActions.analogY];
 			if (Math.abs(analogX) > analogThreshold
-				&& Math.abs(analogY) > analogThreshold) {
+				|| Math.abs(analogY) > analogThreshold) {
 				inputState.accelerationX += analogX * analogSensitivity;
 				inputState.accelerationY += analogY * analogSensitivity;
 			}
+		}
+		,_disableAllKeystrokes: function() {
+			var useCapture = true;
+			document.addEventListener('keydown', stopEvent, useCapture);
+			document.addEventListener('keyup', stopEvent, useCapture);
+			document.addEventListener('keypress', stopEvent, useCapture);
+			this.onDispose(function() {
+				document.removeEventListener('keydown', stopEvent, useCapture);
+				document.removeEventListener('keyup', stopEvent, useCapture);
+				document.removeEventListener('keypress', stopEvent, useCapture);
+			});
+
+			function stopEvent(ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
+			}
+
+
 		}
 	}).extend({
 		/**
@@ -86,16 +106,16 @@
 	});
 	
 
-	
-	
+
+
 	var xboxPlayerMap = {
 		isMenuPressed: PlayerActions.pauseGame,
 		isViewPressed: PlayerActions.pauseGame,
 
 		isAPressed: PlayerActions.primaryWeapon,
 		isBPressed: PlayerActions.secondaryWeapon,
-		isXPressed: PlayerActions.primaryWeapon,
-		isYPressed: PlayerActions.secondaryWeapon,
+		isXPressed: PlayerActions.pauseGame,
+		isYPressed: PlayerActions.pauseGame,
 
 		//isDPadDownPressed: PlayerActions.accelerateDown,
 		//isDPadLeftPressed: PlayerActions.accelerateLeft,
@@ -161,39 +181,42 @@
 				var action = actionsMap[gamepadButtonName],
 					value = currentReading[gamepadButtonName];
 
-				gamepadActions[action] = value;
+				if (value !== false) {
+					gamepadActions[action] = value;
+				}
 			}
 
 			return gamepadActions;
 		}
 		, getMenuActions: function() {
-			var currentActions = this._mapXboxGamepadActions(this.menuMap);
+			var currentActionValues = this._mapXboxGamepadActions(this.menuMap);
 			
-			var previousActions = this.previousActions;
-			this.previousActions = currentActions;
+			var previousActionValues = this.previousActions;
+			this.previousActions = currentActionValues;
 						
 			var menuActions = [];
-			for (var actionName in currentActions) {
-				if (!currentActions.hasOwnProperty(actionName)) continue;
-				var previousAction = previousActions[actionName];				
-				var currentAction = currentActions[actionName];
+			for (var actionName in currentActionValues) {
+				if (!currentActionValues.hasOwnProperty(actionName)) continue;
+				var previousValue = previousActionValues[actionName];
+				var currentValue = currentActionValues[actionName];
 				
 				// Deal with analog inputs:
 				if (actionName === MenuActionsAnalogX) {
 					var wasDownX = this.isDownX;
-					this.isDownX = this._analogToBoolean(Math.abs(currentAction), wasDownX);
+					this.isDownX = this._analogToBoolean(Math.abs(currentValue), wasDownX);
 					if (!wasDownX && this.isDownX) {
-						menuActions.push(currentAction < 0 ? MenuActions.menuLeft : MenuActions.menuRight);
+						menuActions.push(currentValue < 0 ? MenuActions.menuLeft : MenuActions.menuRight);
 					}
 				} else if (actionName === MenuActionsAnalogY) {
+					currentValue = -currentValue;
 					var wasDownY = this.isDownY;
-					this.isDownY = this._analogToBoolean(Math.abs(currentAction), wasDownY);
+					this.isDownY = this._analogToBoolean(Math.abs(currentValue), wasDownY);
 					if (!wasDownY && this.isDownY) {
-						menuActions.push(currentAction < 0 ? MenuActions.menuUp : MenuActions.menuDown);
+						menuActions.push(currentValue < 0 ? MenuActions.menuUp : MenuActions.menuDown);
 					}
 				} else {
-					if (currentAction && currentAction !== previousAction) {
-						menuActions.push(currentAction);
+					if (currentValue && currentValue !== previousValue) {
+						menuActions.push(actionName);
 					}
 				}
 			}
@@ -210,10 +233,10 @@
 		var Windows = window.Windows, Xbox = (Windows && Windows.Xbox);
 		if (!Xbox) return null;
 		
-		var gamepadInput = new XQuestGame.PlayerInputGamepad();
+		var gamepadInput = new XQuestInput.PlayerInputGamepad();
 		
 		function addXboxGamepad(xboxGamepad) {
-			var gamepad = new XQuestGame.PlayerInputGamepad.XboxGamepadMapper(xboxGamepad, xboxPlayerMap, xboxMenuMap);
+			var gamepad = new XQuestInput.PlayerInputGamepad.XboxGamepadMapper(xboxGamepad, xboxPlayerMap, xboxMenuMap);
 			gamepadInput.addGamepad(xboxGamepad.id, gamepad);
 		}
 		function removeXboxGamepad(xboxGamepad) {
@@ -239,8 +262,8 @@
 			Gamepad.removeEventListener('gamepadremoved', onGamepadRemoved);
 		});
 		
-		
-		
+
+		return gamepadInput;
 	}
 	
 	
