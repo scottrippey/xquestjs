@@ -20,11 +20,13 @@
 		
 
 	XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
-		initialize: function(game) {
-			this.game = game;
+		initialize: function() {
 			this.allGamepads = [];
 
 			this._disableAllKeystrokes();
+		}
+		,setGame: function(game) {
+			this.game = game || null;
 		}
 		,addGamepad: function(gamepadId, gamepad) {
 			gamepad.gamepadId = gamepadId;
@@ -77,7 +79,8 @@
 			if (actions[PlayerActions.pauseGame]) {
 				if (!this.isPauseDown) {
 					this.isPauseDown = true;
-					this.game.pauseGame();
+					if (this.game)
+						this.game.pauseGame(true);
 				}
 			} else {
 				this.isPauseDown = false;
@@ -124,9 +127,9 @@
 		isViewPressed: PlayerActions.pauseGame,
 
 		isAPressed: PlayerActions.primaryWeapon,
-		isBPressed: PlayerActions.pauseGame,
-		isXPressed: PlayerActions.secondaryWeapon,
-		isYPressed: PlayerActions.pauseGame,
+		isBPressed: PlayerActions.secondaryWeapon,
+		isXPressed: PlayerActions.primaryWeapon,
+		isYPressed: PlayerActions.secondaryWeapon,
 
 		//isDPadDownPressed: PlayerActions.accelerateDown,
 		//isDPadLeftPressed: PlayerActions.accelerateLeft,

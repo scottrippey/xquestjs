@@ -110,13 +110,18 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	}
 	,_addMenuInputs: function(menuScene) {
 		menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard(null));
-		if (this.gamepadInput) menuScene.addSceneItem(this.gamepadInput);
+		if (this.gamepadInput) {
+			menuScene.addSceneItem(this.gamepadInput);
+		}
 	}
 	,_addPlayerInputs: function(arcadeGame) {
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputKeyboard(arcadeGame, null, this.settings));
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings));
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings));
-		if (this.gamepadInput) arcadeGame.addSceneItem(this.gamepadInput);
+		if (this.gamepadInput) {
+			arcadeGame.addSceneItem(this.gamepadInput);
+			this.gamepadInput.setGame(arcadeGame);
+		}
 	}
 
 
