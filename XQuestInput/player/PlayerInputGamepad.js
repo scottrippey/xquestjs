@@ -150,8 +150,8 @@
 		isRightThumbstickPressed: PlayerActions.primaryWeapon
 	};
 	var xboxMenuMap = {
-		isMenuPressed: MenuActions.menuInvoke,
-		isViewPressed: MenuActions.menuInvoke,
+		//isMenuPressed: MenuActions.menuInvoke,
+		//isViewPressed: MenuActions.menuInvoke,
 
 		isAPressed: MenuActions.menuInvoke,
 		isBPressed: MenuActions.menuBack,
