@@ -217,12 +217,14 @@
 		downKeys: null,
 		downActions: null,
 
-		initialize: function(element, onActionDown) {
+		initialize: function(element, onActionDown, skipPreventDefault) {
 			this.element = element;
 			this.onActionDown = onActionDown;
 			this.codes = _.clone(this.codes);
 			this.downKeys = [];
 			this.downActions = {};
+
+			this.skipPreventDefault = skipPreventDefault || false;
 			
 			this._setupEvents();
 		}
@@ -241,7 +243,8 @@
 			var action = this.keyMap[keyName];
 			if (!action) return;
 
-			ev.preventDefault();
+			if (!this.skipPreventDefault)
+				ev.preventDefault();
 
 			var downIndex = this.downKeys.indexOf(keyName);
 			var isAlreadyDown = (downIndex !== -1);
@@ -263,8 +266,9 @@
 			var wasDown = (downIndex !== -1);
 			if (!wasDown) return;
 			this.downKeys.splice(downIndex, 1);
-			
-			ev.preventDefault();
+
+			if (!this.skipPreventDefault)
+				ev.preventDefault();
 
 			var downActionCount = (this.downActions[action] || 1) - 1;
 			this.downActions[action] = downActionCount;
@@ -315,6 +319,7 @@
 		if (callback !== false) {
 			var code = 'uuddlrlrba';
 			var keyQueue = code.split('');
+			var skipPreventDefault = true;
 			mapper = new XQuestInput.KeyMapper(document, function (key) {
 				if (window.xquest) {
 					return;
@@ -328,7 +333,7 @@
 					});
 					if (callback) callback(window.xquest);
 				}
-			});
+			}, skipPreventDefault);
 			var keyMap = {
 				'up': 'u', 'down': 'd', 'left': 'l', 'right': 'r', 'b': 'b', 'a': 'a', 'gamepaddpadup': 'u', 'gamepaddpaddown': 'd', 'gamepaddpadleft': 'l', 'gamepaddpadright': 'r', 'gamepadb': 'b', 'gamepada': 'a'
 			};
