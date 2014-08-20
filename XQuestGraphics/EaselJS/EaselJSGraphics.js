@@ -335,6 +335,15 @@ var EaselJSGraphics = Smart.Class({
 		return pauseButton;
 	}
 	,
+	createPauseOverlay: function() {
+		var pauseOverlay = new EaselJSGraphics.PauseOverlay(this);
+		this.layers.background.addChild(pauseOverlay);
+		pauseOverlay.onDispose(function() {
+			this.layers.background.removeChild(pauseOverlay);
+		}.bind(this));
+		return pauseOverlay;
+	}
+	,
 	createMenuButton: function(text) {
 		var buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
 		buttonGfx.setText(text);

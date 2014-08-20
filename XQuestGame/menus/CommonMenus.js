@@ -3,7 +3,13 @@
 	
 	XQuestGame.CommonMenus = {
 		PauseMenu: Smart.Class(new XQuestGame.BaseMenu().implementEvents(PauseMenuEvents), {
-			getRows: function() {
+			initialize: function(menuScene) {
+				this.BaseMenu_initialize(menuScene);
+				
+				var pauseOverlay = this.menuScene.gfx.createPauseOverlay();
+				pauseOverlay.showPauseOverlay();
+			}
+			,getRows: function() {
 				return [
 					this.createMenuButton("Resume Game", this._onResumeGame.bind(this))
 					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))

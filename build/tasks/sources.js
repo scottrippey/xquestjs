@@ -83,6 +83,7 @@ module.exports = function(grunt) {
 			,"../XQuestGraphics/EaselJS/hud/HudGraphics.js"
 			,"../XQuestGraphics/EaselJS/hud/HudOverlay.js"
 			,"../XQuestGraphics/EaselJS/hud/HudPauseButton.js"
+			,"../XQuestGraphics/EaselJS/menus/PauseOverlay.js"
 			,"../XQuestGraphics/EaselJS/menus/MenuGraphics.js"
 			,"../XQuestGraphics/EaselJS/menus/MenuButton.js"
 			,"../XQuestGraphics/EaselJS/menus/XQuestLogoGraphic.js"
