@@ -299,11 +299,11 @@
 		disableContextMenu: function(disabled) {
 			if (disabled === undefined) disabled = true;
 
-			if (disabled) {
-				window.addEventListener('contextmenu', preventDefault);
-			} else {
-				window.removeEventListener('contextmenu', preventDefault);
-			}
+//			if (disabled) {
+//				window.addEventListener('contextmenu', preventDefault);
+//			} else {
+//				window.removeEventListener('contextmenu', preventDefault);
+//			}
 		}
 	});
 

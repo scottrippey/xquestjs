@@ -30,9 +30,9 @@ var EaselJSGraphics = Smart.Class({
 				_.eliminate(allGraphics, child);
 			};
 		}
-		_.forOwn(this.layers, function(stage) {
+		_.forOwn(this.layers, function(stage, key) {
 			trackChildren(stage);
-			stage.autoClear = false;
+			stage.autoClear = (key === 'background');
 		});
 		this.layers.hud.enableMouseOver();
 	}
@@ -42,7 +42,7 @@ var EaselJSGraphics = Smart.Class({
 			if (!this.backgroundStars) {
 				this.backgroundStars = new EaselJSGraphics.BackgroundGraphics();
 			}
-			this.layers.background.addChild(this.backgroundStars);
+			//this.layers.background.addChild(this.backgroundStars);
 		} else {
 			if (this.backgroundStars) {
 				this.layers.background.removeChild(this.backgroundStars);

@@ -3,7 +3,7 @@
 	var primaryWeapon = 'primaryWeapon', secondaryWeapon = 'secondaryWeapon';
 	var mouseMap = {
 		left: primaryWeapon
-		, right: secondaryWeapon
+		//, right: secondaryWeapon
 	};
 
 	XQuestInput.PlayerInputMouse = Smart.Class({ 
@@ -74,7 +74,7 @@
 			var action = this.mouseMap[button];
 			if (action) {
 				this.mouseState[action] = true;
-				ev.preventDefault();
+				//ev.preventDefault();
 			}
 		},
 		_onMouseUp: function(ev) {
