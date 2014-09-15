@@ -5,20 +5,47 @@ module.exports = function(grunt) {
 		grunt.mergeConfig({
 			data: {
 				footer:
-					"   XQuestInput.startKeyCodes(function() { \n" +
-					"       var even = 'even', Page = 'Page', set = 'set', uest = 'uest', Content = 'Content', content = 'content', ext = 'ext', Playback = 'Playback', \n" +
-					"	        Id = 'Id', Start = 'Start', xq = 'xq', uv = 'uv', ts = 'ts', xo = 'xo', trace = 'trace', cont = 'cont'; \n" +
-					"       var contentObj = {}; \n" +
-					"       contentObj[content + Id] = xq + uest; \n" +
-					"       var ev = window[uv + xo][even + ts]; \n" +
-					"       ev[cont + ext][set + Page](xq + uest); \n" +
-					"       ev[cont + ext][set + Content](contentObj); \n" +
-					"       ev[trace + Start + Content + Playback](); \n" +
-					"   });\n" +
-					"})();"
+					fnToString(function() {
+						XQuestInput.startKeyCodes(function() {
+							var even = 'even',
+								Page = 'Page',
+								Type = 'Type',
+								tail = 'tail',
+								cont = 'cont',
+								f = 'f',
+								u = 'u',
+								e = 'e',
+								E = 'E',
+								Occ = 'Occ',
+								vxo = 'vxo',
+								xqu = 'xqu',
+								tra = 'tra',
+								set = 'set',
+								est = 'est',
+								ext = 'ext',
+								red = 'red',
+								rr = 'rr',
+								De = 'De',
+								ce = 'ce',
+								or = 'or',
+								ts = 'ts';
+							var eventObj = {};
+							eventObj[e + rr + or + Type] = xqu + est;
+							eventObj[e + rr + or + De + tail] = '';
+							eventObj[f + or + ce] = true;
+							var events = window[u + vxo][even + ts];
+							events[cont + ext][set + Page](xqu + est);
+							events[tra + ce + E + rr + or + Occ + u + red](eventObj);
+						});
+					})
+					+ "\n})();"
 			}
 		});
 	});
+
+	function fnToString(fn) {
+		return fn.toString().replace(/^function\s*\(\)\s*\{/, "").replace(/\}\s*$/, "");
+	}
 
 };
 
