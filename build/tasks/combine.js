@@ -6,7 +6,14 @@ module.exports = function(grunt) {
 			banner: "(function(){ \n" +
 					"    var Smart, XQuestGame, XQuestInput, EaselJSGraphics, EaselJSTimer, Balance, Graphics;\n"
 			,footer:"    \n" +
-					"    window.XQuestGame = XQuestGame;\n" +
+					"    window.XQuestGame = XQuestGame; \n" +
+					"    window.XQStart = function() { \n" +
+					"        if (window.xquest) return; \n" +
+					"        window.xquest = new XQuestGame.XQuestHost(); \n" +
+					"        xquest.onDispose(function() { \n" +
+					"            window.xquest = null; \n" +
+					"        }); \n" +
+					"    }; \n" +
 					"})();"
 		},
 		concat: {
