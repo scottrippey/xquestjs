@@ -3,7 +3,11 @@
   "version": "0.8.0",
   "description": "HTML5 Game",
   "main": "../XQuestHost/XQuestHost.js",
-  "scripts": {},
+  "scripts": {
+    "test": "grunt tests",
+    "combine": "grunt combine-js",
+    "extras": "grunt extras"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/scottrippey/xquestjs.git"
