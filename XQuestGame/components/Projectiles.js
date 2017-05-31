@@ -14,10 +14,10 @@ XQuestGame.Projectiles = Smart.Class({
 		this._bulletsKillEnemies();
 		this._bombsKillEnemies();
 	}
-	
+
 	, addTripleShot: function(powerup) {
 		var angle = powerup.angle;
-		
+
 		this.addBullet();
 		this.addBullet(angle);
 		this.addBullet(-angle);
@@ -26,9 +26,9 @@ XQuestGame.Projectiles = Smart.Class({
 		var B = Balance.powerups.sprayShot;
 		var shots = B.shots, speed = B.speed, spinSpeed = B.spinSpeed;
 		var angle = 360 / shots;
-		
+
 		var angleOffset = spinSpeed * tickEvent.runTime / 1000;
-					
+
 		for (var i = 0; i < shots; i++) {
 			this.addBullet(angleOffset + i * angle, speed);
 		}
@@ -46,6 +46,7 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 		if (speed) {
 			velocity = Smart.Point.fromAngle(angle, speed);
+			angle = 0;
 		}
 		if (!velocity) {
 			if (player.velocity.x === 0 && player.velocity.y === 0) {
@@ -72,7 +73,7 @@ XQuestGame.Projectiles = Smart.Class({
 		while (i--) {
 			var bulletGfx = bullets[i];
 			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
-			
+
 			if (this.game.activePowerups.powerShot) {
 				Smart.Physics.bounceOffWalls(bulletGfx, bulletGfx.radius, bulletGfx.velocity, bounds, 0);
 			}
@@ -101,7 +102,7 @@ XQuestGame.Projectiles = Smart.Class({
 				}
 			}
 		}
-		
+
 	}
 	, clearBullets: function() {
 		this.game.gfx.addAnimation()
@@ -112,9 +113,9 @@ XQuestGame.Projectiles = Smart.Class({
 				this.bulletsGraphics.bullets.length = 0;
 			}.bind(this));
 	}
-	
 
-	
+
+
 	, tryReleasingABomb: function() {
 		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null && !this.game.levelConfig.bombsDisabled);
 
