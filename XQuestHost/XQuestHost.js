@@ -5,7 +5,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this._setupCanvas(canvas);
 		this._setupTimer();
 		this._setupSettings();
-		
+
 		this._setupGamepad();
 
 		this._startHostScene();
@@ -38,6 +38,9 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		container.focus();
 
 		this._contain(container, canvas, canvasWidth, canvasHeight);
+
+		this.canvas = canvas;
+		this.container = container;
 
 		return canvas;
 	}
@@ -80,7 +83,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	,_setupSettings: function() {
 		this.settings = new XQuestGame.XQuestHost.Settings();
 	}
-	
+
 	,_setupGamepad: function() {
 		this.gamepadInput = XQuestInput.PlayerInputGamepad.createGamepadInput() || null;
 		if (this.gamepadInput) {
@@ -89,20 +92,22 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 			});
 		}
 	}
-	
+
 	,_startHostScene: function() {
 		var graphics = new EaselJSGraphics(this.canvas);
 		this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
-		
+
 		// Setup Inputs:
 		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
 		this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
+    this.hostScene.onFullScreen(this.enterFullScreen.bind(this));
 		this.hostScene.onQuitGame(function() {
 			this.dispose();
 		}.bind(this));
-		
+
+
 		this.hostScene.start();
-		
+
 		this.onDispose(function() {
 			this.hostScene.dispose();
 		});
@@ -124,5 +129,17 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		}
 	}
 
+	,enterFullScreen: function() {
+    requestFullscreen(this.container);
+  }
 
 });
+
+function requestFullscreen(elem) {
+  (
+  		elem.requestFullscreen
+      || elem.webkitRequestFullscreen
+      || elem.mozRequestFullScreen
+      || elem.msRequestFullscreen
+  ).call(elem);
+}

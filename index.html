@@ -251,7 +251,7 @@
 			Windows 8 App
 			Xbox One App
 			
-			</pre>			
+			</pre>
 		</section>
 
 
@@ -350,7 +350,9 @@
 			document.body.classList.add("page-loaded");
 			
 			document.getElementById("startGame").addEventListener('click', function() {
-				window.xquest = new XQuestGame.XQuestHost();
+			    const xquest = new XQuestGame.XQuestHost();
+			    window.xquest = xquest;
+			    xquest.enterFullScreen();
 			});
 			
 		</script>
