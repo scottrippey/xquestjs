@@ -100,7 +100,6 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		// Setup Inputs:
 		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
 		this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
-    this.hostScene.onFullScreen(this.enterFullScreen.bind(this));
 		this.hostScene.onQuitGame(function() {
 			this.dispose();
 		}.bind(this));
