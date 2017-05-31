@@ -1,11 +1,11 @@
 (function init_CommonMenus() {
-	var PauseMenuEvents = { onResumeGame: 'onResumeGame' };
-	
+	var MenuEvents = XQuestGame.MenuEvents;
+
 	XQuestGame.CommonMenus = {
-		PauseMenu: Smart.Class(new XQuestGame.BaseMenu().implementEvents(PauseMenuEvents), {
+		PauseMenu: Smart.Class(new XQuestGame.BaseMenu(), {
 			initialize: function(menuScene) {
 				this.BaseMenu_initialize(menuScene);
-				
+
 				var pauseOverlay = this.menuScene.gfx.createPauseOverlay();
 				pauseOverlay.showPauseOverlay();
 			}
@@ -17,7 +17,7 @@
 			}
 			,_onResumeGame: function() {
 				this.menuScene.exitMenu().queue(function() {
-					this.fireEvent(PauseMenuEvents.onResumeGame);
+					this.menuScene.fireSceneEvent(MenuEvents.onResumeGame);
 				}.bind(this));
 			}
 			,_showGameOptions: function() {
@@ -85,8 +85,8 @@
 			},
 			getRows: function() {
 				var mouseSettings = this.mouseSettings = this.menuScene.host.settings.retrieveSetting('mouseSettings');
-				
-				var sensitivity = this.createMenuButton(function() { 
+
+				var sensitivity = this.createMenuButton(function() {
 					return "Sensitivity: " + mouseSettings.mouseSensitivity;
 				}, function() {
 					mouseSettings.mouseSensitivity = (mouseSettings.mouseSensitivity % mouseSettings.maxMouseSensitivity) + 1;
@@ -102,8 +102,8 @@
 					mouseSettings = this.mouseSettings = this.menuScene.host.settings.saveSetting('mouseSettings', null);
 					rows.forEach(function(row) { row.updateText && row.updateText(); });
 				}.bind(this));
-				
-				 
+
+
 				var rows = [
 					sensitivity
 					,bias
@@ -120,8 +120,8 @@
 			},
 			getRows: function() {
 				var keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.retrieveSetting('keyboardSettings');
-				
-				var sensitivity = this.createMenuButton(function() { 
+
+				var sensitivity = this.createMenuButton(function() {
 					return "Sensitivity: " + keyboardSettings.keyboardSensitivity;
 				}, function() {
 					keyboardSettings.keyboardSensitivity = (keyboardSettings.keyboardSensitivity % keyboardSettings.maxKeyboardSensitivity) + 1;
@@ -131,8 +131,8 @@
 					keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.saveSetting('keyboardSettings', null);
 					rows.forEach(function(row) { row.updateText && row.updateText(); });
 				}.bind(this));
-				
-				 
+
+
 				var rows = [
 					sensitivity
 					,reset
@@ -148,8 +148,8 @@
 			},
 			getRows: function() {
 				var touchSettings = this.touchSettings = this.menuScene.host.settings.retrieveSetting('touchSettings');
-				
-				var sensitivity = this.createMenuButton(function() { 
+
+				var sensitivity = this.createMenuButton(function() {
 					return "Sensitivity: " + touchSettings.touchSensitivity;
 				}, function() {
 					touchSettings.touchSensitivity = (touchSettings.touchSensitivity % touchSettings.maxTouchSensitivity) + 1;
@@ -159,8 +159,8 @@
 					touchSettings = this.touchSettings = this.menuScene.host.settings.saveSetting('touchSettings', null);
 					rows.forEach(function(row) { row.updateText && row.updateText(); });
 				}.bind(this));
-				
-				 
+
+
 				var rows = [
 					sensitivity
 					,reset
@@ -179,7 +179,6 @@
 				return rows;
 			}
 		})
-		
+
 	};
 })();
-	

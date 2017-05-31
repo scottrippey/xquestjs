@@ -1,5 +1,5 @@
 (function init_MenuScene() {
-	
+
 	XQuestGame.MenuSceneInputs = {
 		menuUp: 'menuUp',
 		menuDown: 'menuDown',
@@ -9,12 +9,14 @@
 		menuBack: 'menuBack'
 	};
 
-	var MenuSceneEvents = {
-		onResumeGame: 'onResumeGame'
-		, onStartGame: 'onStartGame'
-	};
-	
-	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuSceneEvents), {
+  XQuestGame.MenuEvents = {
+    onResumeGame: 'onResumeGame',
+    onStartGame: 'onStartGame'
+  };
+
+	var MenuEvents = XQuestGame.MenuEvents;
+
+	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
 		initialize: function(gfx, host) {
 			this.MenuScene_initialize(gfx, host);
 		}
@@ -29,7 +31,7 @@
 
 			this.menuStack = [];
 		}
-		
+
 		,_setupBackButton: function() {
 			var backButton = this.menuScene.gfx.createMenuButton("Back");
 			backButton.addButtonEvents({
@@ -43,21 +45,21 @@
 		}
 		,_updateBackButton: function() {
 			if (!this.backButton) return;
-			
+
 			this.backButton.visible = (this.menuStack.length >= 2);
 		}
-		
+
 		,getDefaultInputState: function() {
 			var state = {
 				menuMode: true
 			};
 			return state;
 		}
-		
+
 		,addMenu: function(menu) {
 			if (this.currentMenu)
 				this.currentMenu.menuLeave(false);
-			
+
 			this.menuStack.push(menu);
 			this.currentMenu = menu;
 
@@ -66,12 +68,12 @@
 		}
 		,goBack: function() {
 			if (this.menuStack.length <= 1) return;
-			
+
 			this.menuStack.pop().menuLeave(true);
-			
+
 			this.currentMenu = this.menuStack[this.menuStack.length - 1];
 			this.currentMenu.menuEnter(true);
-			
+
 			this._updateBackButton();
 		}
 		,exitMenu: function() {
@@ -81,29 +83,20 @@
 
 		,onMove: function(tickEvent, inputState) {
 			this.currentMenu.menuInput(inputState);
-			
+
 			if (inputState.menuBack && this.menuStack.length >= 2) {
 				this.goBack();
 			}
 		}
-		
+
 		,showStartMenu: function() {
 			var startMenu = new XQuestGame.StartMenu(this.menuScene);
-			startMenu.onStartGame(function() {
-				this.fireSceneEvent(MenuSceneEvents.onStartGame);
-			}.bind(this));
-			
 			this.addMenu(startMenu);
 		}
 		,showPauseMenu: function() {
 			var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
-			pauseMenu.onResumeGame(function() {
-				this.fireSceneEvent(MenuSceneEvents.onResumeGame);
-			}.bind(this));
-			
 			this.addMenu(pauseMenu);
 		}
 
 	});
 })();
-	

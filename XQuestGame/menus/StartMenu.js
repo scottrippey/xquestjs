@@ -1,9 +1,8 @@
 (function() {
-	var StartMenuEvents = {
-		onStartGame: 'onStartGame'
-	};
+	var MenuEvents = XQuestGame.MenuEvents;
 
-	XQuestGame.StartMenu = Smart.Class(new XQuestGame.BaseMenu().implementEvents(StartMenuEvents), {
+
+	XQuestGame.StartMenu = Smart.Class(new XQuestGame.BaseMenu(), {
 		getRows: function() {
 			var xQuestLogo = this._createLogo();
 			return [
@@ -22,7 +21,7 @@
 		}
 		,_startGame: function() {
 			this.menuScene.exitMenu().queue(function() {
-				this.fireEvent(StartMenuEvents.onStartGame);
+				this.menuScene.fireSceneEvent(MenuEvents.onStartGame);
 			}.bind(this));
 		}
 		,_showGameOptions: function() {
@@ -69,4 +68,3 @@
 	});
 
 })();
-	
