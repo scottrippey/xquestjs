@@ -1,7 +1,7 @@
 var Graphics;
 Balance.onUpdate(function(mode) {
 	Graphics = {
-		merge: function(newGraphics) {
+		merge(newGraphics) {
 			_.merge(Graphics, newGraphics);
 		}
 	};

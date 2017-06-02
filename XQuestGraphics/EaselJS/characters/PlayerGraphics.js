@@ -1,5 +1,5 @@
 EaselJSGraphics.PlayerGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
-	drawStatic: function(drawing) {
+	drawStatic(drawing) {
 		var G = Graphics.player;
 		this.visibleRadius = G.radius;
 
@@ -12,17 +12,17 @@ EaselJSGraphics.PlayerGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 			.endPath(G.innerStyle);
 
 	}
-	,drawEffects: function(drawing, tickEvent){
+	,drawEffects(drawing, tickEvent) {
 		var G = Graphics.player;
 
 		this.rotation += (G.spinRate * tickEvent.deltaSeconds);
 	}
-	,killPlayerGraphics: function(gfx, velocity) {
+	,killPlayerGraphics(gfx, velocity) {
 		var G = Graphics.player;
 		this.toggleVisible(false);
 		gfx.createExplosion(this, velocity, G.explosionOptions);
 	}
-	,restorePlayerGraphics: function() {
+	,restorePlayerGraphics() {
 		this.toggleVisible(true);
 	}
 });

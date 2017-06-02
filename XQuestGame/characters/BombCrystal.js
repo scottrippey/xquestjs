@@ -4,13 +4,13 @@ XQuestGame.BombCrystal = Smart.Class({
 		this.location = this.game.gfx.createBombCrystalGraphic();
 		this.radius = Balance.bombCrystals.radius;
 	}
-	, spawnBomb: function(location) {
+	, spawnBomb(location) {
 		this.location.moveTo(location.x, location.y);
 	}
-	, gatherBombCrystal: function() {
+	, gatherBombCrystal() {
 		this.location.gatherBombCrystal(this.game.gfx, this.game.player.location);
 	}
-	, clearBombCrystal: function() {
+	, clearBombCrystal() {
 		this.location.dispose();
 	}
 });

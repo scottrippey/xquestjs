@@ -3,7 +3,7 @@
  * @constructor
  */
 var EaselJSTimer = Smart.Class({
-	addTickHandler: function(tickHandler) {
+	addTickHandler(tickHandler) {
 		// Configuration:
 		createjs.Ticker.useRAF = true;
 		createjs.Ticker.setFPS(60);
@@ -16,7 +16,7 @@ var EaselJSTimer = Smart.Class({
 		});
 	}
 	,
-	dispose: function() {
+	dispose() {
 		createjs.Ticker.removeAllEventListeners('tick');
 	}
 });

@@ -10,10 +10,10 @@ Balance.onUpdate(function(gameMode) {
 });
 
 EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
-	setup: function() {
+	setup() {
 		this.bullets = [];
 	},
-	addBullet: function() {
+	addBullet() {
 		var bullet = new EaselJSGraphics.BulletsGraphics.Bullet();
 		this.bullets.push(bullet);
 		bullet.onDispose(function() {
@@ -22,7 +22,7 @@ EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 		}.bind(this));
 		return bullet;
 	},
-	drawEffects: function(drawing) {
+	drawEffects(drawing) {
 		var G = Graphics.bullets;
 		
 		drawing.beginPath();
@@ -38,11 +38,11 @@ EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 	}
 });
 EaselJSGraphics.BulletsGraphics.Bullet = Smart.Class(new Smart.Disposable(), {
-	moveTo: function(x, y) {
+	moveTo(x, y) {
 		this.x = x;
 		this.y = y;
 	},
-	getKickBack: function(enemy, distance) {
+	getKickBack(enemy, distance) {
 		var B = Balance.bullets;
 		return Smart.Point.multiply(this.velocity, B.kickBack);
 	}

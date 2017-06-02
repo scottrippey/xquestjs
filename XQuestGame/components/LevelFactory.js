@@ -1,10 +1,10 @@
 XQuestGame.LevelFactory = Smart.Class({
-	initialize: function(game) {
+	initialize(game) {
 		this.game = game;
 		
 		this.game.onConfigureLevel(this._onConfigureLevel.bind(this));
 	}
-	,_onConfigureLevel: function(levelConfig) {
+	,_onConfigureLevel(levelConfig) {
 		var level = this.game.currentLevel;
 
 		levelConfig.numberOfRegularLevels = level;
@@ -29,7 +29,7 @@ XQuestGame.LevelFactory = Smart.Class({
 		this._setAlternatingEnemyPool(levelConfig);
 		this._showLevelNumber(levelConfig);
 	}
-	,_setAlternatingEnemyPool: function(levelConfig) {
+	,_setAlternatingEnemyPool(levelConfig) {
 		var enemyLineup = Balance.enemies.roster;
 		var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2)
 			,isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length)
@@ -50,7 +50,7 @@ XQuestGame.LevelFactory = Smart.Class({
 		levelConfig.enemyPool = enemyPool;
 	}
 	
-	,_setupBonusLevel1: function(levelConfig) {
+	,_setupBonusLevel1(levelConfig) {
 		var B = Balance.bonusLevel1;
 		
 		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nRapid Fire!", 'bonusLevel');
@@ -68,7 +68,7 @@ XQuestGame.LevelFactory = Smart.Class({
 			this.game.activePowerups.activate(powerup, true);
 		}, this);
 	}
-	,_setupBonusLevel2: function(levelConfig) {
+	,_setupBonusLevel2(levelConfig) {
 		var B = Balance.bonusLevel2;
 		
 		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", 'bonusLevel');
@@ -89,7 +89,7 @@ XQuestGame.LevelFactory = Smart.Class({
 	}
 	
 	
-	,_showLevelNumber: function(levelConfig) {
+	,_showLevelNumber(levelConfig) {
 		var level = "Level " + levelConfig.numberOfRegularLevels;
 
 		var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });

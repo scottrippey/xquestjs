@@ -4,19 +4,19 @@ XQuestGame.Locust = Smart.Class(new XQuestGame.BaseEnemy(), {
 		this.setupBaseEnemyGraphics(game, 'Locust', B.radius);
 	}
 	,
-	spawn: function(spawnInfo) {
+	spawn(spawnInfo) {
 		var B = Balance.enemies.locust;
 		this.location.moveTo(spawnInfo.x, spawnInfo.y);
 		this.velocity = Smart.Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
 		this._changeTurnSpeed();
 	}
 	,
-	_changeTurnSpeed: function() {
+	_changeTurnSpeed() {
 		var B = Balance.enemies.locust;
 		this.turnSpeed = B.turnSpeed();
 	}
 	,
-	onMove: function(tickEvent) {
+	onMove(tickEvent) {
 		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
 		Smart.Point.rotate(this.velocity, rotation);
 
@@ -24,7 +24,7 @@ XQuestGame.Locust = Smart.Class(new XQuestGame.BaseEnemy(), {
 		Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
 	}
 	,
-	onAct: function(tickEvent) {
+	onAct(tickEvent) {
 		var B = Balance.enemies.locust;
 		if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
 			this._changeTurnSpeed();

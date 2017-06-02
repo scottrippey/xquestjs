@@ -3,7 +3,7 @@
 
 
 	XQuestGame.StartMenu = Smart.Class(new XQuestGame.BaseMenu(), {
-		getRows: function() {
+		getRows() {
 			var xQuestLogo = this._createLogo();
 			return [
 				xQuestLogo
@@ -11,7 +11,7 @@
 				,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
 			];
 		}
-		, _createLogo: function() {
+		, _createLogo() {
 			var logo = this.menuScene.gfx.createXQuestLogoGraphic();
 
 			logo.setActive = false; // Ensure it's not selectable
@@ -19,19 +19,19 @@
 			this.logo = logo;
 			return logo;
 		}
-		,_startGame: function() {
+		,_startGame() {
 			this.menuScene.exitMenu().queue(function() {
 				this.menuScene.fireSceneEvent(MenuEvents.onStartGame);
 			}.bind(this));
 		}
-		,_showGameOptions: function() {
+		,_showGameOptions() {
 			this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
 		}
 
-		,menuEnter: function(isBackNavigation) {
+		,menuEnter(isBackNavigation) {
 			this.layoutRows(this.rows, isBackNavigation);
 		}
-		,layoutRows: function(rows, isBackNavigation) {
+		,layoutRows(rows, isBackNavigation) {
 			var logo = rows[0], playButton = rows[1], optionsButton = rows[2];
 
 			var middle = this.menuScene.gfx.getHudPoint('middle');
@@ -51,7 +51,7 @@
 			this.flyInRows([ playButton, optionsButton ], false, 1);
 		}
 
-		,menuLeave: function(isBackNavigation) {
+		,menuLeave(isBackNavigation) {
 			if (isBackNavigation) {
 				var rows = this.rows, logo = rows[0], playButton = rows[1], optionsButton = rows[2];
 

@@ -14,7 +14,7 @@ Balance.onUpdate(function(gameMode) {
 });
 
 EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
-	setup: function(position, velocity, explosionOptions) {
+	setup(position, velocity, explosionOptions) {
 		this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 
 		var random = function() { return 1 - Math.random() - Math.random(); }; // provides a more even spread than just Math.random()
@@ -35,7 +35,7 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
 			.duration(explosionOptions.duration).easeOut().fade(this, 0).queueDispose(this);
 		
 	}
-	,drawEffects: function(drawing, tickEvent) {
+	,drawEffects(drawing, tickEvent) {
 		var explosionOptions = this.explosionOptions,
 			particles = this.particles,
 			deltaSeconds = tickEvent.deltaSeconds,

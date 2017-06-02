@@ -1,5 +1,5 @@
 EaselJSGraphics.SpecialEffects = {
-	drawElectricLineTo: function(drawing, lineStart, lineEnd, segments, maxDeviation) {
+	drawElectricLineTo(drawing, lineStart, lineEnd, segments, maxDeviation) {
 		
 		var diff = {
 			x: (lineEnd.x - lineStart.x)
@@ -20,7 +20,7 @@ EaselJSGraphics.SpecialEffects = {
 
 	}
 	,
-	drawElectricRectangle: function(drawing, rectangle, electricOptions) {
+	drawElectricRectangle(drawing, rectangle, electricOptions) {
 		var left = rectangle.x || 0, top = rectangle.y || 0, right = left + rectangle.width, bottom = top + rectangle.height;
 		var segmentsH = electricOptions.segmentsH, devH = electricOptions.deviationH;
 		var segmentsV = electricOptions.segmentsV, devV = electricOptions.deviationV;

@@ -1,5 +1,5 @@
 XQuestGame.CommonMenus.GraphicsTestMenu = Smart.Class(new XQuestGame.BaseMenu(), {
-	getRows: function() {
+	getRows() {
 		var goBack = this.menuScene.goBack.bind(this.menuScene);
 		var player = this.createMenuButton("Player", goBack),
 			objects = this.createMenuButton("Objects", goBack),

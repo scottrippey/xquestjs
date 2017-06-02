@@ -20,19 +20,19 @@
 		
 
 	XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
-		initialize: function() {
+		initialize() {
 			this.allGamepads = [];
 
 			this._disableAllKeystrokes();
 		}
-		,setGame: function(game) {
+		,setGame(game) {
 			this.game = game || null;
 		}
-		,addGamepad: function(gamepadId, gamepad) {
+		,addGamepad(gamepadId, gamepad) {
 			gamepad.gamepadId = gamepadId;
 			this.allGamepads.push(gamepad);
 		}
-		,removeGamepad: function(gamepadId) {
+		,removeGamepad(gamepadId) {
 			for (var i = 0; i < this.allGamepads.length; i++) {
 				if (this.allGamepads[i].gamepadId === gamepadId) {
 					this.allGamepads.splice(i, 1);
@@ -40,14 +40,14 @@
 				}
 			}
 		}
-		,onInput: function(tickEvent, inputState) {
+		,onInput(tickEvent, inputState) {
 			if (inputState.menuMode) {
 				this._onInput_menu(tickEvent, inputState);
 			} else {
 				this._onInput_player(tickEvent, inputState);
 			}
 		}
-		,_onInput_menu: function(tickEvent, inputState) {
+		,_onInput_menu(tickEvent, inputState) {
 			var allGamepads = this.allGamepads;
 			
 			for (var i = 0; i < allGamepads.length; i++) {
@@ -64,7 +64,7 @@
 				}
 			}
 		}
-		,_onInput_player: function(tickEvent, inputState) {
+		,_onInput_player(tickEvent, inputState) {
 			var analogSensitivity = UserSettings.analogSensitivity
 				,analogThreshold = UserSettings.analogThreshold;
 			var currentGamepad = this.currentGamepad;
@@ -94,7 +94,7 @@
 				inputState.accelerationY += analogY * analogSensitivity;
 			}
 		}
-		,_disableAllKeystrokes: function() {
+		,_disableAllKeystrokes() {
 			var useCapture = true;
 			document.addEventListener('keydown', stopEvent, useCapture);
 			document.addEventListener('keyup', stopEvent, useCapture);
@@ -177,16 +177,16 @@
 		//isRightThumbstickPressed: 
 	};
 	XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
-		initialize: function(xboxGamepad, playerMap, menuMap) {
+		initialize(xboxGamepad, playerMap, menuMap) {
 			this.xboxGamepad = xboxGamepad;
 			this.playerMap = playerMap;
 			this.menuMap = menuMap;
 			this.previousActions = {};
 		}
-		, getPlayerActions: function() {
+		, getPlayerActions() {
 			return this._mapXboxGamepadActions(this.playerMap);
 		}
-		, getMenuActions: function() {
+		, getMenuActions() {
 			var currentActionValues = this._mapXboxGamepadActions(this.menuMap);
 			
 			var previousActionValues = this.previousActions;
@@ -220,7 +220,7 @@
 			}
 			return menuActions;
 		}
-		, _mapXboxGamepadActions: function(actionsMap) {
+		, _mapXboxGamepadActions(actionsMap) {
 			var currentReading = this.xboxGamepad.getCurrentReading();
 			var gamepadActions = {};
 			for (var gamepadButtonName in actionsMap) {
@@ -236,7 +236,7 @@
 
 			return gamepadActions;
 		}
-		, _analogToBoolean: function(analogValue, wasAlreadyDown) {
+		, _analogToBoolean(analogValue, wasAlreadyDown) {
 			var threshold = (wasAlreadyDown ? UserSettings.analogUpThreshold : UserSettings.analogDownThreshold);
 			return (analogValue >= threshold);
 		}

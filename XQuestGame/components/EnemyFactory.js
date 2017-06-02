@@ -1,10 +1,10 @@
 XQuestGame.EnemyFactory = Smart.Class({
-	initialize: function(game) {
+	initialize(game) {
 		this.game = game;
 		this.enemies = [];
 	}
 	,
-	onAct: function(tickEvent) {
+	onAct(tickEvent) {
 		if (this.nextEnemySpawn == null) {
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		} else if (this.nextEnemySpawn <= tickEvent.runTime) {
@@ -16,14 +16,14 @@ XQuestGame.EnemyFactory = Smart.Class({
 		}
 	}
 	,
-	_calculateNextEnemySpawn: function(runTime) {
+	_calculateNextEnemySpawn(runTime) {
 		var spawnRate = Balance.enemies.spawnRate();
 		var spawnRateOverride = this.game.levelConfig.enemySpawnRateOverride;
 		if (spawnRateOverride) spawnRate = spawnRateOverride();
 		this.nextEnemySpawn = runTime + spawnRate * 1000;
 	}
 	,
-	spawnNextEnemy: function() {
+	spawnNextEnemy() {
 		var enemyPool = this.game.levelConfig.enemyPool;
 
 		var randomEnemyIndex;
@@ -48,7 +48,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 		).update(0);
 	}
 	,
-	getRandomSpawn: function(enemyRadius) {
+	getRandomSpawn(enemyRadius) {
 		var bounds = Balance.level.bounds
 			, spawnSide = Math.floor(Math.random() * 2) ? 1 : 2
 			, spawnInfo = {
@@ -59,7 +59,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 		return spawnInfo;
 	}
 	,
-	killEnemiesOnCollision: function(sortedItems, maxItemRadius, collisionCallback) {
+	killEnemiesOnCollision(sortedItems, maxItemRadius, collisionCallback) {
 		var enemies = this.enemies;
 		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
 		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
@@ -87,21 +87,21 @@ XQuestGame.EnemyFactory = Smart.Class({
 		}
 	}
 	,
-	killAllEnemies: function() {
+	killAllEnemies() {
 		this.enemies.forEach(function(enemy) {
 			enemy.takeDamage(Number.POSITIVE_INFINITY, null);
 		}, this);
 		this.enemies.length = 0;
 	}
 	,
-	clearAllEnemies: function() {
+	clearAllEnemies() {
 		this.enemies.forEach(function(enemy) {
 			enemy.clearEnemy();
 		});
 		this.enemies.length = 0;
 	}
 	,
-	findClosestEnemy: function(location) {
+	findClosestEnemy(location) {
 		var enemyLocations = this.enemies.map(function(enemy) { return enemy.location; }); // Perhaps this could be improved, but it's not mission-critical
 		var enemyIndex = Smart.Physics.findClosestPoint(location, enemyLocations);
 

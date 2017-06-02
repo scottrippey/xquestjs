@@ -6,7 +6,7 @@
 	};
 
 	XQuestGame.HostScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(HostSceneEvents), {
-		initialize: function(gfx, settings) {
+		initialize(gfx, settings) {
 			this.BaseScene_initialize();
 
 			this.gfx = gfx;
@@ -18,16 +18,16 @@
 			this._setupBackground();
 
 		}
-		, _setupBackground: function() {
+		, _setupBackground() {
 			this.gfx.showBackgroundStars(true);
 			
 			var middle = this.gfx.getGamePoint('middle');
 			this.gfx.followPlayer(middle);
 		}
-		, start: function() {
+		, start() {
 			this._showStartMenu();
 		}
-		, _showStartMenu: function() {
+		, _showStartMenu() {
 			var menuScene = this.createMenuScene();
 
 			this.setChildScene(menuScene);
@@ -38,14 +38,14 @@
 			}.bind(this));
 			menuScene.showStartMenu();
 		}
-		, createMenuScene: function() {
+		, createMenuScene() {
 			var gfx = this.gfx.createNewGraphics();
 			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
 			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
 
 			return menuScene;
 		}
-		, _startArcadeGame: function() {
+		, _startArcadeGame() {
 			var gfx = this.gfx.createNewGraphics();
 			var arcadeGame = new XQuestGame.ArcadeGame(gfx, this.host);
 			this.fireSceneEvent(HostSceneEvents.onGameCreated, [ arcadeGame ]);
@@ -58,7 +58,7 @@
 			
 			arcadeGame.startArcadeGame();
 		}
-		, quitGame: function() {
+		, quitGame() {
 			this.fireSceneEvent(HostSceneEvents.onQuitGame);
 		}
 	});

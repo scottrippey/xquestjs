@@ -11,7 +11,7 @@
 	};
 	
 	XQuestInput.MenuInputKeyboard = Smart.Class({
-		initialize: function(element) {
+		initialize(element) {
 			this.element = element || document;
 			this.actionsQueue = [];
 			this._setupKeyMap();
@@ -19,13 +19,13 @@
 			
 			this.keyMapper.setKeyMap(menuKeyMap);
 		}
-		,_setupKeyMap: function() {
+		,_setupKeyMap() {
 			this.keyMapper = new XQuestInput.KeyMapper(this.element, this._onActionDown.bind(this));
 		}
-		,_onActionDown: function(actionName) {
+		,_onActionDown(actionName) {
 			this.actionsQueue.push(actionName);
 		}
-		,onInput: function(tickEvent, inputState) {
+		,onInput(tickEvent, inputState) {
 			for (var i = 0, l = this.actionsQueue.length; i < l; i++) {
 				var actionName = this.actionsQueue[i];
 				inputState[actionName] = true;

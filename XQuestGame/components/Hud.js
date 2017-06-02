@@ -1,12 +1,12 @@
 XQuestGame.Hud = Smart.Class({
-	initialize: function(game) {
+	initialize(game) {
 		this.game = game;
 		this._setupGraphics();
 		this._layout();
 		
 		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
-	, _setupGraphics: function() {
+	, _setupGraphics() {
 
 		this.game.gfx.enableTouchClicks();
 
@@ -24,7 +24,7 @@ XQuestGame.Hud = Smart.Class({
 		this.hudPauseButton = this.game.gfx.createPauseButtonHUD();
 		this.hudPauseButton.addEventListener('click', function() { this.game.pauseGame(); }.bind(this));
 	}
-	, _layout: function() {
+	, _layout() {
 		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;
 		var spacer = 50;
 
@@ -56,13 +56,13 @@ XQuestGame.Hud = Smart.Class({
 		this.hudPauseButton.moveTo(center - this.hudPauseButton.width / 2, middle - this.hudPauseButton.height / 2);
 
 	}
-	, onAct: function(tickEvent) {
+	, onAct(tickEvent) {
 		this.hudLivesText.text = ' x ' + this.game.stats.lives;
 		this.hudCrystalsText.text = ' x ' + this.game.stats.crystalCount;
 		this.hudBombsText.text = ' x ' + this.game.stats.bombs;
 	}
 	
-	, _onNewLevel: function() {
+	, _onNewLevel() {
 		var levelConfig = this.game.levelConfig;
 		
 		var faded = 0.3;

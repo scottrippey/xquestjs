@@ -1,14 +1,14 @@
 XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	initialize: function BaseScene() { }
-	,BaseScene_initialize: function() {
+	,BaseScene_initialize() {
 		this.debugStats = { sceneItems: [] };
 		this._setupEvents();
 		this._setupPhases();
 	}
-	,_setupEvents: function() {
+	,_setupEvents() {
 		this._events = new Smart.Events();
 	}
-	,_setupPhases: function() {
+	,_setupPhases() {
 		this.phases = {
 			input: []
 			, move: []
@@ -16,7 +16,7 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 			, draw: []
 		};
 	}
-	,updateScene: function(tickEvent) {
+	,updateScene(tickEvent) {
 		// Iterate right-to-left, because items could get removed
 		var childScene = this.childScene;
 		if (!childScene) {
@@ -31,7 +31,7 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 			childScene.updateScene(tickEvent);
 		}
 	}
-	,addSceneItem: function(sceneItem) {
+	,addSceneItem(sceneItem) {
 		// Determine which methods the sceneItem implements,
 		// and add them to the appropriate phase:
 		if (sceneItem.onInput)
@@ -45,7 +45,7 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 
 		this.debugStats.sceneItems.push(sceneItem);
 	}
-	,removeSceneItem: function(sceneItem) {
+	,removeSceneItem(sceneItem) {
 		if (sceneItem.onInput)
 			_.eliminate(this.phases.input, sceneItem);
 		if (sceneItem.onMove)
@@ -69,7 +69,7 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	 *
 	 * @param {Object.<method,{string} event>} SceneEvents
 	 */
-	implementSceneEvents: function(SceneEvents) {
+	implementSceneEvents(SceneEvents) {
 		_.forOwn(SceneEvents, function(eventName, onEventName) {
 			this[onEventName] = function(eventHandler) {
 				this._events.addEvent(eventName, eventHandler);
@@ -83,12 +83,12 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	 * @param {string} eventName
 	 * @param {array} [args]
 	 */
-	fireSceneEvent: function(eventName, args) {
+	fireSceneEvent(eventName, args) {
 		this._events.fireEvent(eventName, args);
 	}
 	,
 	/** @protected */
-	setChildScene: function(childScene) {
+	setChildScene(childScene) {
 		this.childScene = childScene;
 		if (childScene) {
 			this.childScene.onDispose(function() {

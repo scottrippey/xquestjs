@@ -12,7 +12,7 @@
 		mouseState: null,
 		previousMousePosition: null,
 
-		initialize: function(game, element, settings) {
+		initialize(game, element, settings) {
 			this.game = game;
 			this.element = element;
 			this.mouseMap = mouseMap;
@@ -39,29 +39,29 @@
 			
 			this._resetMouseState();
 		},
-		_resetMouseState: function() {
+		_resetMouseState() {
 			this.mouseState = { engaged: true, accelerationX: 0, accelerationY: 0 };
 		},
 
-		_onWindowResize: function() {
+		_onWindowResize() {
 			this.elementSize = getElementSize(this.element);
 			this.previousMousePosition = null;
 		},
 
-		_onGamePaused: function(paused) {
+		_onGamePaused(paused) {
 			this.element.style.cursor = paused ? null : "none";
 			this.previousMousePosition = null;
 			this._resetMouseState();
 		},
 
-		_onMouseOver: function(ev) {
+		_onMouseOver(ev) {
 			var currentMouseOver = ev.target;
 			var mouseIsIn = elementContains(this.element, currentMouseOver);
 			if (mouseIsIn) {
 				this.mouseState.engaged = true;
 			}
 		},
-		_onMouseOut: function(ev) {
+		_onMouseOut(ev) {
 			var currentMouseOver = ev.relatedTarget;
 			var mouseIsOut = !elementContains(this.element, currentMouseOver);
 			if (mouseIsOut) {
@@ -69,7 +69,7 @@
 				this.game.pauseGame(true);
 			}
 		},
-		_onMouseDown: function(ev) {
+		_onMouseDown(ev) {
 			var button = getMouseButton(ev);
 			var action = this.mouseMap[button];
 			if (action) {
@@ -77,7 +77,7 @@
 				ev.preventDefault();
 			}
 		},
-		_onMouseUp: function(ev) {
+		_onMouseUp(ev) {
 			var button = getMouseButton(ev);
 			var action = this.mouseMap[button];
 			if (action) {
@@ -85,7 +85,7 @@
 			}
 		},
 		
-		_onMouseMove: function(ev) {
+		_onMouseMove(ev) {
 			var mousePosition = getMousePosition(ev)
 				, previousMousePosition = this.previousMousePosition
 				, mouseSettings = this.mouseSettings;
@@ -104,7 +104,7 @@
 			this.mouseState.accelerationX += acceleration.x;
 			this.mouseState.accelerationY += acceleration.y;
 		},
-		_adjustForSensitivity: function(delta, mousePosition) {
+		_adjustForSensitivity(delta, mousePosition) {
 			var elementSize = this.elementSize
 				, mouseSettings = this.mouseSettings
 				, sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier
@@ -126,7 +126,7 @@
 
 			return acceleration;
 		},
-		_getBias: function(distanceFromCenter, deltaDirection, sensitivity) {
+		_getBias(distanceFromCenter, deltaDirection, sensitivity) {
 			// "Bias" is used to increase outward sensitivity, and decrease inward sensitivity.
 			// This causes the user's mouse to gravitate toward the center of the page,
 			// decreasing the likelihood of reaching the edges of the page.
@@ -140,7 +140,7 @@
 			}
 		},
 		
-		onInput: function(tickEvent, inputState) {
+		onInput(tickEvent, inputState) {
 		
 			var mouseState = this.mouseState;
 

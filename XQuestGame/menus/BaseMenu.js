@@ -1,10 +1,10 @@
 (function init_BaseMenu() {
 	XQuestGame.BaseMenu = Smart.Class(new Smart.Events(), {
-		initialize: function(menuScene) {
+		initialize(menuScene) {
 			if (menuScene)
 				this.BaseMenu_initialize(menuScene);
 		}
-		,BaseMenu_initialize: function(menuScene) {
+		,BaseMenu_initialize(menuScene) {
 			this.menuScene = menuScene;
 			this.activeRowIndex = -1;
 			this.rows = this.getRows();
@@ -12,7 +12,7 @@
 		}
 		,
 		/** @protected @mustOverride */
-		getRows: function() {
+		getRows() {
 			return [];
 		}
 		,
@@ -22,7 +22,7 @@
 		 * @param {function()} onInvoke
 		 * @returns {MenuButton}
 		 */
-		createMenuButton: function(text, onInvoke) {
+		createMenuButton(text, onInvoke) {
 			var isUpdatableText = (typeof text === 'function');
 			var buttonRow = this.menuScene.gfx.createMenuButton(isUpdatableText ? "" : text);
 			buttonRow.addButtonEvents({
@@ -42,7 +42,7 @@
 		}
 
 
-		,menuEnter: function(isBackNavigation) {
+		,menuEnter(isBackNavigation) {
 			if (this.onMenuEnter) this.onMenuEnter(isBackNavigation);
 			this.layoutRows(this.rows, isBackNavigation);
 			this.flyInRows(this.rows, isBackNavigation);
@@ -52,7 +52,7 @@
 		 * @overridable
 		 * @protected
 		 */
-		layoutRows: function(rows, isBackNavigation) {
+		layoutRows(rows, isBackNavigation) {
 			var layoutMargin = 20;
 
 			var middle = this.menuScene.gfx.getHudPoint('middle');
@@ -77,7 +77,7 @@
 		 * @overridable
 		 * @protected
 		 */
-		flyInRows: function(rows, isBackNavigation, delay) {
+		flyInRows(rows, isBackNavigation, delay) {
 			var animRotation = 30
 				, animStagger = 0.25
 				, animDuration = 1
@@ -102,7 +102,7 @@
 			}
 		}
 
-		,menuLeave: function(isBackNavigation) {
+		,menuLeave(isBackNavigation) {
 			if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
 			return this.flyOutRows(this.rows, isBackNavigation);
 		}
@@ -110,7 +110,7 @@
 		 * @overridable
 		 * @protected
 		 */
-		flyOutRows: function(rows, isBackNavigation) {
+		flyOutRows(rows, isBackNavigation) {
 			var animRotation = 30
 				,animStagger = 0.1
 				,animDuration = 0.5
@@ -142,7 +142,7 @@
 		}
 
 
-		,menuInput: function(inputState) {
+		,menuInput(inputState) {
 			if (inputState.menuUp || inputState.menuLeft)
 				this._moveActiveRowIndex(-1);
 			else if (inputState.menuDown || inputState.menuRight)
@@ -152,7 +152,7 @@
 				this._invokeActiveRow();
 			
 		}
-		,_moveActiveRowIndex: function(direction) {
+		,_moveActiveRowIndex(direction) {
 			var activeRowIndex = this.activeRowIndex;
 			while (true) {
 				activeRowIndex = activeRowIndex + direction;
@@ -173,11 +173,11 @@
 			this._setActiveRowIndex(activeRowIndex);
 		}
 		
-		,_setActiveRow: function(activeRow) {
+		,_setActiveRow(activeRow) {
 			var activeRowIndex = this.rows.indexOf(activeRow);
 			this._setActiveRowIndex(activeRowIndex);
 		}
-		,_setActiveRowIndex: function(activeRowIndex) {
+		,_setActiveRowIndex(activeRowIndex) {
 			var rows = this.rows;
 			for (var i = 0, l = rows.length; i < l; i++) {
 				var row = rows[i];
@@ -187,10 +187,10 @@
 			}
 			this.activeRowIndex = activeRowIndex;
 		}
-		,_getActiveRow: function() {
+		,_getActiveRow() {
 			return this.rows[this.activeRowIndex] || null;
 		}
-		,_invokeActiveRow: function() {
+		,_invokeActiveRow() {
 			var activeRow = this._getActiveRow();
 			if (activeRow && activeRow.invoke)
 				activeRow.invoke();

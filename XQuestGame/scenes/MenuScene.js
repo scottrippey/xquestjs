@@ -17,10 +17,10 @@
 	var MenuEvents = XQuestGame.MenuEvents;
 
 	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
-		initialize: function(gfx, host) {
+		initialize(gfx, host) {
 			this.MenuScene_initialize(gfx, host);
 		}
-		,MenuScene_initialize: function (gfx, host) {
+		,MenuScene_initialize(gfx, host) {
 			this.BaseScene_initialize();
 
 			this.gfx = gfx;
@@ -32,7 +32,7 @@
 			this.menuStack = [];
 		}
 
-		,_setupBackButton: function() {
+		,_setupBackButton() {
 			var backButton = this.menuScene.gfx.createMenuButton("Back");
 			backButton.addButtonEvents({
 				invoke: this.goBack.bind(this)
@@ -43,20 +43,20 @@
 			this.backButton = backButton;
 			this.backButton.visible = false;
 		}
-		,_updateBackButton: function() {
+		,_updateBackButton() {
 			if (!this.backButton) return;
 
 			this.backButton.visible = (this.menuStack.length >= 2);
 		}
 
-		,getDefaultInputState: function() {
+		,getDefaultInputState() {
 			var state = {
 				menuMode: true
 			};
 			return state;
 		}
 
-		,addMenu: function(menu) {
+		,addMenu(menu) {
 			if (this.currentMenu)
 				this.currentMenu.menuLeave(false);
 
@@ -66,7 +66,7 @@
 			this._updateBackButton();
 			this.currentMenu.menuEnter(false);
 		}
-		,goBack: function() {
+		,goBack() {
 			if (this.menuStack.length <= 1) return;
 
 			this.menuStack.pop().menuLeave(true);
@@ -76,12 +76,12 @@
 
 			this._updateBackButton();
 		}
-		,exitMenu: function() {
+		,exitMenu() {
 			this.menuStack.length = 0;
 			return this.currentMenu.menuLeave(true);
 		}
 
-		,onMove: function(tickEvent, inputState) {
+		,onMove(tickEvent, inputState) {
 			this.currentMenu.menuInput(inputState);
 
 			if (inputState.menuBack && this.menuStack.length >= 2) {
@@ -89,11 +89,11 @@
 			}
 		}
 
-		,showStartMenu: function() {
+		,showStartMenu() {
 			var startMenu = new XQuestGame.StartMenu(this.menuScene);
 			this.addMenu(startMenu);
 		}
-		,showPauseMenu: function() {
+		,showPauseMenu() {
 			var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
 			this.addMenu(pauseMenu);
 		}

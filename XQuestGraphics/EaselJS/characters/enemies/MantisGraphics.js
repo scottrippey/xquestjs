@@ -22,7 +22,7 @@ Balance.onUpdate(function(gameMode) {
 });
 
 EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
-	setup: function() {
+	setup() {
 		var G = Graphics.enemies.mantis;
 
 		this.visibleRadius = G.radius;
@@ -39,7 +39,7 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 		
 		this.time = 0;
 	}
-	, drawEffects: function(drawing, tickEvent) {
+	, drawEffects(drawing, tickEvent) {
 		var G = Graphics.enemies.mantis;
 		this.time += tickEvent.deltaSeconds;
 		var pulse = (Math.sin(this.time * Math.PI * 2 / G.pulse) + 1) / 2;
@@ -54,7 +54,7 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 			.fill()
 		;
 	}
-	, getExplosionOptions: function() {
+	, getExplosionOptions() {
 		var G = Graphics.enemies.mantis;
 		var explosionOptions = _.defaults({ style: { fillStyle: this.starColor } }, G.explosionOptions);
 		return explosionOptions;

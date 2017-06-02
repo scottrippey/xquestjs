@@ -29,15 +29,15 @@ Balance.onUpdate(function(mode) {
 });
 
 EaselJSGraphics.LocustGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
-	setup: function(){
+	setup() {
 		var G = Graphics.enemies.locust;
 		this.visibleRadius = G.visibleRadius; 
 	}
-	,drawEffects: function(drawing) {
+	,drawEffects(drawing) {
 		var G = Graphics.enemies.locust;
 		this.drawTriangleTriangle(drawing, G.triangleTriangle);
 	}
-	,getExplosionOptions: function() {
+	,getExplosionOptions() {
 		var G = Graphics.enemies.locust;
 		return G.explosionOptions;
 	}

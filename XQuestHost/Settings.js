@@ -25,10 +25,10 @@ XQuestGame.XQuestHost.Settings = Smart.Class({
 			difficulty: 5
 		}
 	},
-	initialize: function() {
+	initialize() {
 		this._watches = {};
 	},
-	watchSetting: function(settingName, watchHandler) {
+	watchSetting(settingName, watchHandler) {
 		var currentValue = this.retrieveSetting(settingName);
 		
 		if (!this._watches[settingName]) {
@@ -40,7 +40,7 @@ XQuestGame.XQuestHost.Settings = Smart.Class({
 		watchHandler(currentValue);
 	},
 	
-	retrieveSetting: function(settingName) {
+	retrieveSetting(settingName) {
 		var settingValue = localStorage.getItem(settingName);
 		if (settingValue) {
 			try {
@@ -55,7 +55,7 @@ XQuestGame.XQuestHost.Settings = Smart.Class({
 		
 		return settingValue;
 	},
-	saveSetting: function(settingName, settingValue) {
+	saveSetting(settingName, settingValue) {
 		if (settingValue == null) {
 			localStorage.removeItem(settingName);
 			settingValue = this.retrieveSetting(settingName);

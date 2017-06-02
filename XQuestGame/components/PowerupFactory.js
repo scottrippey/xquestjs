@@ -1,5 +1,5 @@
 XQuestGame.PowerupFactory = Smart.Class({
-	initialize: function(game) {
+	initialize(game) {
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.powerCrystals = [];
@@ -8,13 +8,13 @@ XQuestGame.PowerupFactory = Smart.Class({
 		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
 	,
-	onMove: function(tickEvent) {
+	onMove(tickEvent) {
 		if (this._shouldSpawn(tickEvent)) {
 			this.createPowerCrystal();
 		}
 	}
 	,
-	_shouldSpawn: function(tickEvent) {
+	_shouldSpawn(tickEvent) {
 		var B = Balance.powerCrystals;
 		
 		if (this.game.levelConfig.powerCrystalsDisabled) {
@@ -30,7 +30,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 		return shouldSpawn;
 	}
 	,
-	onAct: function(tickEvent) {
+	onAct(tickEvent) {
 		if (this.powerCrystals.length >= 2) {
 			Smart.Physics.sortByLocation(this.powerCrystals);
 		}
@@ -59,14 +59,14 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 	}
 	,
-	createPowerCrystal: function() {
+	createPowerCrystal() {
 		var powerCrystal = new XQuestGame.PowerCrystal(this.game);
 		var spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
 		powerCrystal.spawn(spawnInfo);
 		this.powerCrystals.push(powerCrystal);
 	}
 	,
-	_nextPowerup: function() {
+	_nextPowerup() {
 		var B = Balance.powerups;
 		var totalFrequency = 0;
 		_.forOwn(B, function(p, powerupName) {
@@ -101,7 +101,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 		return result;
 	}
 	,
-	_gatherOnCollision: function(collisionPoints, maxRadius) {
+	_gatherOnCollision(collisionPoints, maxRadius) {
 		var maxDistance = maxRadius + Balance.powerCrystals.radius;
 
 		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, function(powerCrystal, point, crystalIndex, pi, distance) {
@@ -114,7 +114,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 	}
 
 	,
-	_onNewLevel: function() {
+	_onNewLevel() {
 		this._clearBombCrystals();
 		
 		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
@@ -128,7 +128,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 		}
 	}
 	,
-	createBombCrystal: function() {
+	createBombCrystal() {
 		var bombCrystal = new XQuestGame.BombCrystal(this.game);
 		var randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
 		bombCrystal.spawnBomb(randomSpawnLocation);
@@ -137,14 +137,14 @@ XQuestGame.PowerupFactory = Smart.Class({
 	}
 
 	,
-	clearAllPowerCrystals: function() {
+	clearAllPowerCrystals() {
 		_.forEach(this.powerCrystals, function(powerCrystal) {
 			powerCrystal.clearPowerCrystal();
 		}, this);
 		this.powerCrystals.length = 0;
 	}
 	,
-	_clearBombCrystals: function() {
+	_clearBombCrystals() {
 		_.forEach(this.bombCrystals, function(bombCrystal) {
 			bombCrystal.clearBombCrystal();
 		}, this);

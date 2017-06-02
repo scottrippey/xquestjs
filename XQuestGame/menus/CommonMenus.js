@@ -3,30 +3,30 @@
 
 	XQuestGame.CommonMenus = {
 		PauseMenu: Smart.Class(new XQuestGame.BaseMenu(), {
-			initialize: function(menuScene) {
+			initialize(menuScene) {
 				this.BaseMenu_initialize(menuScene);
 
 				var pauseOverlay = this.menuScene.gfx.createPauseOverlay();
 				pauseOverlay.showPauseOverlay();
 			}
-			,getRows: function() {
+			,getRows() {
 				return [
 					this.createMenuButton("Resume Game", this._onResumeGame.bind(this))
 					,this.createMenuButton("Game Options", this._showGameOptions.bind(this))
 				];
 			}
-			,_onResumeGame: function() {
+			,_onResumeGame() {
 				this.menuScene.exitMenu().queue(function() {
 					this.menuScene.fireSceneEvent(MenuEvents.onResumeGame);
 				}.bind(this));
 			}
-			,_showGameOptions: function() {
+			,_showGameOptions() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
 			}
 		})
 		,
 		GameOptions: Smart.Class(new XQuestGame.BaseMenu(), {
-			getRows: function() {
+			getRows() {
 				return [
 					this.createMenuButton("Input Settings", this._showInputSettings.bind(this))
 					,this.createMenuButton("Difficulty", this._showDifficultyMenu.bind(this))
@@ -35,22 +35,22 @@
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 			}
-			,_showInputSettings: function() {
+			,_showInputSettings() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.InputSettings(this.menuScene));
 			}
-			,_showGraphicsTest: function() {
+			,_showGraphicsTest() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.GraphicsTestMenu(this.menuScene));
 			}
-			, _showDifficultyMenu: function() {
+			, _showDifficultyMenu() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
 			}
-			, _showQuitConfirm: function() {
+			, _showQuitConfirm() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.ConfirmQuitGame(this.menuScene))
 			}
 		})
 		,
 		InputSettings: Smart.Class(new XQuestGame.BaseMenu(), {
-			getRows: function() {
+			getRows() {
 				return [
 					this.createMenuButton("Mouse", this._showMouseSensitivity.bind(this))
 					,this.createMenuButton("Keyboard", this._showKeyboardSensitivity.bind(this))
@@ -58,19 +58,19 @@
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))
 				];
 			}
-			, _showMouseSensitivity: function() {
+			, _showMouseSensitivity() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.MouseSettings(this.menuScene));
 			}
-			, _showKeyboardSensitivity: function() {
+			, _showKeyboardSensitivity() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
 			}
-			, _showTouchSensitivity: function() {
+			, _showTouchSensitivity() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
 			}
 		})
 		,
 		DifficultySettings: Smart.Class(new XQuestGame.BaseMenu(), {
-			getRows: function() {
+			getRows() {
 				return [
 					this.createMenuButton("Easy", function() { Balance.setGameMode('easy'); this.menuScene.goBack(); }.bind(this))
 					,this.createMenuButton("Normal", function() { Balance.setGameMode('normal'); this.menuScene.goBack(); }.bind(this))
@@ -80,10 +80,10 @@
 		})
 		,
 		MouseSettings: Smart.Class(new XQuestGame.BaseMenu(), {
-			onMenuLeave: function() {
+			onMenuLeave() {
 				this.menuScene.host.settings.saveSetting('mouseSettings', this.mouseSettings);
 			},
-			getRows: function() {
+			getRows() {
 				var mouseSettings = this.mouseSettings = this.menuScene.host.settings.retrieveSetting('mouseSettings');
 
 				var sensitivity = this.createMenuButton(function() {
@@ -115,10 +115,10 @@
 		})
 		,
 		KeyboardSettings: Smart.Class(new XQuestGame.BaseMenu(), {
-			onMenuLeave: function() {
+			onMenuLeave() {
 				this.menuScene.host.settings.saveSetting('keyboardSettings', this.keyboardSettings);
 			},
-			getRows: function() {
+			getRows() {
 				var keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.retrieveSetting('keyboardSettings');
 
 				var sensitivity = this.createMenuButton(function() {
@@ -143,10 +143,10 @@
 		})
 		,
 		TouchSettings: Smart.Class(new XQuestGame.BaseMenu(), {
-			onMenuLeave: function() {
+			onMenuLeave() {
 				this.menuScene.host.settings.saveSetting('touchSettings', this.touchSettings);
 			},
-			getRows: function() {
+			getRows() {
 				var touchSettings = this.touchSettings = this.menuScene.host.settings.retrieveSetting('touchSettings');
 
 				var sensitivity = this.createMenuButton(function() {
@@ -171,7 +171,7 @@
 		})
 		,
 		ConfirmQuitGame: Smart.Class(new XQuestGame.BaseMenu(), {
-			getRows: function() {
+			getRows() {
 				var rows = [
 					this.createMenuButton("Quit XQuest", this.menuScene.host.quitGame.bind(this.menuScene.host))
 					,this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene))

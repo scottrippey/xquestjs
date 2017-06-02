@@ -44,13 +44,13 @@ Balance.onUpdate(function(gameMode){
 	});
 });
 EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
-	setGfx: function(gfx) {
+	setGfx(gfx) {
 		this.gfx = gfx;
 		this.animation = gfx.addAnimation(new Smart.Animation());
 		this.start('top');
 	}
 	,
-	setText: function(text, textStyle) {
+	setText(text, textStyle) {
 
 		var textStyles = Graphics.textStyles;
 
@@ -68,13 +68,13 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 		this.textBaseline = textStyle.textBaseline;
 	}
 	,
-	start: function(gamePoint) {
+	start(gamePoint) {
 		var location = this.gfx.getHudPoint(gamePoint);
 		this.moveTo(location.x, location.y);
 		return this;
 	}
 	,
-	flyIn: function(duration, to) {
+	flyIn(duration, to) {
 		var toLocation = this.gfx.getHudPoint(to || 'middle');
 
 		var txt = this;
@@ -91,7 +91,7 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 		return this;
 	}
 	,
-	flyOut: function(duration, to) {
+	flyOut(duration, to) {
 		var toLocation = this.gfx.getHudPoint(to || 'bottom');
 
 		var txt = this;
@@ -107,12 +107,12 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
 		return this;
 	}
 	,
-	queue: function(callback) {
+	queue(callback) {
 		this.animation.queue(callback);
 		return this;
 	}
 	,
-	delay: function(duration) {
+	delay(duration) {
 		this.animation.delay(duration);
 
 		return this;

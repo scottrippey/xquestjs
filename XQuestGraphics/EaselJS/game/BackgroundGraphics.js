@@ -1,5 +1,5 @@
 EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
-	BackgroundGraphicsBase_initialize: function() {
+	BackgroundGraphicsBase_initialize() {
 		var bounds = Balance.level.bounds;
 		this._size = {
 			width: bounds.x*2 + bounds.width
@@ -11,7 +11,7 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
 		this.cache(0, 0, this._size.width, this._size.height);
 	}
 	,
-	_setupBackground: function(){
+	_setupBackground() {
 		var g = this.graphics
 			,v = Graphics.background
 			,size = this._size;
@@ -23,7 +23,7 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
 
 	}
 	,
-	_setupStars: function() {
+	_setupStars() {
 		var g = this.graphics
 			,v = Graphics.background
 			,size = this._size;
@@ -46,7 +46,7 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
 	}
 });
 EaselJSGraphics.BackgroundGraphics = Smart.Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
-	initialize: function() {
+	initialize() {
 		if (!this.initialized) {
 			// Using a prototype ensures the stars will be the same between the menu and game
 			EaselJSGraphics.BackgroundGraphics.prototype.initialized = true;

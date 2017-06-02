@@ -26,10 +26,10 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 	,DisplayObject_initialize: createjs.DisplayObject.prototype.initialize
 	,DisplayObject_draw: createjs.DisplayObject.prototype.draw
 	,sharedDrawingContext: new Smart.DrawingContext(null)
-	,initialize: function(args_) {
+	,initialize(args_) {
 		this.Drawing_initialize.apply(this, arguments);
 	}
-	,Drawing_initialize: function(args_) {
+	,Drawing_initialize(args_) {
 		this.DisplayObject_initialize();
 
 		if (this.setup) {
@@ -41,10 +41,10 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 			this.drawStatic(this.drawingQueue);
 		}
 	}
-	,onTick: function(tickEvent) {
+	,onTick(tickEvent) {
 		this.tickEvent = tickEvent;
 	}
-	,draw: function(ctx, ignoreCache) {
+	,draw(ctx, ignoreCache) {
 		// Render if cached:
 		var DisplayObject_handled = this.DisplayObject_draw(ctx, ignoreCache);
 		if (!DisplayObject_handled && this.drawingQueue) {
@@ -61,7 +61,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 		return true;
 	}
 	
-	,addAnimation: function() {
+	,addAnimation() {
 		var anim = new Smart.Animation();
 		if (!this._anim) {
 			this._anim = anim;

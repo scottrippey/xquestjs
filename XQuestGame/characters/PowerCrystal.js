@@ -1,5 +1,5 @@
 XQuestGame.PowerCrystal = Smart.Class({
-	initialize: function(game) {
+	initialize(game) {
 		var B = Balance.powerCrystals;
 		this.game = game;
 		this.game.addSceneItem(this);
@@ -11,7 +11,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 		this.turnSpeed = B.turnSpeed();
 	}
 	,
-	spawn: function(spawnInfo) {
+	spawn(spawnInfo) {
 		var B = Balance.powerCrystals;
 
 		this.location.moveTo(spawnInfo.x, spawnInfo.y);
@@ -22,7 +22,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 		}
 	}
 	,
-	onMove: function(tickEvent) {
+	onMove(tickEvent) {
 		var powerCrystal = this;
 
 		// Turn:
@@ -33,7 +33,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 
 	}
 	,
-	gatherPowerCrystal: function() {
+	gatherPowerCrystal() {
 		this.location.gatherPowerCrystal(this.game.gfx, this.game.player.location)
 			.queue(function() {
 				this.game.removeSceneItem(this);
@@ -41,7 +41,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 		;
 	}
 	,
-	clearPowerCrystal: function() {
+	clearPowerCrystal() {
 		this.location.clearPowerCrystal(this.game.gfx)
 			.queue(function() {
 				this.game.removeSceneItem(this);

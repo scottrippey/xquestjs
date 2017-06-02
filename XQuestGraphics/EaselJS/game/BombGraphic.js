@@ -4,7 +4,7 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 		this.radius = Balance.player.radius;
 	}
 	,
-	_setupGraphics: function() {
+	_setupGraphics() {
 		var G = Graphics.bombs;
 		this.graphics
 			.clear()
@@ -14,7 +14,7 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 		;
 	}
 	,
-	onTick: function(tickEvent) {
+	onTick(tickEvent) {
 		var B = Balance.bombs, bounds = Balance.level.bounds;
 		this.radius += (B.speed * tickEvent.deltaSeconds);
 		this.alpha = 1 - (this.radius / bounds.totalWidth);
@@ -24,7 +24,7 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 		this._setupGraphics();
 	}
 	,
-	getKickBack: function(enemy, distance) {
+	getKickBack(enemy, distance) {
 		var impactVector = Smart.Point.subtract(enemy.location, this.location);
 		return Smart.Point.scaleVector(impactVector, Balance.bombs.speed * Balance.bombs.kickBack);
 	}

@@ -2,7 +2,7 @@ XQuestGame.Player = Smart.Class({
 	location: null
 	, radius: null
 	
-	, initialize: function(game) {
+	, initialize(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
@@ -10,21 +10,21 @@ XQuestGame.Player = Smart.Class({
 
 		this._setupPlayerGraphics();
 	}
-	, _setupPlayerGraphics: function() {
+	, _setupPlayerGraphics() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
 		this.location = this.playerGraphics;
 		this.radius = Balance.player.radius;
 	}
 	
-	, movePlayerTo: function(x, y) {
+	, movePlayerTo(x, y) {
 		this.playerGraphics.moveTo(x, y);
 	}
-	, cancelVelocity: function() {
+	, cancelVelocity() {
 		this.velocity.x = 0;
 		this.velocity.y = 0;
 	}
 
-	, _handleInputs: function(tickEvent, inputState) {
+	, _handleInputs(tickEvent, inputState) {
 
 		var previousState = this.previousState;
 
@@ -104,11 +104,11 @@ XQuestGame.Player = Smart.Class({
 
 	}
 
-	, onMove: function(tickEvent, inputState) {
+	, onMove(tickEvent, inputState) {
 		this._handleInputs(tickEvent, inputState);
 		this._movePlayer(tickEvent);
 	}
-	, _movePlayer: function(tickEvent) {
+	, _movePlayer(tickEvent) {
 
 		Smart.Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 
@@ -142,7 +142,7 @@ XQuestGame.Player = Smart.Class({
 	}
 
 
-	, onAct: function(tickEvent) {
+	, onAct(tickEvent) {
 		if (!this.playerActive) return;
 
 
@@ -158,12 +158,12 @@ XQuestGame.Player = Smart.Class({
 
 	}
 
-	, killPlayer: function() {
+	, killPlayer() {
 		this.playerActive = false;
 		this.playerGraphics.killPlayerGraphics(this.game.gfx, this.velocity);
 	}
 
-	, showPlayer: function(show) {
+	, showPlayer(show) {
 		this.playerActive = show;
 		if (show) {
 			this.playerGraphics.restorePlayerGraphics();
@@ -182,7 +182,7 @@ XQuestGame.Player = Smart.Class({
 		}
 	}
 
-	, getKickBack: function(enemy, distance) {
+	, getKickBack(enemy, distance) {
 		return Smart.Point.multiply(this.velocity, Balance.player.kickBack);
 	}
 });

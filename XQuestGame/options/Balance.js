@@ -4,7 +4,7 @@
  * The values may differ depending on game mode or difficulty settings.
  */
 var Balance = {
-	merge: function(values) {
+	merge(values) {
 		_.merge(Balance, values);
 	}
 };
@@ -12,14 +12,14 @@ var Balance = {
 // Helpers:
 Balance.merge({
 	/** @return {Function} that returns a random integer between min and max (inclusively) */
-	randomBetween: function(min, max) {
+	randomBetween(min, max) {
 		return function() {
 			return Math.floor(min + Math.random() * (max - min + 1));
 		};
 	}
 	,
 	/** @return {Function} that returns a random integer between min and max (inclusive, exclusive) */
-	randomFloatBetween: function(min, max) {
+	randomFloatBetween(min, max) {
 		return function() {
 			return (min + Math.random() * (max - min));
 		};
@@ -34,7 +34,7 @@ Balance.merge({
 		'test': {
 			fullView: true
 			,enemySpawnRate: Balance.randomBetween(1, 1)
-			,bombCrystalsSpawnQuantity: function(game) { return 3; }
+			,bombCrystalsSpawnQuantity(game) { return 3; }
 			,powerupSpawnRate: Balance.randomBetween(5, 5)
 		}
 		, 'easy': {
@@ -52,7 +52,7 @@ Balance.merge({
 		}
 	}
 	,
-	setGameMode: function(gameMode) {
+	setGameMode(gameMode) {
 		var gameOptions = (typeof gameMode === 'object') ? gameMode : Balance.gameModeOverrides[gameMode] || {};
 
 		Balance.merge({
@@ -101,7 +101,7 @@ Balance.merge({
 			}
 			,crystals: {
 				radius: 10
-				,spawnQuantity: function(currentLevel) {
+				,spawnQuantity(currentLevel) {
 					var min = gameOptions.hardMode ? 30 : 12
 						, multiplier = gameOptions.hardMode ? 4 : 2
 						, max = gameOptions.hardMode ? 80 : 40;
@@ -197,7 +197,7 @@ Balance.merge({
 
 // Events:
 Balance.merge({
-	onUpdate: function(callback) {
+	onUpdate(callback) {
 		if (!this._onUpdate) {
 			this._onUpdate = [ callback ];
 		} else {
@@ -205,7 +205,7 @@ Balance.merge({
 		}
 	}
 	,
-	_fireUpdate: function(gameOptions) {
+	_fireUpdate(gameOptions) {
 		if (this._onUpdate) {
 			_.forEach(this._onUpdate, function(callback) {
 				callback(gameOptions);

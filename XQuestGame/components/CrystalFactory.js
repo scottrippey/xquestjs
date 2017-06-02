@@ -1,5 +1,5 @@
 XQuestGame.CrystalFactory = Smart.Class({
-	initialize: function(game) {
+	initialize(game) {
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.crystals = [];
@@ -7,10 +7,10 @@ XQuestGame.CrystalFactory = Smart.Class({
 		this.game.onNewLevel(this._onNewLevel.bind(this));
 	}
 	,
-	_onNewLevel: function() {
+	_onNewLevel() {
 		this._spawnCrystals();
 	},
-	_spawnCrystals: function() {
+	_spawnCrystals() {
 		var spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
 		
 		if (this.game.levelConfig.crystalsDisabled) {
@@ -43,14 +43,14 @@ XQuestGame.CrystalFactory = Smart.Class({
 		}
 	}
 	,
-	onAct: function(tickEvent) {
+	onAct(tickEvent) {
 
 		// Check for player-collisions:
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);
 	}
 	,
-	_gatherOnCollision: function(collisionPoints, maxRadius) {
+	_gatherOnCollision(collisionPoints, maxRadius) {
 
 		var maxDistance = maxRadius + Balance.crystals.radius;
 
@@ -67,7 +67,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 		}
 	}
 	,
-	gatherClosestCrystal: function(location) {
+	gatherClosestCrystal(location) {
 		if (!this.crystals.length) return;
 
 		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals)

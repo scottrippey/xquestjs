@@ -1,5 +1,5 @@
 var EaselJSGraphics = Smart.Class({
-	initialize: function(canvas) {
+	initialize(canvas) {
 		this.canvas = canvas;
 
 		this.debugStats = {
@@ -10,7 +10,7 @@ var EaselJSGraphics = Smart.Class({
 		this._setupAnimations();
 	}
 	,
-	_setupLayers: function() {
+	_setupLayers() {
 		this.layers = {
 			background: new createjs.Stage(this.canvas)
 			, objects: new createjs.Stage(this.canvas)
@@ -37,7 +37,7 @@ var EaselJSGraphics = Smart.Class({
 		this.layers.hud.enableMouseOver();
 	}
 	,
-	showBackgroundStars: function(visible) {
+	showBackgroundStars(visible) {
 		if (visible) {
 			if (!this.backgroundStars) {
 				this.backgroundStars = new EaselJSGraphics.BackgroundGraphics();
@@ -50,27 +50,27 @@ var EaselJSGraphics = Smart.Class({
 		}
 	}
 	,
-	_setupAnimations: function() {
+	_setupAnimations() {
 		this.animations = new Smart.Animations();
 	}
 	,
 	/** Creates a clone */
-	createNewGraphics: function() {
+	createNewGraphics() {
 		return new EaselJSGraphics(this.canvas);
 	}
 	,
-	onMove: function(tickEvent) {
+	onMove(tickEvent) {
 		this.animations.update(tickEvent.deltaSeconds);
 	}
 	,
-	onDraw: function(tickEvent) {
+	onDraw(tickEvent) {
 		this.layers.background.update(tickEvent);
 		this.layers.objects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
 		this.layers.hud.update(tickEvent);
 	}
 	,
-	followPlayer: function(playerLocation) {
+	followPlayer(playerLocation) {
 
 		var bounds = Balance.level.bounds;
 
@@ -96,7 +96,7 @@ var EaselJSGraphics = Smart.Class({
 
 	}
 	,
-	getSafeSpawn: function(radius) {
+	getSafeSpawn(radius) {
 		var leftEnemySpawn = this.getGamePoint('left')
 			, rightEnemySpawn = this.getGamePoint('right')
 			, safeDistance = Balance.enemies.safeSpawnDistance;
@@ -108,7 +108,7 @@ var EaselJSGraphics = Smart.Class({
 		return randomSpot;
 	}
 	,
-	getGamePoint: function(gamePoint, radius) {
+	getGamePoint(gamePoint, radius) {
 		if (typeof gamePoint !== 'string') return gamePoint;
 		if (radius == undefined) radius = 0;
 		var bounds = Balance.level.bounds;
@@ -153,7 +153,7 @@ var EaselJSGraphics = Smart.Class({
 		}
 	}
 	,
-	getHudPoint: function(hudPoint) {
+	getHudPoint(hudPoint) {
 		if (typeof hudPoint !== 'string') return hudPoint;
 		var bounds = Balance.level.bounds;
 		switch (hudPoint) {
@@ -171,7 +171,7 @@ var EaselJSGraphics = Smart.Class({
 		return null;
 	}
 	,
-	createLevelGraphics: function() {
+	createLevelGraphics() {
 		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
 		levelGraphics.onDispose(function() {
@@ -180,13 +180,13 @@ var EaselJSGraphics = Smart.Class({
 		return levelGraphics;
 	}
 	,
-	createPlayerGraphics: function() {
+	createPlayerGraphics() {
 		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		this.layers.characters.addChild(playerGraphics);
 		return playerGraphics;
 	}
 	,
-	createPlayerHUDIcon: function() {
+	createPlayerHUDIcon() {
 		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		var scale = 0.7;
 		playerGraphics.scaleTo(scale);
@@ -195,7 +195,7 @@ var EaselJSGraphics = Smart.Class({
 		return playerGraphics;
 	}
 	,
-	createBulletsGraphics: function() {
+	createBulletsGraphics() {
 		var bulletsGraphics = new EaselJSGraphics.BulletsGraphics();
 		this.layers.objects.addChild(bulletsGraphics);
 		bulletsGraphics.onDispose(function() {
@@ -204,7 +204,7 @@ var EaselJSGraphics = Smart.Class({
 		return bulletsGraphics;
 	}
 	,
-	createEnemyGraphics: function(enemyName) {
+	createEnemyGraphics(enemyName) {
 		var enemyGraphics = null;
 		switch (enemyName) {
 			case 'Slug':
@@ -229,7 +229,7 @@ var EaselJSGraphics = Smart.Class({
 		return enemyGraphics;
 	}
 	,
-	createCrystalGraphic: function() {
+	createCrystalGraphic() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		this.layers.objects.addChild(crystal);
 		crystal.onDispose(function() {
@@ -238,7 +238,7 @@ var EaselJSGraphics = Smart.Class({
 		return crystal;
 	}
 	,
-	createCrystalHUDIcon: function() {
+	createCrystalHUDIcon() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		var scale = 0.7;
 		crystal.scaleTo(scale);
@@ -247,7 +247,7 @@ var EaselJSGraphics = Smart.Class({
 		return crystal;
 	}
 	,
-	createPowerCrystalGraphic: function() {
+	createPowerCrystalGraphic() {
 		var powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
 		this.layers.characters.addChild(powerCrystal);
 		powerCrystal.onDispose(function() {
@@ -256,7 +256,7 @@ var EaselJSGraphics = Smart.Class({
 		return powerCrystal;
 	}
 	,
-	createBombCrystalGraphic: function() {
+	createBombCrystalGraphic() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		this.layers.objects.addChild(bombCrystal);
 		bombCrystal.onDispose(function() {
@@ -265,7 +265,7 @@ var EaselJSGraphics = Smart.Class({
 		return bombCrystal;
 	}
 	,
-	createBombCrystalHUDIcon: function() {
+	createBombCrystalHUDIcon() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		var scale = 0.7;
 		bombCrystal.scaleTo(scale);
@@ -277,7 +277,7 @@ var EaselJSGraphics = Smart.Class({
 		return bombCrystal;
 	}
 	,
-	createBombGraphic: function() {
+	createBombGraphic() {
 		var bomb = new EaselJSGraphics.BombGraphic();
 		this.layers.objects.addChild(bomb);
 		bomb.onDispose(function() {
@@ -286,7 +286,7 @@ var EaselJSGraphics = Smart.Class({
 		return bomb;
 	}
 	,
-	createExplosion: function(position, velocity, explosionOptions) {
+	createExplosion(position, velocity, explosionOptions) {
 		var explosion = new EaselJSGraphics.ExplosionGraphic(position, velocity, explosionOptions);
 		this.layers.objects.addChild(explosion);
 		explosion.onDispose(function() {
@@ -294,12 +294,12 @@ var EaselJSGraphics = Smart.Class({
 		}.bind(this));
 	}
 	,
-	addAnimation: function(animation) {
+	addAnimation(animation) {
 		return this.animations.addAnimation(animation);
 	}
 
 	,
-	addText: function(text, textStyle) {
+	addText(text, textStyle) {
 		var textGfx = new EaselJSGraphics.TextGraphic();
 		textGfx.setGfx(this);
 		textGfx.setText(text, textStyle);
@@ -313,11 +313,11 @@ var EaselJSGraphics = Smart.Class({
 	}
 
 	,
-	enableTouchClicks: function() {
+	enableTouchClicks() {
 		createjs.Touch.enable(this.layers.hud);
 	}
 	,
-	createHUDOverlay: function() {
+	createHUDOverlay() {
 		var hudOverlay = new EaselJSGraphics.HudGraphics.HudOverlay();
 		this.layers.hud.addChild(hudOverlay);
 		hudOverlay.onDispose(function() {
@@ -326,7 +326,7 @@ var EaselJSGraphics = Smart.Class({
 		return hudOverlay;
 	}
 	,
-	createPauseButtonHUD: function() {
+	createPauseButtonHUD() {
 		var pauseButton = new EaselJSGraphics.HudGraphics.HudPauseButton(this);
 		this.layers.hud.addChild(pauseButton);
 		pauseButton.onDispose(function() {
@@ -335,7 +335,7 @@ var EaselJSGraphics = Smart.Class({
 		return pauseButton;
 	}
 	,
-	createPauseOverlay: function() {
+	createPauseOverlay() {
 		var pauseOverlay = new EaselJSGraphics.PauseOverlay(this);
 		this.layers.background.addChild(pauseOverlay);
 		pauseOverlay.onDispose(function() {
@@ -344,7 +344,7 @@ var EaselJSGraphics = Smart.Class({
 		return pauseOverlay;
 	}
 	,
-	createMenuButton: function(text) {
+	createMenuButton(text) {
 		var buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
 		buttonGfx.setText(text);
 		buttonGfx.addButtonEvents = function(events) {
@@ -365,7 +365,7 @@ var EaselJSGraphics = Smart.Class({
 	}
 	
 	,
-	createXQuestLogoGraphic: function() {
+	createXQuestLogoGraphic() {
 		var introGraphics = new EaselJSGraphics.XQuestLogoGraphic(this);
 		this.layers.hud.addChild(introGraphics);
 		introGraphics.onDispose(function() {

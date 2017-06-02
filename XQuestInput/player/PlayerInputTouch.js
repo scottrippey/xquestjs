@@ -5,7 +5,7 @@
 		touches: null,
 		touchState: null,
 
-		initialize: function(game, element, settings) {
+		initialize(game, element, settings) {
 			this.game = game;
 			this.element = element;
 			this.touchState = {};
@@ -29,12 +29,12 @@
 
 		},
 
-		_onWindowResize: function() {
+		_onWindowResize() {
 			this.elementSize = getElementSize(this.element);
 		},
 		
 		
-		_onTouchStart: function(ev) {
+		_onTouchStart(ev) {
 			ev.preventDefault();
 			var touches = ev.changedTouches;
 			for (var i = 0, l = touches.length; i < l; i++) {
@@ -50,7 +50,7 @@
 				}
 			}
 		},
-		_onTouchEnd: function(ev) {
+		_onTouchEnd(ev) {
 			ev.preventDefault();
 			var touches = ev.changedTouches;
 			for (var i = 0, l = touches.length; i < l; i++) {
@@ -64,7 +64,7 @@
 				}
 			}
 		},
-		_onTouchMove: function(ev) {
+		_onTouchMove(ev) {
 			ev.preventDefault();
 			var touches = ev.changedTouches;
 			for (var i = 0, l = touches.length; i < l; i++) {
@@ -81,7 +81,7 @@
 			}
 		},
 		
-		_updateTouchPosition: function(touchPosition) {
+		_updateTouchPosition(touchPosition) {
 			var delta = null;
 			if (this.previousTouchPosition) {
 				delta = {
@@ -93,7 +93,7 @@
 
 			return delta;
 		},
-		_adjustForSensitivity: function(delta, touchPosition, elementSize) {
+		_adjustForSensitivity(delta, touchPosition, elementSize) {
 			var touchSettings = this.touchSettings,
 				sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
 			var acceleration = {
@@ -103,7 +103,7 @@
 			return acceleration;
 		},
 
-		onInput: function(tickEvent, inputState) {
+		onInput(tickEvent, inputState) {
 
 			var touchState = this.touchState;
 

@@ -6,23 +6,23 @@ XQuestGame.Projectiles = Smart.Class({
 		this.bulletsGraphics = this.game.gfx.createBulletsGraphics();
 		this.bomb = null;
 	}
-	, onMove: function(tickEvent) {
+	, onMove(tickEvent) {
 		this._moveBullets(tickEvent);
 	}
 
-	, onAct: function(tickEvent) {
+	, onAct(tickEvent) {
 		this._bulletsKillEnemies();
 		this._bombsKillEnemies();
 	}
 
-	, addTripleShot: function(powerup) {
+	, addTripleShot(powerup) {
 		var angle = powerup.angle;
 
 		this.addBullet();
 		this.addBullet(angle);
 		this.addBullet(-angle);
 	}
-	, addSprayShot: function(tickEvent) {
+	, addSprayShot(tickEvent) {
 		var B = Balance.powerups.sprayShot;
 		var shots = B.shots, speed = B.speed, spinSpeed = B.spinSpeed;
 		var angle = 360 / shots;
@@ -33,7 +33,7 @@ XQuestGame.Projectiles = Smart.Class({
 			this.addBullet(angleOffset + i * angle, speed);
 		}
 	}
-	, addBullet: function(angle, speed) {
+	, addBullet(angle, speed) {
 		var B = Balance.bullets, player = this.game.player;
 
 		var velocity;
@@ -68,7 +68,7 @@ XQuestGame.Projectiles = Smart.Class({
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = B.radius;
 	}
-	, _moveBullets: function(tickEvent) {
+	, _moveBullets(tickEvent) {
 		var bounds = Balance.level.bounds, bullets = this.bulletsGraphics.bullets, i = bullets.length;
 		while (i--) {
 			var bulletGfx = bullets[i];
@@ -82,7 +82,7 @@ XQuestGame.Projectiles = Smart.Class({
 			}
 		}
 	}
-	, _bulletsKillEnemies: function() {
+	, _bulletsKillEnemies() {
 		var bullets = this.bulletsGraphics.bullets;
 		if (bullets.length) {
 			if (bullets.length >= 2) {
@@ -104,7 +104,7 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 
 	}
-	, clearBullets: function() {
+	, clearBullets() {
 		this.game.gfx.addAnimation()
 			.duration(1)
 			.fade(this.bulletsGraphics, 0)
@@ -116,7 +116,7 @@ XQuestGame.Projectiles = Smart.Class({
 
 
 
-	, tryReleasingABomb: function() {
+	, tryReleasingABomb() {
 		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null && !this.game.levelConfig.bombsDisabled);
 
 		if (canBomb) {
@@ -126,7 +126,7 @@ XQuestGame.Projectiles = Smart.Class({
 
 		return canBomb;
 	}
-	, _createBomb: function() {
+	, _createBomb() {
 		var player = this.game.player;
 		var bomb = this.game.gfx.createBombGraphic();
 		this.bomb = bomb;
@@ -137,7 +137,7 @@ XQuestGame.Projectiles = Smart.Class({
 		bomb.location.moveTo(player.location.x, player.location.y);
 		return bomb;
 	}
-	, _bombsKillEnemies: function() {
+	, _bombsKillEnemies() {
 		if (this.bomb) {
 			this.game.enemyFactory.killEnemiesOnCollision([ this.bomb ], this.bomb.radius);
 		}

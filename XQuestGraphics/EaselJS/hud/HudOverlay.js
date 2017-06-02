@@ -9,7 +9,7 @@ Balance.onUpdate(function(mode) {
 });
 
 EaselJSGraphics.HudGraphics.HudOverlay = Smart.Class(new EaselJSGraphics.Drawing(), {
-	drawEffects: function(drawing) {
+	drawEffects(drawing) {
 		var G = Graphics.hudGraphics, bounds = Balance.level.bounds;
 
 		drawing.beginPath()

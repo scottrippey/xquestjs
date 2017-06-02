@@ -3,7 +3,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 		this._setupCrystalGraphic();
 	}
 	,
-	_setupCrystalGraphic: function() {
+	_setupCrystalGraphic() {
 		var G = Graphics.crystals;
 		this.visibleRadius = G.radius;
 
@@ -17,11 +17,11 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 		this.spinRate = G.spinRate;
 	}
 	,
-	onTick: function(tickEvent) {
+	onTick(tickEvent) {
 		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 	}
 	,
-	gatherCrystal: function(gfx, playerLocation) {
+	gatherCrystal(gfx, playerLocation) {
 		var crystal = this;
 		gfx.addAnimation(new Smart.Animation()
 			.duration(Graphics.crystals.gatherDuration)

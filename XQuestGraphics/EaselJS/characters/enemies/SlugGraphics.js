@@ -27,17 +27,17 @@ Balance.onUpdate(function(mode) {
 });
 
 EaselJSGraphics.SlugGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
-	setup: function() {
+	setup() {
 		var G = Graphics.enemies.slug;
 		this.visibleRadius = G.radius;		
 	},
-	drawStatic: function(drawing, tickEvent) {
+	drawStatic(drawing, tickEvent) {
 		var G = Graphics.enemies.slug;
 
 		this.drawCircleCircle(drawing, G.circleCircle);
 	}
 	,
-	getExplosionOptions: function() {
+	getExplosionOptions() {
 		var G = Graphics.enemies.slug;
 		return G.explosionOptions;
 	}

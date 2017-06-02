@@ -25,7 +25,7 @@ Balance.onUpdate(function(gameMode) {
 EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
 	Container_initialize: createjs.Container.prototype.initialize
 	, 
-	HudButton_initialize: function(gfx, width, height) {
+	HudButton_initialize(gfx, width, height) {
 		this.gfx = gfx;
 		this.Container_initialize();
 		this.width = width;
@@ -33,7 +33,7 @@ EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
 		this._setupButtonBackground();
 	}
 	,
-	_setupButtonBackground: function() {
+	_setupButtonBackground() {
 		var button = Graphics.hudGraphics.button;
 		
 		var background = new createjs.Shape();
@@ -49,13 +49,13 @@ EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
 });
 
 EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(new EaselJSGraphics.HudGraphics.HudButton(), {
-	initialize: function(gfx) {
+	initialize(gfx) {
 		var pauseButton = Graphics.hudGraphics.pauseButton;
 		this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);
 		
 		this._setupGraphics();
 	}
-	, _setupGraphics: function() {
+	, _setupGraphics() {
 		var pauseButton = Graphics.hudGraphics.pauseButton;
 		
 		var text = this._createText();
@@ -69,7 +69,7 @@ EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(new EaselJSGraphics.Hud
 		this.addChild(icon);
 		
 	}
-	, _createText: function() {
+	, _createText() {
 		var pauseButton = Graphics.hudGraphics.pauseButton;
 		var pauseText = new EaselJSGraphics.TextGraphic();
 		pauseText.setText("Pause", 'hudText');
@@ -77,7 +77,7 @@ EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(new EaselJSGraphics.Hud
 		this.addChild(pauseText);
 		return pauseText;
 	}
-	, _createPauseIcon: function() {
+	, _createPauseIcon() {
 		var pauseIcon = Graphics.hudGraphics.pauseIcon;
 		var icon = new createjs.Shape();
 		icon.graphics
@@ -90,7 +90,7 @@ EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(new EaselJSGraphics.Hud
 		this.addChild(icon);
 		return icon;
 	}
-	, _createSandwichIcon: function() {
+	, _createSandwichIcon() {
 		var sandwichIcon = Graphics.hudGraphics.sandwichIcon;
 		var bottomRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight),
 			middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;

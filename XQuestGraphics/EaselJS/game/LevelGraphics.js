@@ -1,11 +1,11 @@
 EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	gateStart: null, gateEnd: null, gateOpen: false
 	,
-	initialize: function() {
+	initialize() {
 		this.nextChange = 0;
 	}
 	,
-	setGateWidth: function(gateWidth) {
+	setGateWidth(gateWidth) {
 		var bounds = Balance.level.bounds;
 		this.gateStart = {
 			x: bounds.x + (bounds.width - gateWidth) / 2
@@ -18,16 +18,16 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 		this.gateOpen = false;
 	}
 	,
-	openGate: function() {
+	openGate() {
 		this.gateOpen = true;
 	}
 	,
-	closeGate: function() {
+	closeGate() {
 		this.gateOpen = false;
 	}
 
 	,
-	onTick: function(tickEvent){
+	onTick(tickEvent) {
 		
 		if (this.nextChange <= tickEvent.time) {
 			var G = Graphics.level;
@@ -38,7 +38,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 		}
 	}
 	,
-	_drawWalls: function() {
+	_drawWalls() {
 		var g = this.graphics
 			, level = Graphics.level
 			, bounds = Balance.level.bounds
@@ -73,7 +73,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 
 	}
 	,
-	_drawGate: function() {
+	_drawGate() {
 		if (this.gateOpen) return;
 
 		var g = this.graphics
@@ -84,7 +84,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 		this._drawElectricLine(g, gate, gateStart, gateEnd);
 	}
 	,
-	_drawElectricLine: function(graphics, gate, gateStart, gateEnd) {
+	_drawElectricLine(graphics, gate, gateStart, gateEnd) {
 		var segments = gate.segments;
 		
 		graphics.beginStyle(gate.strokeStyle)
@@ -117,7 +117,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	 * @param radius
 	 * @returns String - Either: null, 'level-wall', 'open-gate', or 'closed-gate'
 	 */
-	levelCollision: function(location, radius) {
+	levelCollision(location, radius) {
 		var bounds = Balance.level.bounds;
 		var wall = Smart.Physics.checkBounds(location, radius, bounds);
 

@@ -64,7 +64,7 @@
 	};
 
 	XQuestInput.PlayerInputKeyboard = Smart.Class({
-		initialize: function(game, element, settings) {
+		initialize(game, element, settings) {
 			this.game = game;
 			
 			settings.watchSetting('keyboardSettings', function(keyboardSettings) {
@@ -79,10 +79,10 @@
 
 			this.setKeyMap(keyMap);
 		},
-		setKeyMap: function(keyMap) {
+		setKeyMap(keyMap) {
 			this.keyMapper.setKeyMap(keyMap);
 		},
-		_onActionDown: function(action) {
+		_onActionDown(action) {
 			switch (action) {
 				case playerActions.pauseGame:
 					this.game.pauseGame();
@@ -129,7 +129,7 @@
 			}
 		},
 
-		onInput: function(tickEvent, inputState) {
+		onInput(tickEvent, inputState) {
 			var sensitivity = this.keyboardSettings.keyboardSensitivity;
 			var downActions = this.keyMapper.getDownActions();
 
@@ -217,7 +217,7 @@
 		downKeys: null,
 		downActions: null,
 
-		initialize: function(element, onActionDown, skipPreventDefault) {
+		initialize(element, onActionDown, skipPreventDefault) {
 			this.element = element;
 			this.onActionDown = onActionDown;
 			this.codes = _.clone(this.codes);
@@ -228,7 +228,7 @@
 			
 			this._setupEvents();
 		}
-		, _setupEvents: function() {
+		, _setupEvents() {
 			this._onKeydown = this._onKeydown.bind(this);
 			this._onKeyup = this._onKeyup.bind(this);
 			this.element.addEventListener('keydown', this._onKeydown);
@@ -238,7 +238,7 @@
 				this.element.removeEventListener('keyup', this._onKeyup);
 			});
 		},
-		_onKeydown: function(ev) {
+		_onKeydown(ev) {
 			var keyName = this._getKeyName(ev);
 			var action = this.keyMap[keyName];
 			if (!action) return;
@@ -257,7 +257,7 @@
 				this.onActionDown(action);
 			}
 		},
-		_onKeyup: function(ev) {
+		_onKeyup(ev) {
 			var keyName = this._getKeyName(ev);
 			var action = this.keyMap[keyName];
 			if (!action) return;
@@ -273,7 +273,7 @@
 			var downActionCount = (this.downActions[action] || 1) - 1;
 			this.downActions[action] = downActionCount;
 		},
-		_getKeyName: function(ev) {
+		_getKeyName(ev) {
 			var modifiers = "";
 			if (ev.ctrlKey) modifiers += "ctrl+";
 			if (ev.altKey) modifiers += "alt+";
@@ -288,15 +288,15 @@
 			return modifiers + key;
 		},
 
-		getDownActions: function() {
+		getDownActions() {
 			return this.downActions;
 		},
 
-		setKeyMap: function(keyMap) {
+		setKeyMap(keyMap) {
 			this.keyMap = keyMap;
 		},
 
-		disableContextMenu: function(disabled) {
+		disableContextMenu(disabled) {
 			if (disabled === undefined) disabled = true;
 
 			if (disabled) {

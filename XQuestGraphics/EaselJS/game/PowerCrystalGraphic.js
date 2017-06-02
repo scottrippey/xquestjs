@@ -3,7 +3,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 		this._setupGraphics();
 	}
 	,
-	_setupGraphics: function() {
+	_setupGraphics() {
 		var G = Graphics.powerCrystals;
 		this.graphics
 			.clear()
@@ -20,11 +20,11 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 		this.spinRate = G.spinRate;
 	}
 	,
-	onTick: function(tickEvent) {
+	onTick(tickEvent) {
 		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
 	}
 	,
-	gatherPowerCrystal: function(gfx, playerLocation) {
+	gatherPowerCrystal(gfx, playerLocation) {
 		var powerCrystal = this;
 		return gfx.addAnimation(new Smart.Animation()
 			.duration(Graphics.powerCrystals.gatherDuration)
@@ -42,7 +42,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
 	}
 
 	,
-	clearPowerCrystal: function(gfx) {
+	clearPowerCrystal(gfx) {
 		var powerCrystal = this;
 		return gfx.addAnimation(new Smart.Animation()
 			.duration(2).easeIn()

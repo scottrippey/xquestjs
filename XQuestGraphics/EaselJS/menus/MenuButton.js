@@ -24,7 +24,7 @@ Balance.onUpdate(function(gameMode) {
 });
 EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), {
 	Container_initialize: createjs.Container.prototype.initialize
-	,initialize: function(gfx) {
+	,initialize(gfx) {
 		this.Container_initialize();
 		this.gfx = gfx;
 
@@ -37,7 +37,7 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 		this.regX = G.width / 2;
 		this.regY = G.height / 2;
 	}
-	,setText: function(text) {
+	,setText(text) {
 		if (this.textGfx) {
 			this.textGfx.text = text;
 			return;
@@ -47,7 +47,7 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 
 		this.textGfx.moveTo(this.visibleWidth / 2, this.visibleHeight / 2);
 	}
-	,setActive: function(isActive) {
+	,setActive(isActive) {
 		if (this.isActive === isActive) return;
 		this.isActive = isActive;
 		this.background.isActive = isActive;
@@ -55,7 +55,7 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
 });
 EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraphics.Drawing(), {
 	isActive: false
-	,drawEffects: function(drawing, tickEvent) {
+	,drawEffects(drawing, tickEvent) {
 		if (!this.shape || this.nextChange <= tickEvent.time) {
 			var G = Graphics.menuButton;
 			var backgroundShape = this.shape = new Smart.DrawingQueue();

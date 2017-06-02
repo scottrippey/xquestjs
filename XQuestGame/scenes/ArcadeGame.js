@@ -42,45 +42,45 @@
 			this._setupActivePowerups();
 
 		}
-		, _setupLevelGraphics: function() {
+		, _setupLevelGraphics() {
 			this.levelGraphics = this.game.gfx.createLevelGraphics();
 		}
-		, _setupPlayer: function() {
+		, _setupPlayer() {
 			this.player = new XQuestGame.Player(this.game);
 			this.game.addSceneItem(this.player);
 		}
-		, _setupEnemyFactory: function() {
+		, _setupEnemyFactory() {
 			this.enemyFactory = new XQuestGame.EnemyFactory(this.game);
 			this.addSceneItem(this.enemyFactory);
 		}
-		, _setupLevelFactory: function() {
+		, _setupLevelFactory() {
 			this.levelFactory = new XQuestGame.LevelFactory(this.game);
 			this.addSceneItem(this.levelFactory);
 		}
-		, _setupCrystals: function() {
+		, _setupCrystals() {
 			this.crystalFactory = new XQuestGame.CrystalFactory(this.game);
 		}
-		, _setupPowerCrystals: function() {
+		, _setupPowerCrystals() {
 			this.powerCrystals = new XQuestGame.PowerupFactory(this.game);
 		}
-		, _setupProjectiles: function() {
+		, _setupProjectiles() {
 			this.projectiles = new XQuestGame.Projectiles(this.game);
 		}
-		, _setupHUD: function() {
+		, _setupHUD() {
 			this.hud = new XQuestGame.Hud(this.game);
 			this.addSceneItem(this.hud);
 		}
-		, _setupActivePowerups: function() {
+		, _setupActivePowerups() {
 			this.activePowerups = new XQuestGame.ActivePowerups(this.game);
 		}
 		
-		, debug: function() {
+		, debug() {
 			var debug = new XQuestGame.GameDebugger(this.game);
 			this.debug = function() { return debug; };
 			return this.debug();
 		}
 
-		, startArcadeGame: function() {
+		, startArcadeGame() {
 			this.currentLevel = 1;
 			this.stats.lives = Balance.player.lives;
 			this.stats.bombs = Balance.bombs.startCount;
@@ -90,7 +90,7 @@
 			this._arrangeNewLevel();
 			this._startLevel();
 		}
-		, _arrangeNewLevel: function() {
+		, _arrangeNewLevel() {
 			this.game.levelGraphics.closeGate();
 			this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 	
@@ -100,7 +100,7 @@
 			this._events.fireEvent(GameEvents.onNewLevel);
 			
 		}
-		, _startLevel: function() {
+		, _startLevel() {
 			var middleOfGame = this.game.gfx.getGamePoint('middle');
 			this.game.player.movePlayerTo(middleOfGame.x, middleOfGame.y);
 			this.game.player.cancelVelocity();
@@ -111,14 +111,14 @@
 			this.host.gfx.followPlayer(this.game.player.location);
 		}
 	
-		, onAct: function(tickEvent) {
+		, onAct(tickEvent) {
 			if (this.followPlayer) {
 				this.game.gfx.followPlayer(this.game.player.location);
 				this.host.gfx.followPlayer(this.game.player.location);				
 			}
 		}
 	
-		, getDefaultInputState: function() {
+		, getDefaultInputState() {
 			var state = {
 				primaryWeapon: false
 				, secondaryWeapon: false
@@ -129,7 +129,7 @@
 			return state;
 		}
 	
-		, killPlayer: function() {
+		, killPlayer() {
 			this.game.player.killPlayer();
 			this._events.fireEvent(GameEvents.onPlayerKilled);
 			
@@ -145,13 +145,13 @@
 				this._loseALife();
 			}
 		}
-		, _loseALife: function() {
+		, _loseALife() {
 			this.game.stats.lives--;
 			this._animateBackToCenter().queue(function() {
 				this._startLevel();
 			}.bind(this));
 		}
-		, _gameOver: function() {
+		, _gameOver() {
 			// bew wew wew wew wew
 			this._animateBackToCenter();
 				
@@ -174,7 +174,7 @@
 	
 		}
 	
-		, levelUp: function() {
+		, levelUp() {
 			this.game.player.showPlayer(false);
 						
 			// Let's kill all enemies:
@@ -191,7 +191,7 @@
 			
 			this._events.fireEvent(GameEvents.onNextLevel);
 		}
-		, _animateBackToCenter: function() {
+		, _animateBackToCenter() {
 			var visibleMiddle = this.game.gfx.getGamePoint('visibleMiddle')
 				, middleOfGame = this.game.gfx.getGamePoint('middle');
 	
@@ -206,14 +206,14 @@
 			return animation;
 		}
 
-		, crystalsGathered: function(remainingCrystals, gatheredCrystals) {
+		, crystalsGathered(remainingCrystals, gatheredCrystals) {
 			if (remainingCrystals === 0) {
 				this.game.levelGraphics.openGate();
 				this._events.fireEvent(GameEvents.onAllCrystalsGathered);
 			}
 		}
 	
-		, pauseGame: function(paused) {
+		, pauseGame(paused) {
 			if (paused === undefined) paused = !this.scenePaused;
 			else if (this.scenePaused === paused) return;
 			
@@ -225,7 +225,7 @@
 			
 			this._togglePauseMenu(this.scenePaused);
 		}
-		, _togglePauseMenu: function(paused) {
+		, _togglePauseMenu(paused) {
 			if (paused) {
 				var pauseMenu = this.host.createMenuScene();
 				pauseMenu.showPauseMenu();
@@ -242,7 +242,7 @@
 			
 		}
 	
-		, toggleFPS: function() {
+		, toggleFPS() {
 			if (this.fpsText) {
 				this.fpsText.dispose();
 				this.fpsText = null;
@@ -258,7 +258,7 @@
 				};
 			}
 		}
-		, toggleDebugStats: function() {
+		, toggleDebugStats() {
 			if (this.debugStatsText) {
 				this.debugStatsText.dispose();
 				this.debugStatsText = null;
