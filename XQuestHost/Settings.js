@@ -64,7 +64,7 @@ XQuestGame.XQuestHost.Settings = Smart.Class({
 		}
 		
 		if (this._watches[settingName]) {
-			this._watches[settingName].forEach(function(watchHandler) {
+			this._watches[settingName].forEach(watchHandler => {
 				watchHandler(settingValue);
 			});
 		}

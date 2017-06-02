@@ -35,17 +35,17 @@ XQuestGame.PowerCrystal = Smart.Class({
 	,
 	gatherPowerCrystal() {
 		this.location.gatherPowerCrystal(this.game.gfx, this.game.player.location)
-			.queue(function() {
+			.queue(() => {
 				this.game.removeSceneItem(this);
-			}.bind(this))
+			})
 		;
 	}
 	,
 	clearPowerCrystal() {
 		this.location.clearPowerCrystal(this.game.gfx)
-			.queue(function() {
+			.queue(() => {
 				this.game.removeSceneItem(this);
-			}.bind(this))
+			})
 		;
 	}
 });

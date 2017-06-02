@@ -31,7 +31,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 
 		document.body.appendChild(container);
 		document.body.style.overflow = "hidden";
-		this.onDispose(function() {
+		this.onDispose(() => {
 			document.body.removeChild(container);
 			document.body.style.overflow = null;
 		});
@@ -46,7 +46,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	}
 	,_contain(container, canvas, canvasWidth, canvasHeight) {
 		window.addEventListener('resize', scaleCanvas);
-		this.onDispose(function() {
+		this.onDispose(() => {
 			window.removeEventListener('resize', scaleCanvas);
 		});
 		scaleCanvas();
@@ -100,9 +100,9 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		// Setup Inputs:
 		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
 		this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
-		this.hostScene.onQuitGame(function() {
+		this.hostScene.onQuitGame(() => {
 			this.dispose();
-		}.bind(this));
+		});
 
 
 		this.hostScene.start();

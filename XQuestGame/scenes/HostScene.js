@@ -1,4 +1,4 @@
-(function() {
+(() => {
 	var HostSceneEvents = {
 		onMenuCreated: 'onMenuCreated'
 		, onGameCreated: 'onGameCreated'
@@ -12,7 +12,7 @@
 			this.gfx = gfx;
 			this.addSceneItem(gfx);
 			this.settings = settings;
-			
+
 			this.host = this; // For consistency
 
 			this._setupBackground();
@@ -20,7 +20,7 @@
 		}
 		, _setupBackground() {
 			this.gfx.showBackgroundStars(true);
-			
+
 			var middle = this.gfx.getGamePoint('middle');
 			this.gfx.followPlayer(middle);
 		}
@@ -32,10 +32,10 @@
 
 			this.setChildScene(menuScene);
 
-			menuScene.onStartGame(function() {
+			menuScene.onStartGame(() => {
 				menuScene.dispose();
 				this._startArcadeGame();
-			}.bind(this));
+			});
 			menuScene.showStartMenu();
 		}
 		, createMenuScene() {
@@ -51,11 +51,11 @@
 			this.fireSceneEvent(HostSceneEvents.onGameCreated, [ arcadeGame ]);
 			this.setChildScene(arcadeGame);
 
-			arcadeGame.onGameOver(function() {
+			arcadeGame.onGameOver(() => {
 				arcadeGame.dispose();
 				this._showStartMenu();
-			}.bind(this));
-			
+			});
+
 			arcadeGame.startArcadeGame();
 		}
 		, quitGame() {

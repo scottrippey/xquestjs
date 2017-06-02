@@ -1,4 +1,4 @@
-(function() {
+(() => {
 	var MenuEvents = XQuestGame.MenuEvents;
 
 
@@ -20,9 +20,9 @@
 			return logo;
 		}
 		,_startGame() {
-			this.menuScene.exitMenu().queue(function() {
+			this.menuScene.exitMenu().queue(() => {
 				this.menuScene.fireSceneEvent(MenuEvents.onStartGame);
-			}.bind(this));
+			});
 		}
 		,_showGameOptions() {
 			this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));

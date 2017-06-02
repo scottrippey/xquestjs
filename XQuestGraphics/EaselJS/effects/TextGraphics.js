@@ -1,4 +1,4 @@
-Balance.onUpdate(function(gameMode){
+Balance.onUpdate(gameMode => {
 	Graphics.merge({
 		textStyles: {
 			default: {

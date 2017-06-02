@@ -10,9 +10,9 @@
 			this.element = element;
 			this.touchState = {};
 			
-			settings.watchSetting('touchSettings', function(touchSettings){
+			settings.watchSetting('touchSettings', touchSettings => {
 				this.touchSettings = touchSettings;
-			}.bind(this));
+			});
 
 			addEventListeners(this.element, {
 				'touchstart': this._onTouchStart.bind(this),

@@ -1,4 +1,4 @@
-Balance.onUpdate(function(gameMode) {
+Balance.onUpdate(gameMode => {
 	Graphics.merge({
 		explosionOptions: {
 			count: 200
@@ -17,7 +17,7 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
 	setup(position, velocity, explosionOptions) {
 		this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 
-		var random = function() { return 1 - Math.random() - Math.random(); }; // provides a more even spread than just Math.random()
+		var random = () => 1 - Math.random() - Math.random(); // provides a more even spread than just Math.random()
 		
 		this.particles = new Array(explosionOptions.count);
 		for (var i = 0, l = explosionOptions.count; i < l; i++) {

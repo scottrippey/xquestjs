@@ -18,7 +18,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 		}
 		
 		// Clean up:
-		this.crystals.forEach(function(crystal) {
+		this.crystals.forEach(crystal => {
 			crystal.dispose();
 		}, this);
 		this.crystals = [];
@@ -55,11 +55,11 @@ XQuestGame.CrystalFactory = Smart.Class({
 		var maxDistance = maxRadius + Balance.crystals.radius;
 
 		var crystalsGathered = 0;
-		Smart.Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, function(crystal, point, crystalIndex, pi, distance) {
+		Smart.Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, (crystal, point, crystalIndex, pi, distance) => {
 			crystal.gatherCrystal(this.game.gfx, this.game.player.location);
 			this.crystals.splice(crystalIndex, 1);
 			crystalsGathered++;
-		}.bind(this));
+		});
 
 		if (crystalsGathered) {
 			this.game.crystalsGathered(this.crystals.length, crystalsGathered);

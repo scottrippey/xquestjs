@@ -1,4 +1,4 @@
-Balance.onUpdate(function(mode) {
+Balance.onUpdate(mode => {
 	var outerRadius = Balance.enemies.locust.radius
 		, outerOffset = 0
 		, innerRadius = outerRadius * 6 / 11

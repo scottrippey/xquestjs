@@ -37,7 +37,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
 			.restorePosition()
 			.easeOut('quint')
 
-			.tween([ crystal.spinRate, Graphics.crystals.spinRateGathered ], function(s) {
+			.tween([ crystal.spinRate, Graphics.crystals.spinRateGathered ], s => {
 				crystal.spinRate = s;
 			})
 

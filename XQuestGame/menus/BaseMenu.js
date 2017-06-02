@@ -32,7 +32,7 @@
 			});
 			buttonRow.invoke = onInvoke;
 			if (isUpdatableText) {
-				buttonRow.updateText = function() {
+				buttonRow.updateText = () => {
 					var updatedText = text();
 					buttonRow.setText(updatedText);
 				};

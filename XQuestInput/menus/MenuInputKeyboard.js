@@ -1,5 +1,5 @@
-(function() {
-	
+(() => {
+
 	var menuKeyMap = {
 		up: XQuestGame.MenuSceneInputs.menuUp,
 		down: XQuestGame.MenuSceneInputs.menuDown,
@@ -9,14 +9,14 @@
 		escape: XQuestGame.MenuSceneInputs.menuBack,
 		backspace: XQuestGame.MenuSceneInputs.menuBack
 	};
-	
+
 	XQuestInput.MenuInputKeyboard = Smart.Class({
 		initialize(element) {
 			this.element = element || document;
 			this.actionsQueue = [];
 			this._setupKeyMap();
-			
-			
+
+
 			this.keyMapper.setKeyMap(menuKeyMap);
 		}
 		,_setupKeyMap() {

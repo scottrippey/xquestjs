@@ -52,10 +52,10 @@ XQuestGame.BaseEnemy = Smart.Class({
 			.duration(2).easeIn()
 			.scale(this.enemyGraphics, 0)
 
-			.queue(function() {
+			.queue(() => {
 				this.enemyGraphics.dispose();
 				this.game.removeSceneItem(this);
-			}.bind(this))
+			})
 		);
 	}
 });

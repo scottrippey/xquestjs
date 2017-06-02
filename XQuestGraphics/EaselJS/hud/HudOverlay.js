@@ -1,4 +1,4 @@
-Balance.onUpdate(function(mode) {
+Balance.onUpdate(mode => {
 	_.merge(Graphics, {
 		hudGraphics: {
 			backgroundStyle: {

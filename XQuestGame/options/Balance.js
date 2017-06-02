@@ -13,16 +13,12 @@ var Balance = {
 Balance.merge({
 	/** @return {Function} that returns a random integer between min and max (inclusively) */
 	randomBetween(min, max) {
-		return function() {
-			return Math.floor(min + Math.random() * (max - min + 1));
-		};
+		return () => Math.floor(min + Math.random() * (max - min + 1));
 	}
 	,
 	/** @return {Function} that returns a random integer between min and max (inclusive, exclusive) */
 	randomFloatBetween(min, max) {
-		return function() {
-			return (min + Math.random() * (max - min));
-		};
+		return () => min + Math.random() * (max - min);
 	}
 });
 
@@ -57,7 +53,7 @@ Balance.merge({
 
 		Balance.merge({
 			level: {
-				bounds: (function(){
+				bounds: ((() => {
 					var hudHeight = 40
 						, padding = 40
 						, levelWidth = 1200, levelHeight = 675
@@ -78,7 +74,7 @@ Balance.merge({
 						, totalWidth: padding + levelWidth + padding
 						, totalHeight: hudHeight + padding + levelHeight + padding
 					};
-				})()
+				}))()
 				, gateWidth: gameOptions.easyMode ? 300 : 200
 			}
 			,player: {
@@ -117,7 +113,7 @@ Balance.merge({
 			}
 			,bombCrystals: {
 				radius: 10
-				, spawnQuantity: gameOptions.bombCrystalsSpawnQuantity || function(game) { return ((game.currentLevel + 1) % 2); }
+				, spawnQuantity: gameOptions.bombCrystalsSpawnQuantity || (game => (game.currentLevel + 1) % 2)
 			}
 			,powerups: {
 				rapidFire: {
@@ -207,7 +203,7 @@ Balance.merge({
 	,
 	_fireUpdate(gameOptions) {
 		if (this._onUpdate) {
-			_.forEach(this._onUpdate, function(callback) {
+			_.forEach(this._onUpdate, callback => {
 				callback(gameOptions);
 			});
 		}

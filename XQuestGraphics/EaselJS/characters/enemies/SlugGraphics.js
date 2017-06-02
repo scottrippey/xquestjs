@@ -1,5 +1,5 @@
 
-Balance.onUpdate(function(mode) {
+Balance.onUpdate(mode => {
 	var green = 'hsl(100, 100%, 50%)';
 	var darkGreen = Smart.Color.darken(green, 30);
 	var black = 'black';

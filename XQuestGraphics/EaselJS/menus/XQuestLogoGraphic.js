@@ -1,4 +1,4 @@
-Balance.onUpdate(function(gameMode) {
+Balance.onUpdate(gameMode => {
 	Graphics.merge({
 		xquestLogo: {
 			height: 160
@@ -88,7 +88,7 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 			.ease().move(X, Q).scale(X, 0.8).restorePosition()
 			.easeIn('swing').rotate(X, firstSpin = (spinRate * G.hide.duration * 0.5)).restorePosition()
 			.ease()
-			.tween([ Q.scaleX, 1 ], function(scaleX) { Q.scaleX = scaleX; })
+			.tween([ Q.scaleX, 1 ], scaleX => { Q.scaleX = scaleX; })
 			.fade(QTail, 0)
 			.fade(UEST, 0)
 

@@ -1,4 +1,4 @@
-(function() {
+((() => {
 	var GameEvents = {
 		onNewGame: 'onNewGame'
 		,onNewLevel: 'onNewLevel'
@@ -76,7 +76,7 @@
 		
 		, debug() {
 			var debug = new XQuestGame.GameDebugger(this.game);
-			this.debug = function() { return debug; };
+			this.debug = () => debug;
 			return this.debug();
 		}
 
@@ -147,21 +147,21 @@
 		}
 		, _loseALife() {
 			this.game.stats.lives--;
-			this._animateBackToCenter().queue(function() {
+			this._animateBackToCenter().queue(() => {
 				this._startLevel();
-			}.bind(this));
+			});
 		}
 		, _gameOver() {
 			// bew wew wew wew wew
 			this._animateBackToCenter();
 				
 			this.game.gfx.addAnimation(new Smart.Animation()
-				.queue(function() {
+				.queue(() => {
 					this.game.gfx.addText("Game Over").flyIn(2).delay(2).flyOut(2);
-				}.bind(this)).delay(7)
-				.queue(function() {
+				}).delay(7)
+				.queue(() => {
 					this._events.fireEvent(GameEvents.onGameOver);						
-				}.bind(this))
+				})
 				/*
 				.queue(function() {
 					this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
@@ -185,9 +185,9 @@
 			this.currentLevel++;
 	
 			this._arrangeNewLevel();
-			this._animateBackToCenter().queue(function() {
+			this._animateBackToCenter().queue(() => {
 				this._startLevel();
-			}.bind(this));
+			});
 			
 			this._events.fireEvent(GameEvents.onNextLevel);
 		}
@@ -198,10 +198,10 @@
 			this.followPlayer = false;
 			var animation = new Smart.Animation()
 				.duration(2).ease()
-				.tween(Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]), function(p) {
+				.tween(Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]), p => {
 					this.game.gfx.followPlayer(p);
 					this.host.gfx.followPlayer(p);
-				}.bind(this));
+				});
 			this.game.gfx.addAnimation(animation);
 			return animation;
 		}
@@ -229,9 +229,9 @@
 			if (paused) {
 				var pauseMenu = this.host.createMenuScene();
 				pauseMenu.showPauseMenu();
-				pauseMenu.onResumeGame(function() {
+				pauseMenu.onResumeGame(() => {
 					this.pauseGame(false);
-				}.bind(this));
+				});
 				
 				this.setChildScene(pauseMenu);
 				this.pauseMenu = pauseMenu;
@@ -281,10 +281,10 @@
 	});
 	
 	// Add event handler functions to ArcadeGame, so that we don't use addEvent / fireEvent directly
-	_.forOwn(GameEvents, function(eventName, onEventName) {
+	_.forOwn(GameEvents, (eventName, onEventName) => {
 		XQuestGame.ArcadeGame.prototype[onEventName] = function(eventHandler) {
 			this._events.addEvent(eventName, eventHandler);
 		};
 	});
 	
-})();
+}))();

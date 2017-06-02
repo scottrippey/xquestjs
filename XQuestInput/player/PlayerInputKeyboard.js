@@ -26,7 +26,7 @@
 		, addBomb: 'addBomb'
 		, spawnPowerCrystal: 'spawnPowerCrystal'
 	};
-	
+
 	var keyMap = {
 		escape: playerActions.pauseGame,
 		contextMenu: playerActions.pauseGame,
@@ -49,10 +49,10 @@
 		c: debugActions.gatherClosestCrystal,
 		s: debugActions.spawnEnemy,
 		d: debugActions.killPlayer,
-		
+
 		p: debugActions.toggleFPS,
 		//i: debugActions.toggleDebugStats,
-		
+
 		1: debugActions.activateInvincible,
 		2: debugActions.activateRapidFire,
 		3: debugActions.activateTripleShot,
@@ -66,10 +66,10 @@
 	XQuestInput.PlayerInputKeyboard = Smart.Class({
 		initialize(game, element, settings) {
 			this.game = game;
-			
-			settings.watchSetting('keyboardSettings', function(keyboardSettings) {
+
+			settings.watchSetting('keyboardSettings', keyboardSettings => {
 				this.keyboardSettings = keyboardSettings;
-			}.bind(this));
+			});
 
 			if (!element) {
 				element = document;
@@ -148,7 +148,7 @@
 			if (downActions[playerActions.accelerateUp]) inputState.accelerationY += -sensitivity;
 			else if (downActions[playerActions.accelerateDown]) inputState.accelerationY += sensitivity;
 			else activeInputs--;
-			
+
 			if (activeInputs >= 1)
 				inputState.engaged = true;
 		}
@@ -211,7 +211,7 @@
 			201: 'gamepaddpadup',
 			202: 'gamepaddpaddown',
 			203: 'gamepaddpadleft',
-			204: 'gamepaddpadright'	
+			204: 'gamepaddpadright'
 		},
 		keyMap: null,
 		downKeys: null,
@@ -225,7 +225,7 @@
 			this.downActions = {};
 
 			this.skipPreventDefault = skipPreventDefault || false;
-			
+
 			this._setupEvents();
 		}
 		, _setupEvents() {
@@ -250,7 +250,7 @@
 			var isAlreadyDown = (downIndex !== -1);
 			if (isAlreadyDown) return;
 			this.downKeys.push(keyName);
-			
+
 			var downActionCount = (this.downActions[action] || 0) + 1;
 			this.downActions[action] = downActionCount;
 			if (downActionCount === 1) {
@@ -261,7 +261,7 @@
 			var keyName = this._getKeyName(ev);
 			var action = this.keyMap[keyName];
 			if (!action) return;
-			
+
 			var downIndex = this.downKeys.indexOf(keyName);
 			var wasDown = (downIndex !== -1);
 			if (!wasDown) return;
@@ -284,7 +284,7 @@
 				|| (ev.key && ev.key.indexOf('U+') === -1 && ev.key.toLowerCase())
 				|| String.fromCharCode(ev.keyCode).toLowerCase()
 				|| 'unknown';
-			
+
 			return modifiers + key;
 		},
 
@@ -312,15 +312,15 @@
 	}
 
 })();
-(function () {
+(() => {
 	// The Konami code can be used to start XQuest:
 	var mapper = null;
-	XQuestInput.startKeyCodes = function(callback) {
+	XQuestInput.startKeyCodes = callback => {
 		if (callback !== false) {
 			var code = 'uuddlrlrba';
 			var keyQueue = code.split('');
 			var skipPreventDefault = true;
-			mapper = new XQuestInput.KeyMapper(document, function (key) {
+			mapper = new XQuestInput.KeyMapper(document, key => {
 				if (window.xquest) {
 					return;
 				}
@@ -328,7 +328,7 @@
 					keyQueue = code.split('');
 				} else if (keyQueue.length === 0) {
 					window.xquest = new XQuestGame.XQuestHost();
-					window.xquest.onDispose(function() {
+					window.xquest.onDispose(() => {
 						window.xquest = null;
 					});
 					if (callback) callback(window.xquest);

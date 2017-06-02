@@ -17,9 +17,9 @@
 			this.element = element;
 			this.mouseMap = mouseMap;
 			
-			settings.watchSetting('mouseSettings', function(mouseSettings) {
+			settings.watchSetting('mouseSettings', mouseSettings => {
 				this.mouseSettings = mouseSettings;
-			}.bind(this));
+			});
 
 			addEventListeners(this.element, {
 				'mouseover': this._onMouseOver.bind(this),

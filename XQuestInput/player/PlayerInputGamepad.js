@@ -99,7 +99,7 @@
 			document.addEventListener('keydown', stopEvent, useCapture);
 			document.addEventListener('keyup', stopEvent, useCapture);
 			document.addEventListener('keypress', stopEvent, useCapture);
-			this.onDispose(function() {
+			this.onDispose(() => {
 				document.removeEventListener('keydown', stopEvent, useCapture);
 				document.removeEventListener('keyup', stopEvent, useCapture);
 				document.removeEventListener('keypress', stopEvent, useCapture);
@@ -271,7 +271,7 @@
 		}
 		Gamepad.addEventListener('gamepadadded', onGamepadAdded);
 		Gamepad.addEventListener('gamepadremoved', onGamepadRemoved);
-		gamepadInput.onDispose(function() {
+		gamepadInput.onDispose(() => {
 			Gamepad.removeEventListener('gamepadadded', onGamepadAdded);
 			Gamepad.removeEventListener('gamepadremoved', onGamepadRemoved);
 		});

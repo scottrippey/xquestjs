@@ -88,10 +88,10 @@ XQuestGame.Projectiles = Smart.Class({
 			if (bullets.length >= 2) {
 				Smart.Physics.sortByLocation(bullets);
 			}
-			this.game.enemyFactory.killEnemiesOnCollision(bullets, Balance.bullets.radius, function(enemy, bullet, ei, bi, distance){
+			this.game.enemyFactory.killEnemiesOnCollision(bullets, Balance.bullets.radius, (enemy, bullet, ei, bi, distance) => {
 				if (!this.game.activePowerups.powerShot)
 					bullet.shouldDisappear = true;
-			}.bind(this));
+			});
 
 			// Remove bullets:
 			var i = bullets.length;
@@ -108,10 +108,10 @@ XQuestGame.Projectiles = Smart.Class({
 		this.game.gfx.addAnimation()
 			.duration(1)
 			.fade(this.bulletsGraphics, 0)
-			.queue(function() {
+			.queue(() => {
 				this.bulletsGraphics.alpha = 1;
 				this.bulletsGraphics.bullets.length = 0;
-			}.bind(this));
+			});
 	}
 
 
@@ -130,9 +130,9 @@ XQuestGame.Projectiles = Smart.Class({
 		var player = this.game.player;
 		var bomb = this.game.gfx.createBombGraphic();
 		this.bomb = bomb;
-		bomb.onDispose(function(){
+		bomb.onDispose(() => {
 			this.bomb = null;
-		}.bind(this));
+		});
 
 		bomb.location.moveTo(player.location.x, player.location.y);
 		return bomb;

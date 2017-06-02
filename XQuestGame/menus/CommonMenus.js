@@ -16,9 +16,9 @@
 				];
 			}
 			,_onResumeGame() {
-				this.menuScene.exitMenu().queue(function() {
+				this.menuScene.exitMenu().queue(() => {
 					this.menuScene.fireSceneEvent(MenuEvents.onResumeGame);
-				}.bind(this));
+				});
 			}
 			,_showGameOptions() {
 				this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
@@ -72,9 +72,9 @@
 		DifficultySettings: Smart.Class(new XQuestGame.BaseMenu(), {
 			getRows() {
 				return [
-					this.createMenuButton("Easy", function() { Balance.setGameMode('easy'); this.menuScene.goBack(); }.bind(this))
-					,this.createMenuButton("Normal", function() { Balance.setGameMode('normal'); this.menuScene.goBack(); }.bind(this))
-					,this.createMenuButton("Crazy Hard", function() { Balance.setGameMode('hard'); this.menuScene.goBack(); }.bind(this))
+					this.createMenuButton("Easy", () => { Balance.setGameMode('easy'); this.menuScene.goBack(); })
+					,this.createMenuButton("Normal", () => { Balance.setGameMode('normal'); this.menuScene.goBack(); })
+					,this.createMenuButton("Crazy Hard", () => { Balance.setGameMode('hard'); this.menuScene.goBack(); })
 				];
 			}
 		})
@@ -86,22 +86,18 @@
 			getRows() {
 				var mouseSettings = this.mouseSettings = this.menuScene.host.settings.retrieveSetting('mouseSettings');
 
-				var sensitivity = this.createMenuButton(function() {
-					return "Sensitivity: " + mouseSettings.mouseSensitivity;
-				}, function() {
+				var sensitivity = this.createMenuButton(() => "Sensitivity: " + mouseSettings.mouseSensitivity, () => {
 					mouseSettings.mouseSensitivity = (mouseSettings.mouseSensitivity % mouseSettings.maxMouseSensitivity) + 1;
 					sensitivity.updateText();
 				});
-				var bias = this.createMenuButton(function(){
-					return "Edge Sensitivity: " + mouseSettings.mouseBiasSensitivity;
-				}, function() {
+				var bias = this.createMenuButton(() => "Edge Sensitivity: " + mouseSettings.mouseBiasSensitivity, () => {
 					mouseSettings.mouseBiasSensitivity = (mouseSettings.mouseBiasSensitivity % mouseSettings.maxMouseBias) + 1;
 					bias.updateText();
 				});
-				var reset = this.createMenuButton("Reset", function() {
+				var reset = this.createMenuButton("Reset", () => {
 					mouseSettings = this.mouseSettings = this.menuScene.host.settings.saveSetting('mouseSettings', null);
-					rows.forEach(function(row) { row.updateText && row.updateText(); });
-				}.bind(this));
+					rows.forEach(row => { row.updateText && row.updateText(); });
+				});
 
 
 				var rows = [
@@ -121,16 +117,14 @@
 			getRows() {
 				var keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.retrieveSetting('keyboardSettings');
 
-				var sensitivity = this.createMenuButton(function() {
-					return "Sensitivity: " + keyboardSettings.keyboardSensitivity;
-				}, function() {
+				var sensitivity = this.createMenuButton(() => "Sensitivity: " + keyboardSettings.keyboardSensitivity, () => {
 					keyboardSettings.keyboardSensitivity = (keyboardSettings.keyboardSensitivity % keyboardSettings.maxKeyboardSensitivity) + 1;
 					sensitivity.updateText();
 				});
-				var reset = this.createMenuButton("Reset", function() {
+				var reset = this.createMenuButton("Reset", () => {
 					keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.saveSetting('keyboardSettings', null);
-					rows.forEach(function(row) { row.updateText && row.updateText(); });
-				}.bind(this));
+					rows.forEach(row => { row.updateText && row.updateText(); });
+				});
 
 
 				var rows = [
@@ -149,16 +143,14 @@
 			getRows() {
 				var touchSettings = this.touchSettings = this.menuScene.host.settings.retrieveSetting('touchSettings');
 
-				var sensitivity = this.createMenuButton(function() {
-					return "Sensitivity: " + touchSettings.touchSensitivity;
-				}, function() {
+				var sensitivity = this.createMenuButton(() => "Sensitivity: " + touchSettings.touchSensitivity, () => {
 					touchSettings.touchSensitivity = (touchSettings.touchSensitivity % touchSettings.maxTouchSensitivity) + 1;
 					sensitivity.updateText();
 				});
-				var reset = this.createMenuButton("Reset", function() {
+				var reset = this.createMenuButton("Reset", () => {
 					touchSettings = this.touchSettings = this.menuScene.host.settings.saveSetting('touchSettings', null);
-					rows.forEach(function(row) { row.updateText && row.updateText(); });
-				}.bind(this));
+					rows.forEach(row => { row.updateText && row.updateText(); });
+				});
 
 
 				var rows = [

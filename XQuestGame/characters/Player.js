@@ -147,11 +147,11 @@ XQuestGame.Player = Smart.Class({
 
 
 		var killPlayer = false;
-		this.game.enemyFactory.killEnemiesOnCollision([ this ], this.radius, function(enemy, player, ei, pi, distance) {
+		this.game.enemyFactory.killEnemiesOnCollision([ this ], this.radius, (enemy, player, ei, pi, distance) => {
 			if (this.game.activePowerups.invincible) return;
 
 			killPlayer = true;
-		}.bind(this));
+		});
 
 		if (killPlayer)
 			this.game.killPlayer();
@@ -175,9 +175,9 @@ XQuestGame.Player = Smart.Class({
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(0.5).easeOut()
 				.scale(this.playerGraphics, [1,0])
-				.queue(function() {
+				.queue(() => {
 					this.playerGraphics.toggleVisible(false);
-				}.bind(this))
+				})
 			);
 		}
 	}

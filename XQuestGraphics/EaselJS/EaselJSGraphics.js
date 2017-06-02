@@ -30,7 +30,7 @@ var EaselJSGraphics = Smart.Class({
 				_.eliminate(allGraphics, child);
 			};
 		}
-		_.forOwn(this.layers, function(stage) {
+		_.forOwn(this.layers, stage => {
 			trackChildren(stage);
 			stage.autoClear = false;
 		});
@@ -174,9 +174,9 @@ var EaselJSGraphics = Smart.Class({
 	createLevelGraphics() {
 		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
-		levelGraphics.onDispose(function() {
+		levelGraphics.onDispose(() => {
 			this.layers.background.removeChild(levelGraphics);
-		}.bind(this));
+		});
 		return levelGraphics;
 	}
 	,
@@ -222,9 +222,9 @@ var EaselJSGraphics = Smart.Class({
 			throw new Error("Unknown enemy: " + enemyName);
 
 		this.layers.characters.addChild(enemyGraphics);
-		enemyGraphics.onDispose(function() {
+		enemyGraphics.onDispose(() => {
 			this.layers.characters.removeChild(enemyGraphics);
-		}.bind(this));
+		});
 
 		return enemyGraphics;
 	}
@@ -232,9 +232,9 @@ var EaselJSGraphics = Smart.Class({
 	createCrystalGraphic() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		this.layers.objects.addChild(crystal);
-		crystal.onDispose(function() {
+		crystal.onDispose(() => {
 			this.layers.objects.removeChild(crystal);
-		}.bind(this));
+		});
 		return crystal;
 	}
 	,
@@ -250,18 +250,18 @@ var EaselJSGraphics = Smart.Class({
 	createPowerCrystalGraphic() {
 		var powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
 		this.layers.characters.addChild(powerCrystal);
-		powerCrystal.onDispose(function() {
+		powerCrystal.onDispose(() => {
 			this.layers.characters.removeChild(powerCrystal);
-		}.bind(this));
+		});
 		return powerCrystal;
 	}
 	,
 	createBombCrystalGraphic() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		this.layers.objects.addChild(bombCrystal);
-		bombCrystal.onDispose(function() {
+		bombCrystal.onDispose(() => {
 			this.layers.objects.removeChild(bombCrystal);
-		}.bind(this));
+		});
 		return bombCrystal;
 	}
 	,
@@ -271,27 +271,27 @@ var EaselJSGraphics = Smart.Class({
 		bombCrystal.scaleTo(scale);
 		bombCrystal.visibleRadius *= scale;
 		this.layers.hud.addChild(bombCrystal);
-		bombCrystal.onDispose(function() {
+		bombCrystal.onDispose(() => {
 			this.layers.hud.removeChild(bombCrystal);
-		}.bind(this));
+		});
 		return bombCrystal;
 	}
 	,
 	createBombGraphic() {
 		var bomb = new EaselJSGraphics.BombGraphic();
 		this.layers.objects.addChild(bomb);
-		bomb.onDispose(function() {
+		bomb.onDispose(() => {
 			this.layers.objects.removeChild(bomb);
-		}.bind(this));
+		});
 		return bomb;
 	}
 	,
 	createExplosion(position, velocity, explosionOptions) {
 		var explosion = new EaselJSGraphics.ExplosionGraphic(position, velocity, explosionOptions);
 		this.layers.objects.addChild(explosion);
-		explosion.onDispose(function() {
+		explosion.onDispose(() => {
 			this.layers.objects.removeChild(explosion);
-		}.bind(this));
+		});
 	}
 	,
 	addAnimation(animation) {
@@ -305,9 +305,9 @@ var EaselJSGraphics = Smart.Class({
 		textGfx.setText(text, textStyle);
 
 		this.layers.hud.addChild(textGfx);
-		textGfx.onDispose(function() {
+		textGfx.onDispose(() => {
 			this.layers.hud.removeChild(textGfx);
-		}.bind(this));
+		});
 
 		return textGfx;
 	}
@@ -320,27 +320,27 @@ var EaselJSGraphics = Smart.Class({
 	createHUDOverlay() {
 		var hudOverlay = new EaselJSGraphics.HudGraphics.HudOverlay();
 		this.layers.hud.addChild(hudOverlay);
-		hudOverlay.onDispose(function() {
+		hudOverlay.onDispose(() => {
 			this.layers.hud.removeChild(hudOverlay);
-		}.bind(this));
+		});
 		return hudOverlay;
 	}
 	,
 	createPauseButtonHUD() {
 		var pauseButton = new EaselJSGraphics.HudGraphics.HudPauseButton(this);
 		this.layers.hud.addChild(pauseButton);
-		pauseButton.onDispose(function() {
+		pauseButton.onDispose(() => {
 			this.layers.hud.removeChild(pauseButton);
-		}.bind(this));
+		});
 		return pauseButton;
 	}
 	,
 	createPauseOverlay() {
 		var pauseOverlay = new EaselJSGraphics.PauseOverlay(this);
 		this.layers.background.addChild(pauseOverlay);
-		pauseOverlay.onDispose(function() {
+		pauseOverlay.onDispose(() => {
 			this.layers.background.removeChild(pauseOverlay);
-		}.bind(this));
+		});
 		return pauseOverlay;
 	}
 	,
@@ -357,9 +357,9 @@ var EaselJSGraphics = Smart.Class({
 		};
 
 		this.layers.hud.addChild(buttonGfx);
-		buttonGfx.onDispose(function() {
+		buttonGfx.onDispose(() => {
 			this.layers.hud.removeChild(buttonGfx);
-		}.bind(this));
+		});
 
 		return buttonGfx;
 	}
@@ -368,9 +368,9 @@ var EaselJSGraphics = Smart.Class({
 	createXQuestLogoGraphic() {
 		var introGraphics = new EaselJSGraphics.XQuestLogoGraphic(this);
 		this.layers.hud.addChild(introGraphics);
-		introGraphics.onDispose(function() {
+		introGraphics.onDispose(() => {
 			this.layers.hud.removeChild(introGraphics);
-		}.bind(this));
+		});
 		
 		return introGraphics;
 	}

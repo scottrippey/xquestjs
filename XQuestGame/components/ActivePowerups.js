@@ -30,7 +30,7 @@ XQuestGame.ActivePowerups = Smart.Class({
 		var deactivating = 'deactivating';
 		
 		// Update new and old powerups: (never make changes to an object while iterating)
-		_.forOwn(this.activeTimes, function(powerupValue, powerupName) {
+		_.forOwn(this.activeTimes, (powerupValue, powerupName) => {
 			if (powerupValue === 'newPowerup') {
 				// New
 				var powerupExpires = tickEvent.runTime + B[powerupName].duration * 1000;
@@ -44,10 +44,10 @@ XQuestGame.ActivePowerups = Smart.Class({
 		});
 		_.forOwn(updatedValues, function(updatedValue, powerupName) {
 			if (updatedValue === deactivating) {
-				this._deactivate(powerupName).queue(function() {
+				this._deactivate(powerupName).queue(() => {
 					this[powerupName] = false;
 					delete this.activeTimes[powerupName];
-				}.bind(this));
+				});
 			}
 			this.activeTimes[powerupName] = updatedValue;
 		}, this);

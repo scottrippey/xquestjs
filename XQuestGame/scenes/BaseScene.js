@@ -21,11 +21,11 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 		var childScene = this.childScene;
 		if (!childScene) {
 			var inputState = (this.getDefaultInputState && this.getDefaultInputState()) || {};
-			_.forEachRight(this.phases.input, function(gameItem) { gameItem.onInput(tickEvent, inputState); });
-			_.forEachRight(this.phases.move, function(gameItem) { gameItem.onMove(tickEvent, inputState); });
-			_.forEachRight(this.phases.act, function(gameItem) { gameItem.onAct(tickEvent); });
+			_.forEachRight(this.phases.input, gameItem => { gameItem.onInput(tickEvent, inputState); });
+			_.forEachRight(this.phases.move, gameItem => { gameItem.onMove(tickEvent, inputState); });
+			_.forEachRight(this.phases.act, gameItem => { gameItem.onAct(tickEvent); });
 		}
-		_.forEachRight(this.phases.draw, function(gameItem) { gameItem.onDraw(tickEvent); });
+		_.forEachRight(this.phases.draw, gameItem => { gameItem.onDraw(tickEvent); });
 
 		if (childScene) {
 			childScene.updateScene(tickEvent);
@@ -91,9 +91,9 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	setChildScene(childScene) {
 		this.childScene = childScene;
 		if (childScene) {
-			this.childScene.onDispose(function() {
+			this.childScene.onDispose(() => {
 				this.childScene = null;
-			}.bind(this));
+			});
 		}
 	}
 });

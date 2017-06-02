@@ -22,7 +22,7 @@ XQuestGame.Hud = Smart.Class({
 		this.hudBombsText = this.game.gfx.addText("", 'hudText');
 		
 		this.hudPauseButton = this.game.gfx.createPauseButtonHUD();
-		this.hudPauseButton.addEventListener('click', function() { this.game.pauseGame(); }.bind(this));
+		this.hudPauseButton.addEventListener('click', () => { this.game.pauseGame(); });
 	}
 	, _layout() {
 		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;

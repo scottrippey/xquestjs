@@ -1,5 +1,5 @@
 var Graphics;
-Balance.onUpdate(function(mode) {
+Balance.onUpdate(mode => {
 	Graphics = {
 		merge(newGraphics) {
 			_.merge(Graphics, newGraphics);

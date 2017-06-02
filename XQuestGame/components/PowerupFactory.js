@@ -48,11 +48,11 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 			var maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
 
-			Smart.Physics.detectCollisions(this.bombCrystals, [ this.game.player ], maxDistance, function(bombCrystal, player, bombIndex, pi, distance) {
+			Smart.Physics.detectCollisions(this.bombCrystals, [ this.game.player ], maxDistance, (bombCrystal, player, bombIndex, pi, distance) => {
 				this.bombCrystals.splice(bombIndex, 1);
 				bombCrystal.gatherBombCrystal();
 				this.game.stats.bombs++;
-			}.bind(this));
+			});
 
 
 		}
@@ -104,12 +104,12 @@ XQuestGame.PowerupFactory = Smart.Class({
 	_gatherOnCollision(collisionPoints, maxRadius) {
 		var maxDistance = maxRadius + Balance.powerCrystals.radius;
 
-		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, function(powerCrystal, point, crystalIndex, pi, distance) {
+		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, (powerCrystal, point, crystalIndex, pi, distance) => {
 			this.powerCrystals.splice(crystalIndex, 1);
 			powerCrystal.gatherPowerCrystal();
 			var powerupName = this._nextPowerup();
 			this.game.activePowerups.activate(powerupName);
-		}.bind(this));
+		});
 
 	}
 
@@ -138,14 +138,14 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 	,
 	clearAllPowerCrystals() {
-		_.forEach(this.powerCrystals, function(powerCrystal) {
+		_.forEach(this.powerCrystals, powerCrystal => {
 			powerCrystal.clearPowerCrystal();
 		}, this);
 		this.powerCrystals.length = 0;
 	}
 	,
 	_clearBombCrystals() {
-		_.forEach(this.bombCrystals, function(bombCrystal) {
+		_.forEach(this.bombCrystals, bombCrystal => {
 			bombCrystal.clearBombCrystal();
 		}, this);
 		this.bombCrystals.length = 0;

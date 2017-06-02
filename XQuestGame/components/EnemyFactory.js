@@ -62,7 +62,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 	killEnemiesOnCollision(sortedItems, maxItemRadius, collisionCallback) {
 		var enemies = this.enemies;
 		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
-		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, function(enemy, item, ei, ii, distance){
+		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, (enemy, item, ei, ii, distance) => {
 			if (enemy.isDead) return;
 
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
@@ -76,7 +76,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 				if (collisionCallback)
 					collisionCallback(enemy, item, ei, ii, distance);
 			}
-		}.bind(this));
+		});
 
 		// Remove dead enemies:
 		var i = enemies.length;
@@ -88,21 +88,21 @@ XQuestGame.EnemyFactory = Smart.Class({
 	}
 	,
 	killAllEnemies() {
-		this.enemies.forEach(function(enemy) {
+		this.enemies.forEach(enemy => {
 			enemy.takeDamage(Number.POSITIVE_INFINITY, null);
 		}, this);
 		this.enemies.length = 0;
 	}
 	,
 	clearAllEnemies() {
-		this.enemies.forEach(function(enemy) {
+		this.enemies.forEach(enemy => {
 			enemy.clearEnemy();
 		});
 		this.enemies.length = 0;
 	}
 	,
 	findClosestEnemy(location) {
-		var enemyLocations = this.enemies.map(function(enemy) { return enemy.location; }); // Perhaps this could be improved, but it's not mission-critical
+		var enemyLocations = this.enemies.map(enemy => enemy.location); // Perhaps this could be improved, but it's not mission-critical
 		var enemyIndex = Smart.Physics.findClosestPoint(location, enemyLocations);
 
 		return this.enemies[enemyIndex];
