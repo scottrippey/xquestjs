@@ -4,9 +4,9 @@ Balance.onUpdate(function(gameMode) {
 	Graphics.merge({
 		enemies: {
 			mantis: {
-				radius: radius
-				, star1: { radius: radius, sides: 7, pointSize: 0.5, color: yellow }
-				, star2: { radius: radius, sides: 7, pointSize: 0.7, angle: 360 / 7 * .5, color: red }
+				radius
+				, star1: { radius, sides: 7, pointSize: 0.5, color: yellow }
+				, star2: { radius, sides: 7, pointSize: 0.7, angle: 360 / 7 * .5, color: red }
 				, pulse: 4
 				,explosionOptions: {
 					count: 20

@@ -68,11 +68,11 @@ Balance.merge({
 						visibleHeight = hudHeight + padding + levelHeight + padding;
 					}
 					return {
-						hudHeight: hudHeight
-						, padding: padding
+						hudHeight
+						, padding
 						, x: padding, y: hudHeight + padding
-						, visibleWidth: visibleWidth
-						, visibleHeight: visibleHeight
+						, visibleWidth
+						, visibleHeight
 						, width: levelWidth
 						, height: levelHeight
 						, totalWidth: padding + levelWidth + padding

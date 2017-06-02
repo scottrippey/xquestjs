@@ -116,7 +116,7 @@
 		/**
 		 * (returns null if not supported)
 		 */
-		createGamepadInput: createGamepadInput
+		createGamepadInput
 	});
 	
 
