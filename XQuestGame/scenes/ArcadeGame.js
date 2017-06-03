@@ -254,7 +254,7 @@
 					var actualFPS = createjs.Ticker.getMeasuredFPS()
 						,potentialFPS = 1000 / createjs.Ticker.getMeasuredTickTime();
 
-					this.text = "FPS: " + potentialFPS.toFixed(2) + " [" + actualFPS.toFixed(2) + "]";
+					this.text = `FPS: ${potentialFPS.toFixed(2)} [${actualFPS.toFixed(2)}]`;
 				};
 			}
 		}
@@ -273,7 +273,7 @@
 				var gameItems = this.game.debugStats.gameItems
 					,allGraphics = this.game.gfx.debugStats.allGraphics;
 				this.debugStatsText.onTick = function(tickEvent) {
-					this.text = "Game Items: " + gameItems.length + "\nGraphics: " + allGraphics.length;
+					this.text = `Game Items: ${gameItems.length}\nGraphics: ${allGraphics.length}`;
 				};
 			}
 		}

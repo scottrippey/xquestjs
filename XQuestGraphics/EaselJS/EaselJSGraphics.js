@@ -149,7 +149,7 @@ var EaselJSGraphics = Smart.Class({
 					, y: bounds.y + bounds.height / 2
 				};
 			default:
-				throw "Invalid gamePoint: " + gamePoint;
+				throw new Error(`Invalid gamePoint: ${gamePoint}`);
 		}
 	}
 	,
@@ -219,7 +219,7 @@ var EaselJSGraphics = Smart.Class({
 		}
 
 		if (enemyGraphics == null)
-			throw new Error("Unknown enemy: " + enemyName);
+			throw new Error(`Unknown enemy: ${enemyName}`);
 
 		this.layers.characters.addChild(enemyGraphics);
 		enemyGraphics.onDispose(() => {
@@ -363,7 +363,7 @@ var EaselJSGraphics = Smart.Class({
 
 		return buttonGfx;
 	}
-	
+
 	,
 	createXQuestLogoGraphic() {
 		var introGraphics = new EaselJSGraphics.XQuestLogoGraphic(this);
@@ -371,7 +371,7 @@ var EaselJSGraphics = Smart.Class({
 		introGraphics.onDispose(() => {
 			this.layers.hud.removeChild(introGraphics);
 		});
-		
+
 		return introGraphics;
 	}
 });

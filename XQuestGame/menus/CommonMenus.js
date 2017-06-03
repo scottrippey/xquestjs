@@ -86,11 +86,11 @@
 			getRows() {
 				var mouseSettings = this.mouseSettings = this.menuScene.host.settings.retrieveSetting('mouseSettings');
 
-				var sensitivity = this.createMenuButton(() => "Sensitivity: " + mouseSettings.mouseSensitivity, () => {
+				var sensitivity = this.createMenuButton(() => `Sensitivity: ${mouseSettings.mouseSensitivity}`, () => {
 					mouseSettings.mouseSensitivity = (mouseSettings.mouseSensitivity % mouseSettings.maxMouseSensitivity) + 1;
 					sensitivity.updateText();
 				});
-				var bias = this.createMenuButton(() => "Edge Sensitivity: " + mouseSettings.mouseBiasSensitivity, () => {
+				var bias = this.createMenuButton(() => `Edge Sensitivity: ${mouseSettings.mouseBiasSensitivity}`, () => {
 					mouseSettings.mouseBiasSensitivity = (mouseSettings.mouseBiasSensitivity % mouseSettings.maxMouseBias) + 1;
 					bias.updateText();
 				});
@@ -117,7 +117,7 @@
 			getRows() {
 				var keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.retrieveSetting('keyboardSettings');
 
-				var sensitivity = this.createMenuButton(() => "Sensitivity: " + keyboardSettings.keyboardSensitivity, () => {
+				var sensitivity = this.createMenuButton(() => `Sensitivity: ${keyboardSettings.keyboardSensitivity}`, () => {
 					keyboardSettings.keyboardSensitivity = (keyboardSettings.keyboardSensitivity % keyboardSettings.maxKeyboardSensitivity) + 1;
 					sensitivity.updateText();
 				});
@@ -143,7 +143,7 @@
 			getRows() {
 				var touchSettings = this.touchSettings = this.menuScene.host.settings.retrieveSetting('touchSettings');
 
-				var sensitivity = this.createMenuButton(() => "Sensitivity: " + touchSettings.touchSensitivity, () => {
+				var sensitivity = this.createMenuButton(() => `Sensitivity: ${touchSettings.touchSensitivity}`, () => {
 					touchSettings.touchSensitivity = (touchSettings.touchSensitivity % touchSettings.maxTouchSensitivity) + 1;
 					sensitivity.updateText();
 				});

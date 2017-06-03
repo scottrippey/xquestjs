@@ -90,7 +90,7 @@ XQuestGame.LevelFactory = Smart.Class({
 	
 	
 	,_showLevelNumber(levelConfig) {
-		var level = "Level " + levelConfig.numberOfRegularLevels;
+		var level = `Level ${levelConfig.numberOfRegularLevels}`;
 
 		var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });
 		textGfx.flyIn(1.5).flyOut(2);

@@ -1,9 +1,9 @@
 /**
  * Smart.Drawing
- * 
+ *
  * A wrapper around a CanvasRenderingContext2D,
  * providing a chainable syntax and shape helper methods.
- * 
+ *
  */
 Smart.Drawing = Smart.Class({
 	addCommand: null // Must be overridden
@@ -59,6 +59,19 @@ Smart.Drawing = Smart.Class({
 	 * Custom drawing helper methods, for drawing shapes and patterns
 	 */
 	_.extend(Smart.Drawing.prototype, {
+		/**
+		 * Fills and/or strokes a path.
+		 *
+		 * @param {object} drawStyle
+		 * @param {DrawStyle} drawStyle.fillStyle
+		 * @param {DrawStyle} drawStyle.strokeStyle
+		 * @param {number} [drawStyle.lineWidth]
+		 * @param {LineCap} [drawStyle.lineCap] - "butt", "round", "square"
+		 * @param {LineJoin} [drawStyle.lineJoin] - "miter", "round", "bevel"
+		 * @param {number} [drawStyle.miterLimit]
+		 *
+		 * @return {Smart.Drawing}
+		 */
 		endPath: function(drawStyle) {
 			if (drawStyle.fillStyle) {
 				this.fillStyle(drawStyle.fillStyle);
@@ -142,7 +155,7 @@ Smart.Drawing = Smart.Class({
 	_.extend(Smart.Drawing, {
 		/**
 		 * Creates a star with the specified number of sides.
-		 * 
+		 *
 		 * @param {Number} x
 		 * @param {Number} y
 		 * @param {Number} radius
@@ -168,9 +181,9 @@ Smart.Drawing = Smart.Class({
 			if (!angle) angle = 0;
 
 			pointSize = 1-pointSize;
-			 
+
 			angle /= 180/Math.PI;
-			
+
 			var a = Math.PI/sides;
 
 			var starPolygon = [];
@@ -189,7 +202,7 @@ Smart.Drawing = Smart.Class({
 		 * Creates a polygon around the edges of a circle, connecting the specified angles.
 		 * For example, [ 0, 120, 240 ] would create an equilateral triangle,
 		 * and [ 0, 20, 180, 340 ] would create a kite-like shape.
-		 * 
+		 *
 		 * @param {Number} x
 		 * @param {Number} y
 		 * @param {Number} radius

@@ -55,11 +55,11 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 			var containerWidth = container.offsetWidth, containerHeight = container.offsetHeight;
 			var canvasWidthRatio = (canvasWidth / canvasHeight), containerWidthRatio = (containerWidth / containerHeight);
 			if (canvasWidthRatio > containerWidthRatio) {
-				canvas.style.width = containerWidth + 'px';
-				canvas.style.height = (containerWidth / canvasWidthRatio) + 'px';
+				canvas.style.width = `${containerWidth}px`;
+				canvas.style.height = `${containerWidth / canvasWidthRatio}px`;
 			} else {
-				canvas.style.height = containerHeight + 'px';
-				canvas.style.width = (containerHeight * canvasWidthRatio) + 'px';
+				canvas.style.height = `${containerHeight}px`;
+				canvas.style.width = `${containerHeight * canvasWidthRatio}px`;
 			}
 		}
 	}

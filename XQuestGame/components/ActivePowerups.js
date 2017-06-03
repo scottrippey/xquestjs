@@ -9,7 +9,7 @@ XQuestGame.ActivePowerups = Smart.Class({
 		this.activeTimes[powerupName] = 'newPowerup';
 			
 		if (!omitText) {
-			var powerupDisplayName = powerupName + "!";
+			var powerupDisplayName = `${powerupName}!`;
 			var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupActive');
 			textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
 		}
@@ -17,7 +17,7 @@ XQuestGame.ActivePowerups = Smart.Class({
 	}
 	,
 	_deactivate(powerupName) {
-		var powerupDisplayName = powerupName + " inactive";
+		var powerupDisplayName = `${powerupName} inactive`;
 		var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupDeactive');
 		return textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
 	}

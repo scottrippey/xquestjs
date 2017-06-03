@@ -57,9 +57,9 @@ XQuestGame.Hud = Smart.Class({
 
 	}
 	, onAct(tickEvent) {
-		this.hudLivesText.text = ' x ' + this.game.stats.lives;
-		this.hudCrystalsText.text = ' x ' + this.game.stats.crystalCount;
-		this.hudBombsText.text = ' x ' + this.game.stats.bombs;
+		this.hudLivesText.text = ` x ${this.game.stats.lives}`;
+		this.hudCrystalsText.text = ` x ${this.game.stats.crystalCount}`;
+		this.hudBombsText.text = ` x ${this.game.stats.bombs}`;
 	}
 	
 	, _onNewLevel() {

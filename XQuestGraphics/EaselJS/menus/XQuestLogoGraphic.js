@@ -148,7 +148,7 @@ EaselJSGraphics.XQuestLogoGraphic.UEST = Smart.Class(new EaselJSGraphics.Drawing
 		this.visibleWidth = G.height * 2;
 
 		drawing
-			.font(G.fontSize + 'px "Segoe UI"')
+			.font(`${G.fontSize}px "Segoe UI"`)
 			.fillStyle(G.textColor)
 			.fillText("uest", 0, 0);
 	}
