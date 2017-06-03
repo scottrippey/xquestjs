@@ -22,17 +22,19 @@ _.extend(createjs.Graphics.prototype, {
 		return this;
 	},
 	drawPolygon(points) {
-		var gfx = this;
-		var startX = points[0][0], startY = points[0][1];
-		gfx.moveTo(startX, startY);
-		for (var i = 1, l = points.length; i < l; i++) {
-			var x = points[i][0], y = points[i][1];
-			gfx.lineTo(x, y);
-		}
-		gfx.lineTo(startX, startY);
+        var gfx = this;
+        var startX = points[0][0];
+        var startY = points[0][1];
+        gfx.moveTo(startX, startY);
+        for (var i = 1, l = points.length; i < l; i++) {
+            var x = points[i][0];
+            var y = points[i][1];
+            gfx.lineTo(x, y);
+        }
+        gfx.lineTo(startX, startY);
 
-		return this;
-	}
+        return this;
+    }
 });
 
 _.extend(createjs.DisplayObject.prototype, Smart.Disposable.prototype);

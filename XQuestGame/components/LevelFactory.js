@@ -30,13 +30,13 @@ XQuestGame.LevelFactory = Smart.Class({
 		this._showLevelNumber(levelConfig);
 	},
 	_setAlternatingEnemyPool(levelConfig) {
-		var enemyLineup = Balance.enemies.roster;
-		var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2),
-			isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length),
-			isEvenLevel = (levelConfig.numberOfRegularLevels % 2) === 0;
+        var enemyLineup = Balance.enemies.roster;
+        var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2);
+        var isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length);
+        var isEvenLevel = (levelConfig.numberOfRegularLevels % 2) === 0;
 
-		var enemyPool;
-		if (isMaxLevel) {
+        var enemyPool;
+        if (isMaxLevel) {
 			// Very high levels include all enemies:
 			enemyPool = enemyLineup;
 		} else if (isEvenLevel) {
@@ -47,8 +47,8 @@ XQuestGame.LevelFactory = Smart.Class({
 			enemyPool = enemyLineup.slice(0, numberOfAlternateLevels + 1);
 		}
 
-		levelConfig.enemyPool = enemyPool;
-	},
+        levelConfig.enemyPool = enemyPool;
+    },
 
 	_setupBonusLevel1(levelConfig) {
 		var B = Balance.bonusLevel1;

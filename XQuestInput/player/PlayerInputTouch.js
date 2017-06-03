@@ -94,14 +94,14 @@
 			return delta;
 		},
 		_adjustForSensitivity(delta, touchPosition, elementSize) {
-			var touchSettings = this.touchSettings,
-				sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
-			var acceleration = {
+            var touchSettings = this.touchSettings;
+            var sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
+            var acceleration = {
 				x: delta.x * sensitivity,
 				y: delta.y * sensitivity
 			};
-			return acceleration;
-		},
+            return acceleration;
+        },
 
 		onInput(tickEvent, inputState) {
 

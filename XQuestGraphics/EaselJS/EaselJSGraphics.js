@@ -20,16 +20,17 @@ var EaselJSGraphics = Smart.Class({
 
 		var allGraphics = this.debugStats.allGraphics;
 		function trackChildren(stage) {
-			var addChild = stage.addChild, removeChild = stage.removeChild;
-			stage.addChild = function(child) {
+            var addChild = stage.addChild;
+            var removeChild = stage.removeChild;
+            stage.addChild = function(child) {
 				addChild.apply(this, arguments);
 				allGraphics.push(child);
 			};
-			stage.removeChild = function(child) {
+            stage.removeChild = function(child) {
 				removeChild.apply(this, arguments);
 				_.eliminate(allGraphics, child);
 			};
-		}
+        }
 		_.forOwn(this.layers, stage => {
 			trackChildren(stage);
 			stage.autoClear = false;
@@ -97,16 +98,17 @@ var EaselJSGraphics = Smart.Class({
 	},
 
 	getSafeSpawn(radius) {
-		var leftEnemySpawn = this.getGamePoint('left'),
-			rightEnemySpawn = this.getGamePoint('right'),
-			safeDistance = Balance.enemies.safeSpawnDistance;
-		var randomSpot, isSafe;
-		do {
+        var leftEnemySpawn = this.getGamePoint('left');
+        var rightEnemySpawn = this.getGamePoint('right');
+        var safeDistance = Balance.enemies.safeSpawnDistance;
+        var randomSpot;
+        var isSafe;
+        do {
 			randomSpot = this.getGamePoint('random', radius);
 			isSafe = !(Smart.Point.distanceTest(leftEnemySpawn, randomSpot, safeDistance)) && !(Smart.Point.distanceTest(rightEnemySpawn, randomSpot, safeDistance));
 		} while (!isSafe);
-		return randomSpot;
-	},
+        return randomSpot;
+    },
 
 	getGamePoint(gamePoint, radius) {
 		if (typeof gamePoint !== 'string') return gamePoint;

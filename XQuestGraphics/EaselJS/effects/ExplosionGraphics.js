@@ -21,28 +21,27 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
 
 		this.particles = new Array(explosionOptions.count);
 		for (var i = 0, l = explosionOptions.count; i < l; i++) {
+            var vx = velocity.x + explosionOptions.speed * random();
+            var vy = velocity.y + explosionOptions.speed * random();
 
-			var vx = velocity.x + explosionOptions.speed * random(),
-				vy = velocity.y + explosionOptions.speed * random();
-
-			this.particles[i] = {
+            this.particles[i] = {
 				x: position.x, y: position.y,
 				velocity: { x: vx, y: vy }
 			};
-		}
+        }
 
 		this.addAnimation()
 			.duration(explosionOptions.duration).easeOut().fade(this, 0).queueDispose(this);
 
 	},
 	drawEffects(drawing, tickEvent) {
-		var explosionOptions = this.explosionOptions,
-			particles = this.particles,
-			deltaSeconds = tickEvent.deltaSeconds,
-			levelBounds = Balance.level.bounds;
+        var explosionOptions = this.explosionOptions;
+        var particles = this.particles;
+        var deltaSeconds = tickEvent.deltaSeconds;
+        var levelBounds = Balance.level.bounds;
 
-		drawing.beginPath();
-		for (var i = 0, l = particles.length; i < l; i++) {
+        drawing.beginPath();
+        for (var i = 0, l = particles.length; i < l; i++) {
 			var particle = particles[i];
 			Smart.Physics.applyVelocity(particle, particle.velocity, deltaSeconds);
 			Smart.Physics.applyFrictionToVelocity(particle.velocity, explosionOptions.friction, deltaSeconds);
@@ -52,6 +51,6 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
 				.moveTo(particle.x, particle.y)
 				.circle(particle.x, particle.y, explosionOptions.radius);
 		}
-		drawing.endPath(explosionOptions.style);
-	}
+        drawing.endPath(explosionOptions.style);
+    }
 });

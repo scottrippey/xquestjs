@@ -23,32 +23,35 @@ XQuestGame.Projectiles = Smart.Class({
 		this.addBullet(-angle);
 	},
 	addSprayShot(tickEvent) {
-		var B = Balance.powerups.sprayShot;
-		var shots = B.shots, speed = B.speed, spinSpeed = B.spinSpeed;
-		var angle = 360 / shots;
+        var B = Balance.powerups.sprayShot;
+        var shots = B.shots;
+        var speed = B.speed;
+        var spinSpeed = B.spinSpeed;
+        var angle = 360 / shots;
 
-		var angleOffset = spinSpeed * tickEvent.runTime / 1000;
+        var angleOffset = spinSpeed * tickEvent.runTime / 1000;
 
-		for (var i = 0; i < shots; i++) {
+        for (var i = 0; i < shots; i++) {
 			this.addBullet(angleOffset + i * angle, speed);
 		}
-	},
+    },
 	addBullet(angle, speed) {
-		var B = Balance.bullets, player = this.game.player;
+        var B = Balance.bullets;
+        var player = this.game.player;
 
-		var velocity;
-		if (this.game.activePowerups.autoAim) {
+        var velocity;
+        if (this.game.activePowerups.autoAim) {
 			var autoAim = Balance.powerups.autoAim;
 			var targetEnemy = this.game.enemyFactory.findClosestEnemy(player.location);
 			if (targetEnemy) {
 				velocity = Smart.Physics.trajectory(player.location, targetEnemy.location, targetEnemy.velocity, autoAim.bulletSpeed);
 			}
 		}
-		if (speed) {
+        if (speed) {
 			velocity = Smart.Point.fromAngle(angle, speed);
 			angle = 0;
 		}
-		if (!velocity) {
+        if (!velocity) {
 			if (player.velocity.x === 0 && player.velocity.y === 0) {
 				return;
 			}
@@ -58,19 +61,21 @@ XQuestGame.Projectiles = Smart.Class({
 			};
 		}
 
-		var bulletGfx = this.bulletsGraphics.addBullet();
-		bulletGfx.moveTo(player.location.x, player.location.y);
+        var bulletGfx = this.bulletsGraphics.addBullet();
+        bulletGfx.moveTo(player.location.x, player.location.y);
 
-		bulletGfx.velocity = velocity;
-		if (angle) {
+        bulletGfx.velocity = velocity;
+        if (angle) {
 			Smart.Point.rotate(bulletGfx.velocity, angle);
 		}
-		bulletGfx.location = bulletGfx;
-		bulletGfx.radius = B.radius;
-	},
+        bulletGfx.location = bulletGfx;
+        bulletGfx.radius = B.radius;
+    },
 	_moveBullets(tickEvent) {
-		var bounds = Balance.level.bounds, bullets = this.bulletsGraphics.bullets, i = bullets.length;
-		while (i--) {
+        var bounds = Balance.level.bounds;
+        var bullets = this.bulletsGraphics.bullets;
+        var i = bullets.length;
+        while (i--) {
 			var bulletGfx = bullets[i];
 			Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 
@@ -81,7 +86,7 @@ XQuestGame.Projectiles = Smart.Class({
 				bullets.splice(i, 1);
 			}
 		}
-	},
+    },
 	_bulletsKillEnemies() {
 		var bullets = this.bulletsGraphics.bullets;
 		if (bullets.length) {

@@ -25,37 +25,37 @@ XQuestGame.Hud = Smart.Class({
 		this.hudPauseButton.addEventListener('click', () => { this.game.pauseGame(); });
 	},
 	_layout() {
-		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;
-		var spacer = 50;
+        var bounds = Balance.level.bounds;
+        var middle = bounds.hudHeight / 2;
+        var spacer = 50;
 
-		var leftPos = spacer;
+        var leftPos = spacer;
 
-		leftPos += this.hudLivesIcon.visibleRadius;
-		this.hudLivesIcon.moveTo(leftPos, middle);
-		leftPos += this.hudLivesIcon.visibleRadius;
-		this.hudLivesText.moveTo(leftPos, middle);
+        leftPos += this.hudLivesIcon.visibleRadius;
+        this.hudLivesIcon.moveTo(leftPos, middle);
+        leftPos += this.hudLivesIcon.visibleRadius;
+        this.hudLivesText.moveTo(leftPos, middle);
 
-		leftPos += spacer;
+        leftPos += spacer;
 
-		leftPos += this.hudBombsIcon.visibleRadius;
-		this.hudBombsIcon.moveTo(leftPos, middle);
-		leftPos += this.hudBombsIcon.visibleRadius;
-		this.hudBombsText.moveTo(leftPos, middle);
+        leftPos += this.hudBombsIcon.visibleRadius;
+        this.hudBombsIcon.moveTo(leftPos, middle);
+        leftPos += this.hudBombsIcon.visibleRadius;
+        this.hudBombsText.moveTo(leftPos, middle);
 
-		leftPos += spacer;
+        leftPos += spacer;
 
-		leftPos += this.hudCrystalsIcon.visibleRadius;
-		this.hudCrystalsIcon.moveTo(leftPos, middle);
-		leftPos += this.hudCrystalsIcon.visibleRadius;
-		this.hudCrystalsText.moveTo(leftPos, middle);
+        leftPos += this.hudCrystalsIcon.visibleRadius;
+        this.hudCrystalsIcon.moveTo(leftPos, middle);
+        leftPos += this.hudCrystalsIcon.visibleRadius;
+        this.hudCrystalsText.moveTo(leftPos, middle);
 
-		leftPos += spacer;
+        leftPos += spacer;
 
 
-		var center = bounds.visibleWidth / 2;
-		this.hudPauseButton.moveTo(center - this.hudPauseButton.width / 2, middle - this.hudPauseButton.height / 2);
-
-	},
+        var center = bounds.visibleWidth / 2;
+        this.hudPauseButton.moveTo(center - this.hudPauseButton.width / 2, middle - this.hudPauseButton.height / 2);
+    },
 	onAct(tickEvent) {
 		this.hudLivesText.text = ` x ${this.game.stats.lives}`;
 		this.hudCrystalsText.text = ` x ${this.game.stats.crystalCount}`;

@@ -1,11 +1,12 @@
 Balance.onUpdate(mode => {
-	var outerRadius = Balance.enemies.locust.radius,
-		outerOffset = 0,
-		innerRadius = outerRadius * 6 / 11,
-		innerOffset = outerRadius * 3 / 11;
-	var orange = 'hsl(40, 100%, 50%)', red = 'hsl(0, 100%, 30%)';
+    var outerRadius = Balance.enemies.locust.radius;
+    var outerOffset = 0;
+    var innerRadius = outerRadius * 6 / 11;
+    var innerOffset = outerRadius * 3 / 11;
+    var orange = 'hsl(40, 100%, 50%)';
+    var red = 'hsl(0, 100%, 30%)';
 
-	_.merge(Graphics, {
+    _.merge(Graphics, {
 		enemies: {
 			locust: {
 				visibleRadius: Balance.enemies.locust.radius + 1,

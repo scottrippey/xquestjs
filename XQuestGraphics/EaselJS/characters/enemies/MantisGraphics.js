@@ -1,7 +1,8 @@
 Balance.onUpdate(gameMode => {
-	var radius = Balance.enemies.mantis.radius;
-	var red = 'hsl(10, 100%, 50%)', yellow = 'hsl(60, 100%, 50%)';
-	Graphics.merge({
+    var radius = Balance.enemies.mantis.radius;
+    var red = 'hsl(10, 100%, 50%)';
+    var yellow = 'hsl(60, 100%, 50%)';
+    Graphics.merge({
 		enemies: {
 			mantis: {
 				radius,

@@ -1,11 +1,11 @@
 EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 	drawCircleCircle(drawing, G) {
-		var outerRadius = G.outerRadius,
-			outerStyle = G.outerStyle,
-			innerRadius = G.innerRadius,
-			innerStyle = G.innerStyle;
+        var outerRadius = G.outerRadius;
+        var outerStyle = G.outerStyle;
+        var innerRadius = G.innerRadius;
+        var innerStyle = G.innerStyle;
 
-		drawing
+        drawing
 			.beginPath()
 			.circle(0, 0, outerRadius)
 			.endPath(outerStyle)
@@ -14,15 +14,14 @@ EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 			.circle(0, 0, innerRadius)
 			.endPath(innerStyle)
 		;
-
-	},
+    },
 	drawTriangleTriangle(drawing, G) {
-		var outerTriangle = G.outerTriangle,
-			outerStyle = G.outerStyle,
-			innerTriangle = G.innerTriangle,
-			innerStyle = G.innerStyle;
+        var outerTriangle = G.outerTriangle;
+        var outerStyle = G.outerStyle;
+        var innerTriangle = G.innerTriangle;
+        var innerStyle = G.innerStyle;
 
-		drawing
+        drawing
 			.beginPath()
 			.polygon(outerTriangle)
 			.closePath()
@@ -33,7 +32,7 @@ EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 			.closePath()
 			.endPath(innerStyle)
 		;
-	},
+    },
 	killEnemy(gfx, velocity) {
 		var enemyGraphics = this;
 		enemyGraphics.dispose();

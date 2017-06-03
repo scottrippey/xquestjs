@@ -19,31 +19,32 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this.canvas = canvas;
 	},
 	_createFullScreenCanvas(canvasWidth, canvasHeight) {
-		// Create elements manually, because parsing isn't "safe" for WinJS:
-		var container = document.createElement('section'), canvas = document.createElement('canvas');
-		container.appendChild(canvas);
-		container.setAttribute('tabindex', '1');
-		_.extend(container.style, { position: 'fixed', top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'hsl(0, 0%, 5%)', outline: 'none' });
-		_.extend(canvas.style, { position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, margin: 'auto' });
+        // Create elements manually, because parsing isn't "safe" for WinJS:
+        var container = document.createElement('section');
+        var canvas = document.createElement('canvas');
+        container.appendChild(canvas);
+        container.setAttribute('tabindex', '1');
+        _.extend(container.style, { position: 'fixed', top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'hsl(0, 0%, 5%)', outline: 'none' });
+        _.extend(canvas.style, { position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, margin: 'auto' });
 
-		canvas.width = canvasWidth;
-		canvas.height = canvasHeight;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
 
-		document.body.appendChild(container);
-		document.body.style.overflow = "hidden";
-		this.onDispose(() => {
+        document.body.appendChild(container);
+        document.body.style.overflow = "hidden";
+        this.onDispose(() => {
 			document.body.removeChild(container);
 			document.body.style.overflow = null;
 		});
-		container.focus();
+        container.focus();
 
-		this._contain(container, canvas, canvasWidth, canvasHeight);
+        this._contain(container, canvas, canvasWidth, canvasHeight);
 
-		this.canvas = canvas;
-		this.container = container;
+        this.canvas = canvas;
+        this.container = container;
 
-		return canvas;
-	},
+        return canvas;
+    },
 	_contain(container, canvas, canvasWidth, canvasHeight) {
 		window.addEventListener('resize', scaleCanvas);
 		this.onDispose(() => {
@@ -52,16 +53,18 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		scaleCanvas();
 
 		function scaleCanvas() {
-			var containerWidth = container.offsetWidth, containerHeight = container.offsetHeight;
-			var canvasWidthRatio = (canvasWidth / canvasHeight), containerWidthRatio = (containerWidth / containerHeight);
-			if (canvasWidthRatio > containerWidthRatio) {
+            var containerWidth = container.offsetWidth;
+            var containerHeight = container.offsetHeight;
+            var canvasWidthRatio = (canvasWidth / canvasHeight);
+            var containerWidthRatio = (containerWidth / containerHeight);
+            if (canvasWidthRatio > containerWidthRatio) {
 				canvas.style.width = `${containerWidth}px`;
 				canvas.style.height = `${containerWidth / canvasWidthRatio}px`;
 			} else {
 				canvas.style.height = `${containerHeight}px`;
 				canvas.style.width = `${containerHeight * canvasWidthRatio}px`;
 			}
-		}
+        }
 	},
 
 	_setupTimer() {

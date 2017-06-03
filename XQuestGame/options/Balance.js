@@ -54,16 +54,17 @@ Balance.merge({
 		Balance.merge({
 			level: {
 				bounds: ((() => {
-					var hudHeight = 40,
-						padding = 40,
-						levelWidth = 1200, levelHeight = 675,
-						visibleWidth = 800, visibleHeight = 450
-						;
-					if (gameOptions.fullView) {
+                    var hudHeight = 40;
+                    var padding = 40;
+                    var levelWidth = 1200;
+                    var levelHeight = 675;
+                    var visibleWidth = 800;
+                    var visibleHeight = 450;
+                    if (gameOptions.fullView) {
 						visibleWidth = padding + levelWidth + padding;
 						visibleHeight = hudHeight + padding + levelHeight + padding;
 					}
-					return {
+                    return {
 						hudHeight,
 						padding,
 						x: padding, y: hudHeight + padding,
@@ -74,7 +75,7 @@ Balance.merge({
 						totalWidth: padding + levelWidth + padding,
 						totalHeight: hudHeight + padding + levelHeight + padding
 					};
-				}))(),
+                }))(),
 				gateWidth: gameOptions.easyMode ? 300 : 200
 			},
 			player: {
@@ -87,7 +88,7 @@ Balance.merge({
 			bullets: {
 				radius: 3,
 				kickBack: 0.5,
-				speed: 3 // * player speed,
+				speed: 3, // * player speed
 				shotsPerSecond: 1.0
 			},
 			bombs: {
@@ -98,11 +99,11 @@ Balance.merge({
 			crystals: {
 				radius: 10,
 				spawnQuantity(currentLevel) {
-					var min = gameOptions.hardMode ? 30 : 12,
-						multiplier = gameOptions.hardMode ? 4 : 2,
-						max = gameOptions.hardMode ? 80 : 40;
-					return Math.min(min + multiplier * currentLevel, max);
-				}
+                    var min = gameOptions.hardMode ? 30 : 12;
+                    var multiplier = gameOptions.hardMode ? 4 : 2;
+                    var max = gameOptions.hardMode ? 80 : 40;
+                    return Math.min(min + multiplier * currentLevel, max);
+                }
 			},
 			powerCrystals: {
 				radius: 15,
@@ -154,7 +155,7 @@ Balance.merge({
 				maxRadius: 13,
 				safeSpawnDistance: 13*10,
 				spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(1, 2),
-				spawnDifficulty: 1.5 // Causes more difficult enemies to spawn more frequently,
+				spawnDifficulty: 1.5, // Causes more difficult enemies to spawn more frequently
 				roster: gameOptions.enemyRoster || [ XQuestGame.Slug, XQuestGame.Locust, XQuestGame.Mantis ],
 				slug: {
 					radius: 13,
