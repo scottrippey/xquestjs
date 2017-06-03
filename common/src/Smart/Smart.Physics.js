@@ -230,7 +230,7 @@ Smart.Physics = {
 			, e = targetLocation
 			, p = playerLocation
 			, d = { x: e.x - p.x, y: e.y - p.y }
-			, sqr = function(x) { return x * x; };
+			, sqr = x => x * x;
 
 		// Solve for t by using the quadratic trajectory equation:
 		var a = sqr(v.x) + sqr(v.y) - sqr(bs)

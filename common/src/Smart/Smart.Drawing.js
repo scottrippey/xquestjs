@@ -35,19 +35,19 @@ Smart.Drawing = Smart.Class({
 		'strokeStyle', 'fillStyle', 'lineWidth', 'lineCap', 'lineJoin', 'miterLimit'
 		, 'font'
 	];
-	canvasMethods.forEach(function(methodName) {
+	canvasMethods.forEach(methodName => {
 		Smart.Drawing.prototype[methodName] = function _canvas_method_() {
 			var methodArgs = arguments;
-			this.addCommand(function(context) {
+			this.addCommand(context => {
 				context[methodName].apply(context, methodArgs);
 			});
 			return this;
 		}
 	});
 
-	canvasProperties.forEach(function(propName) {
+	canvasProperties.forEach(propName => {
 		Smart.Drawing.prototype[propName] = function _canvas_property_setter_(value) {
-			this.addCommand(function(context) {
+			this.addCommand(context => {
 				context[propName] = value;
 			});
 			return this;
@@ -130,7 +130,7 @@ Smart.Drawing = Smart.Class({
 			return this;
 		}
 		,drawingQueue(drawingQueue) {
-			this.addCommand(function(context) {
+			this.addCommand(context => {
 				drawingQueue.draw(context);
 			});
 			return this;
@@ -280,7 +280,7 @@ Smart.DrawingQueue = Smart.Class(new Smart.Drawing(), {
 		this._commands.push(command);
 	}
 	,draw(context) {
-		this._commands.forEach(function(command) {
+		this._commands.forEach(command => {
 			command(context);
 		});
 	}

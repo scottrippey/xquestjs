@@ -12,7 +12,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	move(target, keyframes) {
-		var interpolate = function(position) {
+		var interpolate = position => {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
 				|| Smart.Keyframes.fromPoints(keyframes)
@@ -34,7 +34,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	fade(target, keyframes) {
-		var interpolate = function(position) {
+		var interpolate = position => {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
 				|| Smart.Keyframes.fromNumbers(keyframes)
@@ -55,7 +55,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	color(target, keyframes) {
-		var interpolate = function(position) {
+		var interpolate = position => {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
 				|| Smart.Keyframes.fromColors(keyframes)
@@ -76,7 +76,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	scale(target, keyframes) {
-		var interpolate = function(position) {
+		var interpolate = position => {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
 				|| Smart.Keyframes.fromNumbers(keyframes)
@@ -132,7 +132,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	queueDispose(disposable) {
-		return this.queue(function() {
+		return this.queue(() => {
 			disposable.dispose();
 		});
 	}

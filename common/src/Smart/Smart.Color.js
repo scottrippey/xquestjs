@@ -8,15 +8,15 @@
 
 			var hex6 = color.match(/^#?([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/);
 			if (hex6)
-				return hex6.slice(1).map(function(h) { return parseInt(h, 16); });
+				return hex6.slice(1).map(h => parseInt(h, 16));
 
 			var hex3 = color.match(/^#?([A-Fa-f0-9])([A-Fa-f0-9])([A-Fa-f0-9])$/);
 			if (hex3)
-				return hex3.slice(1).map(function(h) { return parseInt(h, 16); });
+				return hex3.slice(1).map(h => parseInt(h, 16));
 
 			var rgba = color.match(/^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(?:,(\d?\.?\d*))?\)$/);
 			if (rgba)
-				return rgba.slice(1, (rgba[4] ? 5 : 4)).map(function(d) { return parseFloat(d); });
+				return rgba.slice(1, (rgba[4] ? 5 : 4)).map(d => parseFloat(d));
 
 			return null;
 		}
@@ -42,7 +42,7 @@
 
 			var hsla = color.match(/^hsla?\((\d{1,3}),(\d{1,3})%,(\d{1,3})%(?:,(\d?\.?\d*))?\)$/);
 			if (hsla)
-				return hsla.slice(1, (hsla[4] ? 5 : 4)).map(function(d) { return parseFloat(d); });
+				return hsla.slice(1, (hsla[4] ? 5 : 4)).map(d => parseFloat(d));
 
 			return null;
 		}

@@ -12,7 +12,7 @@ _.extend(Smart.Animation.prototype, {
 	 */
 	ease(easing) {
 		easing = Smart.Animation.Easing.easeInOut(easing || this.defaultEasing);
-		return this.frame(function(animEvent) {
+		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
 	}
@@ -25,7 +25,7 @@ _.extend(Smart.Animation.prototype, {
 	 */
 	easeIn(easing) {
 		easing = Smart.Animation.Easing.easeIn(easing || this.defaultEasing);
-		return this.frame(function(animEvent) {
+		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
 	}
@@ -38,7 +38,7 @@ _.extend(Smart.Animation.prototype, {
 	 */
 	easeOut(easing) {
 		easing = Smart.Animation.Easing.easeOut(easing || this.defaultEasing);
-		return this.frame(function(animEvent) {
+		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
 	}
