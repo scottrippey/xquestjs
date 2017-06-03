@@ -18,14 +18,14 @@
 
 
 			this.keyMapper.setKeyMap(menuKeyMap);
-		}
-		,_setupKeyMap() {
+		},
+		_setupKeyMap() {
 			this.keyMapper = new XQuestInput.KeyMapper(this.element, this._onActionDown.bind(this));
-		}
-		,_onActionDown(actionName) {
+		},
+		_onActionDown(actionName) {
 			this.actionsQueue.push(actionName);
-		}
-		,onInput(tickEvent, inputState) {
+		},
+		onInput(tickEvent, inputState) {
 			for (var i = 0, l = this.actionsQueue.length; i < l; i++) {
 				var actionName = this.actionsQueue[i];
 				inputState[actionName] = true;

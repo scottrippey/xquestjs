@@ -6,8 +6,8 @@ Smart.Physics = {
 		if (velocity.y) {
 			point.y += velocity.y * elapsedSeconds;
 		}
-	}
-	,
+	},
+
 	applyAcceleration(point, acceleration, elapsedSeconds) {
 		if (acceleration.x || acceleration.y) {
 			var oneHalfTSquared = elapsedSeconds * elapsedSeconds / 2;
@@ -16,13 +16,13 @@ Smart.Physics = {
 			if (acceleration.y)
 				point.y += acceleration.y * oneHalfTSquared;
 		}
-	}
-	,
+	},
+
 	applyAccelerationToVelocity(velocity, acceleration) {
 		velocity.x += acceleration.x;
 		velocity.y += acceleration.y;
-	}
-	,
+	},
+
 	applyFrictionToVelocity(velocity, friction, elapsedSeconds) {
 		var threshold = 0.5;
 		var remainingPercent = Math.pow(1 - friction, elapsedSeconds);
@@ -37,8 +37,8 @@ Smart.Physics = {
 		else
 			velocity.y *= remainingPercent;
 
-	}
-	,
+	},
+
 	/**
 	 * Inverts the velocity and position when the location hits the bounds.
 	 */
@@ -48,8 +48,8 @@ Smart.Physics = {
 			this.bounceOffWall(wall, location, velocity, dampening);
 		}
 		return wall;
-	}
-	,
+	},
+
 	checkBounds(location, radius, bounds) {
 		var leftEdge = (location.x - radius) - (bounds.x);
 		if (leftEdge < 0) {
@@ -72,8 +72,8 @@ Smart.Physics = {
 		}
 
 		return null;
-	}
-	,
+	},
+
 	bounceOffWall(wall, location, velocity, dampening) {
 		switch (wall.edge) {
 			case 'left':
@@ -97,24 +97,24 @@ Smart.Physics = {
 			velocity.x *= (1 - dampening);
 			velocity.y *= (1 - dampening);
 		}
-	}
+	},
 
 
-	,
+
 	bounceOffPoint(location, velocity, bouncePoint, radius, dampening) {
 		// This algorithm is not too accurate.
 		// It bounces straight away from the bouncePoint,
 		// not taking into account the angle of collision.
 
 		var diff = {
-			x: location.x - bouncePoint.x
-			,y: location.y - bouncePoint.y
+			x: location.x - bouncePoint.x,
+			y: location.y - bouncePoint.y
 		};
 
-		var hv = Smart.Point.hypotenuse(velocity)
-			,hd = Smart.Point.hypotenuse(diff)
-			,vScale = hv/hd
-			,lScale = radius/hd;
+		var hv = Smart.Point.hypotenuse(velocity),
+			hd = Smart.Point.hypotenuse(diff),
+			vScale = hv/hd,
+			lScale = radius/hd;
 
 		velocity.x = diff.x * vScale;
 		velocity.y = diff.y * vScale;
@@ -126,27 +126,27 @@ Smart.Physics = {
 			velocity.x *= (1 - dampening);
 			velocity.y *= (1 - dampening);
 		}
-	}
+	},
 
 
-	,
+
 	sortByLocation(points) {
-		if (points.length < 2) 
+		if (points.length < 2)
 			return points;
 		return Smart.Sort.smoothSort(points, Smart.Physics._compareLocations);
-	}
-	,
+	},
+
 	_compareLocations(a, b) {
 		// Compare horizontally:
 		return (a.location.x - b.location.x);
-	}
-	,
+	},
+
 	detectCollisions(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
 
-		var aIndex = sortedPointsA.length - 1
-			,bIndex = sortedPointsB.length - 1
-			,pointA = sortedPointsA[aIndex]
-			,pointB = sortedPointsB[bIndex]
+		var aIndex = sortedPointsA.length - 1,
+			bIndex = sortedPointsB.length - 1,
+			pointA = sortedPointsA[aIndex],
+			pointB = sortedPointsB[bIndex]
 			;
 
 		while (aIndex >= 0 && bIndex >= 0) {
@@ -184,9 +184,9 @@ Smart.Physics = {
 			}
 
 		}
-	}
+	},
 
-	,
+
 	findClosestPoint(target, points) {
 		var closestPointIndex = -1, distance = Number.MAX_VALUE;
 
@@ -208,9 +208,9 @@ Smart.Physics = {
 			}
 		}
 		return closestPointIndex;
-	}
+	},
 
-	,
+
 	/**
 	 * Determines the required trajectory in order to hit a moving target
 	 *
@@ -225,17 +225,17 @@ Smart.Physics = {
 	trajectory(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
 		// We've got some crazy equations coming up,
 		// so let's create some shorthand variables:
-		var v = targetVelocity
-			, bs = bulletSpeed
-			, e = targetLocation
-			, p = playerLocation
-			, d = { x: e.x - p.x, y: e.y - p.y }
-			, sqr = x => x * x;
+		var v = targetVelocity,
+			bs = bulletSpeed,
+			e = targetLocation,
+			p = playerLocation,
+			d = { x: e.x - p.x, y: e.y - p.y },
+			sqr = x => x * x;
 
 		// Solve for t by using the quadratic trajectory equation:
-		var a = sqr(v.x) + sqr(v.y) - sqr(bs)
-			,b = 2 * (v.x * d.x + v.y * d.y)
-			,c = sqr(d.x) + sqr(d.y);
+		var a = sqr(v.x) + sqr(v.y) - sqr(bs),
+			b = 2 * (v.x * d.x + v.y * d.y),
+			c = sqr(d.x) + sqr(d.y);
 
 		var solutions = Smart.Physics.solveQuadratic(a, b, c);
 		var t;
@@ -252,13 +252,13 @@ Smart.Physics = {
 		}
 
 		var trajectory = {
-			x: (d.x + v.x * t)
-			,y: (d.y + v.y * t)
+			x: (d.x + v.x * t),
+			y: (d.y + v.y * t)
 		};
 		return Smart.Point.scaleVector(trajectory, bulletSpeed);
-	}
+	},
 
-	,
+
 	/**
 	 * Solves a quadratic equation by using the quadratic formula.
 	 *
@@ -275,9 +275,9 @@ Smart.Physics = {
 		if (bSquaredMinus4AC < 0)
 			return []; // No possible solutions
 
-		var twoA = (2 * a)
-			,negativeBOver2A = (-b / twoA)
-			,sqrtOfBSquaredMinus4ACOver2A = Math.sqrt(bSquaredMinus4AC) / twoA;
+		var twoA = (2 * a),
+			negativeBOver2A = (-b / twoA),
+			sqrtOfBSquaredMinus4ACOver2A = Math.sqrt(bSquaredMinus4AC) / twoA;
 
 		return [ negativeBOver2A + sqrtOfBSquaredMinus4ACOver2A, negativeBOver2A - sqrtOfBSquaredMinus4ACOver2A ];
 	}

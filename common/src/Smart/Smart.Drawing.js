@@ -18,22 +18,22 @@ Smart.Drawing = Smart.Class({
 	 * Note: None of these methods have return values; we do not want things like "measureText" to appear here.
 	 */
 	var canvasMethods = [
-		'moveTo', 'lineTo', 'arc', 'arcTo', 'quadraticCurveTo', 'bezierCurveTo'
-		, 'beginPath', 'closePath'
-		, 'fill', 'stroke'
-		, 'rect', 'fillRect', 'strokeRect', 'clearRect'
-		, 'fillText', 'strokeText'
-		, 'scale', 'rotate', 'translate', 'transform'
-		, 'drawImage'
-		, 'save', 'restore'
+		'moveTo', 'lineTo', 'arc', 'arcTo', 'quadraticCurveTo', 'bezierCurveTo',
+		'beginPath', 'closePath',
+		'fill', 'stroke',
+		'rect', 'fillRect', 'strokeRect', 'clearRect',
+		'fillText', 'strokeText',
+		'scale', 'rotate', 'translate', 'transform',
+		'drawImage',
+		'save', 'restore'
 	];
 	/**
 	 * The following is a list of native canvas properties.
 	 * We will create chainable setters for each property:
 	 */
 	var canvasProperties = [
-		'strokeStyle', 'fillStyle', 'lineWidth', 'lineCap', 'lineJoin', 'miterLimit'
-		, 'font'
+		'strokeStyle', 'fillStyle', 'lineWidth', 'lineCap', 'lineJoin', 'miterLimit',
+		'font'
 	];
 	canvasMethods.forEach(methodName => {
 		Smart.Drawing.prototype[methodName] = function _canvas_method_() {
@@ -87,19 +87,19 @@ Smart.Drawing = Smart.Class({
 				this.stroke();
 			}
 			return this;
-		}
-		,roundRect(x, y, width, height, radius) {
+		},
+		roundRect(x, y, width, height, radius) {
 
-			var halfPI = Math.PI / 2
-				,angle_top = halfPI * 3
-				,angle_right = 0
-				,angle_bottom = halfPI
-				,angle_left = Math.PI;
+			var halfPI = Math.PI / 2,
+				angle_top = halfPI * 3,
+				angle_right = 0,
+				angle_bottom = halfPI,
+				angle_left = Math.PI;
 
-			var arc_left = x + radius
-				,arc_right = x + width - radius
-				,arc_top = y + radius
-				,arc_bottom = y + height - radius;
+			var arc_left = x + radius,
+				arc_right = x + width - radius,
+				arc_top = y + radius,
+				arc_bottom = y + height - radius;
 
 			this
 				.arc(arc_right, arc_top, radius, angle_top, angle_right)
@@ -110,17 +110,17 @@ Smart.Drawing = Smart.Class({
 			;
 
 			return this;
-		}
-		,circle(x, y, radius) {
+		},
+		circle(x, y, radius) {
 			this.arc(x, y, radius, 0, 2 * Math.PI);
 			return this;
-		}
-		,star(x, y, radius, sides, pointSize, angle) {
+		},
+		star(x, y, radius, sides, pointSize, angle) {
 			var starPolygon = Smart.Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
 			this.polygon(starPolygon, false);
 			return this;
-		}
-		,polygon(points) {
+		},
+		polygon(points) {
 			var start = points[0];
 			this.moveTo(start[0], start[1]);
 			for (var i = 1, l = points.length; i < l; i++) {
@@ -128,14 +128,14 @@ Smart.Drawing = Smart.Class({
 				this.lineTo(point[0], point[1]);
 			}
 			return this;
-		}
-		,drawingQueue(drawingQueue) {
+		},
+		drawingQueue(drawingQueue) {
 			this.addCommand(context => {
 				drawingQueue.draw(context);
 			});
 			return this;
-		}
-		,fillPattern(pattern, x, y, width, height, patternOffsetX, patternOffsetY) {
+		},
+		fillPattern(pattern, x, y, width, height, patternOffsetX, patternOffsetY) {
 			if (patternOffsetX && patternOffsetY) {
 				this.save()
 					.translate(patternOffsetX, patternOffsetY)
@@ -197,8 +197,8 @@ Smart.Drawing = Smart.Class({
 				starPolygon.push([ x+Math.cos(angle)*radius, y+Math.sin(angle)*radius ]);
 			}
 			return starPolygon;
-		}
-		,
+		},
+
 		/**
 		 * Creates a polygon around the edges of a circle, connecting the specified angles.
 		 * For example, [ 0, 120, 240 ] would create an equilateral triangle,
@@ -215,14 +215,14 @@ Smart.Drawing = Smart.Class({
 			var ANGLE_ADJUST = 90,
 				RAD_PER_DEG = Math.PI / -180;
 			for (var i = 0, l = angles.length; i < l; i++) {
-				var angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG
-					, px = Math.cos(angle) * radius
-					, py = Math.sin(angle) * radius;
+				var angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG,
+					px = Math.cos(angle) * radius,
+					py = Math.sin(angle) * radius;
 				polygon.push([ px + x, py + y ]);
 			}
 			return polygon;
-		}
-		,
+		},
+
 		createImage(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
@@ -231,8 +231,8 @@ Smart.Drawing = Smart.Class({
 			drawingCallback(drawing);
 
 			return canvas;
-		}
-		,
+		},
+
 		createPattern(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
@@ -242,8 +242,8 @@ Smart.Drawing = Smart.Class({
 
 			var pattern = context.createPattern(canvas, 'repeat');
 			return pattern;
-		}
-		,
+		},
+
 		_createCanvas(width, height) {
 			var canvas = document.createElement('canvas');
 			canvas.width = width;
@@ -260,11 +260,11 @@ Smart.Drawing = Smart.Class({
 Smart.DrawingContext = Smart.Class(new Smart.Drawing(), {
 	initialize: function DrawingContext(context) {
 		this.context = context;
-	}
-	,addCommand(command) {
+	},
+	addCommand(command) {
 		command(this.context);
-	}
-	,setContext(context) {
+	},
+	setContext(context) {
 		this.context = context;
 	}
 });
@@ -275,16 +275,16 @@ Smart.DrawingContext = Smart.Class(new Smart.Drawing(), {
 Smart.DrawingQueue = Smart.Class(new Smart.Drawing(), {
 	initialize: function DrawingQueue() {
 		this._commands = [];
-	}
-	,addCommand(command) {
+	},
+	addCommand(command) {
 		this._commands.push(command);
-	}
-	,draw(context) {
+	},
+	draw(context) {
 		this._commands.forEach(command => {
 			command(context);
 		});
-	}
-	,clear() {
+	},
+	clear() {
 		this._commands.length = 0;
 	}
 });

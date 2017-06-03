@@ -9,8 +9,8 @@ XQuestGame.PowerCrystal = Smart.Class({
 
 
 		this.turnSpeed = B.turnSpeed();
-	}
-	,
+	},
+
 	spawn(spawnInfo) {
 		var B = Balance.powerCrystals;
 
@@ -20,8 +20,8 @@ XQuestGame.PowerCrystal = Smart.Class({
 		if (spawnInfo.side === 2) {
 			this.velocity.x *= -1;
 		}
-	}
-	,
+	},
+
 	onMove(tickEvent) {
 		var powerCrystal = this;
 
@@ -31,16 +31,16 @@ XQuestGame.PowerCrystal = Smart.Class({
 		Smart.Physics.applyVelocity(powerCrystal.location, powerCrystal.velocity, tickEvent.deltaSeconds);
 		Smart.Physics.bounceOffWalls(powerCrystal.location, powerCrystal.radius, powerCrystal.velocity, Balance.level.bounds);
 
-	}
-	,
+	},
+
 	gatherPowerCrystal() {
 		this.location.gatherPowerCrystal(this.game.gfx, this.game.player.location)
 			.queue(() => {
 				this.game.removeSceneItem(this);
 			})
 		;
-	}
-	,
+	},
+
 	clearPowerCrystal() {
 		this.location.clearPowerCrystal(this.game.gfx)
 			.queue(() => {

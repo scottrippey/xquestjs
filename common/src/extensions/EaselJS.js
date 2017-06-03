@@ -11,8 +11,8 @@ _.extend(createjs.Graphics.prototype, {
 			gfx.setStrokeStyle(styles.strokeWidth, styles.strokeCaps, styles.strokeJoints, styles.strokeMiter);
 
 		return this;
-	}
-	, endStyle(styles) {
+	},
+	endStyle(styles) {
 		var gfx = this;
 		if (styles.fillColor)
 			gfx.endFill();
@@ -20,8 +20,8 @@ _.extend(createjs.Graphics.prototype, {
 			gfx.endStroke();
 
 		return this;
-	}
-	, drawPolygon(points) {
+	},
+	drawPolygon(points) {
 		var gfx = this;
 		var startX = points[0][0], startY = points[0][1];
 		gfx.moveTo(startX, startY);
@@ -39,13 +39,13 @@ _.extend(createjs.DisplayObject.prototype, Smart.Disposable.prototype);
 _.extend(createjs.DisplayObject.prototype, {
 	moveTo(x, y) {
 		this.x = x; this.y = y;
-	}
-	, scaleTo(x, y) {
+	},
+	scaleTo(x, y) {
 		if (y === undefined) y = x;
 		this.scaleX = x;
 		this.scaleY = y;
-	}
-	, toggleVisible(force) {
+	},
+	toggleVisible(force) {
 		if (force === undefined) force = !this.visible;
 		this.visible = force;
 	}

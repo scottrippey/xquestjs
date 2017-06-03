@@ -2,11 +2,11 @@
 
 	var primaryWeapon = 'primaryWeapon', secondaryWeapon = 'secondaryWeapon';
 	var mouseMap = {
-		left: primaryWeapon
-		, right: secondaryWeapon
+		left: primaryWeapon,
+		right: secondaryWeapon
 	};
 
-	XQuestInput.PlayerInputMouse = Smart.Class({ 
+	XQuestInput.PlayerInputMouse = Smart.Class({
 		element: null,
 		elementSize: null,
 		mouseState: null,
@@ -16,7 +16,7 @@
 			this.game = game;
 			this.element = element;
 			this.mouseMap = mouseMap;
-			
+
 			settings.watchSetting('mouseSettings', mouseSettings => {
 				this.mouseSettings = mouseSettings;
 			});
@@ -33,10 +33,10 @@
 				'resize': this._onWindowResize.bind(this)
 			});
 			this._onWindowResize();
-			
+
 			this.game.onGamePaused(this._onGamePaused.bind(this));
 			this._onGamePaused(false);
-			
+
 			this._resetMouseState();
 		},
 		_resetMouseState() {
@@ -84,19 +84,19 @@
 				this.mouseState[action] = false;
 			}
 		},
-		
+
 		_onMouseMove(ev) {
-			var mousePosition = getMousePosition(ev)
-				, previousMousePosition = this.previousMousePosition
-				, mouseSettings = this.mouseSettings;
+			var mousePosition = getMousePosition(ev),
+				previousMousePosition = this.previousMousePosition,
+				mouseSettings = this.mouseSettings;
 			this.previousMousePosition = mousePosition;
 			if (!previousMousePosition)
 				return;
-			
+
 
 			var delta = {
-				x: Math.min(mousePosition.x - previousMousePosition.x, mouseSettings.maxMouseMove)
-				, y: Math.min(mousePosition.y - previousMousePosition.y, mouseSettings.maxMouseMove)
+				x: Math.min(mousePosition.x - previousMousePosition.x, mouseSettings.maxMouseMove),
+				y: Math.min(mousePosition.y - previousMousePosition.y, mouseSettings.maxMouseMove)
 			};
 
 			var acceleration = this._adjustForSensitivity(delta, mousePosition);
@@ -105,10 +105,10 @@
 			this.mouseState.accelerationY += acceleration.y;
 		},
 		_adjustForSensitivity(delta, mousePosition) {
-			var elementSize = this.elementSize
-				, mouseSettings = this.mouseSettings
-				, sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier
-				, biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
+			var elementSize = this.elementSize,
+				mouseSettings = this.mouseSettings,
+				sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier,
+				biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
 
 			var screenDeltaX = delta.x / elementSize.width,
 				screenDeltaY = delta.y / elementSize.height;
@@ -120,8 +120,8 @@
 				biasY = this._getBias(distanceFromCenterY, delta.y, biasSensitivity);
 
 			var acceleration = {
-				x: screenDeltaX * sensitivity * biasX
-				, y: screenDeltaY * sensitivity * biasY
+				x: screenDeltaX * sensitivity * biasX,
+				y: screenDeltaY * sensitivity * biasY
 			};
 
 			return acceleration;
@@ -139,9 +139,9 @@
 				return 1 - distanceFromCenter + (distanceFromCenter / sensitivity);
 			}
 		},
-		
+
 		onInput(tickEvent, inputState) {
-		
+
 			var mouseState = this.mouseState;
 
 			if (mouseState.primaryWeapon) inputState.primaryWeapon = true;

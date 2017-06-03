@@ -24,9 +24,9 @@ _.extend(Smart.Animation.prototype, {
 			target.x = p.x; target.y = p.y;
 		});
 
-	}
+	},
 
-	,
+
 	/**
 	 * Animates the `alpha` property of the target.
 	 * @param {Object} target
@@ -45,9 +45,9 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(function _fade_(animEvent) {
 			target.alpha = interpolate(animEvent.position);
 		});
-	}
+	},
 
-	,
+
 	/**
 	 * Animates the `color` property of the target.
 	 * @param {Object} target
@@ -66,9 +66,9 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(function _color_(animEvent) {
 			target.color = interpolate(animEvent.position);
 		});
-	}
+	},
 
-	,
+
 	/**
 	 * Animates the `scale` properties (scaleX, scaleY) of the target.
 	 * @param {Object} target
@@ -86,9 +86,9 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(function _scale_(animEvent) {
 			target.scaleX = target.scaleY = interpolate(animEvent.position);
 		});
-	}
+	},
 
-	,
+
 	/**
 	 * Animates the `rotation` property of the target.
 	 * @param {Object} target
@@ -107,8 +107,8 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(function _rotate_(animEvent) {
 			target.rotation = interpolate(animEvent.position);
 		});
-	}
-	,
+	},
+
 	/**
 	 * Animates by calling `update` with the interpolated keyframe values.
 	 * @param {Function|Number[]} keyframes
@@ -123,9 +123,9 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(function _tween_(animEvent) {
 			update(interpolate(animEvent.position));
 		});
-	}
+	},
 
-	,
+
 	/**
 	 * Disposes the object once animations are finished
 	 * @param disposable - Any object -- must have a `dispose` method

@@ -1,35 +1,35 @@
 Balance.onUpdate(gameMode => {
 	Graphics.merge({
 		xquestLogo: {
-			height: 160
-			, QThickness: 15
-			, QTailLength: 30
-			, fontSize: 150
-			, textColor: 'white'
-			, xColor: 'yellow'
-			, show: { duration: 3 }
-			, hide: { duration: 2 }
+			height: 160,
+			QThickness: 15,
+			QTailLength: 30,
+			fontSize: 150,
+			textColor: 'white',
+			xColor: 'yellow',
+			show: { duration: 3 },
+			hide: { duration: 2 }
 		}
 	});
 });
 
 EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
-	Container_initialize: createjs.Container.prototype.initialize
-	, initialize(gfx) {
+	Container_initialize: createjs.Container.prototype.initialize,
+	initialize(gfx) {
 		this.Container_initialize();
 		this.gfx = gfx;
-		
+
 		this._addX_Q_UEST();
-	}
-	, _addX_Q_UEST() {
+	},
+	_addX_Q_UEST() {
 		var X = new EaselJSGraphics.XQuestLogoGraphic.X();
 		this.addChild(X);
-		
+
 		var Q = new EaselJSGraphics.XQuestLogoGraphic.Q();
 		this.addChild(Q);
 		var QTail = new EaselJSGraphics.XQuestLogoGraphic.QTail();
 		this.addChild(QTail);
-		
+
 		var UEST = new EaselJSGraphics.XQuestLogoGraphic.UEST();
 		this.addChild(UEST);
 
@@ -62,9 +62,9 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 		var G = Graphics.xquestLogo;
 		this.visibleHeight = G.height;
 		this.visibleWidth = left;
-	}
+	},
 
-	, showLogo() {
+	showLogo() {
 		var G = Graphics.xquestLogo, logo = this, X = this.X, Q = this.Q, UEST = this.UEST;
 		logo.alpha = 0;
 		this.animation = this.gfx.addAnimation()
@@ -74,11 +74,11 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 			.fade(logo, 1)
 			.restorePosition()
 		;
-			
+
 		return this.animation;
-	}
-	
-	, hideLogo() {
+	},
+
+	hideLogo() {
 		var G = Graphics.xquestLogo, logo = this, X = this.X, Q = this.Q, QTail = this.QTail, UEST = this.UEST;
 		var spinRate = 270, firstSpin;
 		this.animation.cancelAnimation();

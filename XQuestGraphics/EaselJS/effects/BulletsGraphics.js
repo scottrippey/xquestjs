@@ -1,8 +1,8 @@
 Balance.onUpdate(gameMode => {
 	Graphics.merge({
 		bullets: {
-			radius: Balance.bullets.radius
-			, style: {
+			radius: Balance.bullets.radius,
+			style: {
 				fillStyle: 'white'
 			}
 		}
@@ -24,9 +24,9 @@ EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 	},
 	drawEffects(drawing) {
 		var G = Graphics.bullets;
-		
+
 		drawing.beginPath();
-		
+
 		var i = this.bullets.length;
 		while (i--) {
 			var bullet = this.bullets[i];

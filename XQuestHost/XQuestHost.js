@@ -9,16 +9,16 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this._setupGamepad();
 
 		this._startHostScene();
-	}
+	},
 
-	,_setupCanvas(canvas) {
+	_setupCanvas(canvas) {
 		if (!canvas) {
 			var bounds = Balance.level.bounds;
 			canvas = this._createFullScreenCanvas(bounds.visibleWidth, bounds.visibleHeight);
 		}
 		this.canvas = canvas;
-	}
-	,_createFullScreenCanvas(canvasWidth, canvasHeight) {
+	},
+	_createFullScreenCanvas(canvasWidth, canvasHeight) {
 		// Create elements manually, because parsing isn't "safe" for WinJS:
 		var container = document.createElement('section'), canvas = document.createElement('canvas');
 		container.appendChild(canvas);
@@ -43,8 +43,8 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 		this.container = container;
 
 		return canvas;
-	}
-	,_contain(container, canvas, canvasWidth, canvasHeight) {
+	},
+	_contain(container, canvas, canvasWidth, canvasHeight) {
 		window.addEventListener('resize', scaleCanvas);
 		this.onDispose(() => {
 			window.removeEventListener('resize', scaleCanvas);
@@ -62,38 +62,38 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 				canvas.style.width = `${containerHeight * canvasWidthRatio}px`;
 			}
 		}
-	}
+	},
 
-	,_setupTimer() {
+	_setupTimer() {
 		this.timer = new EaselJSTimer();
 		this.timer.addTickHandler(this._tickHandler.bind(this));
 		this.onDispose(function() {
 			this.timer.dispose();
 		});
-	}
-	,_tickHandler(tickEvent) {
+	},
+	_tickHandler(tickEvent) {
 		// timeAdjust is currrently unused, but can be set in the console for testing purposes
 		if (this.timeAdjust) {
 			tickEvent.deltaSeconds *= this.timeAdjust;
 		}
 
 		this.hostScene.updateScene(tickEvent);
-	}
+	},
 
-	,_setupSettings() {
+	_setupSettings() {
 		this.settings = new XQuestGame.XQuestHost.Settings();
-	}
+	},
 
-	,_setupGamepad() {
+	_setupGamepad() {
 		this.gamepadInput = XQuestInput.PlayerInputGamepad.createGamepadInput() || null;
 		if (this.gamepadInput) {
 			this.onDispose(function() {
 				this.gamepadInput.dispose();
 			});
 		}
-	}
+	},
 
-	,_startHostScene() {
+	_startHostScene() {
 		var graphics = new EaselJSGraphics(this.canvas);
 		this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
 
@@ -111,14 +111,14 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 			this.hostScene.dispose();
 		});
 
-	}
-	,_addMenuInputs(menuScene) {
+	},
+	_addMenuInputs(menuScene) {
 		menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard(null));
 		if (this.gamepadInput) {
 			menuScene.addSceneItem(this.gamepadInput);
 		}
-	}
-	,_addPlayerInputs(arcadeGame) {
+	},
+	_addPlayerInputs(arcadeGame) {
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputKeyboard(arcadeGame, null, this.settings));
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings));
 		arcadeGame.addSceneItem(new XQuestInput.PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings));
@@ -126,9 +126,9 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 			arcadeGame.addSceneItem(this.gamepadInput);
 			this.gamepadInput.setGame(arcadeGame);
 		}
-	}
+	},
 
-	,enterFullScreen() {
+	enterFullScreen() {
     requestFullscreen(this.container);
   }
 

@@ -1,22 +1,22 @@
 XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
-	initialize: function BaseScene() { }
-	,BaseScene_initialize() {
+	initialize: function BaseScene() { },
+	BaseScene_initialize() {
 		this.debugStats = { sceneItems: [] };
 		this._setupEvents();
 		this._setupPhases();
-	}
-	,_setupEvents() {
+	},
+	_setupEvents() {
 		this._events = new Smart.Events();
-	}
-	,_setupPhases() {
+	},
+	_setupPhases() {
 		this.phases = {
-			input: []
-			, move: []
-			, act: []
-			, draw: []
+			input: [],
+			move: [],
+			act: [],
+			draw: []
 		};
-	}
-	,updateScene(tickEvent) {
+	},
+	updateScene(tickEvent) {
 		// Iterate right-to-left, because items could get removed
 		var childScene = this.childScene;
 		if (!childScene) {
@@ -30,8 +30,8 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 		if (childScene) {
 			childScene.updateScene(tickEvent);
 		}
-	}
-	,addSceneItem(sceneItem) {
+	},
+	addSceneItem(sceneItem) {
 		// Determine which methods the sceneItem implements,
 		// and add them to the appropriate phase:
 		if (sceneItem.onInput)
@@ -44,8 +44,8 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 			this.phases.draw.push(sceneItem);
 
 		this.debugStats.sceneItems.push(sceneItem);
-	}
-	,removeSceneItem(sceneItem) {
+	},
+	removeSceneItem(sceneItem) {
 		if (sceneItem.onInput)
 			_.eliminate(this.phases.input, sceneItem);
 		if (sceneItem.onMove)
@@ -56,8 +56,8 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 			_.eliminate(this.phases.draw, sceneItem);
 
 		_.eliminate(this.debugStats.sceneItems, sceneItem);
-	}
-	,
+	},
+
 	/**
 	 * Creates utility methods for adding event handlers.
 	 * This makes it easier to add events and harder to have typos.
@@ -76,8 +76,8 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 			};
 		}, this);
 		return this;
-	}
-	,
+	},
+
 	/**
 	 * @protected
 	 * @param {string} eventName
@@ -85,8 +85,8 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
 	 */
 	fireSceneEvent(eventName, args) {
 		this._events.fireEvent(eventName, args);
-	}
-	,
+	},
+
 	/** @protected */
 	setChildScene(childScene) {
 		this.childScene = childScene;

@@ -8,14 +8,14 @@ var EaselJSGraphics = Smart.Class({
 
 		this._setupLayers();
 		this._setupAnimations();
-	}
-	,
+	},
+
 	_setupLayers() {
 		this.layers = {
-			background: new createjs.Stage(this.canvas)
-			, objects: new createjs.Stage(this.canvas)
-			, characters: new createjs.Stage(this.canvas)
-			, hud: new createjs.Stage(this.canvas)
+			background: new createjs.Stage(this.canvas),
+			objects: new createjs.Stage(this.canvas),
+			characters: new createjs.Stage(this.canvas),
+			hud: new createjs.Stage(this.canvas)
 		};
 
 		var allGraphics = this.debugStats.allGraphics;
@@ -35,8 +35,8 @@ var EaselJSGraphics = Smart.Class({
 			stage.autoClear = false;
 		});
 		this.layers.hud.enableMouseOver();
-	}
-	,
+	},
+
 	showBackgroundStars(visible) {
 		if (visible) {
 			if (!this.backgroundStars) {
@@ -48,42 +48,42 @@ var EaselJSGraphics = Smart.Class({
 				this.layers.background.removeChild(this.backgroundStars);
 			}
 		}
-	}
-	,
+	},
+
 	_setupAnimations() {
 		this.animations = new Smart.Animations();
-	}
-	,
+	},
+
 	/** Creates a clone */
 	createNewGraphics() {
 		return new EaselJSGraphics(this.canvas);
-	}
-	,
+	},
+
 	onMove(tickEvent) {
 		this.animations.update(tickEvent.deltaSeconds);
-	}
-	,
+	},
+
 	onDraw(tickEvent) {
 		this.layers.background.update(tickEvent);
 		this.layers.objects.update(tickEvent);
 		this.layers.characters.update(tickEvent);
 		this.layers.hud.update(tickEvent);
-	}
-	,
+	},
+
 	followPlayer(playerLocation) {
 
 		var bounds = Balance.level.bounds;
 
 		if (!this._maxOffset) {
 			this._maxOffset = {
-				x: bounds.totalWidth - bounds.visibleWidth
-				,y: bounds.totalHeight - bounds.visibleHeight
+				x: bounds.totalWidth - bounds.visibleWidth,
+				y: bounds.totalHeight - bounds.visibleHeight
 			};
 		}
 
 		this._offset = {
-			x: Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth/2), this._maxOffset.x)
-			,y: Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight/2), this._maxOffset.y)
+			x: Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth/2), this._maxOffset.x),
+			y: Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight/2), this._maxOffset.y)
 		};
 
 		this.layers.background.x = -this._offset.x;
@@ -94,20 +94,20 @@ var EaselJSGraphics = Smart.Class({
 		this.layers.objects.y = -this._offset.y;
 		this.layers.characters.y = -this._offset.y;
 
-	}
-	,
+	},
+
 	getSafeSpawn(radius) {
-		var leftEnemySpawn = this.getGamePoint('left')
-			, rightEnemySpawn = this.getGamePoint('right')
-			, safeDistance = Balance.enemies.safeSpawnDistance;
+		var leftEnemySpawn = this.getGamePoint('left'),
+			rightEnemySpawn = this.getGamePoint('right'),
+			safeDistance = Balance.enemies.safeSpawnDistance;
 		var randomSpot, isSafe;
 		do {
 			randomSpot = this.getGamePoint('random', radius);
 			isSafe = !(Smart.Point.distanceTest(leftEnemySpawn, randomSpot, safeDistance)) && !(Smart.Point.distanceTest(rightEnemySpawn, randomSpot, safeDistance));
 		} while (!isSafe);
 		return randomSpot;
-	}
-	,
+	},
+
 	getGamePoint(gamePoint, radius) {
 		if (typeof gamePoint !== 'string') return gamePoint;
 		if (radius == undefined) radius = 0;
@@ -115,44 +115,44 @@ var EaselJSGraphics = Smart.Class({
 		switch (gamePoint) {
 			case 'random':
 				return {
-					x: bounds.x + radius + (bounds.width - radius - radius) * Math.random()
-					, y: bounds.y + radius + (bounds.height - radius - radius) * Math.random()
+					x: bounds.x + radius + (bounds.width - radius - radius) * Math.random(),
+					y: bounds.y + radius + (bounds.height - radius - radius) * Math.random()
 				};
 			case 'visibleMiddle':
 				return {
-					x: this._offset.x + bounds.visibleWidth / 2
-					,y: this._offset.y + bounds.visibleHeight / 2
+					x: this._offset.x + bounds.visibleWidth / 2,
+					y: this._offset.y + bounds.visibleHeight / 2
 				};
 			case 'middle':
 				return {
-					x: bounds.x + bounds.width / 2
-					,y: bounds.y + bounds.height / 2
+					x: bounds.x + bounds.width / 2,
+					y: bounds.y + bounds.height / 2
 				};
 			case 'top':
 				return {
-					x: bounds.x + bounds.width / 2
-					,y: bounds.y + radius
+					x: bounds.x + bounds.width / 2,
+					y: bounds.y + radius
 				};
 			case 'bottom':
 				return {
-					x: bounds.x + bounds.width / 2
-					,y: bounds.y + bounds.height - radius
+					x: bounds.x + bounds.width / 2,
+					y: bounds.y + bounds.height - radius
 				};
 			case 'left':
 				return {
-					x: bounds.x + radius
-					, y: bounds.y + bounds.height / 2
+					x: bounds.x + radius,
+					y: bounds.y + bounds.height / 2
 				};
 			case 'right':
 				return {
-					x: bounds.x + bounds.width - radius
-					, y: bounds.y + bounds.height / 2
+					x: bounds.x + bounds.width - radius,
+					y: bounds.y + bounds.height / 2
 				};
 			default:
 				throw new Error(`Invalid gamePoint: ${gamePoint}`);
 		}
-	}
-	,
+	},
+
 	getHudPoint(hudPoint) {
 		if (typeof hudPoint !== 'string') return hudPoint;
 		var bounds = Balance.level.bounds;
@@ -169,8 +169,8 @@ var EaselJSGraphics = Smart.Class({
 				return {x: bounds.visibleWidth, y: bounds.visibleHeight / 2 };
 		}
 		return null;
-	}
-	,
+	},
+
 	createLevelGraphics() {
 		var levelGraphics = new EaselJSGraphics.LevelGraphics();
 		this.layers.background.addChild(levelGraphics);
@@ -178,14 +178,14 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.background.removeChild(levelGraphics);
 		});
 		return levelGraphics;
-	}
-	,
+	},
+
 	createPlayerGraphics() {
 		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		this.layers.characters.addChild(playerGraphics);
 		return playerGraphics;
-	}
-	,
+	},
+
 	createPlayerHUDIcon() {
 		var playerGraphics = new EaselJSGraphics.PlayerGraphics();
 		var scale = 0.7;
@@ -193,8 +193,8 @@ var EaselJSGraphics = Smart.Class({
 		playerGraphics.visibleRadius *= scale;
 		this.layers.hud.addChild(playerGraphics);
 		return playerGraphics;
-	}
-	,
+	},
+
 	createBulletsGraphics() {
 		var bulletsGraphics = new EaselJSGraphics.BulletsGraphics();
 		this.layers.objects.addChild(bulletsGraphics);
@@ -202,8 +202,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.objects.removeChild(bulletsGraphics);
 		});
 		return bulletsGraphics;
-	}
-	,
+	},
+
 	createEnemyGraphics(enemyName) {
 		var enemyGraphics = null;
 		switch (enemyName) {
@@ -227,8 +227,8 @@ var EaselJSGraphics = Smart.Class({
 		});
 
 		return enemyGraphics;
-	}
-	,
+	},
+
 	createCrystalGraphic() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		this.layers.objects.addChild(crystal);
@@ -236,8 +236,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.objects.removeChild(crystal);
 		});
 		return crystal;
-	}
-	,
+	},
+
 	createCrystalHUDIcon() {
 		var crystal = new EaselJSGraphics.CrystalGraphic();
 		var scale = 0.7;
@@ -245,8 +245,8 @@ var EaselJSGraphics = Smart.Class({
 		crystal.visibleRadius *= scale;
 		this.layers.hud.addChild(crystal);
 		return crystal;
-	}
-	,
+	},
+
 	createPowerCrystalGraphic() {
 		var powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
 		this.layers.characters.addChild(powerCrystal);
@@ -254,8 +254,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.characters.removeChild(powerCrystal);
 		});
 		return powerCrystal;
-	}
-	,
+	},
+
 	createBombCrystalGraphic() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		this.layers.objects.addChild(bombCrystal);
@@ -263,8 +263,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.objects.removeChild(bombCrystal);
 		});
 		return bombCrystal;
-	}
-	,
+	},
+
 	createBombCrystalHUDIcon() {
 		var bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
 		var scale = 0.7;
@@ -275,8 +275,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.hud.removeChild(bombCrystal);
 		});
 		return bombCrystal;
-	}
-	,
+	},
+
 	createBombGraphic() {
 		var bomb = new EaselJSGraphics.BombGraphic();
 		this.layers.objects.addChild(bomb);
@@ -284,21 +284,21 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.objects.removeChild(bomb);
 		});
 		return bomb;
-	}
-	,
+	},
+
 	createExplosion(position, velocity, explosionOptions) {
 		var explosion = new EaselJSGraphics.ExplosionGraphic(position, velocity, explosionOptions);
 		this.layers.objects.addChild(explosion);
 		explosion.onDispose(() => {
 			this.layers.objects.removeChild(explosion);
 		});
-	}
-	,
+	},
+
 	addAnimation(animation) {
 		return this.animations.addAnimation(animation);
-	}
+	},
 
-	,
+
 	addText(text, textStyle) {
 		var textGfx = new EaselJSGraphics.TextGraphic();
 		textGfx.setGfx(this);
@@ -310,13 +310,13 @@ var EaselJSGraphics = Smart.Class({
 		});
 
 		return textGfx;
-	}
+	},
 
-	,
+
 	enableTouchClicks() {
 		createjs.Touch.enable(this.layers.hud);
-	}
-	,
+	},
+
 	createHUDOverlay() {
 		var hudOverlay = new EaselJSGraphics.HudGraphics.HudOverlay();
 		this.layers.hud.addChild(hudOverlay);
@@ -324,8 +324,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.hud.removeChild(hudOverlay);
 		});
 		return hudOverlay;
-	}
-	,
+	},
+
 	createPauseButtonHUD() {
 		var pauseButton = new EaselJSGraphics.HudGraphics.HudPauseButton(this);
 		this.layers.hud.addChild(pauseButton);
@@ -333,8 +333,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.hud.removeChild(pauseButton);
 		});
 		return pauseButton;
-	}
-	,
+	},
+
 	createPauseOverlay() {
 		var pauseOverlay = new EaselJSGraphics.PauseOverlay(this);
 		this.layers.background.addChild(pauseOverlay);
@@ -342,8 +342,8 @@ var EaselJSGraphics = Smart.Class({
 			this.layers.background.removeChild(pauseOverlay);
 		});
 		return pauseOverlay;
-	}
-	,
+	},
+
 	createMenuButton(text) {
 		var buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
 		buttonGfx.setText(text);
@@ -362,9 +362,9 @@ var EaselJSGraphics = Smart.Class({
 		});
 
 		return buttonGfx;
-	}
+	},
 
-	,
+
 	createXQuestLogoGraphic() {
 		var introGraphics = new EaselJSGraphics.XQuestLogoGraphic(this);
 		this.layers.hud.addChild(introGraphics);

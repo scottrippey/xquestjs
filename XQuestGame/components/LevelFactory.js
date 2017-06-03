@@ -1,14 +1,14 @@
 XQuestGame.LevelFactory = Smart.Class({
 	initialize(game) {
 		this.game = game;
-		
+
 		this.game.onConfigureLevel(this._onConfigureLevel.bind(this));
-	}
-	,_onConfigureLevel(levelConfig) {
+	},
+	_onConfigureLevel(levelConfig) {
 		var level = this.game.currentLevel;
 
 		levelConfig.numberOfRegularLevels = level;
-		
+
 		var bonusLevel1 = Balance.bonusLevel1.bonusLevel;
 		if (level === bonusLevel1) {
 			this._setupBonusLevel1(levelConfig);
@@ -16,7 +16,7 @@ XQuestGame.LevelFactory = Smart.Class({
 		} else if (level > bonusLevel1) {
 			levelConfig.numberOfRegularLevels--;
 		}
-		
+
 		var bonusLevel2 = Balance.bonusLevel2.bonusLevel;
 		if (level === bonusLevel2) {
 			this._setupBonusLevel2(levelConfig);
@@ -24,16 +24,16 @@ XQuestGame.LevelFactory = Smart.Class({
 		} else if (level > bonusLevel2) {
 			levelConfig.numberOfRegularLevels--;
 		}
-		
+
 		// Set up regular level:
 		this._setAlternatingEnemyPool(levelConfig);
 		this._showLevelNumber(levelConfig);
-	}
-	,_setAlternatingEnemyPool(levelConfig) {
+	},
+	_setAlternatingEnemyPool(levelConfig) {
 		var enemyLineup = Balance.enemies.roster;
-		var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2)
-			,isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length)
-			,isEvenLevel = (levelConfig.numberOfRegularLevels % 2) === 0; 
+		var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2),
+			isMaxLevel = (numberOfAlternateLevels >= enemyLineup.length),
+			isEvenLevel = (levelConfig.numberOfRegularLevels % 2) === 0;
 
 		var enemyPool;
 		if (isMaxLevel) {
@@ -46,16 +46,16 @@ XQuestGame.LevelFactory = Smart.Class({
 			// Odd levels include a variety of enemies, up to the current level index:
 			enemyPool = enemyLineup.slice(0, numberOfAlternateLevels + 1);
 		}
-		
+
 		levelConfig.enemyPool = enemyPool;
-	}
-	
-	,_setupBonusLevel1(levelConfig) {
+	},
+
+	_setupBonusLevel1(levelConfig) {
 		var B = Balance.bonusLevel1;
-		
+
 		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nRapid Fire!", 'bonusLevel');
 		bonusLevelText.flyIn(2).flyOut(1);
-		
+
 		levelConfig.enemyPool = B.bonusEnemyPool;
 		levelConfig.enemySpawnRateOverride = B.bonusEnemySpawnRate;
 		levelConfig.crystalsDisabled = true;
@@ -63,17 +63,17 @@ XQuestGame.LevelFactory = Smart.Class({
 		levelConfig.bombsDisabled = true;
 		levelConfig.powerCrystalsDisabled = true;
 		levelConfig.skipLevelOnPlayerDeath = true;
-		
+
 		B.bonusPowerups.forEach(function(powerup) {
 			this.game.activePowerups.activate(powerup, true);
 		}, this);
-	}
-	,_setupBonusLevel2(levelConfig) {
+	},
+	_setupBonusLevel2(levelConfig) {
 		var B = Balance.bonusLevel2;
-		
+
 		var bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", 'bonusLevel');
 		bonusLevelText.flyIn(2).flyOut(1);
-		
+
 		levelConfig.enemyPool = B.bonusEnemyPool;
 		levelConfig.enemySpawnRateOverride = B.bonusEnemySpawnRate;
 		levelConfig.crystalsDisabled = true;
@@ -82,18 +82,18 @@ XQuestGame.LevelFactory = Smart.Class({
 		levelConfig.shootingDisabled = true;
 		levelConfig.powerCrystalsDisabled = true;
 		levelConfig.skipLevelOnPlayerDeath = true;
-		
+
 		B.bonusPowerups.forEach(function(powerup) {
 			this.game.activePowerups.activate(powerup, true);
 		}, this);
-	}
-	
-	
-	,_showLevelNumber(levelConfig) {
+	},
+
+
+	_showLevelNumber(levelConfig) {
 		var level = `Level ${levelConfig.numberOfRegularLevels}`;
 
 		var textGfx = this.game.gfx.addText(level, { textBaseline: 'top' });
 		textGfx.flyIn(1.5).flyOut(2);
 	}
-	
+
 });

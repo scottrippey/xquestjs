@@ -3,9 +3,9 @@ module.exports = function(grunt) {
 	grunt.mergeConfig({
 		concat: {
 			'INDEX-HTML-TEMPLATE': {
-				options: { process: true }
-				, src: [ 'templates/index.html.template' ]
-				, dest: '../index.html'
+				options: { process: true },
+				src: [ 'templates/index.html.template' ],
+				dest: '../index.html'
 			}
 		}
 	});

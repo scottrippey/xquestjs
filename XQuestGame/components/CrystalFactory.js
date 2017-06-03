@@ -3,20 +3,20 @@ XQuestGame.CrystalFactory = Smart.Class({
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.crystals = [];
-		
+
 		this.game.onNewLevel(this._onNewLevel.bind(this));
-	}
-	,
+	},
+
 	_onNewLevel() {
 		this._spawnCrystals();
 	},
 	_spawnCrystals() {
 		var spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
-		
+
 		if (this.game.levelConfig.crystalsDisabled) {
 			spawnQuantity = 0;
 		}
-		
+
 		// Clean up:
 		this.crystals.forEach(crystal => {
 			crystal.dispose();
@@ -36,20 +36,20 @@ XQuestGame.CrystalFactory = Smart.Class({
 		}
 
 		Smart.Physics.sortByLocation(this.crystals);
-		
-		
+
+
 		if (this.crystals.length === 0) {
 			this.game.crystalsGathered(0, 0);
 		}
-	}
-	,
+	},
+
 	onAct(tickEvent) {
 
 		// Check for player-collisions:
 		var player = this.game.player;
 		this._gatherOnCollision([ player ], player.radius);
-	}
-	,
+	},
+
 	_gatherOnCollision(collisionPoints, maxRadius) {
 
 		var maxDistance = maxRadius + Balance.crystals.radius;
@@ -65,13 +65,13 @@ XQuestGame.CrystalFactory = Smart.Class({
 			this.game.crystalsGathered(this.crystals.length, crystalsGathered);
 			this.game.stats.crystalCount -= crystalsGathered;
 		}
-	}
-	,
+	},
+
 	gatherClosestCrystal(location) {
 		if (!this.crystals.length) return;
 
-		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals)
-			,crystal = this.crystals[crystalIndex];
+		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals),
+			crystal = this.crystals[crystalIndex];
 
 		crystal.gatherCrystal(this.game.gfx, this.game.player.location);
 		this.crystals.splice(crystalIndex, 1);

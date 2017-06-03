@@ -4,19 +4,19 @@ XQuestGame.PowerupFactory = Smart.Class({
 		this.game.addSceneItem(this);
 		this.powerCrystals = [];
 		this.bombCrystals = [];
-		
+
 		this.game.onNewLevel(this._onNewLevel.bind(this));
-	}
-	,
+	},
+
 	onMove(tickEvent) {
 		if (this._shouldSpawn(tickEvent)) {
 			this.createPowerCrystal();
 		}
-	}
-	,
+	},
+
 	_shouldSpawn(tickEvent) {
 		var B = Balance.powerCrystals;
-		
+
 		if (this.game.levelConfig.powerCrystalsDisabled) {
 			return false;
 		}
@@ -28,8 +28,8 @@ XQuestGame.PowerupFactory = Smart.Class({
 			this.nextSpawn = tickEvent.runTime + B.spawnRate() * 1000;
 		}
 		return shouldSpawn;
-	}
-	,
+	},
+
 	onAct(tickEvent) {
 		if (this.powerCrystals.length >= 2) {
 			Smart.Physics.sortByLocation(this.powerCrystals);
@@ -57,15 +57,15 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 		}
 
-	}
-	,
+	},
+
 	createPowerCrystal() {
 		var powerCrystal = new XQuestGame.PowerCrystal(this.game);
 		var spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
 		powerCrystal.spawn(spawnInfo);
 		this.powerCrystals.push(powerCrystal);
-	}
-	,
+	},
+
 	_nextPowerup() {
 		var B = Balance.powerups;
 		var totalFrequency = 0;
@@ -99,8 +99,8 @@ XQuestGame.PowerupFactory = Smart.Class({
 			}, this);
 		}
 		return result;
-	}
-	,
+	},
+
 	_gatherOnCollision(collisionPoints, maxRadius) {
 		var maxDistance = maxRadius + Balance.powerCrystals.radius;
 
@@ -111,39 +111,39 @@ XQuestGame.PowerupFactory = Smart.Class({
 			this.game.activePowerups.activate(powerupName);
 		});
 
-	}
+	},
 
-	,
+
 	_onNewLevel() {
 		this._clearBombCrystals();
-		
+
 		var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
 
 		if (this.game.levelConfig.bombCrystalsDisabled) {
 			bombCrystalQuantity = 0;
 		}
-		
+
 		while (bombCrystalQuantity--) {
 			this.createBombCrystal();
 		}
-	}
-	,
+	},
+
 	createBombCrystal() {
 		var bombCrystal = new XQuestGame.BombCrystal(this.game);
 		var randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
 		bombCrystal.spawnBomb(randomSpawnLocation);
 
 		this.bombCrystals.push(bombCrystal);
-	}
+	},
 
-	,
+
 	clearAllPowerCrystals() {
 		_.forEach(this.powerCrystals, powerCrystal => {
 			powerCrystal.clearPowerCrystal();
 		}, this);
 		this.powerCrystals.length = 0;
-	}
-	,
+	},
+
 	_clearBombCrystals() {
 		_.forEach(this.bombCrystals, bombCrystal => {
 			bombCrystal.clearBombCrystal();

@@ -12,25 +12,25 @@ Smart.Interpolate = {
 	from(from, to) {
 		var fromType = (typeof from);
 		if (fromType !== typeof to) return null;
-		
+
 		if (fromType === 'number')
 			return Smart.Interpolate.numbers(from, to);
-		
+
 		if (fromType === 'string')
 			return Smart.Interpolate.colors(from, to);
-		
+
 		if (fromType === 'object') {
 			if (typeof fromType.length === 'number')
 				return Smart.Interpolate.arrays(from, to);
 			if ('x' in fromType && 'y' in fromType)
 				return Smart.Interpolate.points(from, to);
 		}
-			
-	}
-	
-	,
+
+	},
+
+
 	/**
-	 * Interpolates between two numbers	 
+	 * Interpolates between two numbers
 	 * @param {Number} from
 	 * @param {Number} to
 	 * @returns {interpolateNumbers}
@@ -45,9 +45,9 @@ Smart.Interpolate = {
 		return function(pct) {
 			return from + pct * difference;
 		};
-	}
-	
-	,
+	},
+
+
 	/**
 	 * @type Point
 	 * @property {Number} x
@@ -67,13 +67,13 @@ Smart.Interpolate = {
 		 */
 		return function(pct) {
 			return {
-				x: from.x + pct * (to.x - from.x)
-				,y: from.y + pct * (to.y - from.y)
+				x: from.x + pct * (to.x - from.x),
+				y: from.y + pct * (to.y - from.y)
 			};
 		};
-	}
-	
-	,
+	},
+
+
 	/**
 	 * Interpolates between two colors.
 	 * @param {String} from
@@ -86,7 +86,7 @@ Smart.Interpolate = {
 		 * @param {Number} pct
 		 * @returns {String}
 		 */
-			
+
 		var fromHSL = Smart.Color.parseHSL(from);
 		if (fromHSL) {
 			var toHSL = Smart.Color.parseHSL(to);
@@ -104,9 +104,9 @@ Smart.Interpolate = {
 			};
 		}
 		return null;
-	}
-	
-	,
+	},
+
+
 	/**
 	 * Interpolates all numbers between two arrays.
 	 * @param {Number[]} from
@@ -133,9 +133,9 @@ Smart.Interpolate = {
 			}
 			return results;
 		};
-	}
-	
-	,
+	},
+
+
 	/**
 	 * Interpolates smoothly between keyframes.
 	 *
@@ -153,32 +153,32 @@ Smart.Interpolate = {
 		var segments = keyframes.length - 1;
 		if (segments === 1 && interpolateMethod)
 			return interpolateMethod(keyframes[0], keyframes[1]);
-		
+
 		var lastIndex = -1, lastInterpolate;
 		return function(pct) {
 			// Min / max:
-			if (pct <= 0) 
+			if (pct <= 0)
 				return keyframes[0];
 			else if (pct >= 1)
 				return keyframes[segments + 1];
-			
+
 			// Current Index & Next Index:
-			var pctSegments = pct * segments
-				, index = Math.floor(pctSegments);
-			
+			var pctSegments = pct * segments,
+				index = Math.floor(pctSegments);
+
 			if (!interpolateMethod)
 				return keyframes[index];
-			
+
 			if (lastIndex !== index) {
 				lastIndex = index;
 				lastInterpolate = interpolateMethod(keyframes[index], keyframes[index + 1]);
 			}
-			
+
 			// Interpolate:
 			var subPct = (pctSegments - index);
 			return lastInterpolate(subPct);
 		};
 	}
-	
+
 };
 

@@ -7,28 +7,28 @@ XQuestGame.ActivePowerups = Smart.Class({
 	activate(powerupName, omitText) {
 		this[powerupName] = true;
 		this.activeTimes[powerupName] = 'newPowerup';
-			
+
 		if (!omitText) {
 			var powerupDisplayName = `${powerupName}!`;
 			var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupActive');
 			textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
 		}
-		
-	}
-	,
+
+	},
+
 	_deactivate(powerupName) {
 		var powerupDisplayName = `${powerupName} inactive`;
 		var textGfx = this.game.gfx.addText(powerupDisplayName, 'powerupDeactive');
 		return textGfx.start('left').flyIn(1.5, 'middle').flyOut(2, 'right');
-	}
-	, onAct(tickEvent) {
+	},
+	onAct(tickEvent) {
 		this._updateActivePowerups(tickEvent);
-	}
-	, _updateActivePowerups(tickEvent) {
+	},
+	_updateActivePowerups(tickEvent) {
 		var B = Balance.powerups;
 		var updatedValues = {};
 		var deactivating = 'deactivating';
-		
+
 		// Update new and old powerups: (never make changes to an object while iterating)
 		_.forOwn(this.activeTimes, (powerupValue, powerupName) => {
 			if (powerupValue === 'newPowerup') {

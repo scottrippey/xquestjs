@@ -41,23 +41,23 @@
 			var radians = (degrees * RadiansPerDegree);
 			var cos = Math.cos(radians), sin = Math.sin(radians);
 
-			var rx = point.x * cos - point.y * sin
-				,ry = point.x * sin + point.y * cos;
+			var rx = point.x * cos - point.y * sin,
+				ry = point.x * sin + point.y * cos;
 			point.x = rx;
 			point.y = ry;
 		},
 		fromAngle(degrees, scale) {
 			var radians = (degrees * RadiansPerDegree);
 			return {
-				x: Math.cos(radians) * scale
-				,y: Math.sin(radians) * scale
+				x: Math.cos(radians) * scale,
+				y: Math.sin(radians) * scale
 			};
 		},
 		scaleVector(vector, scale) {
 			var vectorScale = scale / Smart.Point.hypotenuse(vector);
 			return {
-				x: vector.x * vectorScale
-				, y: vector.y * vectorScale
+				x: vector.x * vectorScale,
+				y: vector.y * vectorScale
 			}
 		},
 		/**

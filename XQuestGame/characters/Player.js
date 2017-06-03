@@ -1,30 +1,30 @@
 XQuestGame.Player = Smart.Class({
-	location: null
-	, radius: null
-	
-	, initialize(game) {
+	location: null,
+	radius: null,
+
+	initialize(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;
 		this.previousState = {};
 
 		this._setupPlayerGraphics();
-	}
-	, _setupPlayerGraphics() {
+	},
+	_setupPlayerGraphics() {
 		this.playerGraphics = this.game.gfx.createPlayerGraphics();
 		this.location = this.playerGraphics;
 		this.radius = Balance.player.radius;
-	}
-	
-	, movePlayerTo(x, y) {
+	},
+
+	movePlayerTo(x, y) {
 		this.playerGraphics.moveTo(x, y);
-	}
-	, cancelVelocity() {
+	},
+	cancelVelocity() {
 		this.velocity.x = 0;
 		this.velocity.y = 0;
-	}
+	},
 
-	, _handleInputs(tickEvent, inputState) {
+	_handleInputs(tickEvent, inputState) {
 
 		var previousState = this.previousState;
 
@@ -46,7 +46,7 @@ XQuestGame.Player = Smart.Class({
 				acceleration.x *= neutralizingFactor;
 			if (!isSameDirectionY)
 				acceleration.y *= neutralizingFactor;
-			
+
 			Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
 			Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
 		}
@@ -93,7 +93,7 @@ XQuestGame.Player = Smart.Class({
 		} else {
 			this.nextRapidFire = null;
 		}
-		
+
 		if (inputState.secondaryWeapon) {
 			var isFirstDown = (previousState.secondaryWeapon === false);
 			if (isFirstDown) {
@@ -102,13 +102,13 @@ XQuestGame.Player = Smart.Class({
 			}
 		}
 
-	}
+	},
 
-	, onMove(tickEvent, inputState) {
+	onMove(tickEvent, inputState) {
 		this._handleInputs(tickEvent, inputState);
 		this._movePlayer(tickEvent);
-	}
-	, _movePlayer(tickEvent) {
+	},
+	_movePlayer(tickEvent) {
 
 		Smart.Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 
@@ -139,10 +139,10 @@ XQuestGame.Player = Smart.Class({
 				}
 			}
 		}
-	}
+	},
 
 
-	, onAct(tickEvent) {
+	onAct(tickEvent) {
 		if (!this.playerActive) return;
 
 
@@ -156,14 +156,14 @@ XQuestGame.Player = Smart.Class({
 		if (killPlayer)
 			this.game.killPlayer();
 
-	}
+	},
 
-	, killPlayer() {
+	killPlayer() {
 		this.playerActive = false;
 		this.playerGraphics.killPlayerGraphics(this.game.gfx, this.velocity);
-	}
+	},
 
-	, showPlayer(show) {
+	showPlayer(show) {
 		this.playerActive = show;
 		if (show) {
 			this.playerGraphics.restorePlayerGraphics();
@@ -180,9 +180,9 @@ XQuestGame.Player = Smart.Class({
 				})
 			);
 		}
-	}
+	},
 
-	, getKickBack(enemy, distance) {
+	getKickBack(enemy, distance) {
 		return Smart.Point.multiply(this.velocity, Balance.player.kickBack);
 	}
 });

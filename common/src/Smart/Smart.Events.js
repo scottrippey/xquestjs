@@ -4,8 +4,8 @@ Smart.Events = Smart.Class({
 		if (!this.$events[eventName]) this.$events[eventName] = [];
 
 		this.$events[eventName].push(callback);
-	}
-	,
+	},
+
 	fireEvent(eventName, eventArgs) {
 		var callbacks = this.$events && this.$events[eventName];
 		if (!callbacks) return;
@@ -14,8 +14,8 @@ Smart.Events = Smart.Class({
 		for (var i = 0, l = callbacks.length; i < l; i++) {
 			callbacks[i].apply(null, eventArgs);
 		}
-	}
-	,
+	},
+
 	implementEvents(events) {
 		_.forOwn(events, function(eventName, eventMethodName) {
 			this[eventMethodName] = function(eventHandler) {

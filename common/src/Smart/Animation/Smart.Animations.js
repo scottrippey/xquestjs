@@ -12,8 +12,8 @@ Smart.Animations = Smart.Class({
 		else
 			this.animations.push(animation);
 		return animation;
-	}
-	,
+	},
+
 	/**
 	 * Updates all animations in the list.
 	 * Automatically removes finished animations.

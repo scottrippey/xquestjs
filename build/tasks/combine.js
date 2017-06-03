@@ -4,8 +4,8 @@ module.exports = function(grunt) {
 	grunt.mergeConfig({
 		data: {
 			banner: "(function(){ \n" +
-					"    var Smart, XQuestGame, XQuestInput, EaselJSGraphics, EaselJSTimer, Balance, Graphics;\n"
-			,footer:"    \n" +
+					"    var Smart, XQuestGame, XQuestInput, EaselJSGraphics, EaselJSTimer, Balance, Graphics;\n",
+			footer:"    \n" +
 					"    window.XQuestGame = XQuestGame; \n" +
 					"    window.XQStart = function() { \n" +
 					"        if (window.xquest) return; \n" +
@@ -18,18 +18,18 @@ module.exports = function(grunt) {
 		},
 		concat: {
 			'COMBINE-JS': {
-				src: [ '<%= sources.allSources %>' ]
-				, dest: 'dist/XQuest.combined.js'
-				, options: {
-					banner: "<%= data.banner %>"
-					, footer: "<%= data.footer %>"
+				src: [ '<%= sources.allSources %>' ],
+				dest: 'dist/XQuest.combined.js',
+				options: {
+					banner: "<%= data.banner %>",
+					footer: "<%= data.footer %>"
 				}
 			}
-		}
-		,uglify: {
+		},
+		uglify: {
 			'COMBINE-JS': {
-				src: [ 'dist/XQuest.combined.js' ]
-				, dest: 'dist/XQuest.combined.min.js'
+				src: [ 'dist/XQuest.combined.js' ],
+				dest: 'dist/XQuest.combined.min.js'
 			}
 		}
 

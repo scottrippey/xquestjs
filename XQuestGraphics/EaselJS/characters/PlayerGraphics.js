@@ -11,18 +11,18 @@ EaselJSGraphics.PlayerGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 			.star(0, 0, G.innerRadius, G.innerStarPoints, G.innerStarSize, 0)
 			.endPath(G.innerStyle);
 
-	}
-	,drawEffects(drawing, tickEvent) {
+	},
+	drawEffects(drawing, tickEvent) {
 		var G = Graphics.player;
 
 		this.rotation += (G.spinRate * tickEvent.deltaSeconds);
-	}
-	,killPlayerGraphics(gfx, velocity) {
+	},
+	killPlayerGraphics(gfx, velocity) {
 		var G = Graphics.player;
 		this.toggleVisible(false);
 		gfx.createExplosion(this, velocity, G.explosionOptions);
-	}
-	,restorePlayerGraphics() {
+	},
+	restorePlayerGraphics() {
 		this.toggleVisible(true);
 	}
 });

@@ -1,30 +1,30 @@
 XQuestGame.GameDebugger = Smart.Class({
 	initialize(game) {
 		this.game = game;
-	}
+	},
 
-	, gatherClosestCrystal() {
+	gatherClosestCrystal() {
 		this.game.crystalFactory.gatherClosestCrystal(this.game.player.location);
-	}
-	, spawnEnemy() {
+	},
+	spawnEnemy() {
 		this.game.enemyFactory.spawnNextEnemy();
-	}
-	, activatePowerup(powerupName) {
+	},
+	activatePowerup(powerupName) {
 		this.game.activePowerups.activate(powerupName);
-	}
-	, addBomb() {
+	},
+	addBomb() {
 		this.game.stats.bombs++;
-	}
-	, killPlayer() {
+	},
+	killPlayer() {
 		this.game.killPlayer();
-	}
-	, spawnPowerCrystal() {
+	},
+	spawnPowerCrystal() {
 		this.game.powerCrystals.createPowerCrystal();
-	}
-	, toggleFPS() {
+	},
+	toggleFPS() {
 		this.game.toggleFPS();
-	}
-	, toggleDebugStats() {
+	},
+	toggleDebugStats() {
 		this.game.toggleDebugStats();
 	}
 });

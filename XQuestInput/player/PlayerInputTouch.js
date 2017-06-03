@@ -9,7 +9,7 @@
 			this.game = game;
 			this.element = element;
 			this.touchState = {};
-			
+
 			settings.watchSetting('touchSettings', touchSettings => {
 				this.touchSettings = touchSettings;
 			});
@@ -32,8 +32,8 @@
 		_onWindowResize() {
 			this.elementSize = getElementSize(this.element);
 		},
-		
-		
+
+
 		_onTouchStart(ev) {
 			ev.preventDefault();
 			var touches = ev.changedTouches;
@@ -74,19 +74,19 @@
 					var delta = this._updateTouchPosition(touchPosition);
 					if (!delta) continue;
 					var acceleration = this._adjustForSensitivity(delta, touchPosition, this.elementSize);
-					
+
 					this.touchState.accelerationX += acceleration.x;
 					this.touchState.accelerationY += acceleration.y;
 				}
 			}
 		},
-		
+
 		_updateTouchPosition(touchPosition) {
 			var delta = null;
 			if (this.previousTouchPosition) {
 				delta = {
-					x: touchPosition.x - this.previousTouchPosition.x
-					, y: touchPosition.y - this.previousTouchPosition.y
+					x: touchPosition.x - this.previousTouchPosition.x,
+					y: touchPosition.y - this.previousTouchPosition.y
 				};
 			}
 			this.previousTouchPosition = touchPosition;
@@ -97,8 +97,8 @@
 			var touchSettings = this.touchSettings,
 				sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
 			var acceleration = {
-				x: delta.x * sensitivity
-				, y: delta.y * sensitivity
+				x: delta.x * sensitivity,
+				y: delta.y * sensitivity
 			};
 			return acceleration;
 		},

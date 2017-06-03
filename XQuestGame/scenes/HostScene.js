@@ -1,8 +1,8 @@
 (() => {
 	var HostSceneEvents = {
-		onMenuCreated: 'onMenuCreated'
-		, onGameCreated: 'onGameCreated'
-		, onQuitGame: 'onQuitGame'
+		onMenuCreated: 'onMenuCreated',
+		onGameCreated: 'onGameCreated',
+		onQuitGame: 'onQuitGame'
 	};
 
 	XQuestGame.HostScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(HostSceneEvents), {
@@ -17,17 +17,17 @@
 
 			this._setupBackground();
 
-		}
-		, _setupBackground() {
+		},
+		_setupBackground() {
 			this.gfx.showBackgroundStars(true);
 
 			var middle = this.gfx.getGamePoint('middle');
 			this.gfx.followPlayer(middle);
-		}
-		, start() {
+		},
+		start() {
 			this._showStartMenu();
-		}
-		, _showStartMenu() {
+		},
+		_showStartMenu() {
 			var menuScene = this.createMenuScene();
 
 			this.setChildScene(menuScene);
@@ -37,15 +37,15 @@
 				this._startArcadeGame();
 			});
 			menuScene.showStartMenu();
-		}
-		, createMenuScene() {
+		},
+		createMenuScene() {
 			var gfx = this.gfx.createNewGraphics();
 			var menuScene = new XQuestGame.MenuScene(gfx, this.host);
 			this.fireSceneEvent(HostSceneEvents.onMenuCreated, [ menuScene ]);
 
 			return menuScene;
-		}
-		, _startArcadeGame() {
+		},
+		_startArcadeGame() {
 			var gfx = this.gfx.createNewGraphics();
 			var arcadeGame = new XQuestGame.ArcadeGame(gfx, this.host);
 			this.fireSceneEvent(HostSceneEvents.onGameCreated, [ arcadeGame ]);
@@ -57,8 +57,8 @@
 			});
 
 			arcadeGame.startArcadeGame();
-		}
-		, quitGame() {
+		},
+		quitGame() {
 			this.fireSceneEvent(HostSceneEvents.onQuitGame);
 		}
 	});

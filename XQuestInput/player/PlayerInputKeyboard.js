@@ -2,29 +2,29 @@
 
 	// Available actions:
 	var playerActions = {
-		accelerateUp: 'accelerateUp'
-		,accelerateDown: 'accelerateDown'
-		,accelerateLeft: 'accelerateLeft'
-		,accelerateRight: 'accelerateRight'
-		,primaryWeapon: 'primaryWeapon'
-		,secondaryWeapon: 'secondaryWeapon'
-		,pauseGame: 'pauseGame'
+		accelerateUp: 'accelerateUp',
+		accelerateDown: 'accelerateDown',
+		accelerateLeft: 'accelerateLeft',
+		accelerateRight: 'accelerateRight',
+		primaryWeapon: 'primaryWeapon',
+		secondaryWeapon: 'secondaryWeapon',
+		pauseGame: 'pauseGame'
 	};
 
 	var debugActions = {
-		gatherClosestCrystal: 'gatherClosestCrystal'
-		, spawnEnemy: 'spawnEnemy'
-		, killPlayer: 'killPlayer'
-		, toggleFPS: 'toggleFPS'
-		, toggleDebugStats: 'toggleDebugStats'
-		, activateInvincible: 'activateInvincible'
-		, activateRapidFire: 'activateRapidFire'
-		, activateTripleShot: 'activateTripleShot'
-		, activateAutoAim: 'activateAutoAim'
-		, activateSprayShot: 'activateSprayShot'
-		, activatePowerShot: 'activatePowerShot'
-		, addBomb: 'addBomb'
-		, spawnPowerCrystal: 'spawnPowerCrystal'
+		gatherClosestCrystal: 'gatherClosestCrystal',
+		spawnEnemy: 'spawnEnemy',
+		killPlayer: 'killPlayer',
+		toggleFPS: 'toggleFPS',
+		toggleDebugStats: 'toggleDebugStats',
+		activateInvincible: 'activateInvincible',
+		activateRapidFire: 'activateRapidFire',
+		activateTripleShot: 'activateTripleShot',
+		activateAutoAim: 'activateAutoAim',
+		activateSprayShot: 'activateSprayShot',
+		activatePowerShot: 'activatePowerShot',
+		addBomb: 'addBomb',
+		spawnPowerCrystal: 'spawnPowerCrystal'
 	};
 
 	var keyMap = {
@@ -227,8 +227,8 @@
 			this.skipPreventDefault = skipPreventDefault || false;
 
 			this._setupEvents();
-		}
-		, _setupEvents() {
+		},
+		_setupEvents() {
 			this._onKeydown = this._onKeydown.bind(this);
 			this._onKeyup = this._onKeyup.bind(this);
 			this.element.addEventListener('keydown', this._onKeydown);

@@ -4,37 +4,37 @@ EaselJSGraphics.BaseEnemyGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
 			outerStyle = G.outerStyle,
 			innerRadius = G.innerRadius,
 			innerStyle = G.innerStyle;
-		
+
 		drawing
 			.beginPath()
 			.circle(0, 0, outerRadius)
 			.endPath(outerStyle)
-		
+
 			.beginPath()
 			.circle(0, 0, innerRadius)
 			.endPath(innerStyle)
 		;
-		
-	}
-	,drawTriangleTriangle(drawing, G) {
+
+	},
+	drawTriangleTriangle(drawing, G) {
 		var outerTriangle = G.outerTriangle,
 			outerStyle = G.outerStyle,
 			innerTriangle = G.innerTriangle,
 			innerStyle = G.innerStyle;
-		
+
 		drawing
 			.beginPath()
 			.polygon(outerTriangle)
 			.closePath()
 			.endPath(outerStyle)
-			
+
 			.beginPath()
 			.polygon(innerTriangle)
 			.closePath()
 			.endPath(innerStyle)
 		;
-	}
-	,killEnemy(gfx, velocity) {
+	},
+	killEnemy(gfx, velocity) {
 		var enemyGraphics = this;
 		enemyGraphics.dispose();
 

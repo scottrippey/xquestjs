@@ -1,8 +1,8 @@
 EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
 	initialize: function BombCrystalGraphic() {
 		this._setupGraphics();
-	}
-	, _setupGraphics() {
+	},
+	_setupGraphics() {
 		var G = Graphics.bombCrystals;
 
 		this.visibleRadius = G.radius;
@@ -22,13 +22,13 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
 		this.rotation = 360 * Math.random();
 
 		this.spinRate = G.spinRate;
-	}
-	
-	, onTick(tickEvent) {
-		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
-	}
+	},
 
-	, gatherBombCrystal(gfx, playerLocation) {
+	onTick(tickEvent) {
+		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
+	},
+
+	gatherBombCrystal(gfx, playerLocation) {
 		var bombCrystal = this;
 		return gfx.addAnimation(new Smart.Animation()
 			.duration(Graphics.bombCrystals.gatherDuration)

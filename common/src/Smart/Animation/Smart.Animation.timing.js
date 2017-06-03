@@ -17,8 +17,8 @@ _.extend(Smart.Animation.prototype, {
 				animEvent.position = animEvent.position / duration;
 			}
 		});
-	}
-	,
+	},
+
 	/**
 	 * Loops the animation over the specified duration.
 	 *
@@ -45,8 +45,8 @@ _.extend(Smart.Animation.prototype, {
 				animEvent.position = animEvent.position / duration;
 			}
 		});
-	}
-	,
+	},
+
 	/**
 	 * Specifies the duration of the animation.
 	 * Animation will continue after the duration.
@@ -58,8 +58,8 @@ _.extend(Smart.Animation.prototype, {
 			animEvent.stillRunning = true;
 			animEvent.position = animEvent.position / duration;
 		});
-	}
-	,
+	},
+
 	/**
 	 * Waits the duration before starting animation.
 	 * @param {Number} duration
@@ -74,8 +74,8 @@ _.extend(Smart.Animation.prototype, {
 				animEvent.position -= duration;
 			}
 		});
-	}
-	,
+	},
+
 	/**
 	 * Stores the current position, so it can be restored later.
 	 * This allows for multiple synchronized animations.
@@ -85,8 +85,8 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(function _savePosition_(animEvent) {
 			animEvent.savedPosition = animEvent.position;
 		});
-	}
-	,
+	},
+
 	/**
 	 * Restores the saved position.
 	 * This allows for multiple synchronized animations.

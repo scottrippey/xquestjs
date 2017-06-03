@@ -19,8 +19,8 @@
 	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
 		initialize(gfx, host) {
 			this.MenuScene_initialize(gfx, host);
-		}
-		,MenuScene_initialize(gfx, host) {
+		},
+		MenuScene_initialize(gfx, host) {
 			this.BaseScene_initialize();
 
 			this.gfx = gfx;
@@ -30,9 +30,9 @@
 			this.addSceneItem(this.gfx);
 
 			this.menuStack = [];
-		}
+		},
 
-		,_setupBackButton() {
+		_setupBackButton() {
 			var backButton = this.menuScene.gfx.createMenuButton("Back");
 			backButton.addButtonEvents({
 				invoke: this.goBack.bind(this)
@@ -42,21 +42,21 @@
 
 			this.backButton = backButton;
 			this.backButton.visible = false;
-		}
-		,_updateBackButton() {
+		},
+		_updateBackButton() {
 			if (!this.backButton) return;
 
 			this.backButton.visible = (this.menuStack.length >= 2);
-		}
+		},
 
-		,getDefaultInputState() {
+		getDefaultInputState() {
 			var state = {
 				menuMode: true
 			};
 			return state;
-		}
+		},
 
-		,addMenu(menu) {
+		addMenu(menu) {
 			if (this.currentMenu)
 				this.currentMenu.menuLeave(false);
 
@@ -65,8 +65,8 @@
 
 			this._updateBackButton();
 			this.currentMenu.menuEnter(false);
-		}
-		,goBack() {
+		},
+		goBack() {
 			if (this.menuStack.length <= 1) return;
 
 			this.menuStack.pop().menuLeave(true);
@@ -75,25 +75,25 @@
 			this.currentMenu.menuEnter(true);
 
 			this._updateBackButton();
-		}
-		,exitMenu() {
+		},
+		exitMenu() {
 			this.menuStack.length = 0;
 			return this.currentMenu.menuLeave(true);
-		}
+		},
 
-		,onMove(tickEvent, inputState) {
+		onMove(tickEvent, inputState) {
 			this.currentMenu.menuInput(inputState);
 
 			if (inputState.menuBack && this.menuStack.length >= 2) {
 				this.goBack();
 			}
-		}
+		},
 
-		,showStartMenu() {
+		showStartMenu() {
 			var startMenu = new XQuestGame.StartMenu(this.menuScene);
 			this.addMenu(startMenu);
-		}
-		,showPauseMenu() {
+		},
+		showPauseMenu() {
 			var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
 			this.addMenu(pauseMenu);
 		}

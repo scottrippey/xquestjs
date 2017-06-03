@@ -3,21 +3,21 @@
 		initialize(menuScene) {
 			if (menuScene)
 				this.BaseMenu_initialize(menuScene);
-		}
-		,BaseMenu_initialize(menuScene) {
+		},
+		BaseMenu_initialize(menuScene) {
 			this.menuScene = menuScene;
 			this.activeRowIndex = -1;
 			this.rows = this.getRows();
 			this._moveActiveRowIndex(1);
-		}
-		,
+		},
+
 		/** @protected @mustOverride */
 		getRows() {
 			return [];
-		}
-		,
+		},
+
 		/**
-		 * 
+		 *
 		 * @param {string|function():string} text
 		 * @param {function()} onInvoke
 		 * @returns {MenuButton}
@@ -26,9 +26,9 @@
 			var isUpdatableText = (typeof text === 'function');
 			var buttonRow = this.menuScene.gfx.createMenuButton(isUpdatableText ? "" : text);
 			buttonRow.addButtonEvents({
-				invoke: onInvoke
-				, hoverEnter: this._setActiveRow.bind(this, buttonRow)
-				, hoverLeave: this._setActiveRowIndex.bind(this, -1)
+				invoke: onInvoke,
+				hoverEnter: this._setActiveRow.bind(this, buttonRow),
+				hoverLeave: this._setActiveRowIndex.bind(this, -1)
 			});
 			buttonRow.invoke = onInvoke;
 			if (isUpdatableText) {
@@ -39,15 +39,15 @@
 				buttonRow.updateText();
 			}
 			return buttonRow;
-		}
+		},
 
 
-		,menuEnter(isBackNavigation) {
+		menuEnter(isBackNavigation) {
 			if (this.onMenuEnter) this.onMenuEnter(isBackNavigation);
 			this.layoutRows(this.rows, isBackNavigation);
 			this.flyInRows(this.rows, isBackNavigation);
-		}
-		,
+		},
+
 		/**
 		 * @overridable
 		 * @protected
@@ -71,17 +71,17 @@
 
 				currentTop += row.visibleHeight + layoutMargin;
 			}
-		}
-		,
+		},
+
 		/**
 		 * @overridable
 		 * @protected
 		 */
 		flyInRows(rows, isBackNavigation, delay) {
-			var animRotation = 30
-				, animStagger = 0.25
-				, animDuration = 1
-				, animDelay = delay || 0;
+			var animRotation = 30,
+				animStagger = 0.25,
+				animDuration = 1,
+				animDelay = delay || 0;
 
 			var fromTop = isBackNavigation;
 			var entrance = this.menuScene.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
@@ -100,20 +100,20 @@
 					.rotate(row, 0)
 				;
 			}
-		}
+		},
 
-		,menuLeave(isBackNavigation) {
+		menuLeave(isBackNavigation) {
 			if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
 			return this.flyOutRows(this.rows, isBackNavigation);
-		}
-		,/**
+		},
+		/**
 		 * @overridable
 		 * @protected
 		 */
 		flyOutRows(rows, isBackNavigation) {
-			var animRotation = 30
-				,animStagger = 0.1
-				,animDuration = 0.5
+			var animRotation = 30,
+				animStagger = 0.1,
+				animDuration = 0.5
 				;
 			var toBottom = isBackNavigation;
 
@@ -139,20 +139,20 @@
 				lastAnimation = row.animation;
 			}
 			return lastAnimation;
-		}
+		},
 
 
-		,menuInput(inputState) {
+		menuInput(inputState) {
 			if (inputState.menuUp || inputState.menuLeft)
 				this._moveActiveRowIndex(-1);
 			else if (inputState.menuDown || inputState.menuRight)
 				this._moveActiveRowIndex(1);
-			
+
 			if (inputState.menuInvoke)
 				this._invokeActiveRow();
-			
-		}
-		,_moveActiveRowIndex(direction) {
+
+		},
+		_moveActiveRowIndex(direction) {
 			var activeRowIndex = this.activeRowIndex;
 			while (true) {
 				activeRowIndex = activeRowIndex + direction;
@@ -171,13 +171,13 @@
 			}
 
 			this._setActiveRowIndex(activeRowIndex);
-		}
-		
-		,_setActiveRow(activeRow) {
+		},
+
+		_setActiveRow(activeRow) {
 			var activeRowIndex = this.rows.indexOf(activeRow);
 			this._setActiveRowIndex(activeRowIndex);
-		}
-		,_setActiveRowIndex(activeRowIndex) {
+		},
+		_setActiveRowIndex(activeRowIndex) {
 			var rows = this.rows;
 			for (var i = 0, l = rows.length; i < l; i++) {
 				var row = rows[i];
@@ -186,18 +186,17 @@
 				}
 			}
 			this.activeRowIndex = activeRowIndex;
-		}
-		,_getActiveRow() {
+		},
+		_getActiveRow() {
 			return this.rows[this.activeRowIndex] || null;
-		}
-		,_invokeActiveRow() {
+		},
+		_invokeActiveRow() {
 			var activeRow = this._getActiveRow();
 			if (activeRow && activeRow.invoke)
 				activeRow.invoke();
-			
+
 		}
-	
-		
+
+
 	});
 })();
-	

@@ -1,10 +1,10 @@
 XQuestGame.BaseEnemy = Smart.Class({
-	game: null
-	, enemyGraphics: null
-	, location: null
-	, radius: null
-	, velocity: null
-	,
+	game: null,
+	enemyGraphics: null,
+	location: null,
+	radius: null,
+	velocity: null,
+
 	/* @protected */
 	setupBaseEnemyGraphics(game, enemyName, radius) {
 		this.game = game;
@@ -12,14 +12,14 @@ XQuestGame.BaseEnemy = Smart.Class({
 		this.enemyGraphics = this.game.gfx.createEnemyGraphics(enemyName);
 		this.location = this.enemyGraphics;
 		this.radius = radius;
-	}
-	,
+	},
+
 	/* @protected */
 	applyVelocityAndBounce(tickEvent) {
 		Smart.Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
 		Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
-	}
-	,
+	},
+
 	/* @protected */
 	shouldChangeDirection(tickEvent, movementInterval) {
 		var isFirstRun = (this.nextChange === undefined);
@@ -28,8 +28,8 @@ XQuestGame.BaseEnemy = Smart.Class({
 			return !isFirstRun;
 		}
 		return false;
-	}
-	,
+	},
+
 	/** @public @overridable */
 	takeDamage(hitPoints, kickBack) {
 
@@ -44,8 +44,8 @@ XQuestGame.BaseEnemy = Smart.Class({
 			this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
 			this.game.removeSceneItem(this);
 		}
-	}
-	,
+	},
+
 	/* @public */
 	clearEnemy() {
 		this.game.gfx.addAnimation(new Smart.Animation()

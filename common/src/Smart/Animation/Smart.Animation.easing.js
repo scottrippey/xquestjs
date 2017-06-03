@@ -2,8 +2,8 @@
  * Animation Easing functions
  */
 _.extend(Smart.Animation.prototype, {
-	defaultEasing: 'quart'
-	,
+	defaultEasing: 'quart',
+
 	/**
 	 * Applies an ease-in-out function to the current animation.
 	 *
@@ -15,8 +15,8 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
-	}
-	,
+	},
+
 	/**
 	 * Applies an ease-in function to the current animation.
 	 *
@@ -28,8 +28,8 @@ _.extend(Smart.Animation.prototype, {
 		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
-	}
-	,
+	},
+
 	/**
 	 * Applies an ease-out function to the current animation.
 	 *
@@ -97,32 +97,32 @@ Smart.Animation.Easing = {
 		} else {
 			return Smart.Animation.Easing[easing];
 		}
-	}
-	,
+	},
+
 	linear(position) {
 		return position;
-	}
-	,
+	},
+
 	quad(position) {
 		return (position * position);
-	}
-	,
+	},
+
 	cube(position) {
 		return Math.pow(position, 3);
-	}
-	,
+	},
+
 	quart(position) {
 		return Math.pow(position, 4);
-	}
-	,
+	},
+
 	quint(position) {
 		return Math.pow(position, 5);
-	}
-	,
+	},
+
 	sine(position) {
 		return (Math.cos(position * Math.PI) - 1) / -2;
-	}
-	,
+	},
+
 	swing(position) {
 		return position - Math.sin(position * Math.PI) / Math.PI;
 	}

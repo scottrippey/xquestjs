@@ -19,8 +19,8 @@ Smart.Sort = {
 		this._smoothsort(array);
 
 		return array;
-	}
-	,
+	},
+
 	/**
 	 * Sorts the array, comparing based on a property.
 	 *

@@ -5,24 +5,24 @@ XQuestGame.Projectiles = Smart.Class({
 
 		this.bulletsGraphics = this.game.gfx.createBulletsGraphics();
 		this.bomb = null;
-	}
-	, onMove(tickEvent) {
+	},
+	onMove(tickEvent) {
 		this._moveBullets(tickEvent);
-	}
+	},
 
-	, onAct(tickEvent) {
+	onAct(tickEvent) {
 		this._bulletsKillEnemies();
 		this._bombsKillEnemies();
-	}
+	},
 
-	, addTripleShot(powerup) {
+	addTripleShot(powerup) {
 		var angle = powerup.angle;
 
 		this.addBullet();
 		this.addBullet(angle);
 		this.addBullet(-angle);
-	}
-	, addSprayShot(tickEvent) {
+	},
+	addSprayShot(tickEvent) {
 		var B = Balance.powerups.sprayShot;
 		var shots = B.shots, speed = B.speed, spinSpeed = B.spinSpeed;
 		var angle = 360 / shots;
@@ -32,8 +32,8 @@ XQuestGame.Projectiles = Smart.Class({
 		for (var i = 0; i < shots; i++) {
 			this.addBullet(angleOffset + i * angle, speed);
 		}
-	}
-	, addBullet(angle, speed) {
+	},
+	addBullet(angle, speed) {
 		var B = Balance.bullets, player = this.game.player;
 
 		var velocity;
@@ -53,8 +53,8 @@ XQuestGame.Projectiles = Smart.Class({
 				return;
 			}
 			velocity = {
-				x: player.velocity.x * B.speed
-				, y: player.velocity.y * B.speed
+				x: player.velocity.x * B.speed,
+				y: player.velocity.y * B.speed
 			};
 		}
 
@@ -67,8 +67,8 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 		bulletGfx.location = bulletGfx;
 		bulletGfx.radius = B.radius;
-	}
-	, _moveBullets(tickEvent) {
+	},
+	_moveBullets(tickEvent) {
 		var bounds = Balance.level.bounds, bullets = this.bulletsGraphics.bullets, i = bullets.length;
 		while (i--) {
 			var bulletGfx = bullets[i];
@@ -81,8 +81,8 @@ XQuestGame.Projectiles = Smart.Class({
 				bullets.splice(i, 1);
 			}
 		}
-	}
-	, _bulletsKillEnemies() {
+	},
+	_bulletsKillEnemies() {
 		var bullets = this.bulletsGraphics.bullets;
 		if (bullets.length) {
 			if (bullets.length >= 2) {
@@ -103,8 +103,8 @@ XQuestGame.Projectiles = Smart.Class({
 			}
 		}
 
-	}
-	, clearBullets() {
+	},
+	clearBullets() {
 		this.game.gfx.addAnimation()
 			.duration(1)
 			.fade(this.bulletsGraphics, 0)
@@ -112,11 +112,11 @@ XQuestGame.Projectiles = Smart.Class({
 				this.bulletsGraphics.alpha = 1;
 				this.bulletsGraphics.bullets.length = 0;
 			});
-	}
+	},
 
 
 
-	, tryReleasingABomb() {
+	tryReleasingABomb() {
 		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null && !this.game.levelConfig.bombsDisabled);
 
 		if (canBomb) {
@@ -125,8 +125,8 @@ XQuestGame.Projectiles = Smart.Class({
 		}
 
 		return canBomb;
-	}
-	, _createBomb() {
+	},
+	_createBomb() {
 		var player = this.game.player;
 		var bomb = this.game.gfx.createBombGraphic();
 		this.bomb = bomb;
@@ -136,8 +136,8 @@ XQuestGame.Projectiles = Smart.Class({
 
 		bomb.location.moveTo(player.location.x, player.location.y);
 		return bomb;
-	}
-	, _bombsKillEnemies() {
+	},
+	_bombsKillEnemies() {
 		if (this.bomb) {
 			this.game.enemyFactory.killEnemiesOnCollision([ this.bomb ], this.bomb.radius);
 		}

@@ -3,8 +3,8 @@ Balance.onUpdate(gameMode => {
 		pauseOverlay: {
 			style: {
 				fillStyle: 'hsla(0, 0%, 0%, 0.8)'
-			}
-			,fadeInDuration: 1
+			},
+			fadeInDuration: 1
 		}
 	});
 });

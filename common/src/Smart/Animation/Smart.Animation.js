@@ -32,8 +32,8 @@ Smart.Animation = Smart.Class({
 			},
 			_stopUpdate: false
 		};
-	}
-	,
+	},
+
 
 	/**
 	 * Updates the animation with the elapsed time.
@@ -68,8 +68,8 @@ Smart.Animation = Smart.Class({
 		}
 
 		return animEvent;
-	}
-	,
+	},
+
 	/**
 	 * Adds an action to the animation queue.
 	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
@@ -78,8 +78,8 @@ Smart.Animation = Smart.Class({
 	frame(frameCallback) {
 		this._actions.push(frameCallback);
 		return this;
-	}
-	,
+	},
+
 	/**
 	 * Waits for the current animations to complete, before continuing the chain.
 	 * If supplied, the callback will be executed.
@@ -96,8 +96,8 @@ Smart.Animation = Smart.Class({
 				animEvent.clearCurrentActions();
 			}
 		});
-	}
-	,
+	},
+
 	/**
 	 * Cancels the animation queue
 	 */

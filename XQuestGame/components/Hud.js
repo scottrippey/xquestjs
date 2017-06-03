@@ -3,10 +3,10 @@ XQuestGame.Hud = Smart.Class({
 		this.game = game;
 		this._setupGraphics();
 		this._layout();
-		
+
 		this.game.onNewLevel(this._onNewLevel.bind(this));
-	}
-	, _setupGraphics() {
+	},
+	_setupGraphics() {
 
 		this.game.gfx.enableTouchClicks();
 
@@ -20,11 +20,11 @@ XQuestGame.Hud = Smart.Class({
 
 		this.hudBombsIcon = this.game.gfx.createBombCrystalHUDIcon();
 		this.hudBombsText = this.game.gfx.addText("", 'hudText');
-		
+
 		this.hudPauseButton = this.game.gfx.createPauseButtonHUD();
 		this.hudPauseButton.addEventListener('click', () => { this.game.pauseGame(); });
-	}
-	, _layout() {
+	},
+	_layout() {
 		var bounds = Balance.level.bounds, middle = bounds.hudHeight / 2;
 		var spacer = 50;
 
@@ -51,22 +51,22 @@ XQuestGame.Hud = Smart.Class({
 
 		leftPos += spacer;
 
-		
+
 		var center = bounds.visibleWidth / 2;
 		this.hudPauseButton.moveTo(center - this.hudPauseButton.width / 2, middle - this.hudPauseButton.height / 2);
 
-	}
-	, onAct(tickEvent) {
+	},
+	onAct(tickEvent) {
 		this.hudLivesText.text = ` x ${this.game.stats.lives}`;
 		this.hudCrystalsText.text = ` x ${this.game.stats.crystalCount}`;
 		this.hudBombsText.text = ` x ${this.game.stats.bombs}`;
-	}
-	
-	, _onNewLevel() {
+	},
+
+	_onNewLevel() {
 		var levelConfig = this.game.levelConfig;
-		
+
 		var faded = 0.3;
-		
+
 		this.hudLivesIcon.alpha = this.hudLivesText.alpha = levelConfig.skipLevelOnPlayerDeath ? faded : 1;
 		this.hudCrystalsIcon.alpha = this.hudCrystalsText.alpha = levelConfig.crystalsDisabled ? faded : 1;
 		this.hudBombsIcon.alpha = this.hudBombsText.alpha = levelConfig.bombsDisabled ? faded : 1;

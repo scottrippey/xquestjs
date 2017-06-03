@@ -19,8 +19,8 @@
 				return rgba.slice(1, (rgba[4] ? 5 : 4)).map(d => parseFloat(d));
 
 			return null;
-		}
-		,
+		},
+
 		toRGB(array) {
 			if (!(array.length === 3 || array.length === 4)) return null;
 
@@ -33,8 +33,8 @@
 			} else {
 				return `rgb(${r},${g},${b})`;
 			}
-		}
-		,
+		},
+
 		parseHSL(color) {
 			if (typeof color !== 'string') return null;
 
@@ -45,8 +45,8 @@
 				return hsla.slice(1, (hsla[4] ? 5 : 4)).map(d => parseFloat(d));
 
 			return null;
-		}
-		,
+		},
+
 		toHSL(array) {
 			if (!(array.length === 3 || array.length === 4)) return null;
 
@@ -77,20 +77,20 @@
 		},
 		darken(hslColor, darkenPct) {
 			return this._shift(hslColor, -darkenPct, 2);
-		}
-		,
+		},
+
 		lighten(hslColor, lightenPct) {
 			return this._shift(hslColor, lightenPct, 2);
-		}
-		,
+		},
+
 		spin(hslColor, spinAmt) {
 			return this._shift(hslColor, spinAmt, 0);
-		}
-		,
+		},
+
 		saturate(hslColor, saturateAmt) {
 			return this._shift(hslColor, saturateAmt, 1);
-		}
-		,
+		},
+
 		desaturate(hslColor, desaturateAmt) {
 			return this._shift(hslColor, -desaturateAmt, 1);
 		}
