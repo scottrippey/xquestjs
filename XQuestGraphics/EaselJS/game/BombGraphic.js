@@ -15,15 +15,15 @@ EaselJSGraphics.BombGraphic = Smart.Class(new createjs.Shape(), {
 	},
 
 	onTick(tickEvent) {
-        var B = Balance.bombs;
-        var bounds = Balance.level.bounds;
-        this.radius += (B.speed * tickEvent.deltaSeconds);
-        this.alpha = 1 - (this.radius / bounds.totalWidth);
-        if (this.alpha <= 0) {
+		var B = Balance.bombs;
+		var bounds = Balance.level.bounds;
+		this.radius += (B.speed * tickEvent.deltaSeconds);
+		this.alpha = 1 - (this.radius / bounds.totalWidth);
+		if (this.alpha <= 0) {
 			this.dispose();
 		}
-        this._setupGraphics();
-    },
+		this._setupGraphics();
+	},
 
 	getKickBack(enemy, distance) {
 		var impactVector = Smart.Point.subtract(enemy.location, this.location);

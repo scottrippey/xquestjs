@@ -1,12 +1,12 @@
 (function _init_PlayerInputMouse() {
-    var primaryWeapon = 'primaryWeapon';
-    var secondaryWeapon = 'secondaryWeapon';
-    var mouseMap = {
+	var primaryWeapon = 'primaryWeapon';
+	var secondaryWeapon = 'secondaryWeapon';
+	var mouseMap = {
 		left: primaryWeapon,
 		right: secondaryWeapon
 	};
 
-    XQuestInput.PlayerInputMouse = Smart.Class({
+	XQuestInput.PlayerInputMouse = Smart.Class({
 		element: null,
 		elementSize: null,
 		mouseState: null,
@@ -86,43 +86,43 @@
 		},
 
 		_onMouseMove(ev) {
-            var mousePosition = getMousePosition(ev);
-            var previousMousePosition = this.previousMousePosition;
-            var mouseSettings = this.mouseSettings;
-            this.previousMousePosition = mousePosition;
-            if (!previousMousePosition)
+			var mousePosition = getMousePosition(ev);
+			var previousMousePosition = this.previousMousePosition;
+			var mouseSettings = this.mouseSettings;
+			this.previousMousePosition = mousePosition;
+			if (!previousMousePosition)
 				return;
 
 
-            var delta = {
+			var delta = {
 				x: Math.min(mousePosition.x - previousMousePosition.x, mouseSettings.maxMouseMove),
 				y: Math.min(mousePosition.y - previousMousePosition.y, mouseSettings.maxMouseMove)
 			};
 
-            var acceleration = this._adjustForSensitivity(delta, mousePosition);
+			var acceleration = this._adjustForSensitivity(delta, mousePosition);
 
-            this.mouseState.accelerationX += acceleration.x;
-            this.mouseState.accelerationY += acceleration.y;
-        },
+			this.mouseState.accelerationX += acceleration.x;
+			this.mouseState.accelerationY += acceleration.y;
+		},
 		_adjustForSensitivity(delta, mousePosition) {
-            var elementSize = this.elementSize;
-            var mouseSettings = this.mouseSettings;
-            var sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier;
-            var biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
-            var screenDeltaX = delta.x / elementSize.width;
-            var screenDeltaY = delta.y / elementSize.height;
-            var distanceFromCenterX = 2 * (mousePosition.x / elementSize.width) - 1;
-            var distanceFromCenterY = 2 * (mousePosition.y / elementSize.height) - 1;
-            var biasX = this._getBias(distanceFromCenterX, delta.x, biasSensitivity);
-            var biasY = this._getBias(distanceFromCenterY, delta.y, biasSensitivity);
+			var elementSize = this.elementSize;
+			var mouseSettings = this.mouseSettings;
+			var sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier;
+			var biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
+			var screenDeltaX = delta.x / elementSize.width;
+			var screenDeltaY = delta.y / elementSize.height;
+			var distanceFromCenterX = 2 * (mousePosition.x / elementSize.width) - 1;
+			var distanceFromCenterY = 2 * (mousePosition.y / elementSize.height) - 1;
+			var biasX = this._getBias(distanceFromCenterX, delta.x, biasSensitivity);
+			var biasY = this._getBias(distanceFromCenterY, delta.y, biasSensitivity);
 
-            var acceleration = {
+			var acceleration = {
 				x: screenDeltaX * sensitivity * biasX,
 				y: screenDeltaY * sensitivity * biasY
 			};
 
-            return acceleration;
-        },
+			return acceleration;
+		},
 		_getBias(distanceFromCenter, deltaDirection, sensitivity) {
 			// "Bias" is used to increase outward sensitivity, and decrease inward sensitivity.
 			// This causes the user's mouse to gravitate toward the center of the page,
@@ -153,26 +153,30 @@
 
 	});
 
-    function addEventListeners(element, events) {
+	function addEventListeners(element, events) {
 		for (var eventName in events) {
 			if (!events.hasOwnProperty(eventName)) continue;
 			element.addEventListener(eventName, events[eventName]);
 		}
 	}
-    function elementContains(element, child) {
+
+	function elementContains(element, child) {
 		while (child) {
 			if (child === element) return true;
 			child = child.parentNode;
 		}
 		return false;
 	}
-    function getElementSize(element) {
+
+	function getElementSize(element) {
 		return { width: element.clientWidth, height: element.clientHeight };
 	}
-    function getMousePosition(ev) {
+
+	function getMousePosition(ev) {
 		return { x: ev.clientX, y: ev.clientY };
 	}
-    function getMouseButton(ev) {
+
+	function getMouseButton(ev) {
 		switch (ev.which || ev.button) {
 			case 1: return 'left';
 			case 2: return 'middle';

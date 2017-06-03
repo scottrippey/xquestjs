@@ -13,10 +13,10 @@ EaselJSGraphics.PauseOverlay = Smart.Class(new EaselJSGraphics.Drawing(), {
 		this.gfx = gfx;
 	},
 	drawStatic(drawing) {
-        var bounds = Balance.level.bounds;
-        var G = Graphics.pauseOverlay;
-        drawing.beginPath().rect(0, 0, bounds.visibleWidth, bounds.visibleHeight).endPath(G.style);
-    },
+		var bounds = Balance.level.bounds;
+		var G = Graphics.pauseOverlay;
+		drawing.beginPath().rect(0, 0, bounds.visibleWidth, bounds.visibleHeight).endPath(G.style);
+	},
 	showPauseOverlay() {
 		var G = Graphics.pauseOverlay;
 		this.gfx.addAnimation().duration(G.fadeInDuration).easeOut().fade(this, [0, 1]);

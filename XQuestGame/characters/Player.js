@@ -169,12 +169,12 @@ XQuestGame.Player = Smart.Class({
 			this.playerGraphics.restorePlayerGraphics();
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(1).easeOut()
-				.scale(this.playerGraphics, [0,1])
+				.scale(this.playerGraphics, [0, 1])
 			).update(0);
 		} else {
 			this.game.gfx.addAnimation(new Smart.Animation()
 				.duration(0.5).easeOut()
-				.scale(this.playerGraphics, [1,0])
+				.scale(this.playerGraphics, [1, 0])
 				.queue(() => {
 					this.playerGraphics.toggleVisible(false);
 				})

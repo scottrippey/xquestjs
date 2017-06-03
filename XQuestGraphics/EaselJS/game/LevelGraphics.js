@@ -39,32 +39,32 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	},
 
 	_drawWalls() {
-        var g = this.graphics;
-        var level = Graphics.level;
-        var bounds = Balance.level.bounds;
-        var strokeWidth = Graphics.level.strokeStyle.strokeWidth - 2;
-        var gateStart = this.gateStart;
-        var gateEnd = this.gateEnd;
+		var g = this.graphics;
+		var level = Graphics.level;
+		var bounds = Balance.level.bounds;
+		var strokeWidth = Graphics.level.strokeStyle.strokeWidth - 2;
+		var gateStart = this.gateStart;
+		var gateEnd = this.gateEnd;
 
-        // Draw a rounded rectangle with a "gap" for the gate:
-        // TODO: Cache these calculated values:
-        var halfPI = Math.PI / 2;
+		// Draw a rounded rectangle with a "gap" for the gate:
+		// TODO: Cache these calculated values:
+		var halfPI = Math.PI / 2;
 
-        var angles = {
-            top: halfPI * 3,
-            right: 0,
-            bottom: halfPI,
-            left: Math.PI
-        };
+		var angles = {
+			top: halfPI * 3,
+			right: 0,
+			bottom: halfPI,
+			left: Math.PI
+		};
 
-        var arcCorners = {
-            left: bounds.x + level.cornerRadius - strokeWidth / 2,
-            right: bounds.x + bounds.width - level.cornerRadius + strokeWidth,
-            top: bounds.y + level.cornerRadius - strokeWidth / 2,
-            bottom: bounds.y + bounds.height - level.cornerRadius + strokeWidth
-        };
+		var arcCorners = {
+			left: bounds.x + level.cornerRadius - strokeWidth / 2,
+			right: bounds.x + bounds.width - level.cornerRadius + strokeWidth,
+			top: bounds.y + level.cornerRadius - strokeWidth / 2,
+			bottom: bounds.y + bounds.height - level.cornerRadius + strokeWidth
+		};
 
-        g.beginStyle(level.strokeStyle)
+		g.beginStyle(level.strokeStyle)
 			.moveTo(gateEnd.x, gateEnd.y)
 			.arc(arcCorners.right, arcCorners.top, level.cornerRadius, angles.top, angles.right)
 			.arc(arcCorners.right, arcCorners.bottom, level.cornerRadius, angles.right, angles.bottom)
@@ -72,18 +72,18 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 			.arc(arcCorners.left, arcCorners.top, level.cornerRadius, angles.left, angles.top)
 			.lineTo(gateStart.x, gateStart.y)
 			.endStroke();
-    },
+	},
 
 	_drawGate() {
-        if (this.gateOpen) return;
+		if (this.gateOpen) return;
 
-        var g = this.graphics;
-        var gate = Graphics.gate;
-        var gateStart = this.gateStart;
-        var gateEnd = this.gateEnd;
+		var g = this.graphics;
+		var gate = Graphics.gate;
+		var gateStart = this.gateStart;
+		var gateEnd = this.gateEnd;
 
-        this._drawElectricLine(g, gate, gateStart, gateEnd);
-    },
+		this._drawElectricLine(g, gate, gateStart, gateEnd);
+	},
 
 	_drawElectricLine(graphics, gate, gateStart, gateEnd) {
 		var segments = gate.segments;
@@ -99,15 +99,15 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 		var interpolate = Smart.Interpolate.points(gateStart, gateEnd);
 
 		for (var i = 1; i <= segments; i++) {
-            var pos = interpolate(i / segments);
-            var dist = Math.min(segments - i, i) / segments;
-            var deviation = dist * gate.deviation * (Math.random() - 0.5);
-            if (diff.y)
+			var pos = interpolate(i / segments);
+			var dist = Math.min(segments - i, i) / segments;
+			var deviation = dist * gate.deviation * (Math.random() - 0.5);
+			if (diff.y)
 				pos.x += -diff.y * deviation;
-            if (diff.x)
+			if (diff.x)
 				pos.y += diff.x * deviation;
-            graphics.lineTo(pos.x, pos.y);
-        }
+			graphics.lineTo(pos.x, pos.y);
+		}
 		graphics.endStroke();
 	},
 

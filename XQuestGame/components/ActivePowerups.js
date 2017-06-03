@@ -55,5 +55,4 @@ XQuestGame.ActivePowerups = Smart.Class({
 	}
 
 
-
 });

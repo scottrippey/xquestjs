@@ -29,7 +29,8 @@ Smart.Sort = {
 	 */
 	smoothSortByProperty(array, property) {
 		var compare = function(a, b) {
-			a = a[property]; b = b[property];
+			a = a[property];
+			b = b[property];
 			return (a < b) ? -1 : (a > b) ? 1 : 0;
 		};
 		return Smart.Sort.smoothSort(array, compare);

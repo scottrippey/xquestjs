@@ -47,8 +47,8 @@ _.extend(Smart.Animation.prototype, {
 Smart.Animation.Easing = {
 	easeInOut(easing) {
 		easing = Smart.Animation.Easing.from(easing);
-		return function _easeInOut_(position){
-			if (position <= 0){
+		return function _easeInOut_(position) {
+			if (position <= 0) {
 				return 0;
 			} else if (position >= 1) {
 				return 1;
@@ -61,8 +61,8 @@ Smart.Animation.Easing = {
 	},
 	easeIn(easing) {
 		easing = Smart.Animation.Easing.from(easing);
-		return function _easeIn_(position){
-			if (position <= 0){
+		return function _easeIn_(position) {
+			if (position <= 0) {
 				return 0;
 			} else if (position >= 1) {
 				return 1;
@@ -74,7 +74,7 @@ Smart.Animation.Easing = {
 	easeOut(easing) {
 		easing = Smart.Animation.Easing.from(easing);
 		return function _easeOut_(position) {
-			if (position <= 0){
+			if (position <= 0) {
 				return 0;
 			} else if (position >= 1) {
 				return 1;

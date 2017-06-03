@@ -120,7 +120,6 @@ XQuestGame.Projectiles = Smart.Class({
 	},
 
 
-
 	tryReleasingABomb() {
 		var canBomb = (this.game.stats.bombs > 0 && this.bomb === null && !this.game.levelConfig.bombsDisabled);
 

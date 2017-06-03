@@ -21,7 +21,8 @@ _.extend(Smart.Animation.prototype, {
 		};
 		return this.frame(function _move_(animEvent) {
 			var p = interpolate(animEvent.position);
-			target.x = p.x; target.y = p.y;
+			target.x = p.x;
+			target.y = p.y;
 		});
 
 	},

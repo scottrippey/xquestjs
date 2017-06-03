@@ -91,21 +91,21 @@ EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(new EaselJSGraphics.Hud
 		return icon;
 	},
 	_createSandwichIcon() {
-        var sandwichIcon = Graphics.hudGraphics.sandwichIcon;
-        var bottomRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight);
-        var middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;
-        var icon = new createjs.Shape();
-        icon.graphics
+		var sandwichIcon = Graphics.hudGraphics.sandwichIcon;
+		var bottomRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight);
+		var middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;
+		var icon = new createjs.Shape();
+		icon.graphics
 			.beginStyle(sandwichIcon.style)
 			.drawRoundRect(0, 0, sandwichIcon.rectWidth, sandwichIcon.rectHeight, sandwichIcon.rectRadius)
 			.drawRoundRect(0, middleRow, sandwichIcon.rectWidth, sandwichIcon.rectHeight, sandwichIcon.rectRadius)
 			.drawRoundRect(0, bottomRow, sandwichIcon.rectWidth, sandwichIcon.rectHeight, sandwichIcon.rectRadius)
 			.endStyle(sandwichIcon.style)
 		;
-        icon.width = sandwichIcon.rectWidth;
-        icon.height = sandwichIcon.iconHeight;
+		icon.width = sandwichIcon.rectWidth;
+		icon.height = sandwichIcon.iconHeight;
 
-        this.addChild(icon);
-        return icon;
-    }
+		this.addChild(icon);
+		return icon;
+	}
 });

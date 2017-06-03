@@ -41,15 +41,15 @@ Smart.Animation = Smart.Class({
 	 * @returns {Smart.AnimationEvent}
 	 */
 	update(deltaSeconds) {
-        this._position += deltaSeconds;
+		this._position += deltaSeconds;
 
-        var thisAnimation = this;
-        var animEvent = this._animEvent;
+		var thisAnimation = this;
+		var animEvent = this._animEvent;
 
-        animEvent.position = this._position;
-        animEvent.stillRunning = false;
+		animEvent.position = this._position;
+		animEvent.stillRunning = false;
 
-        for (var i = 0; i < this._actions.length; i++) {
+		for (var i = 0; i < this._actions.length; i++) {
 			this._actions[i](animEvent, thisAnimation);
 
 			if (animEvent._clearCurrentActions) {
@@ -63,12 +63,12 @@ Smart.Animation = Smart.Class({
 				break;
 			}
 		}
-        if (animEvent.stillRunning === false && this._actions.length) {
+		if (animEvent.stillRunning === false && this._actions.length) {
 			this._actions.length = 0;
 		}
 
-        return animEvent;
-    },
+		return animEvent;
+	},
 
 	/**
 	 * Adds an action to the animation queue.

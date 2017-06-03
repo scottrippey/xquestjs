@@ -1,4 +1,3 @@
-
 _.extend(createjs.Graphics.prototype, {
 	beginStyle(styles) {
 		var gfx = this;
@@ -22,25 +21,26 @@ _.extend(createjs.Graphics.prototype, {
 		return this;
 	},
 	drawPolygon(points) {
-        var gfx = this;
-        var startX = points[0][0];
-        var startY = points[0][1];
-        gfx.moveTo(startX, startY);
-        for (var i = 1, l = points.length; i < l; i++) {
-            var x = points[i][0];
-            var y = points[i][1];
-            gfx.lineTo(x, y);
-        }
-        gfx.lineTo(startX, startY);
+		var gfx = this;
+		var startX = points[0][0];
+		var startY = points[0][1];
+		gfx.moveTo(startX, startY);
+		for (var i = 1, l = points.length; i < l; i++) {
+			var x = points[i][0];
+			var y = points[i][1];
+			gfx.lineTo(x, y);
+		}
+		gfx.lineTo(startX, startY);
 
-        return this;
-    }
+		return this;
+	}
 });
 
 _.extend(createjs.DisplayObject.prototype, Smart.Disposable.prototype);
 _.extend(createjs.DisplayObject.prototype, {
 	moveTo(x, y) {
-		this.x = x; this.y = y;
+		this.x = x;
+		this.y = y;
 	},
 	scaleTo(x, y) {
 		if (y === undefined) y = x;

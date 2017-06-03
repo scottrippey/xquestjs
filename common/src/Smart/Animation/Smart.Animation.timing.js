@@ -9,7 +9,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @returns {Smart.Animation} this
 	 */
 	duration(duration) {
-		return this.frame(function _duration_(animEvent){
+		return this.frame(function _duration_(animEvent) {
 			if (animEvent.position >= duration) {
 				animEvent.position = 1;
 			} else {

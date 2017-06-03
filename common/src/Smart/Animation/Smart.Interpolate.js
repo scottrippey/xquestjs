@@ -144,42 +144,42 @@ Smart.Interpolate = {
 	 * @returns {interpolateKeyframes}
 	 */
 	keyframes(keyframes, interpolateMethod) {
-        /**
+		/**
 		 * @callback interpolateKeyframes
 		 * @param {number} pct
 		 * @returns {*}
 		 */
 
-        var segments = keyframes.length - 1;
-        if (segments === 1 && interpolateMethod)
+		var segments = keyframes.length - 1;
+		if (segments === 1 && interpolateMethod)
 			return interpolateMethod(keyframes[0], keyframes[1]);
 
-        var lastIndex = -1;
-        var lastInterpolate;
-        return function(pct) {
-            // Min / max:
-            if (pct <= 0)
+		var lastIndex = -1;
+		var lastInterpolate;
+		return function(pct) {
+			// Min / max:
+			if (pct <= 0)
 				return keyframes[0];
 			else if (pct >= 1)
 				return keyframes[segments + 1];
 
-            // Current Index & Next Index:
-            var pctSegments = pct * segments;
-            var index = Math.floor(pctSegments);
+			// Current Index & Next Index:
+			var pctSegments = pct * segments;
+			var index = Math.floor(pctSegments);
 
-            if (!interpolateMethod)
+			if (!interpolateMethod)
 				return keyframes[index];
 
-            if (lastIndex !== index) {
+			if (lastIndex !== index) {
 				lastIndex = index;
 				lastInterpolate = interpolateMethod(keyframes[index], keyframes[index + 1]);
 			}
 
-            // Interpolate:
-            var subPct = (pctSegments - index);
-            return lastInterpolate(subPct);
-        };
-    }
+			// Interpolate:
+			var subPct = (pctSegments - index);
+			return lastInterpolate(subPct);
+		};
+	}
 
 };
 

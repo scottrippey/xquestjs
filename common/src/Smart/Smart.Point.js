@@ -24,10 +24,10 @@
 				(point.y <= (bounds.y + bounds.height));
 		},
 		distanceTest(pointA, pointB, testDistance) {
-            var dx;
-            var dy;
-            dx = (pointA.x - pointB.x);
-            if (Math.abs(dx) <= testDistance) {
+			var dx;
+			var dy;
+			dx = (pointA.x - pointB.x);
+			if (Math.abs(dx) <= testDistance) {
 				dy = (pointA.y - pointB.y);
 				if (Math.abs(dy) <= testDistance) {
 					var delta = { x: dx, y: dy };
@@ -36,17 +36,17 @@
 						return delta;
 				}
 			}
-            return null;
-        },
+			return null;
+		},
 		rotate(point, degrees) {
-            var radians = (degrees * RadiansPerDegree);
-            var cos = Math.cos(radians);
-            var sin = Math.sin(radians);
-            var rx = point.x * cos - point.y * sin;
-            var ry = point.x * sin + point.y * cos;
-            point.x = rx;
-            point.y = ry;
-        },
+			var radians = (degrees * RadiansPerDegree);
+			var cos = Math.cos(radians);
+			var sin = Math.sin(radians);
+			var rx = point.x * cos - point.y * sin;
+			var ry = point.x * sin + point.y * cos;
+			point.x = rx;
+			point.y = ry;
+		},
 		fromAngle(degrees, scale) {
 			var radians = (degrees * RadiansPerDegree);
 			return {

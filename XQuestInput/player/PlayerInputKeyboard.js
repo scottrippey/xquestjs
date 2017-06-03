@@ -335,7 +335,18 @@
 				}
 			}, skipPreventDefault);
 			var keyMap = {
-				'up': 'u', 'down': 'd', 'left': 'l', 'right': 'r', 'b': 'b', 'a': 'a', 'gamepaddpadup': 'u', 'gamepaddpaddown': 'd', 'gamepaddpadleft': 'l', 'gamepaddpadright': 'r', 'gamepadb': 'b', 'gamepada': 'a'
+				'up': 'u',
+				'down': 'd',
+				'left': 'l',
+				'right': 'r',
+				'b': 'b',
+				'a': 'a',
+				'gamepaddpadup': 'u',
+				'gamepaddpaddown': 'd',
+				'gamepaddpadleft': 'l',
+				'gamepaddpadright': 'r',
+				'gamepadb': 'b',
+				'gamepada': 'a'
 			};
 			mapper.setKeyMap(keyMap);
 		} else {

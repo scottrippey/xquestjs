@@ -89,18 +89,18 @@ Smart.Drawing = Smart.Class({
 			return this;
 		},
 		roundRect(x, y, width, height, radius) {
-            var halfPI = Math.PI / 2;
-            var angle_top = halfPI * 3;
-            var angle_right = 0;
-            var angle_bottom = halfPI;
-            var angle_left = Math.PI;
+			var halfPI = Math.PI / 2;
+			var angle_top = halfPI * 3;
+			var angle_right = 0;
+			var angle_bottom = halfPI;
+			var angle_left = Math.PI;
 
-            var arc_left = x + radius;
-            var arc_right = x + width - radius;
-            var arc_top = y + radius;
-            var arc_bottom = y + height - radius;
+			var arc_left = x + radius;
+			var arc_right = x + width - radius;
+			var arc_top = y + radius;
+			var arc_bottom = y + height - radius;
 
-            this
+			this
 				.arc(arc_right, arc_top, radius, angle_top, angle_right)
 				.arc(arc_right, arc_bottom, radius, angle_right, angle_bottom)
 				.arc(arc_left, arc_bottom, radius, angle_bottom, angle_left)
@@ -108,8 +108,8 @@ Smart.Drawing = Smart.Class({
 				.lineTo(arc_right, y)
 			;
 
-            return this;
-        },
+			return this;
+		},
 		circle(x, y, radius) {
 			this.arc(x, y, radius, 0, 2 * Math.PI);
 			return this;
@@ -180,20 +180,20 @@ Smart.Drawing = Smart.Class({
 			if (!pointSize) pointSize = 0;
 			if (!angle) angle = 0;
 
-			pointSize = 1-pointSize;
+			pointSize = 1 - pointSize;
 
-			angle /= 180/Math.PI;
+			angle /= 180 / Math.PI;
 
-			var a = Math.PI/sides;
+			var a = Math.PI / sides;
 
 			var starPolygon = [];
-			for (var i=0; i<sides; i++) {
+			for (var i = 0; i < sides; i++) {
 				angle += a;
 				if (pointSize != 1) {
-					starPolygon.push([ x+Math.cos(angle)*radius*pointSize, y+Math.sin(angle)*radius*pointSize ]);
+					starPolygon.push([x + Math.cos(angle) * radius * pointSize, y + Math.sin(angle) * radius * pointSize]);
 				}
 				angle += a;
-				starPolygon.push([ x+Math.cos(angle)*radius, y+Math.sin(angle)*radius ]);
+				starPolygon.push([x + Math.cos(angle) * radius, y + Math.sin(angle) * radius]);
 			}
 			return starPolygon;
 		},
@@ -210,17 +210,17 @@ Smart.Drawing = Smart.Class({
 		 * @returns {Array}
 		 */
 		polygonFromAngles(x, y, radius, angles) {
-            var polygon = [];
-            var ANGLE_ADJUST = 90;
-            var RAD_PER_DEG = Math.PI / -180;
-            for (var i = 0, l = angles.length; i < l; i++) {
-                var angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG;
-                var px = Math.cos(angle) * radius;
-                var py = Math.sin(angle) * radius;
-                polygon.push([ px + x, py + y ]);
-            }
-            return polygon;
-        },
+			var polygon = [];
+			var ANGLE_ADJUST = 90;
+			var RAD_PER_DEG = Math.PI / -180;
+			for (var i = 0, l = angles.length; i < l; i++) {
+				var angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG;
+				var px = Math.cos(angle) * radius;
+				var py = Math.sin(angle) * radius;
+				polygon.push([px + x, py + y]);
+			}
+			return polygon;
+		},
 
 		createImage(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);

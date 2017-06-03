@@ -94,14 +94,14 @@
 			return delta;
 		},
 		_adjustForSensitivity(delta, touchPosition, elementSize) {
-            var touchSettings = this.touchSettings;
-            var sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
-            var acceleration = {
+			var touchSettings = this.touchSettings;
+			var sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
+			var acceleration = {
 				x: delta.x * sensitivity,
 				y: delta.y * sensitivity
 			};
-            return acceleration;
-        },
+			return acceleration;
+		},
 
 		onInput(tickEvent, inputState) {
 
@@ -125,6 +125,7 @@
 			element.addEventListener(eventName, events[eventName]);
 		}
 	}
+
 	function elementContains(element, child) {
 		while (child) {
 			if (child === element) return true;
@@ -132,9 +133,11 @@
 		}
 		return false;
 	}
+
 	function getElementSize(element) {
 		return { width: element.clientWidth, height: element.clientHeight };
 	}
+
 	function getTouchPosition(touch) {
 		return { x: touch.clientX, y: touch.clientY };
 	}

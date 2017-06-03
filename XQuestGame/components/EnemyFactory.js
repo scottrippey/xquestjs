@@ -41,7 +41,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 		this.enemies.push(enemy);
 
 		var spawnInfo = this.getRandomSpawn(enemy.radius);
- 		enemy.spawn(spawnInfo);
+		enemy.spawn(spawnInfo);
 		this.game.gfx.addAnimation(new Smart.Animation()
 			.duration(1).easeOut('quint')
 			.scale(enemy.location, [0, 1])

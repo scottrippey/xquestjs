@@ -72,7 +72,7 @@ Balance.onUpdate(mode => {
 			gatherDuration: 2
 		},
 		bombs: {
-			style:{
+			style: {
 				fillColor: 'white'
 			}
 		},
@@ -94,7 +94,7 @@ Balance.onUpdate(mode => {
 		},
 		background: {
 			backgroundColor: 'black',
-			starColors: ['#FFFFFF','#666666','#999999', '#CCCCCC'],
+			starColors: ['#FFFFFF', '#666666', '#999999', '#CCCCCC'],
 			starCount: 500
 		}
 	});

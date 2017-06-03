@@ -163,13 +163,13 @@
 					this._events.fireEvent(GameEvents.onGameOver);
 				})
 				/*
-				.queue(function() {
-					this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
-				}.bind(this)).delay(5)
-				.queue(function() {
-					this.startArcadeGame();
-				}.bind(this))
-				*/
+				 .queue(function() {
+				 this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
+				 }.bind(this)).delay(5)
+				 .queue(function() {
+				 this.startArcadeGame();
+				 }.bind(this))
+				 */
 			);
 
 		},
@@ -198,7 +198,7 @@
 			this.followPlayer = false;
 			var animation = new Smart.Animation()
 				.duration(2).ease()
-				.tween(Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]), p => {
+				.tween(Smart.Keyframes.fromPoints([visibleMiddle, middleOfGame]), p => {
 					this.game.gfx.followPlayer(p);
 					this.host.gfx.followPlayer(p);
 				});
@@ -221,7 +221,7 @@
 
 			this.game.player.cancelVelocity();
 
-			this._events.fireEvent(GameEvents.onGamePaused, [ this.scenePaused ]);
+			this._events.fireEvent(GameEvents.onGamePaused, [this.scenePaused]);
 
 			this._togglePauseMenu(this.scenePaused);
 		},
@@ -247,7 +247,12 @@
 				this.fpsText.dispose();
 				this.fpsText = null;
 			} else {
-				var textStyle = { color: 'red', fontSize: "40px", textAlign: 'left', textBaseline: 'top' };
+				var textStyle = {
+					color: 'red',
+					fontSize: "40px",
+					textAlign: 'left',
+					textBaseline: 'top'
+				};
 				this.fpsText = this.game.gfx.addText("FPS", textStyle);
 				this.fpsText.moveTo(0, 0);
 				this.fpsText.onTick = function(tickEvent) {
@@ -263,7 +268,12 @@
 				this.debugStatsText.dispose();
 				this.debugStatsText = null;
 			} else {
-				var textStyle = { color: 'red', fontSize: "40px", textAlign: 'right', textBaseline: 'top' };
+				var textStyle = {
+					color: 'red',
+					fontSize: "40px",
+					textAlign: 'right',
+					textBaseline: 'top'
+				};
 				this.debugStatsText = this.game.gfx.addText("FPS", textStyle);
 
 				var bounds = Balance.level.bounds;

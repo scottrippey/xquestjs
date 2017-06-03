@@ -82,7 +82,7 @@ Balance.merge({
 				radius: 12,
 				kickBack: 2,
 				looseFriction: 0.8,
-				bounceDampening : 0.0,
+				bounceDampening: 0.0,
 				lives: 5
 			},
 			bullets: {

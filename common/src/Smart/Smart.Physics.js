@@ -100,34 +100,32 @@ Smart.Physics = {
 	},
 
 
-
 	bounceOffPoint(location, velocity, bouncePoint, radius, dampening) {
-        // This algorithm is not too accurate.
-        // It bounces straight away from the bouncePoint,
-        // not taking into account the angle of collision.
+		// This algorithm is not too accurate.
+		// It bounces straight away from the bouncePoint,
+		// not taking into account the angle of collision.
 
-        var diff = {
+		var diff = {
 			x: location.x - bouncePoint.x,
 			y: location.y - bouncePoint.y
 		};
 
-        var hv = Smart.Point.hypotenuse(velocity);
-        var hd = Smart.Point.hypotenuse(diff);
-        var vScale = hv/hd;
-        var lScale = radius/hd;
+		var hv = Smart.Point.hypotenuse(velocity);
+		var hd = Smart.Point.hypotenuse(diff);
+		var vScale = hv / hd;
+		var lScale = radius / hd;
 
-        velocity.x = diff.x * vScale;
-        velocity.y = diff.y * vScale;
+		velocity.x = diff.x * vScale;
+		velocity.y = diff.y * vScale;
 
-        location.x = bouncePoint.x + diff.x * lScale;
-        location.y = bouncePoint.y + diff.y * lScale;
+		location.x = bouncePoint.x + diff.x * lScale;
+		location.y = bouncePoint.y + diff.y * lScale;
 
-        if (dampening) {
+		if (dampening) {
 			velocity.x *= (1 - dampening);
 			velocity.y *= (1 - dampening);
 		}
-    },
-
+	},
 
 
 	sortByLocation(points) {
@@ -142,12 +140,12 @@ Smart.Physics = {
 	},
 
 	detectCollisions(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
-        var aIndex = sortedPointsA.length - 1;
-        var bIndex = sortedPointsB.length - 1;
-        var pointA = sortedPointsA[aIndex];
-        var pointB = sortedPointsB[bIndex];
+		var aIndex = sortedPointsA.length - 1;
+		var bIndex = sortedPointsB.length - 1;
+		var pointA = sortedPointsA[aIndex];
+		var pointB = sortedPointsB[bIndex];
 
-        while (aIndex >= 0 && bIndex >= 0) {
+		while (aIndex >= 0 && bIndex >= 0) {
 			// Rough-compare X:
 			var dx = pointA.location.x - pointB.location.x;
 			if (maxDistance < dx) {
@@ -182,15 +180,15 @@ Smart.Physics = {
 			}
 
 		}
-    },
+	},
 
 
 	findClosestPoint(target, points) {
-        var closestPointIndex = -1;
-        var distance = Number.MAX_VALUE;
+		var closestPointIndex = -1;
+		var distance = Number.MAX_VALUE;
 
-        var i = points.length;
-        while (i--) {
+		var i = points.length;
+		while (i--) {
 			var point = points[i];
 
 			// Let's do rough comparisons, and short-circuit when possible:
@@ -206,8 +204,8 @@ Smart.Physics = {
 				closestPointIndex = i;
 			}
 		}
-        return closestPointIndex;
-    },
+		return closestPointIndex;
+	},
 
 
 	/**
@@ -222,25 +220,25 @@ Smart.Physics = {
 	 * For reference, see http://stackoverflow.com/a/4750162/272072 - "shoot projectile (straight trajectory) at moving target in 3 dimensions"
 	 */
 	trajectory(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
-        // We've got some crazy equations coming up,
-        // so let's create some shorthand variables:
-        var v = targetVelocity;
+		// We've got some crazy equations coming up,
+		// so let's create some shorthand variables:
+		var v = targetVelocity;
 
-        var bs = bulletSpeed;
-        var e = targetLocation;
-        var p = playerLocation;
-        var d = { x: e.x - p.x, y: e.y - p.y };
-        var sqr = x => x * x;
+		var bs = bulletSpeed;
+		var e = targetLocation;
+		var p = playerLocation;
+		var d = { x: e.x - p.x, y: e.y - p.y };
+		var sqr = x => x * x;
 
-        // Solve for t by using the quadratic trajectory equation:
-        var a = sqr(v.x) + sqr(v.y) - sqr(bs);
+		// Solve for t by using the quadratic trajectory equation:
+		var a = sqr(v.x) + sqr(v.y) - sqr(bs);
 
-        var b = 2 * (v.x * d.x + v.y * d.y);
-        var c = sqr(d.x) + sqr(d.y);
+		var b = 2 * (v.x * d.x + v.y * d.y);
+		var c = sqr(d.x) + sqr(d.y);
 
-        var solutions = Smart.Physics.solveQuadratic(a, b, c);
-        var t;
-        if (solutions.length === 0 || (solutions[0] <= 0 && solutions[1] <= 0)) {
+		var solutions = Smart.Physics.solveQuadratic(a, b, c);
+		var t;
+		if (solutions.length === 0 || (solutions[0] <= 0 && solutions[1] <= 0)) {
 			// It's just not possible to hit the target using the given bulletSpeed.
 			// So let's just fire in the approximate direction:
 			t = 1;
@@ -252,12 +250,12 @@ Smart.Physics = {
 				t = solutions[1];
 		}
 
-        var trajectory = {
+		var trajectory = {
 			x: (d.x + v.x * t),
 			y: (d.y + v.y * t)
 		};
-        return Smart.Point.scaleVector(trajectory, bulletSpeed);
-    },
+		return Smart.Point.scaleVector(trajectory, bulletSpeed);
+	},
 
 
 	/**
@@ -272,14 +270,14 @@ Smart.Physics = {
 	 * @returns {[ number, number ]|[]} Returns either 2 solutions or no solutions.
 	 */
 	solveQuadratic(a, b, c) {
-        var bSquaredMinus4AC = (b * b - 4 * a * c);
-        if (bSquaredMinus4AC < 0)
+		var bSquaredMinus4AC = (b * b - 4 * a * c);
+		if (bSquaredMinus4AC < 0)
 			return []; // No possible solutions
 
-        var twoA = (2 * a);
-        var negativeBOver2A = (-b / twoA);
-        var sqrtOfBSquaredMinus4ACOver2A = Math.sqrt(bSquaredMinus4AC) / twoA;
+		var twoA = (2 * a);
+		var negativeBOver2A = (-b / twoA);
+		var sqrtOfBSquaredMinus4ACOver2A = Math.sqrt(bSquaredMinus4AC) / twoA;
 
-        return [ negativeBOver2A + sqrtOfBSquaredMinus4ACOver2A, negativeBOver2A - sqrtOfBSquaredMinus4ACOver2A ];
-    }
+		return [negativeBOver2A + sqrtOfBSquaredMinus4ACOver2A, negativeBOver2A - sqrtOfBSquaredMinus4ACOver2A];
+	}
 };

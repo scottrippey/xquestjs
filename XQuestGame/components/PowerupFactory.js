@@ -77,7 +77,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 		if (totalFrequency !== 0) {
 			// Choose from the available powerups:
 			var randomPowerupIndex = (Math.random() * totalFrequency);
-			_.forOwn(B, function (powerup, powerupName) {
+			_.forOwn(B, function(powerup, powerupName) {
 				if (powerupName in this.game.activePowerups) return;
 				randomPowerupIndex -= powerup.frequency;
 				if (randomPowerupIndex <= 0) {

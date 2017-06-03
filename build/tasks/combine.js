@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		data: {
 			banner: "(function(){ \n" +
 					"    var Smart, XQuestGame, XQuestInput, EaselJSGraphics, EaselJSTimer, Balance, Graphics;\n",
-			footer:"    \n" +
+			footer: "    \n" +
 					"    window.XQuestGame = XQuestGame; \n" +
 					"    window.XQStart = function() { \n" +
 					"        if (window.xquest) return; \n" +
