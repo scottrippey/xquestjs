@@ -2,28 +2,28 @@
 	var RadiansPerDegree = Math.PI / 180;
 
 	Smart.Point = {
-		subtract: function(pointA, pointB) {
+		subtract(pointA, pointB) {
 			return { x: pointA.x - pointB.x, y: pointA.y - pointB.y };
 		},
-		multiply: function(point, factor) {
+		multiply(point, factor) {
 			return { x: point.x * factor, y: point.y * factor };
 		},
-		clonePoint: function(point) {
+		clonePoint(point) {
 			return { x: point.x, y: point.y };
 		},
-		hypotenuse: function(point) {
+		hypotenuse(point) {
 			return Math.sqrt(point.x * point.x + point.y * point.y);
 		},
-		hypotenuseXY: function(x, y) {
+		hypotenuseXY(x, y) {
 			return Math.sqrt(x * x + y * y);
 		},
-		pointIsInBounds: function(point, bounds) {
+		pointIsInBounds(point, bounds) {
 			return (bounds.x <= point.x) &&
 				(point.x <= (bounds.x + bounds.width)) &&
 				(bounds.y <= point.y) &&
 				(point.y <= (bounds.y + bounds.height));
 		},
-		distanceTest: function(pointA, pointB, testDistance) {
+		distanceTest(pointA, pointB, testDistance) {
 			var dx, dy;
 			dx = (pointA.x - pointB.x);
 			if (Math.abs(dx) <= testDistance) {
@@ -37,7 +37,7 @@
 			}
 			return null;
 		},
-		rotate: function(point, degrees) {
+		rotate(point, degrees) {
 			var radians = (degrees * RadiansPerDegree);
 			var cos = Math.cos(radians), sin = Math.sin(radians);
 
@@ -46,14 +46,14 @@
 			point.x = rx;
 			point.y = ry;
 		},
-		fromAngle: function(degrees, scale) {
+		fromAngle(degrees, scale) {
 			var radians = (degrees * RadiansPerDegree);
 			return {
 				x: Math.cos(radians) * scale
 				,y: Math.sin(radians) * scale
 			};
 		},
-		scaleVector: function(vector, scale) {
+		scaleVector(vector, scale) {
 			var vectorScale = scale / Smart.Point.hypotenuse(vector);
 			return {
 				x: vector.x * vectorScale
@@ -68,7 +68,7 @@
 		 * @param {number} vector.y
 		 * @returns {number}
 		 */
-		angleFromVector: function(vector) {
+		angleFromVector(vector) {
 			return 180 - Math.atan2(vector.x, vector.y) / RadiansPerDegree;
 		}
 	};

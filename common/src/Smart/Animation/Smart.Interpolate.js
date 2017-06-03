@@ -9,7 +9,7 @@ Smart.Interpolate = {
 	 * @param {Number|Color|Point|Array} to
 	 * @returns {interpolate}
 	 */
-	from: function(from, to) {
+	from(from, to) {
 		var fromType = (typeof from);
 		if (fromType !== typeof to) return null;
 		
@@ -35,7 +35,7 @@ Smart.Interpolate = {
 	 * @param {Number} to
 	 * @returns {interpolateNumbers}
 	 */
-	numbers: function(from, to) {
+	numbers(from, to) {
 		var difference = (to - from);
 		/**
 		 * @callback interpolateNumbers
@@ -59,7 +59,7 @@ Smart.Interpolate = {
 	 * @param {Point} to
 	 * @returns {interpolatePoints}
 	 */
-	points: function(from, to) {
+	points(from, to) {
 		/**
 		 * @callback interpolatePoints
 		 * @param {number} pct
@@ -80,7 +80,7 @@ Smart.Interpolate = {
 	 * @param {String} to
 	 * @returns {interpolateColors}
 	 */
-	colors: function(from, to) {
+	colors(from, to) {
 		/**
 		 * @callback interpolateColors
 		 * @param {Number} pct
@@ -113,7 +113,7 @@ Smart.Interpolate = {
 	 * @param {Number[]} to
 	 * @returns {interpolateArrays}
 	 */
-	arrays: function(from, to) {
+	arrays(from, to) {
 		var length = Math.min(from.length, to.length);
 		var interpolate = new Array(length);
 		var i = length;
@@ -143,7 +143,7 @@ Smart.Interpolate = {
 	 * @param {function({*} from, {*} to)} interpolateMethod
 	 * @returns {interpolateKeyframes}
 	 */
-	keyframes: function(keyframes, interpolateMethod) {
+	keyframes(keyframes, interpolateMethod) {
 		/**
 		 * @callback interpolateKeyframes
 		 * @param {number} pct

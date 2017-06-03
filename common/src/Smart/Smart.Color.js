@@ -1,7 +1,7 @@
 (function() {
 
 	Smart.Color = {
-		parseRGB: function(color) {
+		parseRGB(color) {
 			if (typeof color !== 'string') return null;
 
 			color = color.replace(/\s+/g, "");
@@ -21,7 +21,7 @@
 			return null;
 		}
 		,
-		toRGB: function(array){
+		toRGB(array) {
 			if (!(array.length === 3 || array.length === 4)) return null;
 
 			var r = str(array[0], 0, 255, 0);
@@ -35,7 +35,7 @@
 			}
 		}
 		,
-		parseHSL: function(color) {
+		parseHSL(color) {
 			if (typeof color !== 'string') return null;
 
 			color = color.replace(/\s+/g, "");
@@ -47,7 +47,7 @@
 			return null;
 		}
 		,
-		toHSL: function(array) {
+		toHSL(array) {
 			if (!(array.length === 3 || array.length === 4)) return null;
 
 			var hue = array[0];
@@ -70,28 +70,28 @@
 	};
 
 	_.extend(Smart.Color, {
-		_shift: function(hslColor, amount, hslaIndex) {
+		_shift(hslColor, amount, hslaIndex) {
 			hslColor = Smart.Color.parseHSL(hslColor);
 			hslColor[hslaIndex] += amount;
 			return Smart.Color.toHSL(hslColor);
 		},
-		darken: function(hslColor, darkenPct) {
+		darken(hslColor, darkenPct) {
 			return this._shift(hslColor, -darkenPct, 2);
 		}
 		,
-		lighten: function(hslColor, lightenPct) {
+		lighten(hslColor, lightenPct) {
 			return this._shift(hslColor, lightenPct, 2);
 		}
 		,
-		spin: function(hslColor, spinAmt) {
+		spin(hslColor, spinAmt) {
 			return this._shift(hslColor, spinAmt, 0);
 		}
 		,
-		saturate: function(hslColor, saturateAmt) {
+		saturate(hslColor, saturateAmt) {
 			return this._shift(hslColor, saturateAmt, 1);
 		}
 		,
-		desaturate: function(hslColor, desaturateAmt) {
+		desaturate(hslColor, desaturateAmt) {
 			return this._shift(hslColor, -desaturateAmt, 1);
 		}
 	});

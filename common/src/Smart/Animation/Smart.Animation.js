@@ -21,13 +21,13 @@ Smart.Animation = Smart.Class({
 			stillRunning: false,
 
 			/** Dequeues the current actions */
-			clearCurrentActions: function(value) {
+			clearCurrentActions(value) {
 				this._clearCurrentActions = (value === undefined) ? true : value;
 			},
 			_clearCurrentActions: false,
 
 			/** Prevents the rest of the queue from executing */
-			stopUpdate: function(value) {
+			stopUpdate(value) {
 				this._stopUpdate = (value === undefined) ? true : value;
 			},
 			_stopUpdate: false
@@ -40,7 +40,7 @@ Smart.Animation = Smart.Class({
 	 * @param {Number} deltaSeconds
 	 * @returns {Smart.AnimationEvent}
 	 */
-	update: function(deltaSeconds) {
+	update(deltaSeconds) {
 		this._position += deltaSeconds;
 
 		var thisAnimation = this,
@@ -75,7 +75,7 @@ Smart.Animation = Smart.Class({
 	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
 	 * @returns {Smart.Animation} this
 	 */
-	frame: function(frameCallback) {
+	frame(frameCallback) {
 		this._actions.push(frameCallback);
 		return this;
 	}
@@ -86,7 +86,7 @@ Smart.Animation = Smart.Class({
 	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} [callback]
 	 * @returns {Smart.Animation} this
 	 */
-	queue: function(callback) {
+	queue(callback) {
 		return this.frame(function _queue_(animEvent, thisAnimation) {
 			if (animEvent.stillRunning === true) {
 				animEvent.stopUpdate();
@@ -101,7 +101,7 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Cancels the animation queue
 	 */
-	cancelAnimation: function() {
+	cancelAnimation() {
 		this._actions.length = 0;
 	}
 });

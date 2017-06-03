@@ -8,7 +8,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Number} duration
 	 * @returns {Smart.Animation} this
 	 */
-	duration: function(duration) {
+	duration(duration) {
 		return this.frame(function _duration_(animEvent){
 			if (animEvent.position >= duration) {
 				animEvent.position = 1;
@@ -26,7 +26,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Number} [maxLoops] - defaults to Number.MAX_VALUE
 	 * @returns {Smart.Animation} this
 	 */
-	loop: function(duration, maxLoops) {
+	loop(duration, maxLoops) {
 		if (maxLoops === undefined)
 			maxLoops = Number.MAX_VALUE;
 		return this.frame(function _loop_(animEvent) {
@@ -53,7 +53,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Number} duration
 	 * @returns {Smart.Animation} this
 	 */
-	continuous: function(duration) {
+	continuous(duration) {
 		return this.frame(function _continuous_(animEvent) {
 			animEvent.stillRunning = true;
 			animEvent.position = animEvent.position / duration;
@@ -65,7 +65,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Number} duration
 	 * @returns {Smart.Animation} this
 	 */
-	delay: function(duration) {
+	delay(duration) {
 		return this.frame(function _delay_(animEvent) {
 			if (animEvent.position < duration) {
 				animEvent.stillRunning = true;
@@ -81,7 +81,7 @@ _.extend(Smart.Animation.prototype, {
 	 * This allows for multiple synchronized animations.
 	 * @returns {Smart.Animation} this
 	 */
-	savePosition: function() {
+	savePosition() {
 		return this.frame(function _savePosition_(animEvent) {
 			animEvent.savedPosition = animEvent.position;
 		});
@@ -92,7 +92,7 @@ _.extend(Smart.Animation.prototype, {
 	 * This allows for multiple synchronized animations.
 	 * @returns {Smart.Animation} this
 	 */
-	restorePosition: function() {
+	restorePosition() {
 		return this.frame(function _restorePosition_(animEvent) {
 			animEvent.position = animEvent.savedPosition;
 		});

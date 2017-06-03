@@ -1,5 +1,5 @@
 Smart.Physics = {
-	applyVelocity: function(point, velocity, elapsedSeconds) {
+	applyVelocity(point, velocity, elapsedSeconds) {
 		if (velocity.x) {
 			point.x += velocity.x * elapsedSeconds;
 		}
@@ -8,7 +8,7 @@ Smart.Physics = {
 		}
 	}
 	,
-	applyAcceleration: function(point, acceleration, elapsedSeconds) {
+	applyAcceleration(point, acceleration, elapsedSeconds) {
 		if (acceleration.x || acceleration.y) {
 			var oneHalfTSquared = elapsedSeconds * elapsedSeconds / 2;
 			if (acceleration.x)
@@ -18,12 +18,12 @@ Smart.Physics = {
 		}
 	}
 	,
-	applyAccelerationToVelocity: function(velocity, acceleration) {
+	applyAccelerationToVelocity(velocity, acceleration) {
 		velocity.x += acceleration.x;
 		velocity.y += acceleration.y;
 	}
 	,
-	applyFrictionToVelocity: function(velocity, friction, elapsedSeconds) {
+	applyFrictionToVelocity(velocity, friction, elapsedSeconds) {
 		var threshold = 0.5;
 		var remainingPercent = Math.pow(1 - friction, elapsedSeconds);
 
@@ -42,7 +42,7 @@ Smart.Physics = {
 	/**
 	 * Inverts the velocity and position when the location hits the bounds.
 	 */
-	bounceOffWalls: function(location, radius, velocity, bounds, dampening) {
+	bounceOffWalls(location, radius, velocity, bounds, dampening) {
 		var wall = this.checkBounds(location, radius, bounds);
 		if (wall) {
 			this.bounceOffWall(wall, location, velocity, dampening);
@@ -50,7 +50,7 @@ Smart.Physics = {
 		return wall;
 	}
 	,
-	checkBounds: function(location, radius, bounds) {
+	checkBounds(location, radius, bounds) {
 		var leftEdge = (location.x - radius) - (bounds.x);
 		if (leftEdge < 0) {
 			return { edge: 'left', distance: leftEdge };
@@ -74,7 +74,7 @@ Smart.Physics = {
 		return null;
 	}
 	,
-	bounceOffWall: function(wall, location, velocity, dampening) {
+	bounceOffWall(wall, location, velocity, dampening) {
 		switch (wall.edge) {
 			case 'left':
 				location.x -= wall.distance * 2;
@@ -101,7 +101,7 @@ Smart.Physics = {
 
 
 	,
-	bounceOffPoint: function(location, velocity, bouncePoint, radius, dampening) {
+	bounceOffPoint(location, velocity, bouncePoint, radius, dampening) {
 		// This algorithm is not too accurate.
 		// It bounces straight away from the bouncePoint,
 		// not taking into account the angle of collision.
@@ -130,18 +130,18 @@ Smart.Physics = {
 
 
 	,
-	sortByLocation: function(points) {
+	sortByLocation(points) {
 		if (points.length < 2) 
 			return points;
 		return Smart.Sort.smoothSort(points, Smart.Physics._compareLocations);
 	}
 	,
-	_compareLocations: function(a, b) {
+	_compareLocations(a, b) {
 		// Compare horizontally:
 		return (a.location.x - b.location.x);
 	}
 	,
-	detectCollisions: function(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
+	detectCollisions(sortedPointsA, sortedPointsB, maxDistance, collisionCallback) {
 
 		var aIndex = sortedPointsA.length - 1
 			,bIndex = sortedPointsB.length - 1
@@ -187,7 +187,7 @@ Smart.Physics = {
 	}
 
 	,
-	findClosestPoint: function(target, points) {
+	findClosestPoint(target, points) {
 		var closestPointIndex = -1, distance = Number.MAX_VALUE;
 
 		var i = points.length;
@@ -222,7 +222,7 @@ Smart.Physics = {
 	 *
 	 * For reference, see http://stackoverflow.com/a/4750162/272072 - "shoot projectile (straight trajectory) at moving target in 3 dimensions"
 	 */
-	trajectory: function(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
+	trajectory(playerLocation, targetLocation, targetVelocity, bulletSpeed) {
 		// We've got some crazy equations coming up,
 		// so let's create some shorthand variables:
 		var v = targetVelocity
@@ -270,7 +270,7 @@ Smart.Physics = {
 	 * @param c
 	 * @returns {[ number, number ]|[]} Returns either 2 solutions or no solutions.
 	 */
-	solveQuadratic: function(a, b, c) {
+	solveQuadratic(a, b, c) {
 		var bSquaredMinus4AC = (b * b - 4 * a * c);
 		if (bSquaredMinus4AC < 0)
 			return []; // No possible solutions

@@ -9,7 +9,7 @@ Smart.Sort = {
 	 * @param {Function} compare(a, b) - A custom comparison function
 	 * @returns {Array} Returns the original, modified array.
 	 */
-	smoothSort: function(array, compare) {
+	smoothSort(array, compare) {
 		if (!this._smoothsort) {
 
 			this._smoothsort = new window.smoothsort();
@@ -27,7 +27,7 @@ Smart.Sort = {
 	 * @param {Array} array
 	 * @param {String} property
 	 */
-	smoothSortByProperty: function(array, property) {
+	smoothSortByProperty(array, property) {
 		var compare = function(a, b) {
 			a = a[property]; b = b[property];
 			return (a < b) ? -1 : (a > b) ? 1 : 0;

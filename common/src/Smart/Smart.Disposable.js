@@ -3,7 +3,7 @@ Smart.Disposable = Smart.Class({
 	 * Adds a "cleanup" handler that will be called when `dispose` is called.
 	 * @param {Function} callback
 	 */
-	onDispose: function(callback) {
+	onDispose(callback) {
 		if (this._onDispose === null) throw new Error("Object is already disposed!");
 
 		if (this._onDispose === undefined)
@@ -15,7 +15,7 @@ Smart.Disposable = Smart.Class({
 	/**
 	 * Calls all "cleanup" handlers that were added via `onDispose`
 	 */
-	dispose: function() {
+	dispose() {
 		if (this._onDispose === null) 
 			throw new Error("Object is already disposed!");
 

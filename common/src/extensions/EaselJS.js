@@ -1,6 +1,6 @@
 
 _.extend(createjs.Graphics.prototype, {
-	beginStyle: function(styles) {
+	beginStyle(styles) {
 		var gfx = this;
 		if (styles.fillColor)
 			gfx.beginFill(styles.fillColor);
@@ -12,7 +12,7 @@ _.extend(createjs.Graphics.prototype, {
 
 		return this;
 	}
-	, endStyle: function(styles) {
+	, endStyle(styles) {
 		var gfx = this;
 		if (styles.fillColor)
 			gfx.endFill();
@@ -21,7 +21,7 @@ _.extend(createjs.Graphics.prototype, {
 
 		return this;
 	}
-	, drawPolygon: function(points) {
+	, drawPolygon(points) {
 		var gfx = this;
 		var startX = points[0][0], startY = points[0][1];
 		gfx.moveTo(startX, startY);
@@ -37,15 +37,15 @@ _.extend(createjs.Graphics.prototype, {
 
 _.extend(createjs.DisplayObject.prototype, Smart.Disposable.prototype);
 _.extend(createjs.DisplayObject.prototype, {
-	moveTo: function(x, y) {
+	moveTo(x, y) {
 		this.x = x; this.y = y;
 	}
-	, scaleTo: function(x, y) {
+	, scaleTo(x, y) {
 		if (y === undefined) y = x;
 		this.scaleX = x;
 		this.scaleY = y;
 	}
-	, toggleVisible: function(force) {
+	, toggleVisible(force) {
 		if (force === undefined) force = !this.visible;
 		this.visible = force;
 	}

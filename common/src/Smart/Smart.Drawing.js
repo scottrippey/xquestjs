@@ -6,6 +6,7 @@
  *
  */
 Smart.Drawing = Smart.Class({
+	initialize: function Drawing() {},
 	addCommand: null // Must be overridden
 });
 
@@ -72,7 +73,7 @@ Smart.Drawing = Smart.Class({
 		 *
 		 * @return {Smart.Drawing}
 		 */
-		endPath: function(drawStyle) {
+		endPath(drawStyle) {
 			if (drawStyle.fillStyle) {
 				this.fillStyle(drawStyle.fillStyle);
 				this.fill();
@@ -87,7 +88,7 @@ Smart.Drawing = Smart.Class({
 			}
 			return this;
 		}
-		,roundRect: function(x, y, width, height, radius) {
+		,roundRect(x, y, width, height, radius) {
 
 			var halfPI = Math.PI / 2
 				,angle_top = halfPI * 3
@@ -110,16 +111,16 @@ Smart.Drawing = Smart.Class({
 
 			return this;
 		}
-		,circle: function(x, y, radius) {
+		,circle(x, y, radius) {
 			this.arc(x, y, radius, 0, 2 * Math.PI);
 			return this;
 		}
-		,star: function(x, y, radius, sides, pointSize, angle) {
+		,star(x, y, radius, sides, pointSize, angle) {
 			var starPolygon = Smart.Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
 			this.polygon(starPolygon, false);
 			return this;
 		}
-		,polygon: function(points) {
+		,polygon(points) {
 			var start = points[0];
 			this.moveTo(start[0], start[1]);
 			for (var i = 1, l = points.length; i < l; i++) {
@@ -128,13 +129,13 @@ Smart.Drawing = Smart.Class({
 			}
 			return this;
 		}
-		,drawingQueue: function(drawingQueue) {
+		,drawingQueue(drawingQueue) {
 			this.addCommand(function(context) {
 				drawingQueue.draw(context);
 			});
 			return this;
 		}
-		,fillPattern: function(pattern, x, y, width, height, patternOffsetX, patternOffsetY) {
+		,fillPattern(pattern, x, y, width, height, patternOffsetX, patternOffsetY) {
 			if (patternOffsetX && patternOffsetY) {
 				this.save()
 					.translate(patternOffsetX, patternOffsetY)
@@ -164,7 +165,7 @@ Smart.Drawing = Smart.Class({
 		 * @param {Number} angle
 		 * @returns {Array}
 		 */
-		createStarPolygon: function(x, y, radius, sides, pointSize, angle) {
+		createStarPolygon(x, y, radius, sides, pointSize, angle) {
 			if (typeof x === 'object') {
 				var options = x;
 				x = options.x;
@@ -209,7 +210,7 @@ Smart.Drawing = Smart.Class({
 		 * @param {Number[]} angles
 		 * @returns {Array}
 		 */
-		polygonFromAngles: function(x, y, radius, angles) {
+		polygonFromAngles(x, y, radius, angles) {
 			var polygon = [];
 			var ANGLE_ADJUST = 90,
 				RAD_PER_DEG = Math.PI / -180;
@@ -222,7 +223,7 @@ Smart.Drawing = Smart.Class({
 			return polygon;
 		}
 		,
-		createImage: function(width, height, drawingCallback) {
+		createImage(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
 			var drawing = new Smart.DrawingContext(context);
@@ -232,7 +233,7 @@ Smart.Drawing = Smart.Class({
 			return canvas;
 		}
 		,
-		createPattern: function(width, height, drawingCallback) {
+		createPattern(width, height, drawingCallback) {
 			var canvas = this._createCanvas(width, height);
 			var context = canvas.getContext('2d');
 			var drawing = new Smart.DrawingContext(context);
@@ -243,7 +244,7 @@ Smart.Drawing = Smart.Class({
 			return pattern;
 		}
 		,
-		_createCanvas: function(width, height) {
+		_createCanvas(width, height) {
 			var canvas = document.createElement('canvas');
 			canvas.width = width;
 			canvas.height = height;
@@ -257,13 +258,13 @@ Smart.Drawing = Smart.Class({
  * A Drawing Helper that immediately draws to the supplied canvas context.
  */
 Smart.DrawingContext = Smart.Class(new Smart.Drawing(), {
-	initialize: function Drawing(context) {
+	initialize: function DrawingContext(context) {
 		this.context = context;
 	}
-	,addCommand: function(command) {
+	,addCommand(command) {
 		command(this.context);
 	}
-	,setContext: function(context) {
+	,setContext(context) {
 		this.context = context;
 	}
 });
@@ -275,15 +276,15 @@ Smart.DrawingQueue = Smart.Class(new Smart.Drawing(), {
 	initialize: function DrawingQueue() {
 		this._commands = [];
 	}
-	,addCommand: function(command) {
+	,addCommand(command) {
 		this._commands.push(command);
 	}
-	,draw: function(context) {
+	,draw(context) {
 		this._commands.forEach(function(command) {
 			command(context);
 		});
 	}
-	,clear: function() {
+	,clear() {
 		this._commands.length = 0;
 	}
 });

@@ -5,7 +5,7 @@ Smart.Animations = Smart.Class({
 	 * @param {Smart.Animation} [animation]
 	 * @returns {Smart.Animation}
 	 */
-	addAnimation: function(animation) {
+	addAnimation(animation) {
 		if (!animation) animation = new Smart.Animation();
 		if (!this.animations)
 			this.animations = [ animation ];
@@ -20,7 +20,7 @@ Smart.Animations = Smart.Class({
 	 *
 	 * @param {Number} deltaSeconds
 	 */
-	update: function(deltaSeconds) {
+	update(deltaSeconds) {
 		if (!this.animations) return;
 		var i = this.animations.length;
 		while (i--) {

@@ -10,7 +10,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Easing|Function|string} [easing]
 	 * @returns {Smart.Animation} this
 	 */
-	ease: function(easing) {
+	ease(easing) {
 		easing = Smart.Animation.Easing.easeInOut(easing || this.defaultEasing);
 		return this.frame(function(animEvent) {
 			animEvent.position = easing(animEvent.position);
@@ -23,7 +23,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Easing|Function|string} [easing]
 	 * @returns {Smart.Animation} this
 	 */
-	easeIn: function(easing) {
+	easeIn(easing) {
 		easing = Smart.Animation.Easing.easeIn(easing || this.defaultEasing);
 		return this.frame(function(animEvent) {
 			animEvent.position = easing(animEvent.position);
@@ -36,7 +36,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Easing|Function|string} [easing]
 	 * @returns {Smart.Animation} this
 	 */
-	easeOut: function(easing) {
+	easeOut(easing) {
 		easing = Smart.Animation.Easing.easeOut(easing || this.defaultEasing);
 		return this.frame(function(animEvent) {
 			animEvent.position = easing(animEvent.position);
@@ -45,7 +45,7 @@ _.extend(Smart.Animation.prototype, {
 });
 
 Smart.Animation.Easing = {
-	easeInOut: function(easing) {
+	easeInOut(easing) {
 		easing = Smart.Animation.Easing.from(easing);
 		return function _easeInOut_(position){
 			if (position <= 0){
@@ -59,7 +59,7 @@ Smart.Animation.Easing = {
 			}
 		};
 	},
-	easeIn: function(easing) {
+	easeIn(easing) {
 		easing = Smart.Animation.Easing.from(easing);
 		return function _easeIn_(position){
 			if (position <= 0){
@@ -71,7 +71,7 @@ Smart.Animation.Easing = {
 			}
 		};
 	},
-	easeOut: function(easing) {
+	easeOut(easing) {
 		easing = Smart.Animation.Easing.from(easing);
 		return function _easeOut_(position) {
 			if (position <= 0){
@@ -91,7 +91,7 @@ Smart.Animation.Easing = {
 	 * @param {String|Function} easing
 	 * @return {Function}
 	 */
-	from: function(easing) {
+	from(easing) {
 		if (typeof easing === 'function') {
 			return easing;
 		} else {
@@ -99,31 +99,31 @@ Smart.Animation.Easing = {
 		}
 	}
 	,
-	linear: function(position) {
+	linear(position) {
 		return position;
 	}
 	,
-	quad: function(position) {
+	quad(position) {
 		return (position * position);
 	}
 	,
-	cube: function(position) {
+	cube(position) {
 		return Math.pow(position, 3);
 	}
 	,
-	quart: function(position) {
+	quart(position) {
 		return Math.pow(position, 4);
 	}
 	,
-	quint: function(position) {
+	quint(position) {
 		return Math.pow(position, 5);
 	}
 	,
-	sine: function(position) {
+	sine(position) {
 		return (Math.cos(position * Math.PI) - 1) / -2;
 	}
 	,
-	swing: function(position) {
+	swing(position) {
 		return position - Math.sin(position * Math.PI) / Math.PI;
 	}
 };

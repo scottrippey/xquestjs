@@ -11,7 +11,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Function|Point[]|Point} keyframes
 	 * @returns {Smart.Animation} this
 	 */
-	move: function(target, keyframes) {
+	move(target, keyframes) {
 		var interpolate = function(position) {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
@@ -33,7 +33,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Function|Number[]|Number} keyframes
 	 * @returns {Smart.Animation} this
 	 */
-	fade: function(target, keyframes) {
+	fade(target, keyframes) {
 		var interpolate = function(position) {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
@@ -54,7 +54,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Function|String[]|String} keyframes
 	 * @returns {Smart.Animation} this
 	 */
-	color: function(target, keyframes) {
+	color(target, keyframes) {
 		var interpolate = function(position) {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
@@ -75,7 +75,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Function|Number[]|Number} keyframes
 	 * @returns {Smart.Animation} this
 	 */
-	scale: function(target, keyframes) {
+	scale(target, keyframes) {
 		var interpolate = function(position) {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
@@ -95,7 +95,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {Function|Number[]|Number} keyframes
 	 * @returns {Smart.Animation} this
 	 */
-	rotate: function(target, keyframes) {
+	rotate(target, keyframes) {
 		var interpolate = function(position) {
 			interpolate =
 				Smart.Keyframes.fromFunction(keyframes)
@@ -115,7 +115,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param {function(pct:Number)} update
 	 * @returns {Smart.Animation} this
 	 */
-	tween: function(keyframes, update) {
+	tween(keyframes, update) {
 		var interpolate =
 			Smart.Keyframes.fromFunction(keyframes)
 			|| Smart.Keyframes.fromNumbers(keyframes);
@@ -131,7 +131,7 @@ _.extend(Smart.Animation.prototype, {
 	 * @param disposable - Any object -- must have a `dispose` method
 	 * @returns {Smart.Animation} this
 	 */
-	queueDispose: function(disposable) {
+	queueDispose(disposable) {
 		return this.queue(function() {
 			disposable.dispose();
 		});

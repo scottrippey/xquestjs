@@ -1,29 +1,29 @@
 Smart.Keyframes = {
-	fromFunction: function(keyframes) {
+	fromFunction(keyframes) {
 		if (!_.isFunction(keyframes)) return null;
 
 		return keyframes;
 	}
 	,
-	fromNumbers: function(keyframes) {
+	fromNumbers(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
 		return Smart.Interpolate.keyframes(keyframes, Smart.Interpolate.numbers);
 	}
 	,
-	fromPoints: function(keyframes) {
+	fromPoints(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
 		return Smart.Interpolate.keyframes(keyframes, Smart.Interpolate.points);
 	}
 	,
-	fromColors: function(keyframes) {
+	fromColors(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
 		return Smart.Interpolate.keyframes(keyframes, Smart.Interpolate.colors);
 	}
 	,
-	step: function(keyframes) {
+	step(keyframes) {
 		if (!_.isArray(keyframes)) return null;
 
 		return Smart.Interpolate.keyframes(keyframes, false);
