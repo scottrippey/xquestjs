@@ -64,7 +64,7 @@
 	};
 
 	XQuestInput.PlayerInputKeyboard = Smart.Class({
-		initialize(game, element, settings) {
+		initialize: function PlayerInputKeyboard(game, element, settings) {
 			this.game = game;
 
 			settings.watchSetting('keyboardSettings', keyboardSettings => {
@@ -217,7 +217,7 @@
 		downKeys: null,
 		downActions: null,
 
-		initialize(element, onActionDown, skipPreventDefault) {
+		initialize: function KeyMapper(element, onActionDown, skipPreventDefault) {
 			this.element = element;
 			this.onActionDown = onActionDown;
 			this.codes = _.clone(this.codes);

@@ -3,7 +3,7 @@
 
 	XQuestGame.CommonMenus = {
 		PauseMenu: Smart.Class(new XQuestGame.BaseMenu(), {
-			initialize(menuScene) {
+			initialize: function PauseMenu(menuScene) {
 				this.BaseMenu_initialize(menuScene);
 
 				var pauseOverlay = this.menuScene.gfx.createPauseOverlay();

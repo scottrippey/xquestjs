@@ -1,7 +1,7 @@
 EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
 	gateStart: null, gateEnd: null, gateOpen: false,
 
-	initialize() {
+	initialize: function LevelGraphics() {
 		this.nextChange = 0;
 	},
 

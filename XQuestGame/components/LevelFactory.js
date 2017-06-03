@@ -1,5 +1,5 @@
 XQuestGame.LevelFactory = Smart.Class({
-	initialize(game) {
+	initialize: function LevelFactory(game) {
 		this.game = game;
 
 		this.game.onConfigureLevel(this._onConfigureLevel.bind(this));

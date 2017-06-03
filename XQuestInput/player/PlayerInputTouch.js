@@ -5,7 +5,7 @@
 		touches: null,
 		touchState: null,
 
-		initialize(game, element, settings) {
+		initialize: function PlayerInputTouch(game, element, settings) {
 			this.game = game;
 			this.element = element;
 			this.touchState = {};

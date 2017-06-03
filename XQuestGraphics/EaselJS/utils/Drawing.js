@@ -26,7 +26,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 	DisplayObject_initialize: createjs.DisplayObject.prototype.initialize,
 	DisplayObject_draw: createjs.DisplayObject.prototype.draw,
 	sharedDrawingContext: new Smart.DrawingContext(null),
-	initialize(args_) {
+	initialize: function Drawing(args_) {
 		this.Drawing_initialize.apply(this, arguments);
 	},
 	Drawing_initialize(args_) {

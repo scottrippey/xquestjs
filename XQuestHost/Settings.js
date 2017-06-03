@@ -25,7 +25,7 @@ XQuestGame.XQuestHost.Settings = Smart.Class({
 			difficulty: 5
 		}
 	},
-	initialize() {
+	initialize: function Settings() {
 		this._watches = {};
 	},
 	watchSetting(settingName, watchHandler) {

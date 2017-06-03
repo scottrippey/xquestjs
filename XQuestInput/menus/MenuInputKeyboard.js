@@ -11,7 +11,7 @@
 	};
 
 	XQuestInput.MenuInputKeyboard = Smart.Class({
-		initialize(element) {
+		initialize: function MenuInputKeyboard(element) {
 			this.element = element || document;
 			this.actionsQueue = [];
 			this._setupKeyMap();

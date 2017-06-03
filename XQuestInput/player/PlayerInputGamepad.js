@@ -21,7 +21,7 @@
 
 
 	XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
-		initialize() {
+		initialize: function PlayerInputGamepad() {
 			this.allGamepads = [];
 
 			this._disableAllKeystrokes();
@@ -176,7 +176,7 @@
 		//isRightThumbstickPressed:
 	};
 	XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
-		initialize(xboxGamepad, playerMap, menuMap) {
+		initialize: function XboxGamepadMapper(xboxGamepad, playerMap, menuMap) {
 			this.xboxGamepad = xboxGamepad;
 			this.playerMap = playerMap;
 			this.menuMap = menuMap;

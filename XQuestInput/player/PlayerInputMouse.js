@@ -12,7 +12,7 @@
 		mouseState: null,
 		previousMousePosition: null,
 
-		initialize(game, element, settings) {
+		initialize: function PlayerInputMouse(game, element, settings) {
 			this.game = game;
 			this.element = element;
 			this.mouseMap = mouseMap;

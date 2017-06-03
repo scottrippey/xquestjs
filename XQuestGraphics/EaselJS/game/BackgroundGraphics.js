@@ -45,7 +45,7 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
 	}
 });
 EaselJSGraphics.BackgroundGraphics = Smart.Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
-	initialize() {
+	initialize: function BackgroundGraphics() {
 		if (!this.initialized) {
 			// Using a prototype ensures the stars will be the same between the menu and game
 			EaselJSGraphics.BackgroundGraphics.prototype.initialized = true;

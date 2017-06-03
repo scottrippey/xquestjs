@@ -1,5 +1,5 @@
 XQuestGame.CrystalFactory = Smart.Class({
-	initialize(game) {
+	initialize: function CrystalFactory(game) {
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.crystals = [];

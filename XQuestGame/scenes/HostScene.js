@@ -6,7 +6,7 @@
 	};
 
 	XQuestGame.HostScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(HostSceneEvents), {
-		initialize(gfx, settings) {
+		initialize: function HostScene(gfx, settings) {
 			this.BaseScene_initialize();
 
 			this.gfx = gfx;

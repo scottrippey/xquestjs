@@ -2,7 +2,7 @@ XQuestGame.Player = Smart.Class({
 	location: null,
 	radius: null,
 
-	initialize(game) {
+	initialize: function Player(game) {
 		this.game = game;
 		this.velocity = { x: 0, y: 0 };
 		this.engaged = false;

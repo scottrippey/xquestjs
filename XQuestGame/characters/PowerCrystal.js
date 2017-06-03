@@ -1,5 +1,5 @@
 XQuestGame.PowerCrystal = Smart.Class({
-	initialize(game) {
+	initialize: function PowerCrystal(game) {
 		var B = Balance.powerCrystals;
 		this.game = game;
 		this.game.addSceneItem(this);

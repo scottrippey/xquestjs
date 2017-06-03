@@ -1,5 +1,5 @@
 XQuestGame.EnemyFactory = Smart.Class({
-	initialize(game) {
+	initialize: function EnemyFactory(game) {
 		this.game = game;
 		this.enemies = [];
 	},

@@ -17,7 +17,7 @@
 	var MenuEvents = XQuestGame.MenuEvents;
 
 	XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
-		initialize(gfx, host) {
+		initialize: function MenuScene(gfx, host) {
 			this.MenuScene_initialize(gfx, host);
 		},
 		MenuScene_initialize(gfx, host) {

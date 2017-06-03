@@ -24,7 +24,7 @@ Balance.onUpdate(gameMode => {
 });
 EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), {
 	Container_initialize: createjs.Container.prototype.initialize,
-	initialize(gfx) {
+	initialize: function MenuButton(gfx) {
 		this.Container_initialize();
 		this.gfx = gfx;
 

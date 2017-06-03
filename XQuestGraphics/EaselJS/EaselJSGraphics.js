@@ -1,5 +1,5 @@
 var EaselJSGraphics = Smart.Class({
-	initialize(canvas) {
+	initialize: function EaselJSGraphics(canvas) {
 		this.canvas = canvas;
 
 		this.debugStats = {

@@ -1,5 +1,5 @@
 XQuestGame.PowerupFactory = Smart.Class({
-	initialize(game) {
+	initialize: function PowerupFactory(game) {
 		this.game = game;
 		this.game.addSceneItem(this);
 		this.powerCrystals = [];

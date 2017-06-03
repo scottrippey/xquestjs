@@ -1,5 +1,5 @@
 XQuestGame.GameDebugger = Smart.Class({
-	initialize(game) {
+	initialize: function GameDebugger(game) {
 		this.game = game;
 	},
 

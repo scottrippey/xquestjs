@@ -18,7 +18,7 @@
 		stats: null,
 		powerCrystals: null,
 
-		initialize: function _ArcadeGame(graphics, host) {
+		initialize: function ArcadeGame(graphics, host) {
 			this.BaseScene_initialize();
 			this.gfx = graphics;
 			this.host = host;

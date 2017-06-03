@@ -1,5 +1,5 @@
 XQuestGame.Hud = Smart.Class({
-	initialize(game) {
+	initialize: function Hud(game) {
 		this.game = game;
 		this._setupGraphics();
 		this._layout();

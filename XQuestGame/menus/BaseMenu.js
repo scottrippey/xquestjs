@@ -1,6 +1,6 @@
 (function init_BaseMenu() {
 	XQuestGame.BaseMenu = Smart.Class(new Smart.Events(), {
-		initialize(menuScene) {
+		initialize: function BaseMenu(menuScene) {
 			if (menuScene)
 				this.BaseMenu_initialize(menuScene);
 		},

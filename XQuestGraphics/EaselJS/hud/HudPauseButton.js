@@ -49,7 +49,7 @@ EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
 });
 
 EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(new EaselJSGraphics.HudGraphics.HudButton(), {
-	initialize(gfx) {
+	initialize: function HudPauseButton(gfx) {
 		var pauseButton = Graphics.hudGraphics.pauseButton;
 		this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);
 
