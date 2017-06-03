@@ -192,19 +192,19 @@
 			this._events.fireEvent(GameEvents.onNextLevel);
 		},
 		_animateBackToCenter() {
-            var visibleMiddle = this.game.gfx.getGamePoint('visibleMiddle');
-            var middleOfGame = this.game.gfx.getGamePoint('middle');
+			var visibleMiddle = this.game.gfx.getGamePoint('visibleMiddle');
+			var middleOfGame = this.game.gfx.getGamePoint('middle');
 
-            this.followPlayer = false;
-            var animation = new Smart.Animation()
+			this.followPlayer = false;
+			var animation = new Smart.Animation()
 				.duration(2).ease()
 				.tween(Smart.Keyframes.fromPoints([ visibleMiddle, middleOfGame ]), p => {
 					this.game.gfx.followPlayer(p);
 					this.host.gfx.followPlayer(p);
 				});
-            this.game.gfx.addAnimation(animation);
-            return animation;
-        },
+			this.game.gfx.addAnimation(animation);
+			return animation;
+		},
 
 		crystalsGathered(remainingCrystals, gatheredCrystals) {
 			if (remainingCrystals === 0) {
@@ -251,11 +251,11 @@
 				this.fpsText = this.game.gfx.addText("FPS", textStyle);
 				this.fpsText.moveTo(0, 0);
 				this.fpsText.onTick = function(tickEvent) {
-                    var actualFPS = createjs.Ticker.getMeasuredFPS();
-                    var potentialFPS = 1000 / createjs.Ticker.getMeasuredTickTime();
+					var actualFPS = createjs.Ticker.getMeasuredFPS();
+					var potentialFPS = 1000 / createjs.Ticker.getMeasuredTickTime();
 
-                    this.text = `FPS: ${potentialFPS.toFixed(2)} [${actualFPS.toFixed(2)}]`;
-                };
+					this.text = `FPS: ${potentialFPS.toFixed(2)} [${actualFPS.toFixed(2)}]`;
+				};
 			}
 		},
 		toggleDebugStats() {
@@ -263,19 +263,19 @@
 				this.debugStatsText.dispose();
 				this.debugStatsText = null;
 			} else {
-                var textStyle = { color: 'red', fontSize: "40px", textAlign: 'right', textBaseline: 'top' };
-                this.debugStatsText = this.game.gfx.addText("FPS", textStyle);
+				var textStyle = { color: 'red', fontSize: "40px", textAlign: 'right', textBaseline: 'top' };
+				this.debugStatsText = this.game.gfx.addText("FPS", textStyle);
 
-                var bounds = Balance.level.bounds;
-                this.debugStatsText.moveTo(bounds.visibleWidth, 0);
+				var bounds = Balance.level.bounds;
+				this.debugStatsText.moveTo(bounds.visibleWidth, 0);
 
 
-                var gameItems = this.game.debugStats.gameItems;
-                var allGraphics = this.game.gfx.debugStats.allGraphics;
-                this.debugStatsText.onTick = function(tickEvent) {
+				var gameItems = this.game.debugStats.gameItems;
+				var allGraphics = this.game.gfx.debugStats.allGraphics;
+				this.debugStatsText.onTick = function(tickEvent) {
 					this.text = `Game Items: ${gameItems.length}\nGraphics: ${allGraphics.length}`;
 				};
-            }
+			}
 		}
 
 	});

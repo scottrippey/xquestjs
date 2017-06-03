@@ -54,17 +54,17 @@ Balance.merge({
 		Balance.merge({
 			level: {
 				bounds: ((() => {
-                    var hudHeight = 40;
-                    var padding = 40;
-                    var levelWidth = 1200;
-                    var levelHeight = 675;
-                    var visibleWidth = 800;
-                    var visibleHeight = 450;
-                    if (gameOptions.fullView) {
+					var hudHeight = 40;
+					var padding = 40;
+					var levelWidth = 1200;
+					var levelHeight = 675;
+					var visibleWidth = 800;
+					var visibleHeight = 450;
+					if (gameOptions.fullView) {
 						visibleWidth = padding + levelWidth + padding;
 						visibleHeight = hudHeight + padding + levelHeight + padding;
 					}
-                    return {
+					return {
 						hudHeight,
 						padding,
 						x: padding, y: hudHeight + padding,
@@ -75,7 +75,7 @@ Balance.merge({
 						totalWidth: padding + levelWidth + padding,
 						totalHeight: hudHeight + padding + levelHeight + padding
 					};
-                }))(),
+				}))(),
 				gateWidth: gameOptions.easyMode ? 300 : 200
 			},
 			player: {
@@ -99,11 +99,11 @@ Balance.merge({
 			crystals: {
 				radius: 10,
 				spawnQuantity(currentLevel) {
-                    var min = gameOptions.hardMode ? 30 : 12;
-                    var multiplier = gameOptions.hardMode ? 4 : 2;
-                    var max = gameOptions.hardMode ? 80 : 40;
-                    return Math.min(min + multiplier * currentLevel, max);
-                }
+					var min = gameOptions.hardMode ? 30 : 12;
+					var multiplier = gameOptions.hardMode ? 4 : 2;
+					var max = gameOptions.hardMode ? 80 : 40;
+					return Math.min(min + multiplier * currentLevel, max);
+				}
 			},
 			powerCrystals: {
 				radius: 15,

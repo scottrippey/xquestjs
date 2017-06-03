@@ -32,41 +32,41 @@
 			this.layoutRows(this.rows, isBackNavigation);
 		},
 		layoutRows(rows, isBackNavigation) {
-            var logo = rows[0];
-            var playButton = rows[1];
-            var optionsButton = rows[2];
+			var logo = rows[0];
+			var playButton = rows[1];
+			var optionsButton = rows[2];
 
-            var middle = this.menuScene.gfx.getHudPoint('middle');
+			var middle = this.menuScene.gfx.getHudPoint('middle');
 
-            var logoTop = middle.y - logo.visibleHeight / 2;
-            logo.moveTo(middle.x - logo.visibleWidth / 2, logoTop + logo.visibleHeight * 0.3);
-            logo.showLogo()
+			var logoTop = middle.y - logo.visibleHeight / 2;
+			logo.moveTo(middle.x - logo.visibleWidth / 2, logoTop + logo.visibleHeight * 0.3);
+			logo.showLogo()
 				.easeOut()
 				.move(logo, { x: logo.x, y: logoTop });
 
 
-            var buttonsTop = logoTop + logo.visibleHeight;
-            var buttonDist = playButton.visibleWidth / 2 * 1.05;
-            playButton.moveTo(middle.x - buttonDist, buttonsTop);
-            optionsButton.moveTo(middle.x + buttonDist, buttonsTop);
+			var buttonsTop = logoTop + logo.visibleHeight;
+			var buttonDist = playButton.visibleWidth / 2 * 1.05;
+			playButton.moveTo(middle.x - buttonDist, buttonsTop);
+			optionsButton.moveTo(middle.x + buttonDist, buttonsTop);
 
-            this.flyInRows([ playButton, optionsButton ], false, 1);
-        },
+			this.flyInRows([ playButton, optionsButton ], false, 1);
+		},
 
 		menuLeave(isBackNavigation) {
 			if (isBackNavigation) {
-                var rows = this.rows;
-                var logo = rows[0];
-                var playButton = rows[1];
-                var optionsButton = rows[2];
+				var rows = this.rows;
+				var logo = rows[0];
+				var playButton = rows[1];
+				var optionsButton = rows[2];
 
-                this.flyOutRows([ playButton, optionsButton ], isBackNavigation);
+				this.flyOutRows([ playButton, optionsButton ], isBackNavigation);
 
-                var logoTop = logo.y + logo.visibleHeight * 1.2;
-                return logo.hideLogo()
+				var logoTop = logo.y + logo.visibleHeight * 1.2;
+				return logo.hideLogo()
 					.easeIn()
 					.move(logo, { x: logo.x, y: logoTop });
-            } else {
+			} else {
 				this.flyOutRows(this.rows, isBackNavigation);
 			}
 		}

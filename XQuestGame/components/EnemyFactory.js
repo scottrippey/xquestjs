@@ -49,17 +49,17 @@ XQuestGame.EnemyFactory = Smart.Class({
 	},
 
 	getRandomSpawn(enemyRadius) {
-        var bounds = Balance.level.bounds;
-        var spawnSide = Math.floor(Math.random() * 2) ? 1 : 2;
+		var bounds = Balance.level.bounds;
+		var spawnSide = Math.floor(Math.random() * 2) ? 1 : 2;
 
-        var spawnInfo = {
-            x: (spawnSide === 1) ? (bounds.x + enemyRadius) : (bounds.x + bounds.width - enemyRadius),
-            y: bounds.y + (bounds.height / 2),
-            side: spawnSide
-        };
+		var spawnInfo = {
+			x: (spawnSide === 1) ? (bounds.x + enemyRadius) : (bounds.x + bounds.width - enemyRadius),
+			y: bounds.y + (bounds.height / 2),
+			side: spawnSide
+		};
 
-        return spawnInfo;
-    },
+		return spawnInfo;
+	},
 
 	killEnemiesOnCollision(sortedItems, maxItemRadius, collisionCallback) {
 		var enemies = this.enemies;
@@ -69,15 +69,15 @@ XQuestGame.EnemyFactory = Smart.Class({
 
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);
 			if (theseSpecificItemsDidCollide) {
-                var hitPoints = item.hitPoints || 1;
-                var kickBack = (item.getKickBack && item.getKickBack(enemy, distance)) || null;
-                var stayAlive = enemy.takeDamage(hitPoints, kickBack);
-                if (!stayAlive)
+				var hitPoints = item.hitPoints || 1;
+				var kickBack = (item.getKickBack && item.getKickBack(enemy, distance)) || null;
+				var stayAlive = enemy.takeDamage(hitPoints, kickBack);
+				if (!stayAlive)
 					enemy.isDead = true;
 
-                if (collisionCallback)
+				if (collisionCallback)
 					collisionCallback(enemy, item, ei, ii, distance);
-            }
+			}
 		});
 
 		// Remove dead enemies:

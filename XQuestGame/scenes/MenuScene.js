@@ -9,10 +9,10 @@
 		menuBack: 'menuBack'
 	};
 
-  XQuestGame.MenuEvents = {
-    onResumeGame: 'onResumeGame',
-    onStartGame: 'onStartGame'
-  };
+	XQuestGame.MenuEvents = {
+		onResumeGame: 'onResumeGame',
+		onStartGame: 'onStartGame'
+	};
 
 	var MenuEvents = XQuestGame.MenuEvents;
 

@@ -78,15 +78,15 @@
 		 * @protected
 		 */
 		flyInRows(rows, isBackNavigation, delay) {
-            var animRotation = 30;
-            var animStagger = 0.25;
-            var animDuration = 1;
-            var animDelay = delay || 0;
+			var animRotation = 30;
+			var animStagger = 0.25;
+			var animDuration = 1;
+			var animDelay = delay || 0;
 
-            var fromTop = isBackNavigation;
-            var entrance = this.menuScene.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
+			var fromTop = isBackNavigation;
+			var entrance = this.menuScene.gfx.getHudPoint(fromTop ? 'top' : 'bottom');
 
-            for (var i = 0, l = rows.length; i < l; i++) {
+			for (var i = 0, l = rows.length; i < l; i++) {
 				var row = rows[i];
 				var destination = { x: row.x, y: row.y };
 
@@ -100,7 +100,7 @@
 					.rotate(row, 0)
 				;
 			}
-        },
+		},
 
 		menuLeave(isBackNavigation) {
 			if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
@@ -111,16 +111,16 @@
 		 * @protected
 		 */
 		flyOutRows(rows, isBackNavigation) {
-            var animRotation = 30;
-            var animStagger = 0.1;
-            var animDuration = 0.5;
-            var toBottom = isBackNavigation;
+			var animRotation = 30;
+			var animStagger = 0.1;
+			var animDuration = 0.5;
+			var toBottom = isBackNavigation;
 
-            var exit = this.menuScene.gfx.getHudPoint(toBottom ? 'bottom' : 'top');
+			var exit = this.menuScene.gfx.getHudPoint(toBottom ? 'bottom' : 'top');
 
-            var lastAnimation;
+			var lastAnimation;
 
-            for (var i = 0, l = rows.length; i < l; i++) {
+			for (var i = 0, l = rows.length; i < l; i++) {
 				var row = rows[i];
 				var rowHeight = row.visibleHeight;
 				var safeHeight = rowHeight * (toBottom ? 2 : -2);
@@ -137,8 +137,8 @@
 
 				lastAnimation = row.animation;
 			}
-            return lastAnimation;
-        },
+			return lastAnimation;
+		},
 
 
 		menuInput(inputState) {

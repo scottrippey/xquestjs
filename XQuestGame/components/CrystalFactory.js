@@ -68,16 +68,16 @@ XQuestGame.CrystalFactory = Smart.Class({
 	},
 
 	gatherClosestCrystal(location) {
-        if (!this.crystals.length) return;
+		if (!this.crystals.length) return;
 
-        var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals);
-        var crystal = this.crystals[crystalIndex];
+		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals);
+		var crystal = this.crystals[crystalIndex];
 
-        crystal.gatherCrystal(this.game.gfx, this.game.player.location);
-        this.crystals.splice(crystalIndex, 1);
+		crystal.gatherCrystal(this.game.gfx, this.game.player.location);
+		this.crystals.splice(crystalIndex, 1);
 
-        this.game.crystalsGathered(this.crystals.length, 1);
+		this.game.crystalsGathered(this.crystals.length, 1);
 
-        this.game.stats.crystalCount -= 1;
-    }
+		this.game.stats.crystalCount -= 1;
+	}
 });
