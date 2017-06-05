@@ -14,16 +14,37 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	_setupCanvas(canvas) {
 		if (!canvas) {
 			var bounds = Balance.level.bounds;
-			canvas = this._createFullScreenCanvas(bounds.visibleWidth, bounds.visibleHeight);
+			canvas = this._createCanvas(bounds.visibleWidth, bounds.visibleHeight);
 		}
 		this.canvas = canvas;
 	},
-	_createFullScreenCanvas(canvasWidth, canvasHeight) {
-		// Create elements manually, because parsing isn't "safe" for WinJS:
+	_createCanvas(canvasWidth, canvasHeight) {
+		// Note: create elements manually (parsing isn't "safe" for WinJS)
+
+		// Create the container:
 		var container = document.createElement('section');
+		container.setAttribute('tabindex', '0');
+		_.extend(container.style, {
+			cursor: 'pointer'
+		});
+
+		// Create the canvas:
 		var canvas = document.createElement('canvas');
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
 		container.appendChild(canvas);
-		container.setAttribute('tabindex', '1');
+
+		this.canvas = canvas;
+		this.container = container;
+		return canvas;
+	},
+	/**
+	 * Fills the canvas to fit the entire browser window
+	 */
+	enterFullSize() {
+		var container = this.container;
+		var canvas = this.canvas;
+
 		_.extend(container.style, {
 			position: 'fixed',
 			top: 0,
@@ -42,23 +63,18 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 			margin: 'auto'
 		});
 
-		canvas.width = canvasWidth;
-		canvas.height = canvasHeight;
-
+		// Append container to body:
 		document.body.appendChild(container);
 		document.body.style.overflow = "hidden";
 		this.onDispose(() => {
 			document.body.removeChild(container);
 			document.body.style.overflow = null;
 		});
+
+		// Setup the letterboxing effect:
+		this._contain(container, canvas, canvas.width, canvas.height);
+
 		container.focus();
-
-		this._contain(container, canvas, canvasWidth, canvasHeight);
-
-		this.canvas = canvas;
-		this.container = container;
-
-		return canvas;
 	},
 	_contain(container, canvas, canvasWidth, canvasHeight) {
 		window.addEventListener('resize', scaleCanvas);

@@ -47,6 +47,9 @@
 				margin-bottom: 2em;
 			}
 			
+			#inlineGame canvas {
+				width: 100%;
+			}
 			
 		</style>
 
@@ -54,27 +57,27 @@
 	<body class="page-loading">
 
 		<h1>XQuest JS</h1>
-		<h2>
-			An HTML5 Space Shooter that is
-			<a href="https://github.com/scottrippey/xquestjs">
-				free and open-source!
-			</a>
-		</h2>
+		<section class="quick-info">
+			<h2>
+				A Space Shooter game that is
+				<a href="https://github.com/scottrippey/xquestjs">open-source</a>.
+			</h2>
+			<p>
+				<strong>This game is in beta!</strong>
+				<br>
+				Have fun playing, and please see below for development progress!
+			</p>
+		</section>
 
 		<section class="play-game">
 			<span class="hide-after-load">
 				Loading game assets...
 			</span>
-			<button id="startGame" class="show-after-load" autofocus>
-				Play the game!
-			</button>
+			<div id="inlineGame"></div>
 		</section>
 		
 		<section class="instructions">
 		
-			<p><strong>
-				The game is under development ...  please see below for the development progress.
-			</strong></p>
 			<h2> How to Play </h2>
 				<ul>
 					<li> Move your player around the field, but don't touch the walls </li>
@@ -343,17 +346,42 @@
 		<script src="XQuestHost/XQuestHost.js"></script>
 		<script src="XQuestHost/Settings.js"></script>
 		
-
-
+		
 		<script>
 			document.body.classList.remove("page-loading");
 			document.body.classList.add("page-loaded");
 			
-			document.getElementById("startGame").addEventListener('click', function() {
-				const xquest = new XQuestGame.XQuestHost();
-				window.xquest = xquest;
-				xquest.enterFullScreen();
-			});
+			(function createInlineGame() {
+                window.xquest = new XQuestGame.XQuestHost();
+                var container = xquest.container;
+
+                document.getElementById('inlineGame').appendChild(container);
+
+                container.addEventListener('touchstart', enterFullSize);
+                container.addEventListener('mousedown', enterFullSize);
+                container.addEventListener('focus', enterFullSize);
+                function enterFullSize(ev) {
+                  container.removeEventListener('touchstart', enterFullSize);
+                  container.removeEventListener('mousedown', enterFullSize);
+                  container.removeEventListener('focus', enterFullSize);
+
+                  xquest.enterFullSize();
+                  xquest.enterFullScreen()
+                }
+                xquest.onDispose(() => {
+                  container.parentNode.removeChild(container);
+                });
+			})();
+
+			// Capture first key, so we can load a developer menu:
+            document.body.addEventListener('keydown', function keydownHandler(ev) {
+	            document.body.removeEventListener('keydown', keydownHandler);
+				
+	            var key = (ev.key || String.fromCharCode(ev.keyCode || ev.which)).toLowerCase();
+				if (key === "d") {
+				  
+				}
+            });
 			
 		</script>
 

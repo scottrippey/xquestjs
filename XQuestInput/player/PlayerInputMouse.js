@@ -49,7 +49,7 @@
 		},
 
 		_onGamePaused(paused) {
-			this.element.style.cursor = paused ? null : "none";
+			this.element.style.cursor = paused ? "pointer" : "none";
 			this.previousMousePosition = null;
 			this._resetMouseState();
 		},
