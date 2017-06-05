@@ -85,7 +85,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	_setupTimer() {
 		this.timer = new EaselJSTimer();
 		this.timer.addTickHandler(this._tickHandler.bind(this));
-		this.onDispose(function() {
+		this.onDispose(() => {
 			this.timer.dispose();
 		});
 	},
@@ -105,7 +105,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 	_setupGamepad() {
 		this.gamepadInput = XQuestInput.PlayerInputGamepad.createGamepadInput() || null;
 		if (this.gamepadInput) {
-			this.onDispose(function() {
+			this.onDispose(() => {
 				this.gamepadInput.dispose();
 			});
 		}
@@ -125,7 +125,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 
 		this.hostScene.start();
 
-		this.onDispose(function() {
+		this.onDispose(() => {
 			this.hostScene.dispose();
 		});
 

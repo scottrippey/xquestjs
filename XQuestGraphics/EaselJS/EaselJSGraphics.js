@@ -202,7 +202,7 @@ var EaselJSGraphics = Smart.Class({
 	createBulletsGraphics() {
 		var bulletsGraphics = new EaselJSGraphics.BulletsGraphics();
 		this.layers.objects.addChild(bulletsGraphics);
-		bulletsGraphics.onDispose(function() {
+		bulletsGraphics.onDispose(() => {
 			this.layers.objects.removeChild(bulletsGraphics);
 		});
 		return bulletsGraphics;

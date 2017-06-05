@@ -1,4 +1,4 @@
-(function() {
+(() => {
 
 	if (!window.console) console = {};
 

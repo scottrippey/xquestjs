@@ -1,4 +1,4 @@
-(function() {
+(() => {
 	var RadiansPerDegree = Math.PI / 180;
 
 	Smart.Point = {

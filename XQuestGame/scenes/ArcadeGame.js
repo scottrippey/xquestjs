@@ -163,13 +163,13 @@
 					this._events.fireEvent(GameEvents.onGameOver);
 				})
 				/*
-				 .queue(function() {
-				 this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
-				 }.bind(this)).delay(5)
-				 .queue(function() {
-				 this.startArcadeGame();
-				 }.bind(this))
-				 */
+				.queue(() => {
+					this.game.gfx.addText("Starting a new game in 5 seconds...").flyIn(2).delay(2).flyOut(2);
+				}).delay(5)
+				.queue(() => {
+					this.startArcadeGame();
+				})
+				*/
 			);
 
 		},

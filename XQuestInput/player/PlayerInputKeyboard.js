@@ -233,7 +233,7 @@
 			this._onKeyup = this._onKeyup.bind(this);
 			this.element.addEventListener('keydown', this._onKeydown);
 			this.element.addEventListener('keyup', this._onKeyup);
-			this.onDispose(function() {
+			this.onDispose(() => {
 				this.element.removeEventListener('keydown', this._onKeydown);
 				this.element.removeEventListener('keyup', this._onKeyup);
 			});

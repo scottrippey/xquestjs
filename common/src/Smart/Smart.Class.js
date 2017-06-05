@@ -1,4 +1,4 @@
-(function() {
+(() => {
 
 	Smart.Class = function(base, implement) {
 		if (!implement) implement = base;
