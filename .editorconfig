@@ -5,7 +5,7 @@ root = true
 end_of_line = lf
 
 # Indentation for all JS
-[*.js]
+[*.js,*.html]
 indent_style = tab
 indent_size = 4
 trim_trailing_whitespace = true
