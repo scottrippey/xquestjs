@@ -359,12 +359,9 @@
 
                 container.addEventListener('mousedown', enterFullSize);
                 container.addEventListener('focus', enterFullSize);
-                container.addEventListener('touchstart', enterFullSize);
                 function enterFullSize(ev) {
-                  ev.preventDefault();
                   container.removeEventListener('mousedown', enterFullSize);
                   container.removeEventListener('focus', enterFullSize);
-                  container.removeEventListener('touchstart', enterFullSize);
 
                   xquest.enterFullSize();
                   xquest.enterFullScreen()
