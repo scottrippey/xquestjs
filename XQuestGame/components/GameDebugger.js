@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-XQuestGame.GameDebugger = Class({
+export const GameDebugger = Class({
   initialize: function GameDebugger(game) {
     this.game = game;
   },

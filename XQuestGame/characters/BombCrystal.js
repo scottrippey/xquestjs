@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-XQuestGame.BombCrystal = Class({
+export const BombCrystal = Class({
   initialize: function BombCrystal(game) {
     this.game = game;
     this.location = this.game.gfx.createBombCrystalGraphic();

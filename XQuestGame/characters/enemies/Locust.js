@@ -2,7 +2,7 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 
-XQuestGame.Locust = Class(new XQuestGame.BaseEnemy(), {
+export const Locust = Class(new XQuestGame.BaseEnemy(), {
   initialize: function Locust(game) {
     const B = Balance.enemies.locust;
     this.setupBaseEnemyGraphics(game, "Locust", B.radius);

@@ -2,7 +2,7 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 
 const MenuEvents = XQuestGame.MenuEvents;
 
-XQuestGame.StartMenu = Class(new XQuestGame.BaseMenu(), {
+export const StartMenu = Class(new XQuestGame.BaseMenu(), {
   getRows() {
     const xQuestLogo = this._createLogo();
     return [

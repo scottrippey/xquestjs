@@ -3,7 +3,7 @@ import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-XQuestGame.Player = Class({
+export const Player = Class({
   location: null,
   radius: null,
 

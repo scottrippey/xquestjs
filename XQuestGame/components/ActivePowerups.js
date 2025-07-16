@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-XQuestGame.ActivePowerups = Class({
+export const ActivePowerups = Class({
   initialize: function ActivePowerups(game) {
     this.game = game;
     this.game.addSceneItem(this);

@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-XQuestGame.LevelFactory = Class({
+export const LevelFactory = Class({
   initialize: function LevelFactory(game) {
     this.game = game;
 

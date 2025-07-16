@@ -2,7 +2,7 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 
-XQuestGame.PowerCrystal = Class({
+export const PowerCrystal = Class({
   initialize: function PowerCrystal(game) {
     const B = Balance.powerCrystals;
     this.game = game;

@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 
-XQuestGame.Slug = Class(new XQuestGame.BaseEnemy(), {
+export const Slug = Class(new XQuestGame.BaseEnemy(), {
   initialize: function Slug(game) {
     const B = Balance.enemies.slug;
     this.setupBaseEnemyGraphics(game, "Slug", B.radius);

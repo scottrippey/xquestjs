@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-XQuestGame.CommonMenus.GraphicsTestMenu = Class(new XQuestGame.BaseMenu(), {
+export const GraphicsTestMenu = Class(new XQuestGame.BaseMenu(), {
   getRows() {
     const goBack = this.menuScene.goBack.bind(this.menuScene);
     const player = this.createMenuButton("Player", goBack);

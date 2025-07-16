@@ -2,7 +2,7 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-XQuestGame.EnemyFactory = Class({
+export const EnemyFactory = Class({
   initialize: function EnemyFactory(game) {
     this.game = game;
     this.enemies = [];

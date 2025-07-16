@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 
-XQuestGame.CrystalFactory = Class({
+export const CrystalFactory = Class({
   initialize: function CrystalFactory(game) {
     this.game = game;
     this.game.addSceneItem(this);
