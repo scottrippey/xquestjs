@@ -1,30 +1,30 @@
-import { Class } from '../../../../common/src/Smart/Smart.Class.js';
-import { Point } from '../../../../common/src/Smart/Smart.Point.js';
+import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+import { Point } from "../../../../common/src/Smart/Smart.Point.js";
 
 XQuestGame.Slug = Class(new XQuestGame.BaseEnemy(), {
-	initialize: function Slug(game) {
-		var B = Balance.enemies.slug;
-		this.setupBaseEnemyGraphics(game, 'Slug', B.radius);
-	},
+  initialize: function Slug(game) {
+    var B = Balance.enemies.slug;
+    this.setupBaseEnemyGraphics(game, "Slug", B.radius);
+  },
 
-	spawn(spawnInfo) {
-		this.location.moveTo(spawnInfo.x, spawnInfo.y);
-		this._changeDirection();
-	},
+  spawn(spawnInfo) {
+    this.location.moveTo(spawnInfo.x, spawnInfo.y);
+    this._changeDirection();
+  },
 
-	onMove(tickEvent) {
-		this.applyVelocityAndBounce(tickEvent);
-	},
+  onMove(tickEvent) {
+    this.applyVelocityAndBounce(tickEvent);
+  },
 
-	onAct(tickEvent) {
-		var B = Balance.enemies.slug;
-		if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
-			this._changeDirection();
-		}
-	},
+  onAct(tickEvent) {
+    var B = Balance.enemies.slug;
+    if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
+      this._changeDirection();
+    }
+  },
 
-	_changeDirection() {
-		var B = Balance.enemies.slug;
-		this.velocity = Point.fromAngle(Math.random() * 360, B.speed);
-	}
+  _changeDirection() {
+    var B = Balance.enemies.slug;
+    this.velocity = Point.fromAngle(Math.random() * 360, B.speed);
+  },
 });

@@ -1,33 +1,33 @@
-import { Interpolate } from './Smart.Interpolate.js';
+import { Interpolate } from "./Smart.Interpolate.js";
 
 export const Keyframes = {
-	fromFunction(keyframes) {
-		if (!_.isFunction(keyframes)) return null;
+  fromFunction(keyframes) {
+    if (!_.isFunction(keyframes)) return null;
 
-		return keyframes;
-	},
+    return keyframes;
+  },
 
-	fromNumbers(keyframes) {
-		if (!_.isArray(keyframes)) return null;
+  fromNumbers(keyframes) {
+    if (!_.isArray(keyframes)) return null;
 
-		return Interpolate.keyframes(keyframes, Interpolate.numbers);
-	},
+    return Interpolate.keyframes(keyframes, Interpolate.numbers);
+  },
 
-	fromPoints(keyframes) {
-		if (!_.isArray(keyframes)) return null;
+  fromPoints(keyframes) {
+    if (!_.isArray(keyframes)) return null;
 
-		return Interpolate.keyframes(keyframes, Interpolate.points);
-	},
+    return Interpolate.keyframes(keyframes, Interpolate.points);
+  },
 
-	fromColors(keyframes) {
-		if (!_.isArray(keyframes)) return null;
+  fromColors(keyframes) {
+    if (!_.isArray(keyframes)) return null;
 
-		return Interpolate.keyframes(keyframes, Interpolate.colors);
-	},
+    return Interpolate.keyframes(keyframes, Interpolate.colors);
+  },
 
-	step(keyframes) {
-		if (!_.isArray(keyframes)) return null;
+  step(keyframes) {
+    if (!_.isArray(keyframes)) return null;
 
-		return Interpolate.keyframes(keyframes, false);
-	}
+    return Interpolate.keyframes(keyframes, false);
+  },
 };

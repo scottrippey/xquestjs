@@ -1,288 +1,283 @@
 (function init_PlayerInputXO() {
-	/* Gamepad input for Xbox One */
+  /* Gamepad input for Xbox One */
 
+  var UserSettings = {
+    analogThreshold: 0.05,
+    analogSensitivity: 8,
+    analogDownThreshold: 0.6,
+    analogUpThreshold: 0.4,
+  };
+  var MenuActions = XQuestGame.MenuSceneInputs;
+  var MenuActionsAnalogX = "MenuActionsAnalogX";
+  var MenuActionsAnalogY = "MenuActionsAnalogY";
+  var PlayerActions = {
+    pauseGame: "pauseGame",
+    analogX: "analogX",
+    analogY: "analogY",
+    primaryWeapon: "primaryWeapon",
+    secondaryWeapon: "secondaryWeapon",
+  };
 
-	var UserSettings = {
-		analogThreshold: 0.05,
-		analogSensitivity: 8,
-		analogDownThreshold: 0.6,
-		analogUpThreshold: 0.4
-	};
-	var MenuActions = XQuestGame.MenuSceneInputs;
-	var MenuActionsAnalogX = 'MenuActionsAnalogX';
-	var MenuActionsAnalogY = 'MenuActionsAnalogY';
-	var PlayerActions = {
-		pauseGame: 'pauseGame',
-		analogX: 'analogX',
-		analogY: 'analogY',
-		primaryWeapon: 'primaryWeapon',
-		secondaryWeapon: 'secondaryWeapon'
-	};
+  XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
+    initialize: function PlayerInputGamepad() {
+      this.allGamepads = [];
 
+      this._disableAllKeystrokes();
+    },
+    setGame(game) {
+      this.game = game || null;
+    },
+    addGamepad(gamepadId, gamepad) {
+      gamepad.gamepadId = gamepadId;
+      this.allGamepads.push(gamepad);
+    },
+    removeGamepad(gamepadId) {
+      for (var i = 0; i < this.allGamepads.length; i++) {
+        if (this.allGamepads[i].gamepadId === gamepadId) {
+          this.allGamepads.splice(i, 1);
+          return;
+        }
+      }
+    },
+    onInput(tickEvent, inputState) {
+      if (inputState.menuMode) {
+        this._onInput_menu(tickEvent, inputState);
+      } else {
+        this._onInput_player(tickEvent, inputState);
+      }
+    },
+    _onInput_menu(tickEvent, inputState) {
+      var allGamepads = this.allGamepads;
 
-	XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
-		initialize: function PlayerInputGamepad() {
-			this.allGamepads = [];
+      for (var i = 0; i < allGamepads.length; i++) {
+        var gamepad = allGamepads[i];
 
-			this._disableAllKeystrokes();
-		},
-		setGame(game) {
-			this.game = game || null;
-		},
-		addGamepad(gamepadId, gamepad) {
-			gamepad.gamepadId = gamepadId;
-			this.allGamepads.push(gamepad);
-		},
-		removeGamepad(gamepadId) {
-			for (var i = 0; i < this.allGamepads.length; i++) {
-				if (this.allGamepads[i].gamepadId === gamepadId) {
-					this.allGamepads.splice(i, 1);
-					return;
-				}
-			}
-		},
-		onInput(tickEvent, inputState) {
-			if (inputState.menuMode) {
-				this._onInput_menu(tickEvent, inputState);
-			} else {
-				this._onInput_player(tickEvent, inputState);
-			}
-		},
-		_onInput_menu(tickEvent, inputState) {
-			var allGamepads = this.allGamepads;
+        var downQueue = gamepad.getMenuActions();
+        for (var j = 0; j < downQueue.length; j++) {
+          var downKey = downQueue[j];
+          inputState[downKey] = true;
 
-			for (var i = 0; i < allGamepads.length; i++) {
-				var gamepad = allGamepads[i];
+          if ((downKey = MenuActions.menuInvoke)) {
+            this.currentGamepad = gamepad;
+          }
+        }
+      }
+    },
+    _onInput_player(tickEvent, inputState) {
+      var analogSensitivity = UserSettings.analogSensitivity;
+      var analogThreshold = UserSettings.analogThreshold;
+      var currentGamepad = this.currentGamepad;
 
-				var downQueue = gamepad.getMenuActions();
-				for (var j = 0; j < downQueue.length; j++) {
-					var downKey = downQueue[j];
-					inputState[downKey] = true;
+      if (!currentGamepad) return;
 
-					if (downKey = MenuActions.menuInvoke) {
-						this.currentGamepad = gamepad;
-					}
-				}
-			}
-		},
-		_onInput_player(tickEvent, inputState) {
-			var analogSensitivity = UserSettings.analogSensitivity;
-			var analogThreshold = UserSettings.analogThreshold;
-			var currentGamepad = this.currentGamepad;
+      var actions = currentGamepad.getPlayerActions();
+      if (actions[PlayerActions.primaryWeapon]) inputState.primaryWeapon = true;
+      if (actions[PlayerActions.secondaryWeapon]) inputState.secondaryWeapon = true;
+      if (actions[PlayerActions.pauseGame]) {
+        if (!this.isPauseDown) {
+          this.isPauseDown = true;
+          if (this.game) this.game.pauseGame(true);
+        }
+      } else {
+        this.isPauseDown = false;
+      }
 
-			if (!currentGamepad) return;
+      var analogX = actions[PlayerActions.analogX];
+      var analogY = -actions[PlayerActions.analogY];
+      if (Math.abs(analogX) > analogThreshold || Math.abs(analogY) > analogThreshold) {
+        inputState.accelerationX += analogX * analogSensitivity;
+        inputState.accelerationY += analogY * analogSensitivity;
+      }
+    },
+    _disableAllKeystrokes() {
+      var useCapture = true;
+      document.addEventListener("keydown", stopEvent, useCapture);
+      document.addEventListener("keyup", stopEvent, useCapture);
+      document.addEventListener("keypress", stopEvent, useCapture);
+      this.onDispose(() => {
+        document.removeEventListener("keydown", stopEvent, useCapture);
+        document.removeEventListener("keyup", stopEvent, useCapture);
+        document.removeEventListener("keypress", stopEvent, useCapture);
+      });
 
-			var actions = currentGamepad.getPlayerActions();
-			if (actions[PlayerActions.primaryWeapon])
-				inputState.primaryWeapon = true;
-			if (actions[PlayerActions.secondaryWeapon])
-				inputState.secondaryWeapon = true;
-			if (actions[PlayerActions.pauseGame]) {
-				if (!this.isPauseDown) {
-					this.isPauseDown = true;
-					if (this.game)
-						this.game.pauseGame(true);
-				}
-			} else {
-				this.isPauseDown = false;
-			}
+      function stopEvent(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+      }
+    },
+  }).extend({
+    /**
+     * (returns null if not supported)
+     */
+    createGamepadInput,
+  });
 
-			var analogX = actions[PlayerActions.analogX];
-			var analogY = -actions[PlayerActions.analogY];
-			if (Math.abs(analogX) > analogThreshold
-				|| Math.abs(analogY) > analogThreshold) {
-				inputState.accelerationX += analogX * analogSensitivity;
-				inputState.accelerationY += analogY * analogSensitivity;
-			}
-		},
-		_disableAllKeystrokes() {
-			var useCapture = true;
-			document.addEventListener('keydown', stopEvent, useCapture);
-			document.addEventListener('keyup', stopEvent, useCapture);
-			document.addEventListener('keypress', stopEvent, useCapture);
-			this.onDispose(() => {
-				document.removeEventListener('keydown', stopEvent, useCapture);
-				document.removeEventListener('keyup', stopEvent, useCapture);
-				document.removeEventListener('keypress', stopEvent, useCapture);
-			});
+  var xboxPlayerMap = {
+    isMenuPressed: PlayerActions.pauseGame,
+    isViewPressed: PlayerActions.pauseGame,
 
-			function stopEvent(ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-			}
+    isAPressed: PlayerActions.primaryWeapon,
+    isBPressed: PlayerActions.secondaryWeapon,
+    isXPressed: PlayerActions.primaryWeapon,
+    isYPressed: PlayerActions.secondaryWeapon,
 
+    //isDPadDownPressed: PlayerActions.accelerateDown,
+    //isDPadLeftPressed: PlayerActions.accelerateLeft,
+    //isDPadRightPressed: PlayerActions.accelerateRight,
+    //isDPadUpPressed: PlayerActions.accelerateUp,
 
-		}
-	}).extend({
-		/**
-		 * (returns null if not supported)
-		 */
-		createGamepadInput
-	});
+    isLeftShoulderPressed: PlayerActions.secondaryWeapon,
+    isRightShoulderPressed: PlayerActions.primaryWeapon,
+    //leftTrigger: PlayerActions.secondaryWeapon,
+    //rightTrigger: PlayerActions.primaryWeapon,
 
+    leftThumbstickX: PlayerActions.analogX,
+    leftThumbstickY: PlayerActions.analogY,
+    isLeftThumbstickPressed: PlayerActions.primaryWeapon,
 
-	var xboxPlayerMap = {
-		isMenuPressed: PlayerActions.pauseGame,
-		isViewPressed: PlayerActions.pauseGame,
+    //rightThumbstickX: PlayerActions.analogX,
+    //rightThumbstickY: PlayerActions.analogY,
+    isRightThumbstickPressed: PlayerActions.primaryWeapon,
+  };
+  var xboxMenuMap = {
+    //isMenuPressed: MenuActions.menuInvoke,
+    //isViewPressed: MenuActions.menuInvoke,
 
-		isAPressed: PlayerActions.primaryWeapon,
-		isBPressed: PlayerActions.secondaryWeapon,
-		isXPressed: PlayerActions.primaryWeapon,
-		isYPressed: PlayerActions.secondaryWeapon,
+    isAPressed: MenuActions.menuInvoke,
+    isBPressed: MenuActions.menuBack,
+    //isXPressed: ,
+    //isYPressed: ,
 
-		//isDPadDownPressed: PlayerActions.accelerateDown,
-		//isDPadLeftPressed: PlayerActions.accelerateLeft,
-		//isDPadRightPressed: PlayerActions.accelerateRight,
-		//isDPadUpPressed: PlayerActions.accelerateUp,
+    isDPadDownPressed: MenuActions.menuDown,
+    isDPadLeftPressed: MenuActions.menuLeft,
+    isDPadRightPressed: MenuActions.menuRight,
+    isDPadUpPressed: MenuActions.menuUp,
 
-		isLeftShoulderPressed: PlayerActions.secondaryWeapon,
-		isRightShoulderPressed: PlayerActions.primaryWeapon,
-		//leftTrigger: PlayerActions.secondaryWeapon,
-		//rightTrigger: PlayerActions.primaryWeapon,
+    //isLeftShoulderPressed: ,
+    //isRightShoulderPressed: ,
+    //leftTrigger: ,
+    //rightTrigger: ,
 
-		leftThumbstickX: PlayerActions.analogX,
-		leftThumbstickY: PlayerActions.analogY,
-		isLeftThumbstickPressed: PlayerActions.primaryWeapon,
+    leftThumbstickX: MenuActionsAnalogX,
+    leftThumbstickY: MenuActionsAnalogY,
+    //isLeftThumbstickPressed: ,
 
-		//rightThumbstickX: PlayerActions.analogX,
-		//rightThumbstickY: PlayerActions.analogY,
-		isRightThumbstickPressed: PlayerActions.primaryWeapon
-	};
-	var xboxMenuMap = {
-		//isMenuPressed: MenuActions.menuInvoke,
-		//isViewPressed: MenuActions.menuInvoke,
+    //rightThumbstickX: ,
+    //rightThumbstickY: ,
+    //isRightThumbstickPressed:
+  };
+  XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
+    initialize: function XboxGamepadMapper(xboxGamepad, playerMap, menuMap) {
+      this.xboxGamepad = xboxGamepad;
+      this.playerMap = playerMap;
+      this.menuMap = menuMap;
+      this.previousActions = {};
+    },
+    getPlayerActions() {
+      return this._mapXboxGamepadActions(this.playerMap);
+    },
+    getMenuActions() {
+      var currentActionValues = this._mapXboxGamepadActions(this.menuMap);
 
-		isAPressed: MenuActions.menuInvoke,
-		isBPressed: MenuActions.menuBack,
-		//isXPressed: ,
-		//isYPressed: ,
+      var previousActionValues = this.previousActions;
+      this.previousActions = currentActionValues;
 
-		isDPadDownPressed: MenuActions.menuDown,
-		isDPadLeftPressed: MenuActions.menuLeft,
-		isDPadRightPressed: MenuActions.menuRight,
-		isDPadUpPressed: MenuActions.menuUp,
+      var menuActions = [];
+      for (var actionName in currentActionValues) {
+        if (!currentActionValues.hasOwnProperty(actionName)) continue;
+        var previousValue = previousActionValues[actionName];
+        var currentValue = currentActionValues[actionName];
 
-		//isLeftShoulderPressed: ,
-		//isRightShoulderPressed: ,
-		//leftTrigger: ,
-		//rightTrigger: ,
+        // Deal with analog inputs:
+        if (actionName === MenuActionsAnalogX) {
+          var wasDownX = this.isDownX;
+          this.isDownX = this._analogToBoolean(Math.abs(currentValue), wasDownX);
+          if (!wasDownX && this.isDownX) {
+            menuActions.push(currentValue < 0 ? MenuActions.menuLeft : MenuActions.menuRight);
+          }
+        } else if (actionName === MenuActionsAnalogY) {
+          currentValue = -currentValue;
+          var wasDownY = this.isDownY;
+          this.isDownY = this._analogToBoolean(Math.abs(currentValue), wasDownY);
+          if (!wasDownY && this.isDownY) {
+            menuActions.push(currentValue < 0 ? MenuActions.menuUp : MenuActions.menuDown);
+          }
+        } else {
+          if (currentValue && currentValue !== previousValue) {
+            menuActions.push(actionName);
+          }
+        }
+      }
+      return menuActions;
+    },
+    _mapXboxGamepadActions(actionsMap) {
+      var currentReading = this.xboxGamepad.getCurrentReading();
+      var gamepadActions = {};
+      for (var gamepadButtonName in actionsMap) {
+        if (!actionsMap.hasOwnProperty(gamepadButtonName)) continue;
 
-		leftThumbstickX: MenuActionsAnalogX,
-		leftThumbstickY: MenuActionsAnalogY
-		//isLeftThumbstickPressed: ,
+        var actionName = actionsMap[gamepadButtonName];
+        var readingValue = currentReading[gamepadButtonName];
 
-		//rightThumbstickX: ,
-		//rightThumbstickY: ,
-		//isRightThumbstickPressed:
-	};
-	XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
-		initialize: function XboxGamepadMapper(xboxGamepad, playerMap, menuMap) {
-			this.xboxGamepad = xboxGamepad;
-			this.playerMap = playerMap;
-			this.menuMap = menuMap;
-			this.previousActions = {};
-		},
-		getPlayerActions() {
-			return this._mapXboxGamepadActions(this.playerMap);
-		},
-		getMenuActions() {
-			var currentActionValues = this._mapXboxGamepadActions(this.menuMap);
+        if (readingValue !== false) {
+          gamepadActions[actionName] = readingValue;
+        }
+      }
 
-			var previousActionValues = this.previousActions;
-			this.previousActions = currentActionValues;
+      return gamepadActions;
+    },
+    _analogToBoolean(analogValue, wasAlreadyDown) {
+      var threshold = wasAlreadyDown
+        ? UserSettings.analogUpThreshold
+        : UserSettings.analogDownThreshold;
+      return analogValue >= threshold;
+    },
+  });
 
-			var menuActions = [];
-			for (var actionName in currentActionValues) {
-				if (!currentActionValues.hasOwnProperty(actionName)) continue;
-				var previousValue = previousActionValues[actionName];
-				var currentValue = currentActionValues[actionName];
+  function createGamepadInput() {
+    var Windows = window.Windows;
+    var Xbox = Windows && Windows.Xbox;
+    if (!Xbox) return null;
 
-				// Deal with analog inputs:
-				if (actionName === MenuActionsAnalogX) {
-					var wasDownX = this.isDownX;
-					this.isDownX = this._analogToBoolean(Math.abs(currentValue), wasDownX);
-					if (!wasDownX && this.isDownX) {
-						menuActions.push(currentValue < 0 ? MenuActions.menuLeft : MenuActions.menuRight);
-					}
-				} else if (actionName === MenuActionsAnalogY) {
-					currentValue = -currentValue;
-					var wasDownY = this.isDownY;
-					this.isDownY = this._analogToBoolean(Math.abs(currentValue), wasDownY);
-					if (!wasDownY && this.isDownY) {
-						menuActions.push(currentValue < 0 ? MenuActions.menuUp : MenuActions.menuDown);
-					}
-				} else {
-					if (currentValue && currentValue !== previousValue) {
-						menuActions.push(actionName);
-					}
-				}
-			}
-			return menuActions;
-		},
-		_mapXboxGamepadActions(actionsMap) {
-			var currentReading = this.xboxGamepad.getCurrentReading();
-			var gamepadActions = {};
-			for (var gamepadButtonName in actionsMap) {
-				if (!actionsMap.hasOwnProperty(gamepadButtonName)) continue;
+    var gamepadInput = new XQuestInput.PlayerInputGamepad();
 
-				var actionName = actionsMap[gamepadButtonName];
-				var readingValue = currentReading[gamepadButtonName];
+    function addXboxGamepad(xboxGamepad) {
+      var gamepad = new XQuestInput.PlayerInputGamepad.XboxGamepadMapper(
+        xboxGamepad,
+        xboxPlayerMap,
+        xboxMenuMap,
+      );
+      gamepadInput.addGamepad(xboxGamepad.id, gamepad);
+    }
 
-				if (readingValue !== false) {
-					gamepadActions[actionName] = readingValue;
-				}
-			}
+    function removeXboxGamepad(xboxGamepad) {
+      gamepadInput.removeGamepad(xboxGamepad.id);
+    }
 
-			return gamepadActions;
-		},
-		_analogToBoolean(analogValue, wasAlreadyDown) {
-			var threshold = (wasAlreadyDown ? UserSettings.analogUpThreshold : UserSettings.analogDownThreshold);
-			return (analogValue >= threshold);
-		}
-	});
+    // Add existing gamepads:
+    var Input = Xbox.Input;
 
+    var Gamepad = Input.Gamepad;
+    var gamepads = Gamepad.gamepads;
+    for (var i = 0; i < gamepads.size; i++) {
+      addXboxGamepad(gamepads[i]);
+    }
 
-	function createGamepadInput() {
-		var Windows = window.Windows;
-		var Xbox = (Windows && Windows.Xbox);
-		if (!Xbox) return null;
+    function onGamepadAdded(eventArgs) {
+      addXboxGamepad(eventArgs.gamepad);
+    }
 
-		var gamepadInput = new XQuestInput.PlayerInputGamepad();
+    function onGamepadRemoved(eventArgs) {
+      removeXboxGamepad(eventArgs.gamepad);
+    }
 
-		function addXboxGamepad(xboxGamepad) {
-			var gamepad = new XQuestInput.PlayerInputGamepad.XboxGamepadMapper(xboxGamepad, xboxPlayerMap, xboxMenuMap);
-			gamepadInput.addGamepad(xboxGamepad.id, gamepad);
-		}
+    Gamepad.addEventListener("gamepadadded", onGamepadAdded);
+    Gamepad.addEventListener("gamepadremoved", onGamepadRemoved);
+    gamepadInput.onDispose(() => {
+      Gamepad.removeEventListener("gamepadadded", onGamepadAdded);
+      Gamepad.removeEventListener("gamepadremoved", onGamepadRemoved);
+    });
 
-		function removeXboxGamepad(xboxGamepad) {
-			gamepadInput.removeGamepad(xboxGamepad.id);
-		}
-
-		// Add existing gamepads:
-		var Input = Xbox.Input;
-
-		var Gamepad = Input.Gamepad;
-		var gamepads = Gamepad.gamepads;
-		for (var i = 0; i < gamepads.size; i++) {
-			addXboxGamepad(gamepads[i]);
-		}
-
-		function onGamepadAdded(eventArgs) {
-			addXboxGamepad(eventArgs.gamepad);
-		}
-
-		function onGamepadRemoved(eventArgs) {
-			removeXboxGamepad(eventArgs.gamepad);
-		}
-
-		Gamepad.addEventListener('gamepadadded', onGamepadAdded);
-		Gamepad.addEventListener('gamepadremoved', onGamepadRemoved);
-		gamepadInput.onDispose(() => {
-			Gamepad.removeEventListener('gamepadadded', onGamepadAdded);
-			Gamepad.removeEventListener('gamepadremoved', onGamepadRemoved);
-		});
-
-
-		return gamepadInput;
-	}
+    return gamepadInput;
+  }
 })();

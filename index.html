@@ -1,162 +1,169 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>XQuest - an HTML5 Space Shooter that is free and open-source!</title>
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		
-		<style>
-			.page-loading .show-after-load { display: none; }
-			.page-loaded .hide-after-load { display: none; }
-		</style>
-		<style>
-			body {
-				background: hsl(0, 0%, 10%);
-				color: hsl(0, 0%, 90%);
-			
-				font-size: 100%;
-				line-height: 1.5;
-				font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Segoe, Arial, sans-serif;
-			
-				cursor: default;
-			}
-			h1, h2, h3, h4, h5, h6 {
-				font-weight: normal;
-			}
-			strong {
-				color: hsl(0, 0%, 95%);
-			}
-			
-			button {
-				overflow: visible;
-				display: inline-block;
-				margin: 0;
-				padding: 0.2em 0.5em;
-			
-				font-size: 1.5em;
-				border: 1px solid white;
-				border-radius: 5px;
-			
-				background-color: hsl(0, 0%, 90%);
-				color: hsl(0, 0%, 0%);
-			
-				cursor: pointer;
-			}
-			
-			fieldset {
-				border: none;
-				margin-bottom: 2em;
-			}
-			
-			#inlineGame canvas {
-				width: 100%;
-			}
-			
-		</style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>XQuest - an HTML5 Space Shooter that is free and open-source!</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 
-	</head>
-	<body class="page-loading">
+    <style>
+      .page-loading .show-after-load {
+        display: none;
+      }
+      .page-loaded .hide-after-load {
+        display: none;
+      }
+    </style>
+    <style>
+      body {
+        background: hsl(0, 0%, 10%);
+        color: hsl(0, 0%, 90%);
 
-		<h1>XQuest JS</h1>
-		<section class="quick-info">
-			<h2>
-				A Space Shooter game that is
-				<a href="https://github.com/scottrippey/xquestjs">open-source</a>.
-			</h2>
-			<p>
-				<strong>This game is in beta!</strong>
-				<br>
-				Have fun playing, and please see below for development progress!
-			</p>
-		</section>
+        font-size: 100%;
+        line-height: 1.5;
+        font-family:
+          "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Segoe, Arial,
+          sans-serif;
 
-		<section class="play-game">
-			<span class="hide-after-load">
-				Loading game assets...
-			</span>
-			<div id="inlineGame"></div>
-		</section>
-		
-		<section class="instructions">
-		
-			<h2> How to Play </h2>
-				<ul>
-					<li> Move your player around the field, but don't touch the walls </li>
-					<li> Shoot at enemies, but don't touch them either </li>
-					<li> Gather all the stars to open the gate </li>
-					<li> Go through the gate to advance to the next level </li>
-					<li> Look for "Power Stars", which give you special abilities </li>
-					<li> If you get overwhelmed, release a bomb! </li>
-					<li> To <strong>get a high score</strong>, learn to program and help me develop that feature. </li>
-				</ul>
-			
-			<h2> Tips </h2>
-				<ul>
-					<li> The player keeps its momentum, so be very careful around walls </li>
-					<li> Your player shoots the direction it's moving </li>
-					<li> Power Stars might be hard to catch, but are completely worth it </li>
-				</ul>
-			
-			<h2> Controls </h2>
-				<h3> Mouse </h3>
-				<ul>
-					<li> Move the mouse to accelerate. </li>
-					<li> Left-click to shoot </li>
-					<li> Right-click to release a bomb </li>
-					<li> If your mouse travels outside the browser window, the game will be auto-paused. </li>
-				</ul>
-				<h3> Touch </h3>
-				<ul>
-					<li> Touch and drag your 1st finger to accelerate </li>
-					<li> Tap a 2nd finger to shoot </li>
-					<li> Tap a 2nd and 3rd finger to release a bomb </li>
-				</ul>
-				<h3> Keyboard </h3>
-					<ul>
-						<li> Arrow keys accelerate the player </li>
-						<li> Space shoots </li>
-						<li> Enter releases a bomb </li>
-					</ul>
-		</section>
-		<section class="to-do-list">
-			<h2>To Do List</h2>
-			
-			<h3> To make the game awesome </h3>
-			<pre>
-						
+        cursor: default;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: normal;
+      }
+      strong {
+        color: hsl(0, 0%, 95%);
+      }
+
+      button {
+        overflow: visible;
+        display: inline-block;
+        margin: 0;
+        padding: 0.2em 0.5em;
+
+        font-size: 1.5em;
+        border: 1px solid white;
+        border-radius: 5px;
+
+        background-color: hsl(0, 0%, 90%);
+        color: hsl(0, 0%, 0%);
+
+        cursor: pointer;
+      }
+
+      fieldset {
+        border: none;
+        margin-bottom: 2em;
+      }
+
+      #inlineGame canvas {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body class="page-loading">
+    <h1>XQuest JS</h1>
+    <section class="quick-info">
+      <h2>
+        A Space Shooter game that is
+        <a href="https://github.com/scottrippey/xquestjs">open-source</a>.
+      </h2>
+      <p>
+        <strong>This game is in beta!</strong>
+        <br />
+        Have fun playing, and please see below for development progress!
+      </p>
+    </section>
+
+    <section class="play-game">
+      <span class="hide-after-load"> Loading game assets... </span>
+      <div id="inlineGame"></div>
+    </section>
+
+    <section class="instructions">
+      <h2>How to Play</h2>
+      <ul>
+        <li>Move your player around the field, but don't touch the walls</li>
+        <li>Shoot at enemies, but don't touch them either</li>
+        <li>Gather all the stars to open the gate</li>
+        <li>Go through the gate to advance to the next level</li>
+        <li>Look for "Power Stars", which give you special abilities</li>
+        <li>If you get overwhelmed, release a bomb!</li>
+        <li>
+          To <strong>get a high score</strong>, learn to program and help me develop that feature.
+        </li>
+      </ul>
+
+      <h2>Tips</h2>
+      <ul>
+        <li>The player keeps its momentum, so be very careful around walls</li>
+        <li>Your player shoots the direction it's moving</li>
+        <li>Power Stars might be hard to catch, but are completely worth it</li>
+      </ul>
+
+      <h2>Controls</h2>
+      <h3>Mouse</h3>
+      <ul>
+        <li>Move the mouse to accelerate.</li>
+        <li>Left-click to shoot</li>
+        <li>Right-click to release a bomb</li>
+        <li>If your mouse travels outside the browser window, the game will be auto-paused.</li>
+      </ul>
+      <h3>Touch</h3>
+      <ul>
+        <li>Touch and drag your 1st finger to accelerate</li>
+        <li>Tap a 2nd finger to shoot</li>
+        <li>Tap a 2nd and 3rd finger to release a bomb</li>
+      </ul>
+      <h3>Keyboard</h3>
+      <ul>
+        <li>Arrow keys accelerate the player</li>
+        <li>Space shoots</li>
+        <li>Enter releases a bomb</li>
+      </ul>
+    </section>
+    <section class="to-do-list">
+      <h2>To Do List</h2>
+
+      <h3>To make the game awesome</h3>
+      <pre>
+
 			✓ Touch input
-			
+
 			HUD:
 				Animated Powerups
 				Score
-			
+
 			Scoring:
 				Time Bonus
 				Extra Life
 				Increase Powerup spawns
-			
+
 			Bullets:
 				✓ Destroyed with enemies
 				✓ Dequeued / timeout
-			
+
 			Land Mines
-			
+
 			Bonus Levels:
 				Cannot use bombs, no bombs crystals, no power crystals
-				
+
 				Bonus Level 1: "Shooting Spree"
 					Challenge: destroy as many enemies as possible
 					30 seconds
 					✓ Rapid Spawn: Slugs
 					✓ Powerups: Invincible, Rapid Fire
 					Scoring: per enemy
-				
+
 				Bonus Level 2: "Survival"
 					Challenge: don't die
 					30 seconds
 					Spawn: Locusts
 					Powerups: NO shooting
 					Scoring: per time
-								
+
 				Bonus Level 3: "Ambush"
 					Challenge: kill all enemies
 					30 seconds
@@ -165,7 +172,7 @@
 					Activate and then shoot them all to advance
 					Powerups: Auto Aim?
 					Scoring: per enemy / per time
-			
+
 			Enemies:
 				✓ Slug - slow, random changes
 				✓ Locust - fast, curved trajectories
@@ -173,19 +180,19 @@
 				Moth - attracted to crystals?
 				Spider - creates webs that hinder you
 				Spider 2 - Lays mines?
-			
+
 				Roach - takes 3 hits to destroy
 				Hissing Roach - takes 5 hits to destroy
-			
+
 				Bee - moves away when you get close
 				Wasp - moves at you when you fire toward it and miss
 				Hornet - tracks you and pursues you, all the time
-			
+
 				Beetle - shoots randomly
 				Stink Beetle - shoots at you when killed
 				Stink Beetle 2 - shoots everywhere when killed
 				Fire Beetle - shoots directly at you, all the time
-			
+
 			Powerups:
 				✓ Rapid fire
 				✓ Auto-aim
@@ -212,23 +219,23 @@
 				"Half minute man" - finish level < 30 sec
 				"Superman" - Obtain 3 simultaneous powerups
 				"My own worst enemy" - Die by a wall 2 times
-				
+
 
 			Google Analytics
 
 			Thornberg Ideas:
-				
+
 				Ethan
 				1. Enemy - Power Crystal with red inside
 			✓	2. Powerup - 15-shot "spray shot"
-				
+
 				Scottie
 				1. Menu - with Arcade Game, Settings, Normal, Leader Boards, Challenge Levels
 			✓	2. Powerup - Power Shot
 				3. Enemy - Chase Star, it turns red when you're close, you must kill to gather the star
 				4. Powerup - Grenade Shot
 				5. Powerup - Slow-motion
-				
+
 				Annie
 				1. Enemy - Chaser
 			✓	2. Difficulty - Easy, Medium, Crazy Hard
@@ -237,151 +244,145 @@
 				5. Enemy - Poison - can't shoot or get stars
 				6. Powerup - Clone - Clones player, all players move together
 
-			
-			
-			</pre>
-			
-			
-			<h3> To make the game legendary </h3>
-			<pre>
+
+
+			</pre
+      >
+
+      <h3>To make the game legendary</h3>
+      <pre>
 			Save States, Rewind Feature
-			
+
 			Arcade mode, puzzle mode
 			Bosses
-			
+
 			Scale, depending on auto-framerate detection
-			
+
 			Windows 8 App
 			Xbox One App
-			
-			</pre>
-		</section>
 
+      </pre>
+    </section>
 
-		<section class="all-the-scripts">
-			<script src="common/lib/lodash.2.2.1.js"></script>
-			<script src="common/lib/easeljs-0.6.1.min.js"></script>
-			<script src="common/lib/smoothsort.js"></script>
-			<script src="common/src/Smart/Smart.js"></script>
-			<script src="common/src/Smart/Smart.Class.js"></script>
-			<script src="common/src/Smart/Smart.Color.js"></script>
-			<script src="common/src/Smart/Smart.Disposable.js"></script>
-			<script src="common/src/Smart/Smart.Drawing.js"></script>
-			<script src="common/src/Smart/Smart.Events.js"></script>
-			<script src="common/src/Smart/Smart.Physics.js"></script>
-			<script src="common/src/Smart/Smart.Point.js"></script>
-			<script src="common/src/Smart/Smart.Sort.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Animation.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Animation.easeljs.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Animation.easing.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Animation.timing.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Animations.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Interpolate.js"></script>
-			<script src="common/src/Smart/Animation/Smart.Keyframes.js"></script>
-			<script src="common/src/extensions/console.js"></script>
-			<script src="common/src/extensions/EaselJS.js"></script>
-			<script src="common/src/extensions/lodash-extensions.js"></script>
-			<script src="XQuestGame/XQuestGame.js"></script>
-			<script src="XQuestGame/scenes/BaseScene.js"></script>
-			<script src="XQuestGame/scenes/ArcadeGame.js"></script>
-			<script src="XQuestGame/scenes/HostScene.js"></script>
-			<script src="XQuestGame/scenes/MenuScene.js"></script>
-			<script src="XQuestGame/characters/BombCrystal.js"></script>
-			<script src="XQuestGame/characters/Player.js"></script>
-			<script src="XQuestGame/characters/PowerCrystal.js"></script>
-			<script src="XQuestGame/characters/enemies/BaseEnemy.js"></script>
-			<script src="XQuestGame/characters/enemies/Locust.js"></script>
-			<script src="XQuestGame/characters/enemies/Mantis.js"></script>
-			<script src="XQuestGame/characters/enemies/Slug.js"></script>
-			<script src="XQuestGame/components/ActivePowerups.js"></script>
-			<script src="XQuestGame/components/CrystalFactory.js"></script>
-			<script src="XQuestGame/components/EnemyFactory.js"></script>
-			<script src="XQuestGame/components/GameDebugger.js"></script>
-			<script src="XQuestGame/components/Hud.js"></script>
-			<script src="XQuestGame/components/LevelFactory.js"></script>
-			<script src="XQuestGame/components/PowerupFactory.js"></script>
-			<script src="XQuestGame/components/Projectiles.js"></script>
-			<script src="XQuestGame/options/Balance.js"></script>
-			<script src="XQuestGame/menus/BaseMenu.js"></script>
-			<script src="XQuestGame/menus/CommonMenus.js"></script>
-			<script src="XQuestGame/menus/GraphicsTestMenu.js"></script>
-			<script src="XQuestGame/menus/StartMenu.js"></script>
-			<script src="XQuestGraphics/EaselJS/EaselJSGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/EaselJSTimer.js"></script>
-			<script src="XQuestGraphics/EaselJS/utils/Drawing.js"></script>
-			<script src="XQuestGraphics/EaselJS/Graphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/characters/PlayerGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/characters/enemies/BaseEnemyGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/characters/enemies/LocustGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/characters/enemies/MantisGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/characters/enemies/SlugGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/effects/BulletsGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/effects/ExplosionGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/effects/SpecialEffects.js"></script>
-			<script src="XQuestGraphics/EaselJS/effects/TextGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/game/BackgroundGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/game/BombCrystalGraphic.js"></script>
-			<script src="XQuestGraphics/EaselJS/game/BombGraphic.js"></script>
-			<script src="XQuestGraphics/EaselJS/game/CrystalGraphic.js"></script>
-			<script src="XQuestGraphics/EaselJS/game/LevelGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/game/PowerCrystalGraphic.js"></script>
-			<script src="XQuestGraphics/EaselJS/hud/HudGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/hud/HudOverlay.js"></script>
-			<script src="XQuestGraphics/EaselJS/hud/HudPauseButton.js"></script>
-			<script src="XQuestGraphics/EaselJS/menus/PauseOverlay.js"></script>
-			<script src="XQuestGraphics/EaselJS/menus/MenuGraphics.js"></script>
-			<script src="XQuestGraphics/EaselJS/menus/MenuButton.js"></script>
-			<script src="XQuestGraphics/EaselJS/menus/XQuestLogoGraphic.js"></script>
-			<script src="XQuestInput/XQuestInput.js"></script>
-			<script src="XQuestInput/menus/MenuInputKeyboard.js"></script>
-			<script src="XQuestInput/player/PlayerInputGamepad.js"></script>
-			<script src="XQuestInput/player/PlayerInputKeyboard.js"></script>
-			<script src="XQuestInput/player/PlayerInputMouse.js"></script>
-			<script src="XQuestInput/player/PlayerInputTouch.js"></script>
-			<script src="XQuestHost/XQuestHost.js"></script>
-			<script src="XQuestHost/Settings.js"></script>
-		</section>
-			
-		<section class="startup-script">
-			
-			<script>
-				document.body.classList.remove("page-loading");
-				document.body.classList.add("page-loaded");
-				
-				(function createInlineGame() {
-					window.xquest = new XQuestGame.XQuestHost();
-					var container = xquest.container;
-	
-					document.getElementById('inlineGame').appendChild(container);
-					xquest.onDispose(() => {
-						container.parentNode.removeChild(container);
-					});
-	
-					// Once you interact with the canvas, let's go fullscreen:
-					container.addEventListener('mousedown', enterFullSize);
-					container.addEventListener('focus', enterFullSize);
-					function enterFullSize(ev) {
-						container.removeEventListener('mousedown', enterFullSize);
-						container.removeEventListener('focus', enterFullSize);
-	
-						xquest.enterFullSize();
-						xquest.enterFullScreen()
-					}
-				})();
-	
-				// Capture first key, so we can load a developer menu:
-				document.body.addEventListener('keydown', function keydownHandler(ev) {
-					document.body.removeEventListener('keydown', keydownHandler);
-					
-					var key = (ev.key || String.fromCharCode(ev.keyCode || ev.which)).toLowerCase();
-					if (key === "d") {
-						
-					}
-				});
-				
-			</script>
-		
-		</section>
-	
-	</body>
+    <section class="all-the-scripts">
+      <script src="common/lib/lodash.2.2.1.js"></script>
+      <script src="common/lib/easeljs-0.6.1.min.js"></script>
+      <script src="common/lib/smoothsort.js"></script>
+      <script src="common/src/Smart/Smart.js"></script>
+      <script src="common/src/Smart/Smart.Class.js"></script>
+      <script src="common/src/Smart/Smart.Color.js"></script>
+      <script src="common/src/Smart/Smart.Disposable.js"></script>
+      <script src="common/src/Smart/Smart.Drawing.js"></script>
+      <script src="common/src/Smart/Smart.Events.js"></script>
+      <script src="common/src/Smart/Smart.Physics.js"></script>
+      <script src="common/src/Smart/Smart.Point.js"></script>
+      <script src="common/src/Smart/Smart.Sort.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Animation.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Animation.easeljs.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Animation.easing.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Animation.timing.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Animations.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Interpolate.js"></script>
+      <script src="common/src/Smart/Animation/Smart.Keyframes.js"></script>
+      <script src="common/src/extensions/console.js"></script>
+      <script src="common/src/extensions/EaselJS.js"></script>
+      <script src="common/src/extensions/lodash-extensions.js"></script>
+      <script src="XQuestGame/XQuestGame.js"></script>
+      <script src="XQuestGame/scenes/BaseScene.js"></script>
+      <script src="XQuestGame/scenes/ArcadeGame.js"></script>
+      <script src="XQuestGame/scenes/HostScene.js"></script>
+      <script src="XQuestGame/scenes/MenuScene.js"></script>
+      <script src="XQuestGame/characters/BombCrystal.js"></script>
+      <script src="XQuestGame/characters/Player.js"></script>
+      <script src="XQuestGame/characters/PowerCrystal.js"></script>
+      <script src="XQuestGame/characters/enemies/BaseEnemy.js"></script>
+      <script src="XQuestGame/characters/enemies/Locust.js"></script>
+      <script src="XQuestGame/characters/enemies/Mantis.js"></script>
+      <script src="XQuestGame/characters/enemies/Slug.js"></script>
+      <script src="XQuestGame/components/ActivePowerups.js"></script>
+      <script src="XQuestGame/components/CrystalFactory.js"></script>
+      <script src="XQuestGame/components/EnemyFactory.js"></script>
+      <script src="XQuestGame/components/GameDebugger.js"></script>
+      <script src="XQuestGame/components/Hud.js"></script>
+      <script src="XQuestGame/components/LevelFactory.js"></script>
+      <script src="XQuestGame/components/PowerupFactory.js"></script>
+      <script src="XQuestGame/components/Projectiles.js"></script>
+      <script src="XQuestGame/options/Balance.js"></script>
+      <script src="XQuestGame/menus/BaseMenu.js"></script>
+      <script src="XQuestGame/menus/CommonMenus.js"></script>
+      <script src="XQuestGame/menus/GraphicsTestMenu.js"></script>
+      <script src="XQuestGame/menus/StartMenu.js"></script>
+      <script src="XQuestGraphics/EaselJS/EaselJSGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/EaselJSTimer.js"></script>
+      <script src="XQuestGraphics/EaselJS/utils/Drawing.js"></script>
+      <script src="XQuestGraphics/EaselJS/Graphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/characters/PlayerGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/characters/enemies/BaseEnemyGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/characters/enemies/LocustGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/characters/enemies/MantisGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/characters/enemies/SlugGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/effects/BulletsGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/effects/ExplosionGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/effects/SpecialEffects.js"></script>
+      <script src="XQuestGraphics/EaselJS/effects/TextGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/game/BackgroundGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/game/BombCrystalGraphic.js"></script>
+      <script src="XQuestGraphics/EaselJS/game/BombGraphic.js"></script>
+      <script src="XQuestGraphics/EaselJS/game/CrystalGraphic.js"></script>
+      <script src="XQuestGraphics/EaselJS/game/LevelGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/game/PowerCrystalGraphic.js"></script>
+      <script src="XQuestGraphics/EaselJS/hud/HudGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/hud/HudOverlay.js"></script>
+      <script src="XQuestGraphics/EaselJS/hud/HudPauseButton.js"></script>
+      <script src="XQuestGraphics/EaselJS/menus/PauseOverlay.js"></script>
+      <script src="XQuestGraphics/EaselJS/menus/MenuGraphics.js"></script>
+      <script src="XQuestGraphics/EaselJS/menus/MenuButton.js"></script>
+      <script src="XQuestGraphics/EaselJS/menus/XQuestLogoGraphic.js"></script>
+      <script src="XQuestInput/XQuestInput.js"></script>
+      <script src="XQuestInput/menus/MenuInputKeyboard.js"></script>
+      <script src="XQuestInput/player/PlayerInputGamepad.js"></script>
+      <script src="XQuestInput/player/PlayerInputKeyboard.js"></script>
+      <script src="XQuestInput/player/PlayerInputMouse.js"></script>
+      <script src="XQuestInput/player/PlayerInputTouch.js"></script>
+      <script src="XQuestHost/XQuestHost.js"></script>
+      <script src="XQuestHost/Settings.js"></script>
+    </section>
+
+    <section class="startup-script">
+      <script>
+        document.body.classList.remove("page-loading");
+        document.body.classList.add("page-loaded");
+
+        (function createInlineGame() {
+          window.xquest = new XQuestGame.XQuestHost();
+          var container = xquest.container;
+
+          document.getElementById("inlineGame").appendChild(container);
+          xquest.onDispose(() => {
+            container.parentNode.removeChild(container);
+          });
+
+          // Once you interact with the canvas, let's go fullscreen:
+          container.addEventListener("mousedown", enterFullSize);
+          container.addEventListener("focus", enterFullSize);
+          function enterFullSize(ev) {
+            container.removeEventListener("mousedown", enterFullSize);
+            container.removeEventListener("focus", enterFullSize);
+
+            xquest.enterFullSize();
+            xquest.enterFullScreen();
+          }
+        })();
+
+        // Capture first key, so we can load a developer menu:
+        document.body.addEventListener("keydown", function keydownHandler(ev) {
+          document.body.removeEventListener("keydown", keydownHandler);
+
+          var key = (ev.key || String.fromCharCode(ev.keyCode || ev.which)).toLowerCase();
+          if (key === "d") {
+          }
+        });
+      </script>
+    </section>
+  </body>
 </html>
