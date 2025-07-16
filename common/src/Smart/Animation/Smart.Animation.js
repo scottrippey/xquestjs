@@ -1,13 +1,15 @@
+import { Class } from '../Smart.Class.js';
+
 /**
  * Animation Core
  */
-Smart.Animation = Smart.Class({
+export const Animation = Class({
 	initialize: function Animation() {
 		this._actions = [];
 		this._position = 0;
 
 		/**
-		 * @name Smart.AnimationEvent
+		 * @name AnimationEvent
 		 * @property {number} position
 		 * @property {boolean} stillRunning
 		 * @property {function(value:boolean)} clearCurrentActions
@@ -38,7 +40,7 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Updates the animation with the elapsed time.
 	 * @param {Number} deltaSeconds
-	 * @returns {Smart.AnimationEvent}
+	 * @returns {AnimationEvent}
 	 */
 	update(deltaSeconds) {
 		this._position += deltaSeconds;
@@ -72,8 +74,8 @@ Smart.Animation = Smart.Class({
 
 	/**
 	 * Adds an action to the animation queue.
-	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} frameCallback
-	 * @returns {Smart.Animation} this
+	 * @param {function(animEvent:AnimationEvent, thisAnimation:Animation)} frameCallback
+	 * @returns {Animation} this
 	 */
 	frame(frameCallback) {
 		this._actions.push(frameCallback);
@@ -83,8 +85,8 @@ Smart.Animation = Smart.Class({
 	/**
 	 * Waits for the current animations to complete, before continuing the chain.
 	 * If supplied, the callback will be executed.
-	 * @param {function(animEvent:Smart.AnimationEvent, thisAnimation:Smart.Animation)} [callback]
-	 * @returns {Smart.Animation} this
+	 * @param {function(animEvent:AnimationEvent, thisAnimation:Animation)} [callback]
+	 * @returns {Animation} this
 	 */
 	queue(callback) {
 		return this.frame(function _queue_(animEvent, thisAnimation) {

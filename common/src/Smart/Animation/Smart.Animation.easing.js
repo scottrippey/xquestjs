@@ -1,17 +1,19 @@
+import { Animation } from './Smart.Animation.js';
+
 /**
  * Animation Easing functions
  */
-_.extend(Smart.Animation.prototype, {
+Object.assign(Animation.prototype, {
 	defaultEasing: 'quart',
 
 	/**
 	 * Applies an ease-in-out function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	ease(easing) {
-		easing = Smart.Animation.Easing.easeInOut(easing || this.defaultEasing);
+		easing = Easing.easeInOut(easing || this.defaultEasing);
 		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
@@ -21,10 +23,10 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-in function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	easeIn(easing) {
-		easing = Smart.Animation.Easing.easeIn(easing || this.defaultEasing);
+		easing = Easing.easeIn(easing || this.defaultEasing);
 		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
@@ -34,19 +36,19 @@ _.extend(Smart.Animation.prototype, {
 	 * Applies an ease-out function to the current animation.
 	 *
 	 * @param {Easing|Function|string} [easing]
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	easeOut(easing) {
-		easing = Smart.Animation.Easing.easeOut(easing || this.defaultEasing);
+		easing = Easing.easeOut(easing || this.defaultEasing);
 		return this.frame(animEvent => {
 			animEvent.position = easing(animEvent.position);
 		});
 	}
 });
 
-Smart.Animation.Easing = {
+export const Easing = {
 	easeInOut(easing) {
-		easing = Smart.Animation.Easing.from(easing);
+		easing = Easing.from(easing);
 		return function _easeInOut_(position) {
 			if (position <= 0) {
 				return 0;
@@ -60,7 +62,7 @@ Smart.Animation.Easing = {
 		};
 	},
 	easeIn(easing) {
-		easing = Smart.Animation.Easing.from(easing);
+		easing = Easing.from(easing);
 		return function _easeIn_(position) {
 			if (position <= 0) {
 				return 0;
@@ -72,7 +74,7 @@ Smart.Animation.Easing = {
 		};
 	},
 	easeOut(easing) {
-		easing = Smart.Animation.Easing.from(easing);
+		easing = Easing.from(easing);
 		return function _easeOut_(position) {
 			if (position <= 0) {
 				return 0;
@@ -95,7 +97,7 @@ Smart.Animation.Easing = {
 		if (typeof easing === 'function') {
 			return easing;
 		} else {
-			return Smart.Animation.Easing[easing];
+			return Easing[easing];
 		}
 	},
 

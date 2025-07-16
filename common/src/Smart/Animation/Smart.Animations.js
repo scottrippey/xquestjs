@@ -1,12 +1,15 @@
-Smart.Animations = Smart.Class({
+import { Class } from '../Smart.Class.js';
+import { Animation } from './Smart.Animation.js';
+
+export const Animations = Class({
 	/**
 	 * Adds or creates an animation to the list.
 	 *
-	 * @param {Smart.Animation} [animation]
-	 * @returns {Smart.Animation}
+	 * @param {Animation} [animation]
+	 * @returns {Animation}
 	 */
 	addAnimation(animation) {
-		if (!animation) animation = new Smart.Animation();
+		if (!animation) animation = new Animation();
 		if (!this.animations)
 			this.animations = [ animation ];
 		else

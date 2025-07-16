@@ -1,8 +1,10 @@
+import { Color } from '../Smart.Color.js';
+
 /**
  * Interpolate between numbers, colors, points, and shapes.
  * Does so as efficiently as possible, by pre-processing the interpolation
  */
-Smart.Interpolate = {
+export const Interpolate = {
 	/**
 	 * Determines the type of the values, and interpolates between them
 	 * @param {Number|Color|Point|Array} from
@@ -14,16 +16,16 @@ Smart.Interpolate = {
 		if (fromType !== typeof to) return null;
 
 		if (fromType === 'number')
-			return Smart.Interpolate.numbers(from, to);
+			return Interpolate.numbers(from, to);
 
 		if (fromType === 'string')
-			return Smart.Interpolate.colors(from, to);
+			return Interpolate.colors(from, to);
 
 		if (fromType === 'object') {
 			if (typeof fromType.length === 'number')
-				return Smart.Interpolate.arrays(from, to);
+				return Interpolate.arrays(from, to);
 			if ('x' in fromType && 'y' in fromType)
-				return Smart.Interpolate.points(from, to);
+				return Interpolate.points(from, to);
 		}
 
 	},
@@ -46,7 +48,6 @@ Smart.Interpolate = {
 			return from + pct * difference;
 		};
 	},
-
 
 	/**
 	 * @type Point
@@ -73,7 +74,6 @@ Smart.Interpolate = {
 		};
 	},
 
-
 	/**
 	 * Interpolates between two colors.
 	 * @param {String} from
@@ -87,25 +87,24 @@ Smart.Interpolate = {
 		 * @returns {String}
 		 */
 
-		var fromHSL = Smart.Color.parseHSL(from);
+		var fromHSL = Color.parseHSL(from);
 		if (fromHSL) {
-			var toHSL = Smart.Color.parseHSL(to);
-			var interpolateHSL = Smart.Interpolate.arrays(fromHSL, toHSL);
+			var toHSL = Color.parseHSL(to);
+			var interpolateHSL = Interpolate.arrays(fromHSL, toHSL);
 			return function(pct) {
-				return Smart.Color.toHSL(interpolateHSL(pct));
+				return Color.toHSL(interpolateHSL(pct));
 			};
 		}
-		var fromRGB = Smart.Color.parseRGB(from);
+		var fromRGB = Color.parseRGB(from);
 		if (fromRGB) {
-			var toRGB = Smart.Color.parseRGB(to);
-			var interpolateRGB = Smart.Interpolate.arrays(fromRGB, toRGB);
+			var toRGB = Color.parseRGB(to);
+			var interpolateRGB = Interpolate.arrays(fromRGB, toRGB);
 			return function(pct) {
-				return Smart.Color.toRGB(interpolateRGB(pct));
+				return Color.toRGB(interpolateRGB(pct));
 			};
 		}
 		return null;
 	},
-
 
 	/**
 	 * Interpolates all numbers between two arrays.
@@ -118,7 +117,7 @@ Smart.Interpolate = {
 		var interpolate = new Array(length);
 		var i = length;
 		while (i--) {
-			interpolate[i] = Smart.Interpolate.from(from[i], to[i]);
+			interpolate[i] = Interpolate.from(from[i], to[i]);
 		}
 		/**
 		 * @callback interpolateArrays
@@ -134,7 +133,6 @@ Smart.Interpolate = {
 			return results;
 		};
 	},
-
 
 	/**
 	 * Interpolates smoothly between keyframes.
@@ -182,4 +180,3 @@ Smart.Interpolate = {
 	}
 
 };
-

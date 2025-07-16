@@ -1,12 +1,14 @@
+import { Animation } from './Smart.Animation.js';
+
 /**
  * Animation Tweens
  */
-_.extend(Smart.Animation.prototype, {
+Object.assign(Animation.prototype, {
 	/**
 	 * Specifies the duration of the animation.
 	 * Animation will stop after the duration.
 	 * @param {Number} duration
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	duration(duration) {
 		return this.frame(function _duration_(animEvent) {
@@ -24,7 +26,7 @@ _.extend(Smart.Animation.prototype, {
 	 *
 	 * @param {Number} duration
 	 * @param {Number} [maxLoops] - defaults to Number.MAX_VALUE
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	loop(duration, maxLoops) {
 		if (maxLoops === undefined)
@@ -51,7 +53,7 @@ _.extend(Smart.Animation.prototype, {
 	 * Specifies the duration of the animation.
 	 * Animation will continue after the duration.
 	 * @param {Number} duration
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	continuous(duration) {
 		return this.frame(function _continuous_(animEvent) {
@@ -63,7 +65,7 @@ _.extend(Smart.Animation.prototype, {
 	/**
 	 * Waits the duration before starting animation.
 	 * @param {Number} duration
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	delay(duration) {
 		return this.frame(function _delay_(animEvent) {
@@ -79,7 +81,7 @@ _.extend(Smart.Animation.prototype, {
 	/**
 	 * Stores the current position, so it can be restored later.
 	 * This allows for multiple synchronized animations.
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	savePosition() {
 		return this.frame(function _savePosition_(animEvent) {
@@ -90,7 +92,7 @@ _.extend(Smart.Animation.prototype, {
 	/**
 	 * Restores the saved position.
 	 * This allows for multiple synchronized animations.
-	 * @returns {Smart.Animation} this
+	 * @returns {Animation} this
 	 */
 	restorePosition() {
 		return this.frame(function _restorePosition_(animEvent) {
