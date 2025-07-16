@@ -1,4 +1,5 @@
 import { Class } from "@/common/src/Smart/Smart.Class";
+import { KeyMapper } from "../player/PlayerInputKeyboard.js";
 
 const menuKeyMap = {
   up: XQuestGame.MenuSceneInputs.menuUp,
@@ -19,7 +20,7 @@ export const MenuInputKeyboard = Class({
     this.keyMapper.setKeyMap(menuKeyMap);
   },
   _setupKeyMap() {
-    this.keyMapper = new XQuestInput.KeyMapper(this.element, this._onActionDown.bind(this));
+    this.keyMapper = new KeyMapper(this.element, this._onActionDown.bind(this));
   },
   _onActionDown(actionName) {
     this.actionsQueue.push(actionName);

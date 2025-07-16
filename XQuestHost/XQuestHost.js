@@ -1,5 +1,13 @@
 import { Class } from "@/common/src/Smart/Smart.Class";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable";
+import {
+  PlayerInputGamepad,
+  createGamepadInput,
+} from "../XQuestInput/player/PlayerInputGamepad.js";
+import { MenuInputKeyboard } from "../XQuestInput/menus/MenuInputKeyboard.js";
+import { PlayerInputKeyboard, KeyMapper } from "../XQuestInput/player/PlayerInputKeyboard.js";
+import { PlayerInputMouse } from "../XQuestInput/player/PlayerInputMouse.js";
+import { PlayerInputTouch } from "../XQuestInput/player/PlayerInputTouch.js";
 
 XQuestGame.XQuestHost = Class(new Disposable(), {
   initialize: function XQuestHost(canvas) {
@@ -122,7 +130,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
   },
 
   _setupGamepad() {
-    this.gamepadInput = XQuestInput.PlayerInputGamepad.createGamepadInput() || null;
+    this.gamepadInput = createGamepadInput() || null;
     if (this.gamepadInput) {
       this.onDispose(() => {
         this.gamepadInput.dispose();
@@ -148,18 +156,18 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
     });
   },
   _addMenuInputs(menuScene) {
-    menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard(null));
+    menuScene.addSceneItem(new MenuInputKeyboard(null));
     if (this.gamepadInput) {
       menuScene.addSceneItem(this.gamepadInput);
     }
   },
   _addPlayerInputs(arcadeGame) {
-    arcadeGame.addSceneItem(new XQuestInput.PlayerInputKeyboard(arcadeGame, null, this.settings));
+    arcadeGame.addSceneItem(new PlayerInputKeyboard(arcadeGame, null, this.settings));
     arcadeGame.addSceneItem(
-      new XQuestInput.PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings),
+      new PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings),
     );
     arcadeGame.addSceneItem(
-      new XQuestInput.PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings),
+      new PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings),
     );
     if (this.gamepadInput) {
       arcadeGame.addSceneItem(this.gamepadInput);
