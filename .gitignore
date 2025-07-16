@@ -4,3 +4,6 @@ build/node_modules
 
 # IDE
 .idea
+
+
+node_modules
