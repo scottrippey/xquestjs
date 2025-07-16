@@ -1,4 +1,9 @@
-XQuestGame.Player = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { Physics } from '../../../common/src/Smart/Smart.Physics.js';
+import { Point } from '../../../common/src/Smart/Smart.Point.js';
+import { Animation } from '../../../common/src/Smart/Animation/Smart.Animation.js';
+
+XQuestGame.Player = Class({
 	location: null,
 	radius: null,
 
@@ -47,8 +52,8 @@ XQuestGame.Player = Smart.Class({
 			if (!isSameDirectionY)
 				acceleration.y *= neutralizingFactor;
 
-			Smart.Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
-			Smart.Physics.applyAccelerationToVelocity(this.velocity, acceleration);
+			Physics.applyAcceleration(this.playerGraphics, acceleration, tickEvent.deltaSeconds);
+			Physics.applyAccelerationToVelocity(this.velocity, acceleration);
 		}
 
 		this.engaged = inputState.engaged;
@@ -110,7 +115,7 @@ XQuestGame.Player = Smart.Class({
 	},
 	_movePlayer(tickEvent) {
 
-		Smart.Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
+		Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 
 		if (!this.playerActive) return;
 
@@ -119,7 +124,7 @@ XQuestGame.Player = Smart.Class({
 //			Physics.applyAccelerationToVelocity(this.velocity, this.inputResults.acceleration);
 //		}
 		if (!this.engaged) {
-			Smart.Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
+			Physics.applyFrictionToVelocity(this.velocity, Balance.player.looseFriction, tickEvent.deltaSeconds);
 		}
 
 		var wallCollision = this.game.levelGraphics.levelCollision(this.location, this.radius);
@@ -129,11 +134,11 @@ XQuestGame.Player = Smart.Class({
 					this.cancelVelocity();
 					this.game.levelUp();
 				} else if (wallCollision.touchingGate) {
-					Smart.Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
+					Physics.bounceOffPoint(this.location, this.velocity, wallCollision.touchingGate, this.radius, Balance.player.bounceDampening);
 				}
 			} else {
 				if (this.game.activePowerups.invincible) {
-					Smart.Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
+					Physics.bounceOffWall(wallCollision, this.location, this.velocity, Balance.player.bounceDampening);
 				} else {
 					this.game.killPlayer();
 				}
@@ -167,12 +172,12 @@ XQuestGame.Player = Smart.Class({
 		this.playerActive = show;
 		if (show) {
 			this.playerGraphics.restorePlayerGraphics();
-			this.game.gfx.addAnimation(new Smart.Animation()
+			this.game.gfx.addAnimation(new Animation()
 				.duration(1).easeOut()
 				.scale(this.playerGraphics, [0, 1])
 			).update(0);
 		} else {
-			this.game.gfx.addAnimation(new Smart.Animation()
+			this.game.gfx.addAnimation(new Animation()
 				.duration(0.5).easeOut()
 				.scale(this.playerGraphics, [1, 0])
 				.queue(() => {
@@ -183,6 +188,6 @@ XQuestGame.Player = Smart.Class({
 	},
 
 	getKickBack(enemy, distance) {
-		return Smart.Point.multiply(this.velocity, Balance.player.kickBack);
+		return Point.multiply(this.velocity, Balance.player.kickBack);
 	}
 });

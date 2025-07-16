@@ -1,4 +1,6 @@
-XQuestGame.XQuestHost.Settings = Smart.Class({
+import { Class } from '../../common/src/Smart/Smart.Class.js';
+
+XQuestGame.XQuestHost.Settings = Class({
 	defaultSettings: {
 		mouseSettings: {
 			mouseSensitivity: 5,

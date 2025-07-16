@@ -1,5 +1,7 @@
-(function init_BaseMenu() {
-	XQuestGame.BaseMenu = Smart.Class(new Smart.Events(), {
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { Events } from '../../../common/src/Smart/Smart.Events.js';
+
+XQuestGame.BaseMenu = Class(new Events(), {
 		initialize: function BaseMenu(menuScene) {
 			if (menuScene)
 				this.BaseMenu_initialize(menuScene);
@@ -198,4 +200,3 @@
 
 
 	});
-})();

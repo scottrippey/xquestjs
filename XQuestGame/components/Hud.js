@@ -1,4 +1,6 @@
-XQuestGame.Hud = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+
+XQuestGame.Hud = Class({
 	initialize: function Hud(game) {
 		this.game = game;
 		this._setupGraphics();

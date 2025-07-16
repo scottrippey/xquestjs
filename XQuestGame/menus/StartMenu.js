@@ -1,8 +1,9 @@
-(() => {
-	var MenuEvents = XQuestGame.MenuEvents;
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { BaseMenu } from './BaseMenu.js';
 
+var MenuEvents = XQuestGame.MenuEvents;
 
-	XQuestGame.StartMenu = Smart.Class(new XQuestGame.BaseMenu(), {
+XQuestGame.StartMenu = Class(new BaseMenu(), {
 		getRows() {
 			var xQuestLogo = this._createLogo();
 			return [
@@ -71,5 +72,3 @@
 			}
 		}
 	});
-
-})();
