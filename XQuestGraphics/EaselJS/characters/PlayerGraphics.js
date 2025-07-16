@@ -1,6 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Drawing } from "../utils/Drawing.js";
 
-export const PlayerGraphics = Class(new EaselJSGraphics.Drawing(), {
+export const PlayerGraphics = Class(new Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.player;
     this.visibleRadius = G.radius;

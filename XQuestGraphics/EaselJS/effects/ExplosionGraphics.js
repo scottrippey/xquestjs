@@ -1,5 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
+import { Drawing } from "../utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -16,7 +17,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const ExplosionGraphic = Class(new EaselJSGraphics.Drawing(), {
+export const ExplosionGraphic = Class(new Drawing(), {
   setup(position, velocity, explosionOptions) {
     this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 

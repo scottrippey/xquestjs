@@ -1,5 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Color } from "@/common/src/Smart/Smart.Color.js";
+import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 
 Balance.onUpdate((mode) => {
   const green = "hsl(100, 100%, 50%)";
@@ -28,7 +29,7 @@ Balance.onUpdate((mode) => {
   });
 });
 
-EaselJSGraphics.SlugGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+export const SlugGraphics = Class(new BaseEnemyGraphics(), {
   setup() {
     const G = Graphics.enemies.slug;
     this.visibleRadius = G.radius;

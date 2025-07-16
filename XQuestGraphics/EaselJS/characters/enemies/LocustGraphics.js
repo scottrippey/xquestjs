@@ -1,5 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
+import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 
 Balance.onUpdate((mode) => {
   const outerRadius = Balance.enemies.locust.radius;
@@ -32,7 +33,7 @@ Balance.onUpdate((mode) => {
   });
 });
 
-EaselJSGraphics.LocustGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+export const LocustGraphics = Class(new BaseEnemyGraphics(), {
   setup() {
     const G = Graphics.enemies.locust;
     this.visibleRadius = G.visibleRadius;

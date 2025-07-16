@@ -1,6 +1,24 @@
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animations } from "@/common/src/Smart/Animation/Smart.Animations.js";
+import { TextGraphic } from "./effects/TextGraphics.js";
+import { PauseOverlay } from "./menus/PauseOverlay.js";
+import { BackgroundGraphics } from "./game/BackgroundGraphics.js";
+import { LevelGraphics } from "./game/LevelGraphics.js";
+import { PlayerGraphics } from "./characters/PlayerGraphics.js";
+import { BulletsGraphics } from "./effects/BulletsGraphics.js";
+import { SlugGraphics } from "./characters/enemies/SlugGraphics.js";
+import { LocustGraphics } from "./characters/enemies/LocustGraphics.js";
+import { MantisGraphics } from "./characters/enemies/MantisGraphics.js";
+import { CrystalGraphic } from "./game/CrystalGraphic.js";
+import { PowerCrystalGraphic } from "./game/PowerCrystalGraphic.js";
+import { BombCrystalGraphic } from "./game/BombCrystalGraphic.js";
+import { BombGraphic } from "./game/BombGraphic.js";
+import { ExplosionGraphic } from "./effects/ExplosionGraphics.js";
+import { HudOverlay } from "./hud/HudOverlay.js";
+import { HudPauseButton } from "./hud/HudPauseButton.js";
+import { MenuButton } from "./menus/MenuButton.js";
+import { XQuestLogoGraphic } from "./menus/XQuestLogoGraphic.js";
 
 export const EaselJSGraphics = Class({
   initialize: function EaselJSGraphics(canvas) {
@@ -47,7 +65,7 @@ export const EaselJSGraphics = Class({
   showBackgroundStars(visible) {
     if (visible) {
       if (!this.backgroundStars) {
-        this.backgroundStars = new EaselJSGraphics.BackgroundGraphics();
+        this.backgroundStars = new BackgroundGraphics();
       }
       this.layers.background.addChild(this.backgroundStars);
     } else {
@@ -180,7 +198,7 @@ export const EaselJSGraphics = Class({
   },
 
   createLevelGraphics() {
-    const levelGraphics = new EaselJSGraphics.LevelGraphics();
+    const levelGraphics = new LevelGraphics();
     this.layers.background.addChild(levelGraphics);
     levelGraphics.onDispose(() => {
       this.layers.background.removeChild(levelGraphics);
@@ -189,13 +207,13 @@ export const EaselJSGraphics = Class({
   },
 
   createPlayerGraphics() {
-    const playerGraphics = new EaselJSGraphics.PlayerGraphics();
+    const playerGraphics = new PlayerGraphics();
     this.layers.characters.addChild(playerGraphics);
     return playerGraphics;
   },
 
   createPlayerHUDIcon() {
-    const playerGraphics = new EaselJSGraphics.PlayerGraphics();
+    const playerGraphics = new PlayerGraphics();
     const scale = 0.7;
     playerGraphics.scaleTo(scale);
     playerGraphics.visibleRadius *= scale;
@@ -204,7 +222,7 @@ export const EaselJSGraphics = Class({
   },
 
   createBulletsGraphics() {
-    const bulletsGraphics = new EaselJSGraphics.BulletsGraphics();
+    const bulletsGraphics = new BulletsGraphics();
     this.layers.objects.addChild(bulletsGraphics);
     bulletsGraphics.onDispose(() => {
       this.layers.objects.removeChild(bulletsGraphics);
@@ -216,13 +234,13 @@ export const EaselJSGraphics = Class({
     let enemyGraphics = null;
     switch (enemyName) {
       case "Slug":
-        enemyGraphics = new EaselJSGraphics.SlugGraphics();
+        enemyGraphics = new SlugGraphics();
         break;
       case "Locust":
-        enemyGraphics = new EaselJSGraphics.LocustGraphics();
+        enemyGraphics = new LocustGraphics();
         break;
       case "Mantis":
-        enemyGraphics = new EaselJSGraphics.MantisGraphics();
+        enemyGraphics = new MantisGraphics();
         break;
     }
 
@@ -237,7 +255,7 @@ export const EaselJSGraphics = Class({
   },
 
   createCrystalGraphic() {
-    const crystal = new EaselJSGraphics.CrystalGraphic();
+    const crystal = new CrystalGraphic();
     this.layers.objects.addChild(crystal);
     crystal.onDispose(() => {
       this.layers.objects.removeChild(crystal);
@@ -246,7 +264,7 @@ export const EaselJSGraphics = Class({
   },
 
   createCrystalHUDIcon() {
-    const crystal = new EaselJSGraphics.CrystalGraphic();
+    const crystal = new CrystalGraphic();
     const scale = 0.7;
     crystal.scaleTo(scale);
     crystal.visibleRadius *= scale;
@@ -255,7 +273,7 @@ export const EaselJSGraphics = Class({
   },
 
   createPowerCrystalGraphic() {
-    const powerCrystal = new EaselJSGraphics.PowerCrystalGraphic();
+    const powerCrystal = new PowerCrystalGraphic();
     this.layers.characters.addChild(powerCrystal);
     powerCrystal.onDispose(() => {
       this.layers.characters.removeChild(powerCrystal);
@@ -264,7 +282,7 @@ export const EaselJSGraphics = Class({
   },
 
   createBombCrystalGraphic() {
-    const bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
+    const bombCrystal = new BombCrystalGraphic();
     this.layers.objects.addChild(bombCrystal);
     bombCrystal.onDispose(() => {
       this.layers.objects.removeChild(bombCrystal);
@@ -273,7 +291,7 @@ export const EaselJSGraphics = Class({
   },
 
   createBombCrystalHUDIcon() {
-    const bombCrystal = new EaselJSGraphics.BombCrystalGraphic();
+    const bombCrystal = new BombCrystalGraphic();
     const scale = 0.7;
     bombCrystal.scaleTo(scale);
     bombCrystal.visibleRadius *= scale;
@@ -285,7 +303,7 @@ export const EaselJSGraphics = Class({
   },
 
   createBombGraphic() {
-    const bomb = new EaselJSGraphics.BombGraphic();
+    const bomb = new BombGraphic();
     this.layers.objects.addChild(bomb);
     bomb.onDispose(() => {
       this.layers.objects.removeChild(bomb);
@@ -294,11 +312,12 @@ export const EaselJSGraphics = Class({
   },
 
   createExplosion(position, velocity, explosionOptions) {
-    const explosion = new EaselJSGraphics.ExplosionGraphic(position, velocity, explosionOptions);
+    const explosion = new ExplosionGraphic(position, velocity, explosionOptions);
     this.layers.objects.addChild(explosion);
     explosion.onDispose(() => {
       this.layers.objects.removeChild(explosion);
     });
+    return explosion;
   },
 
   addAnimation(animation) {
@@ -306,7 +325,7 @@ export const EaselJSGraphics = Class({
   },
 
   addText(text, textStyle) {
-    const textGfx = new EaselJSGraphics.TextGraphic();
+    const textGfx = new TextGraphic();
     textGfx.setGfx(this);
     textGfx.setText(text, textStyle);
 
@@ -323,7 +342,7 @@ export const EaselJSGraphics = Class({
   },
 
   createHUDOverlay() {
-    const hudOverlay = new EaselJSGraphics.HudGraphics.HudOverlay();
+    const hudOverlay = new HudOverlay();
     this.layers.hud.addChild(hudOverlay);
     hudOverlay.onDispose(() => {
       this.layers.hud.removeChild(hudOverlay);
@@ -332,7 +351,7 @@ export const EaselJSGraphics = Class({
   },
 
   createPauseButtonHUD() {
-    const pauseButton = new EaselJSGraphics.HudGraphics.HudPauseButton(this);
+    const pauseButton = new HudPauseButton(this);
     this.layers.hud.addChild(pauseButton);
     pauseButton.onDispose(() => {
       this.layers.hud.removeChild(pauseButton);
@@ -341,7 +360,7 @@ export const EaselJSGraphics = Class({
   },
 
   createPauseOverlay() {
-    const pauseOverlay = new EaselJSGraphics.PauseOverlay(this);
+    const pauseOverlay = new PauseOverlay(this);
     this.layers.background.addChild(pauseOverlay);
     pauseOverlay.onDispose(() => {
       this.layers.background.removeChild(pauseOverlay);
@@ -350,24 +369,22 @@ export const EaselJSGraphics = Class({
   },
 
   createMenuButton(text) {
-    const buttonGfx = new EaselJSGraphics.MenuGraphics.MenuButton(this);
+    const buttonGfx = new MenuButton(this);
     buttonGfx.setText(text);
     buttonGfx.addButtonEvents = function (events) {
       if (events.invoke) this.addEventListener("click", events.invoke);
       if (events.hoverEnter) this.addEventListener("mouseover", events.hoverEnter);
       if (events.hoverLeave) this.addEventListener("mouseout", events.hoverLeave);
     };
-
     this.layers.hud.addChild(buttonGfx);
     buttonGfx.onDispose(() => {
       this.layers.hud.removeChild(buttonGfx);
     });
-
     return buttonGfx;
   },
 
   createXQuestLogoGraphic() {
-    const introGraphics = new EaselJSGraphics.XQuestLogoGraphic(this);
+    const introGraphics = new XQuestLogoGraphic(this);
     this.layers.hud.addChild(introGraphics);
     introGraphics.onDispose(() => {
       this.layers.hud.removeChild(introGraphics);

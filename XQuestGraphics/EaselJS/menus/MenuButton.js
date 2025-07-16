@@ -1,6 +1,7 @@
 import { DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
 import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Drawing } from "@/XQuestGraphics/EaselJS/utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -60,7 +61,7 @@ export const MenuButton = Class(new createjs.Container(), {
   },
 });
 
-export const MenuButtonBackground = Class(new EaselJSGraphics.Drawing(), {
+export const MenuButtonBackground = Class(new Drawing(), {
   isActive: false,
   drawEffects(drawing, tickEvent) {
     if (!this.shape || this.nextChange <= tickEvent.time) {

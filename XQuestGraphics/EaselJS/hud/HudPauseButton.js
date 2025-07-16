@@ -1,4 +1,5 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { TextGraphic } from "@/XQuestGraphics/EaselJS/effects/TextGraphics.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -78,7 +79,7 @@ export const HudPauseButton = Class(new HudButton(), {
   },
   _createText() {
     const pauseButton = Graphics.hudGraphics.pauseButton;
-    const pauseText = new EaselJSGraphics.TextGraphic();
+    const pauseText = new TextGraphic();
     pauseText.setText("Pause", "hudText");
 
     this.addChild(pauseText);

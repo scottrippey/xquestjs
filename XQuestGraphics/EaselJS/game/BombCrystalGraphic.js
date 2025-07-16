@@ -1,6 +1,5 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
-import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 
 export const BombCrystalGraphic = Class(new createjs.Shape(), {
   initialize: function BombCrystalGraphic() {

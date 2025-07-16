@@ -1,5 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
+import { Drawing } from "../utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -47,7 +48,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const TextGraphic = Class(new createjs.Text(), {
+export const TextGraphic = Class(new Drawing(), {
   setGfx(gfx) {
     this.gfx = gfx;
     this.animation = gfx.addAnimation(new Animation());

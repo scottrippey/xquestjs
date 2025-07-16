@@ -1,5 +1,5 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
-import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
+import { Drawing } from "../utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -120,7 +120,7 @@ export const XQuestLogoGraphic = Class(new createjs.Container(), {
     return this.animation;
   },
 });
-export const X = Class(new EaselJSGraphics.Drawing(), {
+export const X = Class(new Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -130,7 +130,7 @@ export const X = Class(new EaselJSGraphics.Drawing(), {
   },
 });
 
-export const Q = Class(new EaselJSGraphics.Drawing(), {
+export const Q = Class(new Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -148,7 +148,7 @@ export const Q = Class(new EaselJSGraphics.Drawing(), {
   },
 });
 
-export const QTail = Class(new EaselJSGraphics.Drawing(), {
+export const QTail = Class(new Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -164,7 +164,7 @@ export const QTail = Class(new EaselJSGraphics.Drawing(), {
   },
 });
 
-export const UEST = Class(new EaselJSGraphics.Drawing(), {
+export const UEST = Class(new Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
 

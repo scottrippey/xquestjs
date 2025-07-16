@@ -1,5 +1,5 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
-import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
+import { Drawing } from "../utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -12,7 +12,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const PauseOverlay = Class(new EaselJSGraphics.Drawing(), {
+export const PauseOverlay = Class(new Drawing(), {
   setup(gfx) {
     this.gfx = gfx;
   },

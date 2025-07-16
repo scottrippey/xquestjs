@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
-import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
+import { Drawing } from "../utils/Drawing.js";
 
-export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
+export const BackgroundGraphicsBase = Class(new Drawing(), {
   BackgroundGraphicsBase_initialize() {
     const bounds = Balance.level.bounds;
     this._size = {

@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 
-EaselJSGraphics.BaseEnemyGraphics = Class(new EaselJSGraphics.Drawing(), {
+export const BaseEnemyGraphics = Class(new Drawing(), {
   drawCircleCircle(drawing, G) {
     const outerRadius = G.outerRadius;
     const outerStyle = G.outerStyle;
