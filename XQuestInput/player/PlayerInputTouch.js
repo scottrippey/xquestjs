@@ -123,7 +123,7 @@
 
   function addEventListeners(element, events) {
     for (var eventName in events) {
-      if (!events.hasOwnProperty(eventName)) continue;
+      if (!Object.hasOwn(events, eventName)) continue;
       element.addEventListener(eventName, events[eventName]);
     }
   }

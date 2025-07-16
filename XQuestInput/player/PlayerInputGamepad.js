@@ -184,7 +184,7 @@
 
       var menuActions = [];
       for (var actionName in currentActionValues) {
-        if (!currentActionValues.hasOwnProperty(actionName)) continue;
+        if (!Object.hasOwn(currentActionValues, actionName)) continue;
         var previousValue = previousActionValues[actionName];
         var currentValue = currentActionValues[actionName];
 
@@ -214,7 +214,7 @@
       var currentReading = this.xboxGamepad.getCurrentReading();
       var gamepadActions = {};
       for (var gamepadButtonName in actionsMap) {
-        if (!actionsMap.hasOwnProperty(gamepadButtonName)) continue;
+        if (!Object.hasOwn(actionsMap, gamepadButtonName)) continue;
 
         var actionName = actionsMap[gamepadButtonName];
         var readingValue = currentReading[gamepadButtonName];

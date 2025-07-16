@@ -1,6 +1,6 @@
 export function Class(base, implement) {
   if (!implement) implement = base;
-  var constructor = implement.hasOwnProperty("initialize") && implement["initialize"];
+  var constructor = Object.hasOwn(implement, "initialize") && implement["initialize"];
   if (!constructor) {
     constructor = function Class() {
       if (this.initialize) this.initialize.apply(this, arguments);
