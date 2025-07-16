@@ -1,4 +1,7 @@
-XQuestGame.CrystalFactory = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { Physics } from '../../../common/src/Smart/Smart.Physics.js';
+
+XQuestGame.CrystalFactory = Class({
 	initialize: function CrystalFactory(game) {
 		this.game = game;
 		this.game.addSceneItem(this);
@@ -35,7 +38,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 			this.crystals.push(crystal);
 		}
 
-		Smart.Physics.sortByLocation(this.crystals);
+		Physics.sortByLocation(this.crystals);
 
 
 		if (this.crystals.length === 0) {
@@ -55,7 +58,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 		var maxDistance = maxRadius + Balance.crystals.radius;
 
 		var crystalsGathered = 0;
-		Smart.Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, (crystal, point, crystalIndex, pi, distance) => {
+		Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, (crystal, point, crystalIndex, pi, distance) => {
 			crystal.gatherCrystal(this.game.gfx, this.game.player.location);
 			this.crystals.splice(crystalIndex, 1);
 			crystalsGathered++;
@@ -70,7 +73,7 @@ XQuestGame.CrystalFactory = Smart.Class({
 	gatherClosestCrystal(location) {
 		if (!this.crystals.length) return;
 
-		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals);
+		var crystalIndex = Physics.findClosestPoint(location, this.crystals);
 		var crystal = this.crystals[crystalIndex];
 
 		crystal.gatherCrystal(this.game.gfx, this.game.player.location);

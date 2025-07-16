@@ -1,4 +1,8 @@
-XQuestGame.EnemyFactory = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { Physics } from '../../../common/src/Smart/Smart.Physics.js';
+import { Animation } from '../../../common/src/Smart/Animation/Smart.Animation.js';
+
+XQuestGame.EnemyFactory = Class({
 	initialize: function EnemyFactory(game) {
 		this.game = game;
 		this.enemies = [];
@@ -12,7 +16,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 			this._calculateNextEnemySpawn(tickEvent.runTime);
 		}
 		if (this.enemies.length >= 2) {
-			Smart.Physics.sortByLocation(this.enemies);
+			Physics.sortByLocation(this.enemies);
 		}
 	},
 
@@ -42,7 +46,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 
 		var spawnInfo = this.getRandomSpawn(enemy.radius);
 		enemy.spawn(spawnInfo);
-		this.game.gfx.addAnimation(new Smart.Animation()
+		this.game.gfx.addAnimation(new Animation()
 			.duration(1).easeOut('quint')
 			.scale(enemy.location, [0, 1])
 		).update(0);
@@ -64,7 +68,7 @@ XQuestGame.EnemyFactory = Smart.Class({
 	killEnemiesOnCollision(sortedItems, maxItemRadius, collisionCallback) {
 		var enemies = this.enemies;
 		var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
-		Smart.Physics.detectCollisions(enemies, sortedItems, maxDistance, (enemy, item, ei, ii, distance) => {
+		Physics.detectCollisions(enemies, sortedItems, maxDistance, (enemy, item, ei, ii, distance) => {
 			if (enemy.isDead) return;
 
 			var theseSpecificItemsDidCollide = (distance <= enemy.radius + item.radius);

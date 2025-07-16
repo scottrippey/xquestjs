@@ -1,4 +1,6 @@
-XQuestGame.ActivePowerups = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+
+XQuestGame.ActivePowerups = Class({
 	initialize: function ActivePowerups(game) {
 		this.game = game;
 		this.game.addSceneItem(this);

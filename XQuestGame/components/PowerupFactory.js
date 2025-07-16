@@ -1,4 +1,7 @@
-XQuestGame.PowerupFactory = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { Physics } from '../../../common/src/Smart/Smart.Physics.js';
+
+XQuestGame.PowerupFactory = Class({
 	initialize: function PowerupFactory(game) {
 		this.game = game;
 		this.game.addSceneItem(this);
@@ -32,7 +35,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 	onAct(tickEvent) {
 		if (this.powerCrystals.length >= 2) {
-			Smart.Physics.sortByLocation(this.powerCrystals);
+			Physics.sortByLocation(this.powerCrystals);
 		}
 
 		// Check for bullet-collisions:
@@ -43,12 +46,12 @@ XQuestGame.PowerupFactory = Smart.Class({
 
 		if (this.bombCrystals.length) {
 			if (this.bombCrystals.length >= 2) {
-				Smart.Physics.sortByLocation(this.bombCrystals);
+				Physics.sortByLocation(this.bombCrystals);
 			}
 
 			var maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
 
-			Smart.Physics.detectCollisions(this.bombCrystals, [ this.game.player ], maxDistance, (bombCrystal, player, bombIndex, pi, distance) => {
+			Physics.detectCollisions(this.bombCrystals, [ this.game.player ], maxDistance, (bombCrystal, player, bombIndex, pi, distance) => {
 				this.bombCrystals.splice(bombIndex, 1);
 				bombCrystal.gatherBombCrystal();
 				this.game.stats.bombs++;
@@ -104,7 +107,7 @@ XQuestGame.PowerupFactory = Smart.Class({
 	_gatherOnCollision(collisionPoints, maxRadius) {
 		var maxDistance = maxRadius + Balance.powerCrystals.radius;
 
-		Smart.Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, (powerCrystal, point, crystalIndex, pi, distance) => {
+		Physics.detectCollisions(this.powerCrystals, collisionPoints, maxDistance, (powerCrystal, point, crystalIndex, pi, distance) => {
 			this.powerCrystals.splice(crystalIndex, 1);
 			powerCrystal.gatherPowerCrystal();
 			var powerupName = this._nextPowerup();

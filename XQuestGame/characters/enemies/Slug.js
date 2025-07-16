@@ -1,4 +1,7 @@
-XQuestGame.Slug = Smart.Class(new XQuestGame.BaseEnemy(), {
+import { Class } from '../../../../common/src/Smart/Smart.Class.js';
+import { Point } from '../../../../common/src/Smart/Smart.Point.js';
+
+XQuestGame.Slug = Class(new XQuestGame.BaseEnemy(), {
 	initialize: function Slug(game) {
 		var B = Balance.enemies.slug;
 		this.setupBaseEnemyGraphics(game, 'Slug', B.radius);
@@ -22,6 +25,6 @@ XQuestGame.Slug = Smart.Class(new XQuestGame.BaseEnemy(), {
 
 	_changeDirection() {
 		var B = Balance.enemies.slug;
-		this.velocity = Smart.Point.fromAngle(Math.random() * 360, B.speed);
+		this.velocity = Point.fromAngle(Math.random() * 360, B.speed);
 	}
 });

@@ -1,4 +1,8 @@
-XQuestGame.PowerCrystal = Smart.Class({
+import { Class } from '../../../common/src/Smart/Smart.Class.js';
+import { Point } from '../../../common/src/Smart/Smart.Point.js';
+import { Physics } from '../../../common/src/Smart/Smart.Physics.js';
+
+XQuestGame.PowerCrystal = Class({
 	initialize: function PowerCrystal(game) {
 		var B = Balance.powerCrystals;
 		this.game = game;
@@ -16,7 +20,7 @@ XQuestGame.PowerCrystal = Smart.Class({
 
 		this.location.moveTo(spawnInfo.x, spawnInfo.y);
 		this.velocity = { x: B.speed, y: 0 };
-		Smart.Point.rotate(this.velocity, B.spawnAngle());
+		Point.rotate(this.velocity, B.spawnAngle());
 		if (spawnInfo.side === 2) {
 			this.velocity.x *= -1;
 		}
@@ -26,10 +30,10 @@ XQuestGame.PowerCrystal = Smart.Class({
 		var powerCrystal = this;
 
 		// Turn:
-		Smart.Point.rotate(powerCrystal.velocity, powerCrystal.turnSpeed * tickEvent.deltaSeconds);
+		Point.rotate(powerCrystal.velocity, powerCrystal.turnSpeed * tickEvent.deltaSeconds);
 
-		Smart.Physics.applyVelocity(powerCrystal.location, powerCrystal.velocity, tickEvent.deltaSeconds);
-		Smart.Physics.bounceOffWalls(powerCrystal.location, powerCrystal.radius, powerCrystal.velocity, Balance.level.bounds);
+		Physics.applyVelocity(powerCrystal.location, powerCrystal.velocity, tickEvent.deltaSeconds);
+		Physics.bounceOffWalls(powerCrystal.location, powerCrystal.radius, powerCrystal.velocity, Balance.level.bounds);
 
 	},
 
