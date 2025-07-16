@@ -1,7 +1,8 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
+import { BaseEnemy } from "../enemies/BaseEnemy.js";
 
-export const Mantis = Class(new XQuestGame.BaseEnemy(), {
+export const Mantis = Class(new BaseEnemy(), {
   initialize: function Mantis(game) {
     const B = Balance.enemies.mantis;
     this.setupBaseEnemyGraphics(game, "Mantis", B.radius);

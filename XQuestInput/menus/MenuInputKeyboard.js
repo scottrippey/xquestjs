@@ -1,14 +1,15 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { KeyMapper } from "../player/PlayerInputKeyboard.js";
+import { MenuSceneInputs } from "../../XQuestGame/scenes/MenuScene.js";
 
 const menuKeyMap = {
-  up: XQuestGame.MenuSceneInputs.menuUp,
-  down: XQuestGame.MenuSceneInputs.menuDown,
-  left: XQuestGame.MenuSceneInputs.menuLeft,
-  right: XQuestGame.MenuSceneInputs.menuRight,
-  enter: XQuestGame.MenuSceneInputs.menuInvoke,
-  escape: XQuestGame.MenuSceneInputs.menuBack,
-  backspace: XQuestGame.MenuSceneInputs.menuBack,
+  up: MenuSceneInputs.menuUp,
+  down: MenuSceneInputs.menuDown,
+  left: MenuSceneInputs.menuLeft,
+  right: MenuSceneInputs.menuRight,
+  enter: MenuSceneInputs.menuInvoke,
+  escape: MenuSceneInputs.menuBack,
+  backspace: MenuSceneInputs.menuBack,
 };
 
 export const MenuInputKeyboard = Class({

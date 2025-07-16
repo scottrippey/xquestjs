@@ -1,8 +1,9 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { BaseMenu } from "./BaseMenu.js";
+import { CommonMenus } from "./CommonMenus.js";
+import { MenuEvents } from "../scenes/MenuScene.js";
 
-const MenuEvents = XQuestGame.MenuEvents;
-
-export const StartMenu = Class(new XQuestGame.BaseMenu(), {
+export const StartMenu = Class(new BaseMenu(), {
   getRows() {
     const xQuestLogo = this._createLogo();
     return [
@@ -25,7 +26,7 @@ export const StartMenu = Class(new XQuestGame.BaseMenu(), {
     });
   },
   _showGameOptions() {
-    this.menuScene.addMenu(new XQuestGame.CommonMenus.GameOptions(this.menuScene));
+    this.menuScene.addMenu(new CommonMenus.GameOptions(this.menuScene));
   },
 
   menuEnter(isBackNavigation) {

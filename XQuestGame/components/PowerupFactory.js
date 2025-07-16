@@ -1,5 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
+import { PowerCrystal } from "../characters/PowerCrystal.js";
+import { BombCrystal } from "../characters/BombCrystal.js";
 
 export const PowerupFactory = Class({
   initialize: function PowerupFactory(game) {
@@ -65,7 +67,7 @@ export const PowerupFactory = Class({
   },
 
   createPowerCrystal() {
-    const powerCrystal = new XQuestGame.PowerCrystal(this.game);
+    const powerCrystal = new PowerCrystal(this.game);
     const spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
     powerCrystal.spawn(spawnInfo);
     this.powerCrystals.push(powerCrystal);
@@ -149,10 +151,9 @@ export const PowerupFactory = Class({
   },
 
   createBombCrystal() {
-    const bombCrystal = new XQuestGame.BombCrystal(this.game);
+    const bombCrystal = new BombCrystal(this.game);
     const randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
     bombCrystal.spawnBomb(randomSpawnLocation);
-
     this.bombCrystals.push(bombCrystal);
   },
 

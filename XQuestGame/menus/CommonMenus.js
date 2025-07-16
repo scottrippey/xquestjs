@@ -1,9 +1,9 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
-
-const MenuEvents = XQuestGame.MenuEvents;
+import { BaseMenu } from "./BaseMenu.js";
+import { MenuEvents } from "../scenes/MenuScene.js";
 
 export const CommonMenus = {
-  PauseMenu: Class(new XQuestGame.BaseMenu(), {
+  PauseMenu: Class(new BaseMenu(), {
     initialize: function PauseMenu(menuScene) {
       this.BaseMenu_initialize(menuScene);
 
@@ -26,7 +26,7 @@ export const CommonMenus = {
     },
   }),
 
-  GameOptions: Class(new XQuestGame.BaseMenu(), {
+  GameOptions: Class(new BaseMenu(), {
     getRows() {
       return [
         this.createMenuButton("Input Settings", this._showInputSettings.bind(this)),
@@ -37,20 +37,20 @@ export const CommonMenus = {
       ];
     },
     _showInputSettings() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.InputSettings(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.InputSettings(this.menuScene));
     },
     _showGraphicsTest() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.GraphicsTestMenu(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.GraphicsTestMenu(this.menuScene));
     },
     _showDifficultyMenu() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.DifficultySettings(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.DifficultySettings(this.menuScene));
     },
     _showQuitConfirm() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.ConfirmQuitGame(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.ConfirmQuitGame(this.menuScene));
     },
   }),
 
-  InputSettings: Class(new XQuestGame.BaseMenu(), {
+  InputSettings: Class(new BaseMenu(), {
     getRows() {
       return [
         this.createMenuButton("Mouse", this._showMouseSensitivity.bind(this)),
@@ -60,17 +60,17 @@ export const CommonMenus = {
       ];
     },
     _showMouseSensitivity() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.MouseSettings(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.MouseSettings(this.menuScene));
     },
     _showKeyboardSensitivity() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.KeyboardSettings(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.KeyboardSettings(this.menuScene));
     },
     _showTouchSensitivity() {
-      this.menuScene.addMenu(new XQuestGame.CommonMenus.TouchSettings(this.menuScene));
+      this.menuScene.addMenu(new CommonMenus.TouchSettings(this.menuScene));
     },
   }),
 
-  DifficultySettings: Class(new XQuestGame.BaseMenu(), {
+  DifficultySettings: Class(new BaseMenu(), {
     getRows() {
       return [
         this.createMenuButton("Easy", () => {
@@ -89,7 +89,7 @@ export const CommonMenus = {
     },
   }),
 
-  MouseSettings: Class(new XQuestGame.BaseMenu(), {
+  MouseSettings: Class(new BaseMenu(), {
     onMenuLeave() {
       this.menuScene.host.settings.saveSetting("mouseSettings", this.mouseSettings);
     },
@@ -133,7 +133,7 @@ export const CommonMenus = {
     },
   }),
 
-  KeyboardSettings: Class(new XQuestGame.BaseMenu(), {
+  KeyboardSettings: Class(new BaseMenu(), {
     onMenuLeave() {
       this.menuScene.host.settings.saveSetting("keyboardSettings", this.keyboardSettings);
     },
@@ -168,7 +168,7 @@ export const CommonMenus = {
     },
   }),
 
-  TouchSettings: Class(new XQuestGame.BaseMenu(), {
+  TouchSettings: Class(new BaseMenu(), {
     onMenuLeave() {
       this.menuScene.host.settings.saveSetting("touchSettings", this.touchSettings);
     },
@@ -203,7 +203,7 @@ export const CommonMenus = {
     },
   }),
 
-  ConfirmQuitGame: Class(new XQuestGame.BaseMenu(), {
+  ConfirmQuitGame: Class(new BaseMenu(), {
     getRows() {
       const rows = [
         this.createMenuButton(

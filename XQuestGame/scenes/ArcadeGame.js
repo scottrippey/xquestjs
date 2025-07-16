@@ -2,6 +2,16 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Events } from "@/common/src/Smart/Smart.Events.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 import { Keyframes } from "@/common/src/Smart/Animation/Smart.Keyframes.js";
+import { BaseScene } from "./BaseScene.js";
+import { Player } from "../characters/Player.js";
+import { EnemyFactory } from "../components/EnemyFactory.js";
+import { LevelFactory } from "../components/LevelFactory.js";
+import { CrystalFactory } from "../components/CrystalFactory.js";
+import { PowerupFactory } from "../components/PowerupFactory.js";
+import { Projectiles } from "../components/Projectiles.js";
+import { Hud } from "../components/Hud.js";
+import { ActivePowerups } from "../components/ActivePowerups.js";
+import { GameDebugger } from "../components/GameDebugger.js";
 
 const GameEvents = {
   onNewGame: "onNewGame",
@@ -14,7 +24,7 @@ const GameEvents = {
   onGamePaused: "onGamePaused",
 };
 
-export const ArcadeGame = Class(new XQuestGame.BaseScene(), {
+export const ArcadeGame = Class(new BaseScene(), {
   player: null,
   levelGraphics: null,
   activePowerups: null,
@@ -48,36 +58,36 @@ export const ArcadeGame = Class(new XQuestGame.BaseScene(), {
     this.levelGraphics = this.game.gfx.createLevelGraphics();
   },
   _setupPlayer() {
-    this.player = new XQuestGame.Player(this.game);
+    this.player = new Player(this.game);
     this.game.addSceneItem(this.player);
   },
   _setupEnemyFactory() {
-    this.enemyFactory = new XQuestGame.EnemyFactory(this.game);
+    this.enemyFactory = new EnemyFactory(this.game);
     this.addSceneItem(this.enemyFactory);
   },
   _setupLevelFactory() {
-    this.levelFactory = new XQuestGame.LevelFactory(this.game);
+    this.levelFactory = new LevelFactory(this.game);
     this.addSceneItem(this.levelFactory);
   },
   _setupCrystals() {
-    this.crystalFactory = new XQuestGame.CrystalFactory(this.game);
+    this.crystalFactory = new CrystalFactory(this.game);
   },
   _setupPowerCrystals() {
-    this.powerCrystals = new XQuestGame.PowerupFactory(this.game);
+    this.powerCrystals = new PowerupFactory(this.game);
   },
   _setupProjectiles() {
-    this.projectiles = new XQuestGame.Projectiles(this.game);
+    this.projectiles = new Projectiles(this.game);
   },
   _setupHUD() {
-    this.hud = new XQuestGame.Hud(this.game);
+    this.hud = new Hud(this.game);
     this.addSceneItem(this.hud);
   },
   _setupActivePowerups() {
-    this.activePowerups = new XQuestGame.ActivePowerups(this.game);
+    this.activePowerups = new ActivePowerups(this.game);
   },
 
   debug() {
-    const debug = new XQuestGame.GameDebugger(this.game);
+    const debug = new GameDebugger(this.game);
     this.debug = () => debug;
     return this.debug();
   },
@@ -292,7 +302,7 @@ export const ArcadeGame = Class(new XQuestGame.BaseScene(), {
 
 // Add event handler functions to ArcadeGame, so that we don't use addEvent / fireEvent directly
 _.forOwn(GameEvents, (eventName, onEventName) => {
-  XQuestGame.ArcadeGame.prototype[onEventName] = function (eventHandler) {
+  ArcadeGame.prototype[onEventName] = function (eventHandler) {
     this._events.addEvent(eventName, eventHandler);
   };
 });

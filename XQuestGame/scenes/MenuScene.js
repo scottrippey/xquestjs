@@ -1,4 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { BaseScene } from "./BaseScene.js";
+import { StartMenu } from "../menus/StartMenu.js";
+import { CommonMenus } from "../menus/CommonMenus.js";
 
 export const MenuSceneInputs = {
   menuUp: "menuUp",
@@ -16,7 +19,7 @@ export const MenuEvents = {
 
 const MenuSceneEventMap = MenuEvents;
 
-export const MenuScene = Class(new XQuestGame.BaseScene().implementSceneEvents(MenuSceneEventMap), {
+export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuSceneEventMap), {
   initialize: function MenuScene(gfx, host) {
     this.MenuScene_initialize(gfx, host);
   },
@@ -89,11 +92,11 @@ export const MenuScene = Class(new XQuestGame.BaseScene().implementSceneEvents(M
   },
 
   showStartMenu() {
-    const startMenu = new XQuestGame.StartMenu(this.menuScene);
+    const startMenu = new StartMenu(this.menuScene);
     this.addMenu(startMenu);
   },
   showPauseMenu() {
-    const pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
+    const pauseMenu = new CommonMenus.PauseMenu(this.menuScene);
     this.addMenu(pauseMenu);
   },
 });

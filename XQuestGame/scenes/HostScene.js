@@ -1,4 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { BaseScene } from "./BaseScene.js";
+import { MenuScene } from "./MenuScene.js";
+import { ArcadeGame } from "./ArcadeGame.js";
 
 const HostSceneEvents = {
   onMenuCreated: "onMenuCreated",
@@ -6,7 +9,7 @@ const HostSceneEvents = {
   onQuitGame: "onQuitGame",
 };
 
-export const HostScene = Class(new XQuestGame.BaseScene().implementSceneEvents(HostSceneEvents), {
+export const HostScene = Class(new BaseScene().implementSceneEvents(HostSceneEvents), {
   initialize: function HostScene(gfx, settings) {
     this.BaseScene_initialize();
 
@@ -40,14 +43,14 @@ export const HostScene = Class(new XQuestGame.BaseScene().implementSceneEvents(H
   },
   createMenuScene() {
     const gfx = this.gfx.createNewGraphics();
-    const menuScene = new XQuestGame.MenuScene(gfx, this.host);
+    const menuScene = new MenuScene(gfx, this.host);
     this.fireSceneEvent(HostSceneEvents.onMenuCreated, [menuScene]);
 
     return menuScene;
   },
   _startArcadeGame() {
     const gfx = this.gfx.createNewGraphics();
-    const arcadeGame = new XQuestGame.ArcadeGame(gfx, this.host);
+    const arcadeGame = new ArcadeGame(gfx, this.host);
     this.fireSceneEvent(HostSceneEvents.onGameCreated, [arcadeGame]);
     this.setChildScene(arcadeGame);
 

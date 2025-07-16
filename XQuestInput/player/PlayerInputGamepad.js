@@ -1,5 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
+import { MenuSceneInputs } from "@/XQuestGame/scenes/MenuScene.js";
 
 /* Gamepad input for Xbox One */
 
@@ -9,7 +10,7 @@ const UserSettings = {
   analogDownThreshold: 0.6,
   analogUpThreshold: 0.4,
 };
-const MenuActions = XQuestGame.MenuSceneInputs;
+const MenuActions = MenuSceneInputs;
 const MenuActionsAnalogX = "MenuActionsAnalogX";
 const MenuActionsAnalogY = "MenuActionsAnalogY";
 const PlayerActions = {
