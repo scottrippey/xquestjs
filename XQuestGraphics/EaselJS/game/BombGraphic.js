@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 
-EaselJSGraphics.BombGraphic = Class(new createjs.Shape(), {
+export const BombGraphic = Class(new createjs.Shape(), {
   initialize: function BombGraphic() {
     this.location = this;
     this.radius = Balance.player.radius;

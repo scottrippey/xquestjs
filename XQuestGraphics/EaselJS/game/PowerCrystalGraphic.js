@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-EaselJSGraphics.PowerCrystalGraphic = Class(new createjs.Shape(), {
+export const PowerCrystalGraphic = Class(new createjs.Shape(), {
   initialize: function PowerCrystalGraphic() {
     this._setupGraphics();
   },

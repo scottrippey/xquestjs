@@ -3,7 +3,7 @@ import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-EaselJSGraphics.LevelGraphics = Class(new createjs.Shape(), {
+export const LevelGraphics = Class(new createjs.Shape(), {
   gateStart: null,
   gateEnd: null,
   gateOpen: false,

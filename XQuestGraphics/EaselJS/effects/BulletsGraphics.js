@@ -13,12 +13,12 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.BulletsGraphics = Class(new EaselJSGraphics.Drawing(), {
+export const BulletsGraphics = Class(new EaselJSGraphics.Drawing(), {
   setup() {
     this.bullets = [];
   },
   addBullet() {
-    const bullet = new EaselJSGraphics.BulletsGraphics.Bullet();
+    const bullet = new Bullet();
     this.bullets.push(bullet);
     bullet.onDispose(() => {
       const index = this.bullets.indexOf(bullet);
@@ -39,7 +39,8 @@ EaselJSGraphics.BulletsGraphics = Class(new EaselJSGraphics.Drawing(), {
     drawing.endPath(G.style);
   },
 });
-EaselJSGraphics.BulletsGraphics.Bullet = Class(new Disposable(), {
+
+export const Bullet = Class(new Disposable(), {
   moveTo(x, y) {
     this.x = x;
     this.y = y;

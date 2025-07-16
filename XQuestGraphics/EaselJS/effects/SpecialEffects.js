@@ -1,6 +1,6 @@
 import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
 
-EaselJSGraphics.SpecialEffects = {
+export const SpecialEffects = {
   drawElectricLineTo(drawing, lineStart, lineEnd, segments, maxDeviation) {
     const diff = {
       x: lineEnd.x - lineStart.x,

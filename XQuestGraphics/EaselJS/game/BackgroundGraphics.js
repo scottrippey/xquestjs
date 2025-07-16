@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 
-EaselJSGraphics.BackgroundGraphicsBase = Class(new createjs.Shape(), {
+export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
   BackgroundGraphicsBase_initialize() {
     const bounds = Balance.level.bounds;
     this._size = {
@@ -50,12 +50,12 @@ EaselJSGraphics.BackgroundGraphicsBase = Class(new createjs.Shape(), {
     g.endStroke();
   },
 });
-EaselJSGraphics.BackgroundGraphics = Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
+
+export const BackgroundGraphics = Class(new BackgroundGraphicsBase(), {
   initialize: function BackgroundGraphics() {
     if (!this.initialized) {
-      // Using a prototype ensures the stars will be the same between the menu and game
-      EaselJSGraphics.BackgroundGraphics.prototype.initialized = true;
-      EaselJSGraphics.BackgroundGraphics.prototype.BackgroundGraphicsBase_initialize();
+      BackgroundGraphics.prototype.initialized = true;
+      BackgroundGraphics.prototype.BackgroundGraphicsBase_initialize();
     }
   },
 });

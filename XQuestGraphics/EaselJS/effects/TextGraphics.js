@@ -46,7 +46,8 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-EaselJSGraphics.TextGraphic = Class(new createjs.Text(), {
+
+export const TextGraphic = Class(new createjs.Text(), {
   setGfx(gfx) {
     this.gfx = gfx;
     this.animation = gfx.addAnimation(new Animation());

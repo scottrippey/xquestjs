@@ -2,7 +2,7 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 import { DrawingContext, DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
 
-EaselJSGraphics.Drawing = Class(new createjs.DisplayObject(), {
+export const Drawing = Class(new createjs.DisplayObject(), {
   /**
    * When overridden, allows you to perform initialization tasks.
    * Constructor arguments will be passed.
