@@ -1,3 +1,5 @@
+import { Disposable } from "@/common/src/Smart/Smart.Disposable";
+
 _.extend(createjs.Graphics.prototype, {
   beginStyle(styles) {
     const gfx = this;
@@ -37,7 +39,7 @@ _.extend(createjs.Graphics.prototype, {
   },
 });
 
-_.extend(createjs.DisplayObject.prototype, Smart.Disposable.prototype);
+_.extend(createjs.DisplayObject.prototype, Disposable.prototype);
 _.extend(createjs.DisplayObject.prototype, {
   moveTo(x, y) {
     this.x = x;

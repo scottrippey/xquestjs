@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { Animation } from "common/src/Smart/Animation/Smart.Animation";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     textStyles: {
@@ -43,10 +46,10 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
+EaselJSGraphics.TextGraphic = Class(new createjs.Text(), {
   setGfx(gfx) {
     this.gfx = gfx;
-    this.animation = gfx.addAnimation(new Smart.Animation());
+    this.animation = gfx.addAnimation(new Animation());
     this.start("top");
   },
 

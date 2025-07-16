@@ -1,4 +1,7 @@
-EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
+import { Class } from "common/src/Smart/Smart.Class";
+import { Animation } from "common/src/Smart/Animation/Smart.Animation";
+
+EaselJSGraphics.BombCrystalGraphic = Class(new createjs.Shape(), {
   initialize: function BombCrystalGraphic() {
     this._setupGraphics();
   },
@@ -30,7 +33,7 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
   gatherBombCrystal(gfx, playerLocation) {
     const bombCrystal = this;
     return gfx.addAnimation(
-      new Smart.Animation()
+      new Animation()
         .duration(Graphics.bombCrystals.gatherDuration)
         .savePosition()
 

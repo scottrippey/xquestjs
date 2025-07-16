@@ -1,11 +1,13 @@
+import { Class } from "common/src/Smart/Smart.Class";
+
 /**
- * Smart.Drawing
+ * Drawing
  *
  * A wrapper around a CanvasRenderingContext2D,
  * providing a chainable syntax and shape helper methods.
  *
  */
-Smart.Drawing = Smart.Class({
+export const Drawing = Class({
   initialize: function Drawing() {},
   addCommand: null, // Must be overridden
 });
@@ -56,7 +58,7 @@ Smart.Drawing = Smart.Class({
     "font",
   ];
   canvasMethods.forEach((methodName) => {
-    Smart.Drawing.prototype[methodName] = function _canvas_method_() {
+    Drawing.prototype[methodName] = function _canvas_method_() {
       const methodArgs = arguments;
       this.addCommand((context) => {
         context[methodName].apply(context, methodArgs);
@@ -66,7 +68,7 @@ Smart.Drawing = Smart.Class({
   });
 
   canvasProperties.forEach((propName) => {
-    Smart.Drawing.prototype[propName] = function _canvas_property_setter_(value) {
+    Drawing.prototype[propName] = function _canvas_property_setter_(value) {
       this.addCommand((context) => {
         context[propName] = value;
       });
@@ -79,7 +81,7 @@ Smart.Drawing = Smart.Class({
   /**
    * Custom drawing helper methods, for drawing shapes and patterns
    */
-  _.extend(Smart.Drawing.prototype, {
+  _.extend(Drawing.prototype, {
     /**
      * Fills and/or strokes a path.
      *
@@ -91,7 +93,7 @@ Smart.Drawing = Smart.Class({
      * @param {LineJoin} [drawStyle.lineJoin] - "miter", "round", "bevel"
      * @param {number} [drawStyle.miterLimit]
      *
-     * @return {Smart.Drawing}
+     * @return {Drawing}
      */
     endPath(drawStyle) {
       if (drawStyle.fillStyle) {
@@ -133,7 +135,7 @@ Smart.Drawing = Smart.Class({
       return this;
     },
     star(x, y, radius, sides, pointSize, angle) {
-      const starPolygon = Smart.Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
+      const starPolygon = Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
       this.polygon(starPolygon, false);
       return this;
     },
@@ -168,7 +170,7 @@ Smart.Drawing = Smart.Class({
 })();
 
 (function Drawing_static_methods() {
-  _.extend(Smart.Drawing, {
+  _.extend(Drawing, {
     /**
      * Creates a star with the specified number of sides.
      *
@@ -205,7 +207,7 @@ Smart.Drawing = Smart.Class({
       const starPolygon = [];
       for (let i = 0; i < sides; i++) {
         angle += a;
-        if (pointSize != 1) {
+        if (pointSize !== 1) {
           starPolygon.push([
             x + Math.cos(angle) * radius * pointSize,
             y + Math.sin(angle) * radius * pointSize,
@@ -244,7 +246,7 @@ Smart.Drawing = Smart.Class({
     createImage(width, height, drawingCallback) {
       const canvas = this._createCanvas(width, height);
       const context = canvas.getContext("2d");
-      const drawing = new Smart.DrawingContext(context);
+      const drawing = new DrawingContext(context);
 
       drawingCallback(drawing);
 
@@ -254,7 +256,7 @@ Smart.Drawing = Smart.Class({
     createPattern(width, height, drawingCallback) {
       const canvas = this._createCanvas(width, height);
       const context = canvas.getContext("2d");
-      const drawing = new Smart.DrawingContext(context);
+      const drawing = new DrawingContext(context);
 
       drawingCallback(drawing);
 
@@ -274,7 +276,7 @@ Smart.Drawing = Smart.Class({
 /**
  * A Drawing Helper that immediately draws to the supplied canvas context.
  */
-Smart.DrawingContext = Smart.Class(new Smart.Drawing(), {
+export const DrawingContext = Class(new Drawing(), {
   initialize: function DrawingContext(context) {
     this.context = context;
   },
@@ -289,7 +291,7 @@ Smart.DrawingContext = Smart.Class(new Smart.Drawing(), {
 /**
  * A Drawing Helper that queues and caches the shapes, to be drawn
  */
-Smart.DrawingQueue = Smart.Class(new Smart.Drawing(), {
+export const DrawingQueue = Class(new Drawing(), {
   initialize: function DrawingQueue() {
     this._commands = [];
   },

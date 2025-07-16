@@ -1,10 +1,12 @@
+import { Interpolate } from "common/src/Smart/Animation/Smart.Interpolate";
+
 EaselJSGraphics.SpecialEffects = {
   drawElectricLineTo(drawing, lineStart, lineEnd, segments, maxDeviation) {
     const diff = {
       x: lineEnd.x - lineStart.x,
       y: lineEnd.y - lineStart.y,
     };
-    const interpolate = Smart.Interpolate.points(lineStart, lineEnd);
+    const interpolate = Interpolate.points(lineStart, lineEnd);
 
     for (let i = 1; i <= segments; i++) {
       const pos = interpolate(i / segments);

@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { Physics } from "common/src/Smart/Smart.Physics";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     explosionOptions: {
@@ -13,7 +16,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.ExplosionGraphic = Class(new EaselJSGraphics.Drawing(), {
   setup(position, velocity, explosionOptions) {
     this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 
@@ -46,19 +49,9 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
     drawing.beginPath();
     for (let i = 0, l = particles.length; i < l; i++) {
       const particle = particles[i];
-      Smart.Physics.applyVelocity(particle, particle.velocity, deltaSeconds);
-      Smart.Physics.applyFrictionToVelocity(
-        particle.velocity,
-        explosionOptions.friction,
-        deltaSeconds,
-      );
-      Smart.Physics.bounceOffWalls(
-        particle,
-        explosionOptions.radius,
-        particle.velocity,
-        levelBounds,
-        0,
-      );
+      Physics.applyVelocity(particle, particle.velocity, deltaSeconds);
+      Physics.applyFrictionToVelocity(particle.velocity, explosionOptions.friction, deltaSeconds);
+      Physics.bounceOffWalls(particle, explosionOptions.radius, particle.velocity, levelBounds, 0);
 
       drawing
         .moveTo(particle.x, particle.y)

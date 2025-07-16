@@ -1,3 +1,7 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { Disposable } from "common/src/Smart/Smart.Disposable";
+import { Point } from "common/src/Smart/Smart.Point";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     bullets: {
@@ -9,7 +13,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.BulletsGraphics = Class(new EaselJSGraphics.Drawing(), {
   setup() {
     this.bullets = [];
   },
@@ -35,13 +39,13 @@ EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
     drawing.endPath(G.style);
   },
 });
-EaselJSGraphics.BulletsGraphics.Bullet = Smart.Class(new Smart.Disposable(), {
+EaselJSGraphics.BulletsGraphics.Bullet = Class(new Disposable(), {
   moveTo(x, y) {
     this.x = x;
     this.y = y;
   },
   getKickBack(enemy, distance) {
     const B = Balance.bullets;
-    return Smart.Point.multiply(this.velocity, B.kickBack);
+    return Point.multiply(this.velocity, B.kickBack);
   },
 });

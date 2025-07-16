@@ -1,3 +1,5 @@
+import { Class } from "../../../common/src/Smart/Smart.Class.js";
+
 (function _init_PlayerInputMouse() {
   const primaryWeapon = "primaryWeapon";
   const secondaryWeapon = "secondaryWeapon";
@@ -6,7 +8,7 @@
     right: secondaryWeapon,
   };
 
-  XQuestInput.PlayerInputMouse = Smart.Class({
+  XQuestInput.PlayerInputMouse = Class({
     element: null,
     elementSize: null,
     mouseState: null,

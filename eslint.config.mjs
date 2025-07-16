@@ -6,6 +6,8 @@ import css from "@eslint/css";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 const myGlobals = {
+  ...globals.browser,
+
   _: false,
   createjs: false,
   Balance: true,
@@ -15,6 +17,7 @@ const myGlobals = {
   XQuestGame: true,
   XQuestInput: true,
 };
+delete myGlobals.Animation;
 
 export default defineConfig([
   globalIgnores([
@@ -29,7 +32,7 @@ export default defineConfig([
   { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
   {
     files: ["**/*.{js,mjs,cjs}"],
-    languageOptions: { globals: { ...globals.browser, ...myGlobals } },
+    languageOptions: { globals: myGlobals },
     rules: {
       "no-unused-vars": "off",
       "no-var": "error",

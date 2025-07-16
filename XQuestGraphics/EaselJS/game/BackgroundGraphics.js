@@ -1,4 +1,7 @@
-EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
+import { Class } from "common/src/Smart/Smart.Class";
+import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
+
+EaselJSGraphics.BackgroundGraphicsBase = Class(new createjs.Shape(), {
   BackgroundGraphicsBase_initialize() {
     const bounds = Balance.level.bounds;
     this._size = {
@@ -47,7 +50,7 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
     g.endStroke();
   },
 });
-EaselJSGraphics.BackgroundGraphics = Smart.Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
+EaselJSGraphics.BackgroundGraphics = Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
   initialize: function BackgroundGraphics() {
     if (!this.initialized) {
       // Using a prototype ensures the stars will be the same between the menu and game
