@@ -27,7 +27,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
     // Create the container:
     const container = document.createElement("section");
     container.setAttribute("tabindex", "0");
-    _.extend(container.style, {
+    Object.assign(container.style, {
       cursor: "pointer",
     });
 
@@ -48,7 +48,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
     const container = this.container;
     const canvas = this.canvas;
 
-    _.extend(container.style, {
+    Object.assign(container.style, {
       position: "fixed",
       top: 0,
       left: 0,
@@ -57,7 +57,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
       backgroundColor: "hsl(0, 0%, 5%)",
       outline: "none",
     });
-    _.extend(canvas.style, {
+    Object.assign(canvas.style, {
       position: "absolute",
       top: 0,
       left: 0,

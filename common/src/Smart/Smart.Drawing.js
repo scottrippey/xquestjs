@@ -81,7 +81,7 @@ export const Drawing = Class({
   /**
    * Custom drawing helper methods, for drawing shapes and patterns
    */
-  _.extend(Drawing.prototype, {
+  Object.assign(Drawing.prototype, {
     /**
      * Fills and/or strokes a path.
      *
@@ -170,7 +170,7 @@ export const Drawing = Class({
 })();
 
 (function Drawing_static_methods() {
-  _.extend(Drawing, {
+  Object.assign(Drawing, {
     /**
      * Creates a star with the specified number of sides.
      *
