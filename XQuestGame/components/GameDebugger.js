@@ -1,4 +1,6 @@
-XQuestGame.GameDebugger = Smart.Class({
+import { Class } from "../../../common/Smart/Smart.Class.js";
+
+XQuestGame.GameDebugger = Class({
   initialize: function GameDebugger(game) {
     this.game = game;
   },

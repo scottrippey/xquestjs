@@ -1,4 +1,8 @@
-XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
+import { Class } from "../../../common/src/Smart/Smart.Class.js";
+import { Disposable } from "../../../common/src/Smart/Smart.Disposable.js";
+import { Events } from "../../../common/src/Smart/Smart.Events.js";
+
+XQuestGame.BaseScene = Class(new Disposable(), {
   initialize: function BaseScene() {},
   BaseScene_initialize() {
     this.debugStats = { sceneItems: [] };
@@ -6,7 +10,7 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
     this._setupPhases();
   },
   _setupEvents() {
-    this._events = new Smart.Events();
+    this._events = new Events();
   },
   _setupPhases() {
     this.phases = {

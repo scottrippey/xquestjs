@@ -1,3 +1,5 @@
+import { Class } from "../../../common/src/Smart/Smart.Class.js";
+
 (function init_MenuScene() {
   XQuestGame.MenuSceneInputs = {
     menuUp: "menuUp",
@@ -15,7 +17,7 @@
 
   const MenuEvents = XQuestGame.MenuEvents;
 
-  XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
+  XQuestGame.MenuScene = Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
     initialize: function MenuScene(gfx, host) {
       this.MenuScene_initialize(gfx, host);
     },

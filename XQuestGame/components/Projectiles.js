@@ -1,4 +1,8 @@
-XQuestGame.Projectiles = Smart.Class({
+import { Class } from "../../../common/Smart/Smart.Class.js";
+import { Physics } from "../../../common/Smart/Smart.Physics.js";
+import { Point } from "../../../common/Smart/Smart.Point.js";
+
+XQuestGame.Projectiles = Class({
   initialize: function Projectiles(game) {
     this.game = game;
     this.game.addSceneItem(this);
@@ -44,7 +48,7 @@ XQuestGame.Projectiles = Smart.Class({
       const autoAim = Balance.powerups.autoAim;
       const targetEnemy = this.game.enemyFactory.findClosestEnemy(player.location);
       if (targetEnemy) {
-        velocity = Smart.Physics.trajectory(
+        velocity = Physics.trajectory(
           player.location,
           targetEnemy.location,
           targetEnemy.velocity,
@@ -53,7 +57,7 @@ XQuestGame.Projectiles = Smart.Class({
       }
     }
     if (speed) {
-      velocity = Smart.Point.fromAngle(angle, speed);
+      velocity = Point.fromAngle(angle, speed);
       angle = 0;
     }
     if (!velocity) {
@@ -71,7 +75,7 @@ XQuestGame.Projectiles = Smart.Class({
 
     bulletGfx.velocity = velocity;
     if (angle) {
-      Smart.Point.rotate(bulletGfx.velocity, angle);
+      Point.rotate(bulletGfx.velocity, angle);
     }
     bulletGfx.location = bulletGfx;
     bulletGfx.radius = B.radius;
@@ -82,12 +86,12 @@ XQuestGame.Projectiles = Smart.Class({
     let i = bullets.length;
     while (i--) {
       const bulletGfx = bullets[i];
-      Smart.Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
+      Physics.applyVelocity(bulletGfx, bulletGfx.velocity, tickEvent.deltaSeconds);
 
       if (this.game.activePowerups.powerShot) {
-        Smart.Physics.bounceOffWalls(bulletGfx, bulletGfx.radius, bulletGfx.velocity, bounds, 0);
+        Physics.bounceOffWalls(bulletGfx, bulletGfx.radius, bulletGfx.velocity, bounds, 0);
       }
-      if (!Smart.Point.pointIsInBounds(bulletGfx, bounds)) {
+      if (!Point.pointIsInBounds(bulletGfx, bounds)) {
         bullets.splice(i, 1);
       }
     }
@@ -96,7 +100,7 @@ XQuestGame.Projectiles = Smart.Class({
     const bullets = this.bulletsGraphics.bullets;
     if (bullets.length) {
       if (bullets.length >= 2) {
-        Smart.Physics.sortByLocation(bullets);
+        Physics.sortByLocation(bullets);
       }
       this.game.enemyFactory.killEnemiesOnCollision(
         bullets,

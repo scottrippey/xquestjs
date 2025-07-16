@@ -106,7 +106,7 @@ XQuestGame.EnemyFactory = Class({
 
   findClosestEnemy(location) {
     const enemyLocations = this.enemies.map((enemy) => enemy.location); // Perhaps this could be improved, but it's not mission-critical
-    const enemyIndex = Smart.Physics.findClosestPoint(location, enemyLocations);
+    const enemyIndex = Physics.findClosestPoint(location, enemyLocations);
 
     return this.enemies[enemyIndex];
   },

@@ -1,3 +1,8 @@
+import { Class } from "../../../common/src/Smart/Smart.Class.js";
+import { Events } from "../../../common/src/Smart/Smart.Events.js";
+import { Animation } from "../../../common/src/Smart/Animation/Smart.Animation.js";
+import { Keyframes } from "../../../common/src/Smart/Smart.Sort.js";
+
 (() => {
   const GameEvents = {
     onNewGame: "onNewGame",
@@ -10,7 +15,7 @@
     onGamePaused: "onGamePaused",
   };
 
-  XQuestGame.ArcadeGame = Smart.Class(new XQuestGame.BaseScene(), {
+  XQuestGame.ArcadeGame = Class(new XQuestGame.BaseScene(), {
     player: null,
     levelGraphics: null,
     activePowerups: null,
@@ -27,7 +32,7 @@
 
       // Since all other classes use 'this.game', this will provide consistency:
       this.game = this;
-      this._events = new Smart.Events();
+      this._events = new Events();
 
       this.stats = {};
       this._setupLevelGraphics();
@@ -153,7 +158,7 @@
       this._animateBackToCenter();
 
       this.game.gfx.addAnimation(
-        new Smart.Animation()
+        new Animation()
           .queue(() => {
             this.game.gfx.addText("Game Over").flyIn(2).delay(2).flyOut(2);
           })
@@ -194,10 +199,10 @@
       const middleOfGame = this.game.gfx.getGamePoint("middle");
 
       this.followPlayer = false;
-      const animation = new Smart.Animation()
+      const animation = new Animation()
         .duration(2)
         .ease()
-        .tween(Smart.Keyframes.fromPoints([visibleMiddle, middleOfGame]), (p) => {
+        .tween(Keyframes.fromPoints([visibleMiddle, middleOfGame]), (p) => {
           this.game.gfx.followPlayer(p);
           this.host.gfx.followPlayer(p);
         });

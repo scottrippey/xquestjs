@@ -1,4 +1,8 @@
-XQuestGame.BaseEnemy = Smart.Class({
+import { Class } from "../../../../common/Smart/Smart.Class.js";
+import { Physics } from "../../../../common/Smart/Smart.Physics.js";
+import { Animation } from "../../../../common/Smart/Animation/Smart.Animation.js";
+
+XQuestGame.BaseEnemy = Class({
   game: null,
   enemyGraphics: null,
   location: null,
@@ -16,8 +20,8 @@ XQuestGame.BaseEnemy = Smart.Class({
 
   /* @protected */
   applyVelocityAndBounce(tickEvent) {
-    Smart.Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-    Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+    Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
+    Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
   },
 
   /* @protected */
@@ -48,7 +52,7 @@ XQuestGame.BaseEnemy = Smart.Class({
   /* @public */
   clearEnemy() {
     this.game.gfx.addAnimation(
-      new Smart.Animation()
+      new Animation()
         .duration(2)
         .easeIn()
         .scale(this.enemyGraphics, 0)

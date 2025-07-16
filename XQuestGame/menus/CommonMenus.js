@@ -1,8 +1,10 @@
+import { Class } from "../../../common/Smart/Smart.Class.js";
+
 (function init_CommonMenus() {
   const MenuEvents = XQuestGame.MenuEvents;
 
   XQuestGame.CommonMenus = {
-    PauseMenu: Smart.Class(new XQuestGame.BaseMenu(), {
+    PauseMenu: Class(new XQuestGame.BaseMenu(), {
       initialize: function PauseMenu(menuScene) {
         this.BaseMenu_initialize(menuScene);
 
@@ -25,7 +27,7 @@
       },
     }),
 
-    GameOptions: Smart.Class(new XQuestGame.BaseMenu(), {
+    GameOptions: Class(new XQuestGame.BaseMenu(), {
       getRows() {
         return [
           this.createMenuButton("Input Settings", this._showInputSettings.bind(this)),
@@ -49,7 +51,7 @@
       },
     }),
 
-    InputSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+    InputSettings: Class(new XQuestGame.BaseMenu(), {
       getRows() {
         return [
           this.createMenuButton("Mouse", this._showMouseSensitivity.bind(this)),
@@ -69,7 +71,7 @@
       },
     }),
 
-    DifficultySettings: Smart.Class(new XQuestGame.BaseMenu(), {
+    DifficultySettings: Class(new XQuestGame.BaseMenu(), {
       getRows() {
         return [
           this.createMenuButton("Easy", () => {
@@ -88,7 +90,7 @@
       },
     }),
 
-    MouseSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+    MouseSettings: Class(new XQuestGame.BaseMenu(), {
       onMenuLeave() {
         this.menuScene.host.settings.saveSetting("mouseSettings", this.mouseSettings);
       },
@@ -132,7 +134,7 @@
       },
     }),
 
-    KeyboardSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+    KeyboardSettings: Class(new XQuestGame.BaseMenu(), {
       onMenuLeave() {
         this.menuScene.host.settings.saveSetting("keyboardSettings", this.keyboardSettings);
       },
@@ -167,7 +169,7 @@
       },
     }),
 
-    TouchSettings: Smart.Class(new XQuestGame.BaseMenu(), {
+    TouchSettings: Class(new XQuestGame.BaseMenu(), {
       onMenuLeave() {
         this.menuScene.host.settings.saveSetting("touchSettings", this.touchSettings);
       },
@@ -202,7 +204,7 @@
       },
     }),
 
-    ConfirmQuitGame: Smart.Class(new XQuestGame.BaseMenu(), {
+    ConfirmQuitGame: Class(new XQuestGame.BaseMenu(), {
       getRows() {
         const rows = [
           this.createMenuButton(

@@ -1,4 +1,7 @@
-XQuestGame.Mantis = Smart.Class(new XQuestGame.BaseEnemy(), {
+import { Class } from "../../../../common/Smart/Smart.Class.js";
+import { Point } from "../../../../common/Smart/Smart.Point.js";
+
+XQuestGame.Mantis = Class(new XQuestGame.BaseEnemy(), {
   initialize: function Mantis(game) {
     const B = Balance.enemies.mantis;
     this.setupBaseEnemyGraphics(game, "Mantis", B.radius);
@@ -22,6 +25,6 @@ XQuestGame.Mantis = Smart.Class(new XQuestGame.BaseEnemy(), {
 
   _changeDirection() {
     const B = Balance.enemies.mantis;
-    this.velocity = Smart.Point.fromAngle(Math.random() * 360, B.speed);
+    this.velocity = Point.fromAngle(Math.random() * 360, B.speed);
   },
 });
