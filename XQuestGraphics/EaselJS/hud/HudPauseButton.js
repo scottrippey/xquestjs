@@ -1,3 +1,5 @@
+import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     hudGraphics: {
@@ -29,7 +31,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
+EaselJSGraphics.HudGraphics.HudButton = Class(new createjs.Container(), {
   Container_initialize: createjs.Container.prototype.initialize,
 
   HudButton_initialize(gfx, width, height) {
@@ -54,88 +56,79 @@ EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
   },
 });
 
-EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(
-  new EaselJSGraphics.HudGraphics.HudButton(),
-  {
-    initialize: function HudPauseButton(gfx) {
-      const pauseButton = Graphics.hudGraphics.pauseButton;
-      this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);
+EaselJSGraphics.HudGraphics.HudPauseButton = Class(new EaselJSGraphics.HudGraphics.HudButton(), {
+  initialize: function HudPauseButton(gfx) {
+    const pauseButton = Graphics.hudGraphics.pauseButton;
+    this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);
 
-      this._setupGraphics();
-    },
-    _setupGraphics() {
-      const pauseButton = Graphics.hudGraphics.pauseButton;
-
-      const text = this._createText();
-      text.textAlign = "right";
-      text.moveTo(pauseButton.width / 2, pauseButton.height / 2);
-      this.addChild(text);
-
-      const icon = this._createSandwichIcon();
-      const padding = (pauseButton.height - icon.height) / 2;
-      icon.moveTo(pauseButton.width - icon.width - padding, padding);
-      this.addChild(icon);
-    },
-    _createText() {
-      const pauseButton = Graphics.hudGraphics.pauseButton;
-      const pauseText = new EaselJSGraphics.TextGraphic();
-      pauseText.setText("Pause", "hudText");
-
-      this.addChild(pauseText);
-      return pauseText;
-    },
-    _createPauseIcon() {
-      const pauseIcon = Graphics.hudGraphics.pauseIcon;
-      const icon = new createjs.Shape();
-      icon.graphics
-        .beginStyle(pauseIcon.style)
-        .drawRoundRect(0, 0, pauseIcon.rectWidth, pauseIcon.rectHeight, pauseIcon.rectRadius)
-        .drawRoundRect(
-          pauseIcon.iconWidth - pauseIcon.rectWidth,
-          0,
-          pauseIcon.rectWidth,
-          pauseIcon.rectHeight,
-          pauseIcon.rectRadius,
-        )
-        .endStyle(pauseIcon.style);
-
-      this.addChild(icon);
-      return icon;
-    },
-    _createSandwichIcon() {
-      const sandwichIcon = Graphics.hudGraphics.sandwichIcon;
-      const bottomRow = sandwichIcon.iconHeight - sandwichIcon.rectHeight;
-      const middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;
-      const icon = new createjs.Shape();
-      icon.graphics
-        .beginStyle(sandwichIcon.style)
-        .drawRoundRect(
-          0,
-          0,
-          sandwichIcon.rectWidth,
-          sandwichIcon.rectHeight,
-          sandwichIcon.rectRadius,
-        )
-        .drawRoundRect(
-          0,
-          middleRow,
-          sandwichIcon.rectWidth,
-          sandwichIcon.rectHeight,
-          sandwichIcon.rectRadius,
-        )
-        .drawRoundRect(
-          0,
-          bottomRow,
-          sandwichIcon.rectWidth,
-          sandwichIcon.rectHeight,
-          sandwichIcon.rectRadius,
-        )
-        .endStyle(sandwichIcon.style);
-      icon.width = sandwichIcon.rectWidth;
-      icon.height = sandwichIcon.iconHeight;
-
-      this.addChild(icon);
-      return icon;
-    },
+    this._setupGraphics();
   },
-);
+  _setupGraphics() {
+    const pauseButton = Graphics.hudGraphics.pauseButton;
+
+    const text = this._createText();
+    text.textAlign = "right";
+    text.moveTo(pauseButton.width / 2, pauseButton.height / 2);
+    this.addChild(text);
+
+    const icon = this._createSandwichIcon();
+    const padding = (pauseButton.height - icon.height) / 2;
+    icon.moveTo(pauseButton.width - icon.width - padding, padding);
+    this.addChild(icon);
+  },
+  _createText() {
+    const pauseButton = Graphics.hudGraphics.pauseButton;
+    const pauseText = new EaselJSGraphics.TextGraphic();
+    pauseText.setText("Pause", "hudText");
+
+    this.addChild(pauseText);
+    return pauseText;
+  },
+  _createPauseIcon() {
+    const pauseIcon = Graphics.hudGraphics.pauseIcon;
+    const icon = new createjs.Shape();
+    icon.graphics
+      .beginStyle(pauseIcon.style)
+      .drawRoundRect(0, 0, pauseIcon.rectWidth, pauseIcon.rectHeight, pauseIcon.rectRadius)
+      .drawRoundRect(
+        pauseIcon.iconWidth - pauseIcon.rectWidth,
+        0,
+        pauseIcon.rectWidth,
+        pauseIcon.rectHeight,
+        pauseIcon.rectRadius,
+      )
+      .endStyle(pauseIcon.style);
+
+    this.addChild(icon);
+    return icon;
+  },
+  _createSandwichIcon() {
+    const sandwichIcon = Graphics.hudGraphics.sandwichIcon;
+    const bottomRow = sandwichIcon.iconHeight - sandwichIcon.rectHeight;
+    const middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;
+    const icon = new createjs.Shape();
+    icon.graphics
+      .beginStyle(sandwichIcon.style)
+      .drawRoundRect(0, 0, sandwichIcon.rectWidth, sandwichIcon.rectHeight, sandwichIcon.rectRadius)
+      .drawRoundRect(
+        0,
+        middleRow,
+        sandwichIcon.rectWidth,
+        sandwichIcon.rectHeight,
+        sandwichIcon.rectRadius,
+      )
+      .drawRoundRect(
+        0,
+        bottomRow,
+        sandwichIcon.rectWidth,
+        sandwichIcon.rectHeight,
+        sandwichIcon.rectRadius,
+      )
+      .endStyle(sandwichIcon.style);
+    icon.width = sandwichIcon.rectWidth;
+    icon.height = sandwichIcon.iconHeight;
+
+    this.addChild(icon);
+    return icon;
+  },
+});

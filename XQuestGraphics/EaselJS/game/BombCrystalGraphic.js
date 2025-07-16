@@ -1,5 +1,6 @@
 import { Class } from "common/src/Smart/Smart.Class";
 import { Animation } from "common/src/Smart/Animation/Smart.Animation";
+import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
 
 EaselJSGraphics.BombCrystalGraphic = Class(new createjs.Shape(), {
   initialize: function BombCrystalGraphic() {

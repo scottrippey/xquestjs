@@ -1,4 +1,8 @@
-EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
+import { Class } from "common/src/Smart/Smart.Class";
+import { Animation } from "common/src/Smart/Animation/Smart.Animation";
+import { DrawingContext, DrawingQueue } from "common/src/Smart/Smart.Drawing";
+
+EaselJSGraphics.Drawing = Class(new createjs.DisplayObject(), {
   /**
    * When overridden, allows you to perform initialization tasks.
    * Constructor arguments will be passed.
@@ -24,7 +28,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
 
   DisplayObject_initialize: createjs.DisplayObject.prototype.initialize,
   DisplayObject_draw: createjs.DisplayObject.prototype.draw,
-  sharedDrawingContext: new Smart.DrawingContext(null),
+  sharedDrawingContext: new DrawingContext(null),
   initialize: function Drawing(args_) {
     this.Drawing_initialize.apply(this, arguments);
   },
@@ -36,7 +40,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
     }
 
     if (this.drawStatic) {
-      this.drawingQueue = new Smart.DrawingQueue();
+      this.drawingQueue = new DrawingQueue();
       this.drawStatic(this.drawingQueue);
     }
   },
@@ -61,7 +65,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
   },
 
   addAnimation() {
-    const anim = new Smart.Animation();
+    const anim = new Animation();
     if (!this._anim) {
       this._anim = anim;
     } else {

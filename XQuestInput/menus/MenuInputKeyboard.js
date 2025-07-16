@@ -1,3 +1,5 @@
+import { Class } from "common/src/Smart/Smart.Class";
+
 (() => {
   const menuKeyMap = {
     up: XQuestGame.MenuSceneInputs.menuUp,
@@ -9,7 +11,7 @@
     backspace: XQuestGame.MenuSceneInputs.menuBack,
   };
 
-  XQuestInput.MenuInputKeyboard = Smart.Class({
+  XQuestInput.MenuInputKeyboard = Class({
     initialize: function MenuInputKeyboard(element) {
       this.element = element || document;
       this.actionsQueue = [];

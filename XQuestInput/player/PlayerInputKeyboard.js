@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { Disposable } from "common/src/Smart/Smart.Disposable";
+
 (function _init_PlayerInputKeyboard() {
   // Available actions:
   const playerActions = {
@@ -61,7 +64,7 @@
     0: debugActions.spawnPowerCrystal,
   };
 
-  XQuestInput.PlayerInputKeyboard = Smart.Class({
+  XQuestInput.PlayerInputKeyboard = Class({
     initialize: function PlayerInputKeyboard(game, element, settings) {
       this.game = game;
 
@@ -151,7 +154,7 @@
     },
   });
 
-  XQuestInput.KeyMapper = Smart.Class(new Smart.Disposable(), {
+  XQuestInput.KeyMapper = Class(new Disposable(), {
     element: null,
     onActionDown: null,
     codes: {

@@ -1,3 +1,7 @@
+import { DrawingQueue } from "common/src/Smart/Smart.Drawing";
+import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
+import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     menuButton: {
@@ -24,7 +28,7 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), {
+EaselJSGraphics.MenuGraphics.MenuButton = Class(new createjs.Container(), {
   Container_initialize: createjs.Container.prototype.initialize,
   initialize: function MenuButton(gfx) {
     this.Container_initialize();
@@ -55,12 +59,12 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
     this.background.isActive = isActive;
   },
 });
-EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.MenuGraphics.MenuButtonBackground = Class(new EaselJSGraphics.Drawing(), {
   isActive: false,
   drawEffects(drawing, tickEvent) {
     if (!this.shape || this.nextChange <= tickEvent.time) {
       const G = Graphics.menuButton;
-      const backgroundShape = (this.shape = new Smart.DrawingQueue());
+      const backgroundShape = (this.shape = new DrawingQueue());
       this.nextChange = tickEvent.time + G.backgroundShape.changeFrequency;
 
       backgroundShape.beginPath();

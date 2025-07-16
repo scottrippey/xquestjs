@@ -1,4 +1,7 @@
-XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
+import { Class } from "common/src/Smart/Smart.Class";
+import { Disposable } from "common/src/Smart/Smart.Disposable";
+
+XQuestGame.XQuestHost = Class(new Disposable(), {
   initialize: function XQuestHost(canvas) {
     Balance.setGameMode("arcade");
 

@@ -1,4 +1,7 @@
-EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
+import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+import { Animation } from "../../../../common/src/Smart/Animation/Smart.Animation.js";
+
+EaselJSGraphics.CrystalGraphic = Class(new createjs.Shape(), {
   initialize: function CrystalGraphic() {
     this._setupCrystalGraphic();
   },
@@ -24,7 +27,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
   gatherCrystal(gfx, playerLocation) {
     const crystal = this;
     gfx.addAnimation(
-      new Smart.Animation()
+      new Animation()
         .duration(Graphics.crystals.gatherDuration)
 
         .savePosition()

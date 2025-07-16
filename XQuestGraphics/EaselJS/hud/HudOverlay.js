@@ -1,3 +1,6 @@
+import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
+import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+
 Balance.onUpdate((mode) => {
   _.merge(Graphics, {
     hudGraphics: {
@@ -8,7 +11,7 @@ Balance.onUpdate((mode) => {
   });
 });
 
-EaselJSGraphics.HudGraphics.HudOverlay = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.HudGraphics.HudOverlay = Class(new EaselJSGraphics.Drawing(), {
   drawEffects(drawing) {
     const G = Graphics.hudGraphics;
     const bounds = Balance.level.bounds;

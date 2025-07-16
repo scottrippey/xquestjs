@@ -1,4 +1,9 @@
-EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
+import { Interpolate } from "common/src/Smart/Animation/Smart.Interpolate";
+import { Physics } from "common/src/Smart/Smart.Physics";
+import { Point } from "common/src/Smart/Smart.Point";
+import { Class } from "common/src/Smart/Smart.Class.js";
+
+EaselJSGraphics.LevelGraphics = Class(new createjs.Shape(), {
   gateStart: null,
   gateEnd: null,
   gateOpen: false,
@@ -95,7 +100,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
       y: gateEnd.y - gateStart.y,
     };
 
-    const interpolate = Smart.Interpolate.points(gateStart, gateEnd);
+    const interpolate = Interpolate.points(gateStart, gateEnd);
 
     for (let i = 1; i <= segments; i++) {
       const pos = interpolate(i / segments);
@@ -116,7 +121,7 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
    */
   levelCollision(location, radius) {
     const bounds = Balance.level.bounds;
-    const wall = Smart.Physics.checkBounds(location, radius, bounds);
+    const wall = Physics.checkBounds(location, radius, bounds);
 
     if (!wall) return null;
 
@@ -128,9 +133,9 @@ EaselJSGraphics.LevelGraphics = Smart.Class(new createjs.Shape(), {
         wall.insideGate = true;
         wall.insideGateDistance = -wall.distance;
 
-        if (Smart.Point.distanceTest(location, this.gateStart, radius)) {
+        if (Point.distanceTest(location, this.gateStart, radius)) {
           wall.touchingGate = this.gateStart;
-        } else if (Smart.Point.distanceTest(location, this.gateEnd, radius)) {
+        } else if (Point.distanceTest(location, this.gateEnd, radius)) {
           wall.touchingGate = this.gateEnd;
         }
       }

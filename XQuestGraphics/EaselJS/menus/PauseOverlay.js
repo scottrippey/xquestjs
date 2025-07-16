@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     pauseOverlay: {
@@ -8,7 +11,7 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-EaselJSGraphics.PauseOverlay = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.PauseOverlay = Class(new EaselJSGraphics.Drawing(), {
   setup(gfx) {
     this.gfx = gfx;
   },

@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { Disposable } from "common/src/Smart/Smart.Disposable";
+
 (function init_PlayerInputXO() {
   /* Gamepad input for Xbox One */
 
@@ -18,7 +21,7 @@
     secondaryWeapon: "secondaryWeapon",
   };
 
-  XQuestInput.PlayerInputGamepad = Smart.Class(new Smart.Disposable(), {
+  XQuestInput.PlayerInputGamepad = Class(new Disposable(), {
     initialize: function PlayerInputGamepad() {
       this.allGamepads = [];
 
@@ -166,7 +169,7 @@
     //rightThumbstickY: ,
     //isRightThumbstickPressed:
   };
-  XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Smart.Class({
+  XQuestInput.PlayerInputGamepad.XboxGamepadMapper = Class({
     initialize: function XboxGamepadMapper(xboxGamepad, playerMap, menuMap) {
       this.xboxGamepad = xboxGamepad;
       this.playerMap = playerMap;

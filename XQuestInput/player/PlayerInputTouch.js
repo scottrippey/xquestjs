@@ -1,5 +1,7 @@
+import { Class } from "common/src/Smart/Smart.Class";
+
 (function _init_PlayerInputTouch() {
-  XQuestInput.PlayerInputTouch = Smart.Class({
+  XQuestInput.PlayerInputTouch = Class({
     element: null,
     elementSize: null,
     touches: null,

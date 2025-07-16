@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
+
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
     xquestLogo: {
@@ -13,7 +16,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
+EaselJSGraphics.XQuestLogoGraphic = Class(new createjs.Container(), {
   Container_initialize: createjs.Container.prototype.initialize,
   initialize: function XQuestLogoGraphic(gfx) {
     this.Container_initialize();
@@ -118,7 +121,7 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
   },
 });
 
-EaselJSGraphics.XQuestLogoGraphic.X = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.XQuestLogoGraphic.X = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -127,7 +130,7 @@ EaselJSGraphics.XQuestLogoGraphic.X = Smart.Class(new EaselJSGraphics.Drawing(),
     drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
   },
 });
-EaselJSGraphics.XQuestLogoGraphic.Q = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.XQuestLogoGraphic.Q = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -144,7 +147,7 @@ EaselJSGraphics.XQuestLogoGraphic.Q = Smart.Class(new EaselJSGraphics.Drawing(),
     this.rotation = 45;
   },
 });
-EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.XQuestLogoGraphic.QTail = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -159,7 +162,7 @@ EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawin
     this.rotation = 45;
   },
 });
-EaselJSGraphics.XQuestLogoGraphic.UEST = Smart.Class(new EaselJSGraphics.Drawing(), {
+EaselJSGraphics.XQuestLogoGraphic.UEST = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
 
