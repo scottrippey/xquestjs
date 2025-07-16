@@ -33,6 +33,8 @@ export default defineConfig([
     languageOptions: { globals: { ...globals.browser, ...myGlobals } },
     rules: {
       "no-unused-vars": "off",
+      "no-var": "error",
+      "prefer-const": "error",
     },
   },
   { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
