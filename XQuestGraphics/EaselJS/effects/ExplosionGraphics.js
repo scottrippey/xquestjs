@@ -16,7 +16,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.ExplosionGraphic = Class(new EaselJSGraphics.Drawing(), {
+export const ExplosionGraphic = Class(new EaselJSGraphics.Drawing(), {
   setup(position, velocity, explosionOptions) {
     this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 

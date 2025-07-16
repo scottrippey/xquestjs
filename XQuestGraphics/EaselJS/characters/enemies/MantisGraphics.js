@@ -25,7 +25,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.MantisGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+export const MantisGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
     const G = Graphics.enemies.mantis;
 

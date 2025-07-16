@@ -11,7 +11,8 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-EaselJSGraphics.PauseOverlay = Class(new EaselJSGraphics.Drawing(), {
+
+export const PauseOverlay = Class(new EaselJSGraphics.Drawing(), {
   setup(gfx) {
     this.gfx = gfx;
   },

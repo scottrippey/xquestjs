@@ -31,7 +31,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.HudGraphics.HudButton = Class(new createjs.Container(), {
+export const HudButton = Class(new createjs.Container(), {
   Container_initialize: createjs.Container.prototype.initialize,
 
   HudButton_initialize(gfx, width, height) {
@@ -56,7 +56,7 @@ EaselJSGraphics.HudGraphics.HudButton = Class(new createjs.Container(), {
   },
 });
 
-EaselJSGraphics.HudGraphics.HudPauseButton = Class(new EaselJSGraphics.HudGraphics.HudButton(), {
+export const HudPauseButton = Class(new HudButton(), {
   initialize: function HudPauseButton(gfx) {
     const pauseButton = Graphics.hudGraphics.pauseButton;
     this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);

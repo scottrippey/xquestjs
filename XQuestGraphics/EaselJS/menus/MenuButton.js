@@ -28,13 +28,13 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-EaselJSGraphics.MenuGraphics.MenuButton = Class(new createjs.Container(), {
+export const MenuButton = Class(new createjs.Container(), {
   Container_initialize: createjs.Container.prototype.initialize,
   initialize: function MenuButton(gfx) {
     this.Container_initialize();
     this.gfx = gfx;
 
-    this.background = new EaselJSGraphics.MenuGraphics.MenuButtonBackground();
+    this.background = new MenuButtonBackground();
     this.addChild(this.background);
 
     const G = Graphics.menuButton;
@@ -59,7 +59,8 @@ EaselJSGraphics.MenuGraphics.MenuButton = Class(new createjs.Container(), {
     this.background.isActive = isActive;
   },
 });
-EaselJSGraphics.MenuGraphics.MenuButtonBackground = Class(new EaselJSGraphics.Drawing(), {
+
+export const MenuButtonBackground = Class(new EaselJSGraphics.Drawing(), {
   isActive: false,
   drawEffects(drawing, tickEvent) {
     if (!this.shape || this.nextChange <= tickEvent.time) {

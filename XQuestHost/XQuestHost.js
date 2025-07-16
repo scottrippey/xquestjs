@@ -5,6 +5,7 @@ import { MenuInputKeyboard } from "../XQuestInput/menus/MenuInputKeyboard.js";
 import { PlayerInputKeyboard, KeyMapper } from "../XQuestInput/player/PlayerInputKeyboard.js";
 import { PlayerInputMouse } from "../XQuestInput/player/PlayerInputMouse.js";
 import { PlayerInputTouch } from "../XQuestInput/player/PlayerInputTouch.js";
+import { EaselJSGraphics } from "../XQuestGraphics/EaselJS/EaselJSGraphics.js";
 
 XQuestGame.XQuestHost = Class(new Disposable(), {
   initialize: function XQuestHost(canvas) {

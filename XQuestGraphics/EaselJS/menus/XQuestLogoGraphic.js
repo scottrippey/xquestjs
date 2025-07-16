@@ -16,30 +16,30 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.XQuestLogoGraphic = Class(new createjs.Container(), {
+export const XQuestLogoGraphic = Class(new createjs.Container(), {
   Container_initialize: createjs.Container.prototype.initialize,
   initialize: function XQuestLogoGraphic(gfx) {
     this.Container_initialize();
     this.gfx = gfx;
-
     this._addX_Q_UEST();
   },
   _addX_Q_UEST() {
-    const X = new EaselJSGraphics.XQuestLogoGraphic.X();
-    this.addChild(X);
+    const XInst = new X();
+    this.addChild(XInst);
 
-    const Q = new EaselJSGraphics.XQuestLogoGraphic.Q();
-    this.addChild(Q);
-    const QTail = new EaselJSGraphics.XQuestLogoGraphic.QTail();
-    this.addChild(QTail);
+    const QInst = new Q();
+    this.addChild(QInst);
 
-    const UEST = new EaselJSGraphics.XQuestLogoGraphic.UEST();
-    this.addChild(UEST);
+    const QTailInst = new QTail();
+    this.addChild(QTailInst);
 
-    this.X = X;
-    this.Q = Q;
-    this.QTail = QTail;
-    this.UEST = UEST;
+    const UESTInst = new UEST();
+    this.addChild(UESTInst);
+
+    this.X = XInst;
+    this.Q = QInst;
+    this.QTail = QTailInst;
+    this.UEST = UESTInst;
 
     // Layout:
     let left = 0;
@@ -120,8 +120,7 @@ EaselJSGraphics.XQuestLogoGraphic = Class(new createjs.Container(), {
     return this.animation;
   },
 });
-
-EaselJSGraphics.XQuestLogoGraphic.X = Class(new EaselJSGraphics.Drawing(), {
+export const X = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -130,7 +129,8 @@ EaselJSGraphics.XQuestLogoGraphic.X = Class(new EaselJSGraphics.Drawing(), {
     drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
   },
 });
-EaselJSGraphics.XQuestLogoGraphic.Q = Class(new EaselJSGraphics.Drawing(), {
+
+export const Q = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -147,7 +147,8 @@ EaselJSGraphics.XQuestLogoGraphic.Q = Class(new EaselJSGraphics.Drawing(), {
     this.rotation = 45;
   },
 });
-EaselJSGraphics.XQuestLogoGraphic.QTail = Class(new EaselJSGraphics.Drawing(), {
+
+export const QTail = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
     const radius = G.height / 2;
@@ -162,7 +163,8 @@ EaselJSGraphics.XQuestLogoGraphic.QTail = Class(new EaselJSGraphics.Drawing(), {
     this.rotation = 45;
   },
 });
-EaselJSGraphics.XQuestLogoGraphic.UEST = Class(new EaselJSGraphics.Drawing(), {
+
+export const UEST = Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
     const G = Graphics.xquestLogo;
 
