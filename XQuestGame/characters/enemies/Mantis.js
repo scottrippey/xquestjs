@@ -1,5 +1,5 @@
-import { Class } from "../../../../common/Smart/Smart.Class.js";
-import { Point } from "../../../../common/Smart/Smart.Point.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Point } from "@/Common/src/Smart/Smart.Point.js";
 
 XQuestGame.Mantis = Class(new XQuestGame.BaseEnemy(), {
   initialize: function Mantis(game) {

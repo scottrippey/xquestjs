@@ -1,3 +1,6 @@
+import { Class } from "common/src/Smart/Smart.Class";
+import { Drawing } from "@/Common/src/Smart/Smart.Drawing.js";
+
 Balance.onUpdate((mode) => {
   const outerRadius = Balance.enemies.locust.radius;
   const outerOffset = 0;
@@ -11,20 +14,10 @@ Balance.onUpdate((mode) => {
       locust: {
         visibleRadius: Balance.enemies.locust.radius + 1,
         triangleTriangle: {
-          outerTriangle: Smart.Drawing.polygonFromAngles(
-            0,
-            outerOffset,
-            outerRadius,
-            [0, 130, 230],
-          ),
+          outerTriangle: Drawing.polygonFromAngles(0, outerOffset, outerRadius, [0, 130, 230]),
           outerStyle: { fillStyle: orange },
 
-          innerTriangle: Smart.Drawing.polygonFromAngles(
-            0,
-            innerOffset,
-            innerRadius,
-            [0, 130, 230],
-          ),
+          innerTriangle: Drawing.polygonFromAngles(0, innerOffset, innerRadius, [0, 130, 230]),
           innerStyle: { fillStyle: red, strokeStyle: "black" },
         },
         explosionOptions: {
@@ -39,7 +32,7 @@ Balance.onUpdate((mode) => {
   });
 });
 
-EaselJSGraphics.LocustGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+EaselJSGraphics.LocustGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
     const G = Graphics.enemies.locust;
     this.visibleRadius = G.visibleRadius;

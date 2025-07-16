@@ -1,4 +1,8 @@
-EaselJSGraphics = Smart.Class({
+import { Point } from "@/common/src/Smart/Smart.Point";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Animations } from "@/common/src/Smart/Animation/Smart.Animation.js";
+
+export const EaselJSGraphics = Class({
   initialize: function EaselJSGraphics(canvas) {
     this.canvas = canvas;
 
@@ -54,7 +58,7 @@ EaselJSGraphics = Smart.Class({
   },
 
   _setupAnimations() {
-    this.animations = new Smart.Animations();
+    this.animations = new Animations();
   },
 
   /** Creates a clone */
@@ -106,8 +110,8 @@ EaselJSGraphics = Smart.Class({
     do {
       randomSpot = this.getGamePoint("random", radius);
       isSafe =
-        !Smart.Point.distanceTest(leftEnemySpawn, randomSpot, safeDistance) &&
-        !Smart.Point.distanceTest(rightEnemySpawn, randomSpot, safeDistance);
+        !Point.distanceTest(leftEnemySpawn, randomSpot, safeDistance) &&
+        !Point.distanceTest(rightEnemySpawn, randomSpot, safeDistance);
     } while (!isSafe);
     return randomSpot;
   },

@@ -1,6 +1,6 @@
-import { Class } from "../../../common/Smart/Smart.Class.js";
-import { Physics } from "../../../common/Smart/Smart.Physics.js";
-import { Point } from "../../../common/Smart/Smart.Point.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Physics } from "@/Common/src/Smart/Smart.Physics.js";
+import { Point } from "@/Common/src/Smart/Smart.Point.js";
 
 XQuestGame.Projectiles = Class({
   initialize: function Projectiles(game) {

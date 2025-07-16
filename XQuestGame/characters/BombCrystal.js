@@ -1,4 +1,4 @@
-import { Class } from "../../../common/src/Smart/Smart.Class.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
 
 XQuestGame.BombCrystal = Class({
   initialize: function BombCrystal(game) {

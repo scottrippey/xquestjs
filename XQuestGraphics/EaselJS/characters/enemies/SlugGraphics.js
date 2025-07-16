@@ -1,6 +1,9 @@
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Color } from "@/Common/src/Smart/Smart.Color.js";
+
 Balance.onUpdate((mode) => {
   const green = "hsl(100, 100%, 50%)";
-  const darkGreen = Smart.Color.darken(green, 30);
+  const darkGreen = Color.darken(green, 30);
   const black = "black";
 
   _.merge(Graphics, {
@@ -25,7 +28,7 @@ Balance.onUpdate((mode) => {
   });
 });
 
-EaselJSGraphics.SlugGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+EaselJSGraphics.SlugGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
     const G = Graphics.enemies.slug;
     this.visibleRadius = G.radius;

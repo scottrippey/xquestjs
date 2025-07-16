@@ -1,5 +1,5 @@
-import { Class } from "../../../common/src/Smart/Smart.Class.js";
-import { Physics } from "../../../common/src/Smart/Smart.Physics.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Physics } from "@/Common/src/Smart/Smart.Physics.js";
 
 XQuestGame.CrystalFactory = Class({
   initialize: function CrystalFactory(game) {

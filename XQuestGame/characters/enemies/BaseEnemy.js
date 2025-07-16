@@ -1,6 +1,6 @@
-import { Class } from "../../../../common/Smart/Smart.Class.js";
-import { Physics } from "../../../../common/Smart/Smart.Physics.js";
-import { Animation } from "../../../../common/Smart/Animation/Smart.Animation.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Physics } from "@/Common/src/Smart/Smart.Physics.js";
+import { Animation } from "@/Common/src/Smart/Animation/Smart.Animation.js";
 
 XQuestGame.BaseEnemy = Class({
   game: null,

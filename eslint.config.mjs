@@ -12,7 +12,6 @@ const myGlobals = {
   EaselJSGraphics: true,
   EaselJSTimer: true,
   Graphics: true,
-  Smart: true,
   XQuestGame: true,
   XQuestInput: true,
 };

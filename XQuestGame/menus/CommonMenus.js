@@ -1,4 +1,4 @@
-import { Class } from "../../../common/Smart/Smart.Class.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
 
 (function init_CommonMenus() {
   const MenuEvents = XQuestGame.MenuEvents;

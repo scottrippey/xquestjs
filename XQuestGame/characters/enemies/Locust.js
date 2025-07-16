@@ -1,6 +1,6 @@
-import { Class } from "../../../../common/src/Smart/Smart.Class.js";
-import { Point } from "../../../../common/src/Smart/Smart.Point.js";
-import { Physics } from "../../../../common/src/Smart/Smart.Physics.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Point } from "@/Common/src/Smart/Smart.Point.js";
+import { Physics } from "@/Common/src/Smart/Smart.Physics.js";
 
 XQuestGame.Locust = Class(new XQuestGame.BaseEnemy(), {
   initialize: function Locust(game) {

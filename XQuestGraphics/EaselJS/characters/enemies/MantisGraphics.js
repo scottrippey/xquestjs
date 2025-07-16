@@ -1,3 +1,7 @@
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Drawing } from "@/Common/src/Smart/Smart.Drawing.js";
+import { Interpolate } from "@/Common/src/Smart/Smart.Interpolate.js";
+
 Balance.onUpdate((gameMode) => {
   const radius = Balance.enemies.mantis.radius;
   const red = "hsl(10, 100%, 50%)";
@@ -21,13 +25,13 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
+EaselJSGraphics.MantisGraphics = Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
     const G = Graphics.enemies.mantis;
 
     this.visibleRadius = G.radius;
 
-    const star1 = Smart.Drawing.createStarPolygon(
+    const star1 = Drawing.createStarPolygon(
       0,
       0,
       G.star1.radius,
@@ -35,7 +39,7 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
       G.star1.pointSize,
       0,
     );
-    const star2 = Smart.Drawing.createStarPolygon(
+    const star2 = Drawing.createStarPolygon(
       0,
       0,
       G.star2.radius,
@@ -46,8 +50,8 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
 
     star2.push(star2.shift());
 
-    this.getStar = Smart.Interpolate.arrays(star1, star2);
-    this.getStarColor = Smart.Interpolate.colors(G.star1.color, G.star2.color);
+    this.getStar = Interpolate.arrays(star1, star2);
+    this.getStarColor = Interpolate.colors(G.star1.color, G.star2.color);
     this.star1 = star1;
     this.star2 = star2;
 

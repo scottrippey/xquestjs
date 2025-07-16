@@ -1,7 +1,7 @@
-import { Class } from "../../../common/src/Smart/Smart.Class.js";
-import { Physics } from "../../../common/src/Smart/Smart.Physics.js";
-import { Point } from "../../../common/src/Smart/Smart.Point.js";
-import { Animation } from "../../../common/src/Smart/Animation/Smart.Animation.js";
+import { Class } from "@/Common/src/Smart/Smart.Class.js";
+import { Physics } from "@/Common/src/Smart/Smart.Physics.js";
+import { Point } from "@/Common/src/Smart/Smart.Point.js";
+import { Animation } from "@/Common/src/Smart/Animation/Smart.Animation.js";
 
 XQuestGame.Player = Class({
   location: null,
