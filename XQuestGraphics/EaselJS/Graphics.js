@@ -1,10 +1,9 @@
-let Graphics;
+const Graphics = {
+  merge(newGraphics) {
+    _.merge(Graphics, newGraphics);
+  },
+};
 Balance.onUpdate((mode) => {
-  Graphics = {
-    merge(newGraphics) {
-      _.merge(Graphics, newGraphics);
-    },
-  };
   Graphics.merge({
     player: {
       radius: Balance.player.radius,
@@ -99,3 +98,4 @@ Balance.onUpdate((mode) => {
     },
   });
 });
+window.Graphics = Graphics;

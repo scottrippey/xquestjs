@@ -1,11 +1,12 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
-import { PlayerInputGamepad } from "../XQuestInput/player/PlayerInputGamepad.js";
-import { MenuInputKeyboard } from "../XQuestInput/menus/MenuInputKeyboard.js";
-import { PlayerInputKeyboard, KeyMapper } from "../XQuestInput/player/PlayerInputKeyboard.js";
-import { PlayerInputMouse } from "../XQuestInput/player/PlayerInputMouse.js";
-import { PlayerInputTouch } from "../XQuestInput/player/PlayerInputTouch.js";
-import { EaselJSGraphics } from "../XQuestGraphics/EaselJS/EaselJSGraphics.js";
+import { EaselJSTimer } from "@/XQuestGraphics/EaselJS/EaselJSTimer.js";
+import { PlayerInputGamepad } from "@/XQuestInput/player/PlayerInputGamepad.js";
+import { MenuInputKeyboard } from "@/XQuestInput/menus/MenuInputKeyboard.js";
+import { PlayerInputKeyboard, KeyMapper } from "@/XQuestInput/player/PlayerInputKeyboard.js";
+import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
+import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
+import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 
 XQuestGame.XQuestHost = Class(new Disposable(), {
   initialize: function XQuestHost(canvas) {

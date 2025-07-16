@@ -364,12 +364,12 @@
     </section>
 
     <section class="startup-script">
-      <script>
+      <script type="module">
         document.body.classList.remove("page-loading");
         document.body.classList.add("page-loaded");
 
         (function createInlineGame() {
-          window.xquest = new XQuestGame.XQuestHost();
+          window.xquest = new window.XQuestGame.XQuestHost();
           var container = xquest.container;
 
           document.getElementById("inlineGame").appendChild(container);
