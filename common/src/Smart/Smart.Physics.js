@@ -1,4 +1,7 @@
-Smart.Physics = {
+import { Point } from './Smart.Point.js';
+import { Sort } from './Smart.Sort.js';
+
+export const Physics = {
 	applyVelocity(point, velocity, elapsedSeconds) {
 		if (velocity.x) {
 			point.x += velocity.x * elapsedSeconds;
@@ -110,8 +113,8 @@ Smart.Physics = {
 			y: location.y - bouncePoint.y
 		};
 
-		var hv = Smart.Point.hypotenuse(velocity);
-		var hd = Smart.Point.hypotenuse(diff);
+		var hv = Point.hypotenuse(velocity);
+		var hd = Point.hypotenuse(diff);
 		var vScale = hv / hd;
 		var lScale = radius / hd;
 
@@ -127,11 +130,10 @@ Smart.Physics = {
 		}
 	},
 
-
 	sortByLocation(points) {
 		if (points.length < 2)
 			return points;
-		return Smart.Sort.smoothSort(points, Smart.Physics._compareLocations);
+		return Sort.smoothSort(points, Physics._compareLocations);
 	},
 
 	_compareLocations(a, b) {
@@ -182,7 +184,6 @@ Smart.Physics = {
 		}
 	},
 
-
 	findClosestPoint(target, points) {
 		var closestPointIndex = -1;
 		var distance = Number.MAX_VALUE;
@@ -198,7 +199,7 @@ Smart.Physics = {
 			if (Math.abs(dy) >= distance) continue;
 
 			// Now do a precise comparison:
-			var actualDistance = Smart.Point.hypotenuseXY(dx, dy);
+			var actualDistance = Point.hypotenuseXY(dx, dy);
 			if (actualDistance < distance) {
 				distance = actualDistance;
 				closestPointIndex = i;
@@ -236,7 +237,7 @@ Smart.Physics = {
 		var b = 2 * (v.x * d.x + v.y * d.y);
 		var c = sqr(d.x) + sqr(d.y);
 
-		var solutions = Smart.Physics.solveQuadratic(a, b, c);
+		var solutions = Physics.solveQuadratic(a, b, c);
 		var t;
 		if (solutions.length === 0 || (solutions[0] <= 0 && solutions[1] <= 0)) {
 			// It's just not possible to hit the target using the given bulletSpeed.
@@ -254,7 +255,7 @@ Smart.Physics = {
 			x: (d.x + v.x * t),
 			y: (d.y + v.y * t)
 		};
-		return Smart.Point.scaleVector(trajectory, bulletSpeed);
+		return Point.scaleVector(trajectory, bulletSpeed);
 	},
 
 

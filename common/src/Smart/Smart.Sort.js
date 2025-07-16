@@ -1,4 +1,4 @@
-Smart.Sort = {
+export const Sort = {
 	/**
 	 * Sorts the array, using a custom comparer.
 	 *
@@ -33,7 +33,6 @@ Smart.Sort = {
 			b = b[property];
 			return (a < b) ? -1 : (a > b) ? 1 : 0;
 		};
-		return Smart.Sort.smoothSort(array, compare);
+		return Sort.smoothSort(array, compare);
 	}
-
 };

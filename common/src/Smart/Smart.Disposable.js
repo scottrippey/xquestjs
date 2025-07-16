@@ -1,4 +1,6 @@
-Smart.Disposable = Smart.Class({
+import { Class } from './Smart.Class.js';
+
+export const Disposable = Class({
 	/**
 	 * Adds a "cleanup" handler that will be called when `dispose` is called.
 	 * @param {Function} callback

@@ -1,4 +1,6 @@
-Smart.Events = Smart.Class({
+import { Class } from './Smart.Class.js';
+
+export const Events = Class({
 	addEvent(eventName, callback) {
 		if (!this.$events) this.$events = {};
 		if (!this.$events[eventName]) this.$events[eventName] = [];
