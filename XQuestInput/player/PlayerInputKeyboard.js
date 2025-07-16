@@ -1,5 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
+import { XQuestHost } from "@/XQuestHost/XQuestHost.js";
 
 // Available actions:
 const playerActions = {
@@ -325,7 +326,7 @@ export function startKeyCodes(callback) {
         if (keyQueue.shift() !== key) {
           keyQueue = code.split("");
         } else if (keyQueue.length === 0) {
-          window.xquest = new XQuestGame.XQuestHost();
+          window.xquest = new XQuestHost();
           window.xquest.onDispose(() => {
             window.xquest = null;
           });

@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-XQuestGame.XQuestHost.Settings = Class({
+export const Settings = Class({
   defaultSettings: {
     mouseSettings: {
       mouseSensitivity: 5,

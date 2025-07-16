@@ -7,11 +7,12 @@ import { PlayerInputKeyboard, KeyMapper } from "@/XQuestInput/player/PlayerInput
 import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
 import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
 import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
+import { Settings } from "@/XQuestHost/Settings.js";
+import { HostScene } from "XQuestGame/scenes/HostScene";
 
-XQuestGame.XQuestHost = Class(new Disposable(), {
+export const XQuestHost = Class(new Disposable(), {
   initialize: function XQuestHost(canvas) {
     Balance.setGameMode("arcade");
-
     this._setupCanvas(canvas);
     this._setupTimer();
     this._setupSettings();
@@ -125,7 +126,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
   },
 
   _setupSettings() {
-    this.settings = new XQuestGame.XQuestHost.Settings();
+    this.settings = new Settings();
   },
 
   _setupGamepad() {
@@ -139,7 +140,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
 
   _startHostScene() {
     const graphics = new EaselJSGraphics(this.canvas);
-    this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
+    this.hostScene = new HostScene(graphics, this.settings);
 
     // Setup Inputs:
     this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));

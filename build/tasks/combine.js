@@ -1,3 +1,5 @@
+import { XQuestHost } from "../../../XQuestHost/XQuestHost.js";
+
 module.exports = function (grunt) {
   grunt.registerTask("combine-js", ["concat:COMBINE-JS", "uglify:COMBINE-JS"]);
 
@@ -11,7 +13,7 @@ module.exports = function (grunt) {
         "    window.XQuestGame = XQuestGame; \n" +
         "    window.XQStart = function() { \n" +
         "        if (window.xquest) return; \n" +
-        "        window.xquest = new XQuestGame.XQuestHost(); \n" +
+        "        window.xquest = new XQuestHost(); \n" +
         "        xquest.onDispose(function() { \n" +
         "            window.xquest = null; \n" +
         "        }); \n" +
