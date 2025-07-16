@@ -1,5 +1,5 @@
-import { Class } from "../../../../common/src/Smart/Smart.Class.js";
-import { Animation } from "../../../../common/src/Smart/Animation/Smart.Animation.js";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
 EaselJSGraphics.CrystalGraphic = Class(new createjs.Shape(), {
   initialize: function CrystalGraphic() {

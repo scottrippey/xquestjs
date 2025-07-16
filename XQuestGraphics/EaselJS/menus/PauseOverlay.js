@@ -1,4 +1,4 @@
-import { Class } from "common/src/Smart/Smart.Class";
+import { Class } from "@/common/src/Smart/Smart.Class";
 import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
 
 Balance.onUpdate((gameMode) => {

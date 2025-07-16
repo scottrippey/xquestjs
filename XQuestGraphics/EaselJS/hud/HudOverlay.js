@@ -1,5 +1,5 @@
 import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
-import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
 
 Balance.onUpdate((mode) => {
   _.merge(Graphics, {

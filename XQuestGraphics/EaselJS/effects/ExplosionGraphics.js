@@ -1,5 +1,5 @@
-import { Class } from "common/src/Smart/Smart.Class";
-import { Physics } from "common/src/Smart/Smart.Physics";
+import { Class } from "@/common/src/Smart/Smart.Class";
+import { Physics } from "@/common/src/Smart/Smart.Physics";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

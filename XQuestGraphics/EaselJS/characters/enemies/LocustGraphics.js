@@ -1,5 +1,5 @@
-import { Class } from "common/src/Smart/Smart.Class";
-import { Drawing } from "@/Common/src/Smart/Smart.Drawing.js";
+import { Class } from "@/common/src/Smart/Smart.Class";
+import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 
 Balance.onUpdate((mode) => {
   const outerRadius = Balance.enemies.locust.radius;

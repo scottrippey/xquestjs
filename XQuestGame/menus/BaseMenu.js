@@ -1,5 +1,5 @@
-import { Class } from "@/Common/src/Smart/Smart.Class";
-import { Events } from "@/Common/src/Smart/Smart.Events";
+import { Class } from "@/common/src/Smart/Smart.Class";
+import { Events } from "@/common/src/Smart/Smart.Events";
 
 XQuestGame.BaseMenu = Class(new Events(), {
   initialize: function BaseMenu(menuScene) {

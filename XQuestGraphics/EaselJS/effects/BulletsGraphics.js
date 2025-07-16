@@ -1,6 +1,6 @@
-import { Class } from "common/src/Smart/Smart.Class";
-import { Disposable } from "common/src/Smart/Smart.Disposable";
-import { Point } from "common/src/Smart/Smart.Point";
+import { Class } from "@/common/src/Smart/Smart.Class";
+import { Disposable } from "@/common/src/Smart/Smart.Disposable";
+import { Point } from "@/common/src/Smart/Smart.Point";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

@@ -1,5 +1,5 @@
-import { Class } from "common/src/Smart/Smart.Class";
-import { Animation } from "common/src/Smart/Animation/Smart.Animation";
+import { Class } from "@/common/src/Smart/Smart.Class";
+import { Animation } from "@/common/src/Smart/Animation/Smart.Animation";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

@@ -1,4 +1,4 @@
-import { Class } from "../../../../common/src/Smart/Smart.Class.js";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

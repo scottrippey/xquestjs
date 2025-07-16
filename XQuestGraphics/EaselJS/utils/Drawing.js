@@ -1,6 +1,6 @@
-import { Class } from "common/src/Smart/Smart.Class";
-import { Animation } from "common/src/Smart/Animation/Smart.Animation";
-import { DrawingContext, DrawingQueue } from "common/src/Smart/Smart.Drawing";
+import { Class } from "@/common/src/Smart/Smart.Class";
+import { Animation } from "@/common/src/Smart/Animation/Smart.Animation";
+import { DrawingContext, DrawingQueue } from "@/common/src/Smart/Smart.Drawing";
 
 EaselJSGraphics.Drawing = Class(new createjs.DisplayObject(), {
   /**

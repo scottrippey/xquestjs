@@ -1,5 +1,5 @@
-import { Class } from "@/Common/src/Smart/Smart.Class.js";
-import { Color } from "@/Common/src/Smart/Smart.Color.js";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Color } from "@/common/src/Smart/Smart.Color.js";
 
 Balance.onUpdate((mode) => {
   const green = "hsl(100, 100%, 50%)";

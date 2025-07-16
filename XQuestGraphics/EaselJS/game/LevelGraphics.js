@@ -1,7 +1,7 @@
-import { Interpolate } from "common/src/Smart/Animation/Smart.Interpolate";
-import { Physics } from "common/src/Smart/Smart.Physics";
-import { Point } from "common/src/Smart/Smart.Point";
-import { Class } from "common/src/Smart/Smart.Class.js";
+import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate";
+import { Physics } from "@/common/src/Smart/Smart.Physics";
+import { Point } from "@/common/src/Smart/Smart.Point";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
 
 EaselJSGraphics.LevelGraphics = Class(new createjs.Shape(), {
   gateStart: null,

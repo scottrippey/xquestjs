@@ -1,5 +1,5 @@
-import { Class } from "@/Common/src/Smart/Smart.Class.js";
-import { Drawing } from "@/Common/src/Smart/Smart.Drawing.js";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 
 EaselJSGraphics.BaseEnemyGraphics = Class(new EaselJSGraphics.Drawing(), {
   drawCircleCircle(drawing, G) {
