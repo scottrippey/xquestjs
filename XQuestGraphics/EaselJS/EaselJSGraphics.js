@@ -1,6 +1,6 @@
-import { Point } from "@/common/src/Smart/Smart.Point";
+import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Class } from "@/common/src/Smart/Smart.Class.js";
-import { Animations } from "@/common/src/Smart/Animation/Smart.Animation.js";
+import { Animations } from "@/common/src/Smart/Animation/Smart.Animations.js";
 
 export const EaselJSGraphics = Class({
   initialize: function EaselJSGraphics(canvas) {
@@ -118,7 +118,7 @@ export const EaselJSGraphics = Class({
 
   getGamePoint(gamePoint, radius) {
     if (typeof gamePoint !== "string") return gamePoint;
-    if (radius == undefined) radius = 0;
+    if (!radius) radius = 0;
     const bounds = Balance.level.bounds;
     switch (gamePoint) {
       case "random":
@@ -376,3 +376,5 @@ export const EaselJSGraphics = Class({
     return introGraphics;
   },
 });
+
+window.EaselJSGraphics = EaselJSGraphics;

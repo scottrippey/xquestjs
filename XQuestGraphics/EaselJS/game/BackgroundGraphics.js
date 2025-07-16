@@ -1,5 +1,5 @@
-import { Class } from "@/common/src/Smart/Smart.Class";
-import { EaselJSGraphics } from "XQuestGraphics/EaselJS/EaselJSGraphics";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 
 EaselJSGraphics.BackgroundGraphicsBase = Class(new createjs.Shape(), {
   BackgroundGraphicsBase_initialize() {

@@ -1,4 +1,4 @@
-import { Class } from "@/common/src/Smart/Smart.Class";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 
 Balance.onUpdate((mode) => {

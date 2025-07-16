@@ -1,6 +1,6 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
-import { Interpolate } from "@/common/src/Smart/Smart.Interpolate.js";
+import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
 
 Balance.onUpdate((gameMode) => {
   const radius = Balance.enemies.mantis.radius;

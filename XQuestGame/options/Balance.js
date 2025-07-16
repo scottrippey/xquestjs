@@ -3,11 +3,13 @@
  * This includes everything from size, speed, timing, and quantity.
  * The values may differ depending on game mode or difficulty settings.
  */
-Balance = {
+const Balance = {
   merge(values) {
     _.merge(Balance, values);
   },
 };
+
+window.Balance = Balance;
 
 // Helpers:
 Balance.merge({

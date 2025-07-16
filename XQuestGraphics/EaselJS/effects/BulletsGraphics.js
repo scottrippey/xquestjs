@@ -1,6 +1,6 @@
-import { Class } from "@/common/src/Smart/Smart.Class";
-import { Disposable } from "@/common/src/Smart/Smart.Disposable";
-import { Point } from "@/common/src/Smart/Smart.Point";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
+import { Point } from "@/common/src/Smart/Smart.Point.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

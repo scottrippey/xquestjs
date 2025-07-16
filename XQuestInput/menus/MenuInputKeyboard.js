@@ -1,4 +1,4 @@
-import { Class } from "@/common/src/Smart/Smart.Class";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { KeyMapper } from "../player/PlayerInputKeyboard.js";
 
 const menuKeyMap = {

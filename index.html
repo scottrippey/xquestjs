@@ -62,13 +62,6 @@
         width: 100%;
       }
     </style>
-    <script type="importmap">
-      {
-        "imports": {
-          "@/": "./"
-        }
-      }
-    </script>
   </head>
   <body class="page-loading">
     <h1>XQuest JS</h1>
@@ -272,84 +265,104 @@
     </section>
 
     <section class="all-the-scripts">
+      <script type="importmap">
+        {
+          "imports": {
+            "@/": "./"
+          }
+        }
+      </script>
+
       <script src="common/lib/lodash.2.2.1.js"></script>
       <script src="common/lib/easeljs-0.6.1.min.js"></script>
       <script src="common/lib/smoothsort.js"></script>
-      <script src="common/src/Smart/Smart.Class.js"></script>
-      <script src="common/src/Smart/Smart.Color.js"></script>
-      <script src="common/src/Smart/Smart.Disposable.js"></script>
-      <script src="common/src/Smart/Smart.Drawing.js"></script>
-      <script src="common/src/Smart/Smart.Events.js"></script>
-      <script src="common/src/Smart/Smart.Physics.js"></script>
-      <script src="common/src/Smart/Smart.Point.js"></script>
-      <script src="common/src/Smart/Smart.Sort.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Animation.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Animation.easeljs.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Animation.easing.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Animation.timing.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Animations.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Interpolate.js"></script>
-      <script src="common/src/Smart/Animation/Smart.Keyframes.js"></script>
-      <script src="common/src/extensions/EaselJS.js"></script>
-      <script src="common/src/extensions/lodash-extensions.js"></script>
-      <script src="XQuestGame/XQuestGame.js"></script>
-      <script src="XQuestGame/scenes/BaseScene.js"></script>
-      <script src="XQuestGame/scenes/ArcadeGame.js"></script>
-      <script src="XQuestGame/scenes/HostScene.js"></script>
-      <script src="XQuestGame/scenes/MenuScene.js"></script>
-      <script src="XQuestGame/characters/BombCrystal.js"></script>
-      <script src="XQuestGame/characters/Player.js"></script>
-      <script src="XQuestGame/characters/PowerCrystal.js"></script>
-      <script src="XQuestGame/characters/enemies/BaseEnemy.js"></script>
-      <script src="XQuestGame/characters/enemies/Locust.js"></script>
-      <script src="XQuestGame/characters/enemies/Mantis.js"></script>
-      <script src="XQuestGame/characters/enemies/Slug.js"></script>
-      <script src="XQuestGame/components/ActivePowerups.js"></script>
-      <script src="XQuestGame/components/CrystalFactory.js"></script>
-      <script src="XQuestGame/components/EnemyFactory.js"></script>
-      <script src="XQuestGame/components/GameDebugger.js"></script>
-      <script src="XQuestGame/components/Hud.js"></script>
-      <script src="XQuestGame/components/LevelFactory.js"></script>
-      <script src="XQuestGame/components/PowerupFactory.js"></script>
-      <script src="XQuestGame/components/Projectiles.js"></script>
-      <script src="XQuestGame/options/Balance.js"></script>
-      <script src="XQuestGame/menus/BaseMenu.js"></script>
-      <script src="XQuestGame/menus/CommonMenus.js"></script>
-      <script src="XQuestGame/menus/GraphicsTestMenu.js"></script>
-      <script src="XQuestGame/menus/StartMenu.js"></script>
-      <script src="XQuestGraphics/EaselJS/EaselJSGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/EaselJSTimer.js"></script>
-      <script src="XQuestGraphics/EaselJS/utils/Drawing.js"></script>
-      <script src="XQuestGraphics/EaselJS/Graphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/characters/PlayerGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/characters/enemies/BaseEnemyGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/characters/enemies/LocustGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/characters/enemies/MantisGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/characters/enemies/SlugGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/effects/BulletsGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/effects/ExplosionGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/effects/SpecialEffects.js"></script>
-      <script src="XQuestGraphics/EaselJS/effects/TextGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/game/BackgroundGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/game/BombCrystalGraphic.js"></script>
-      <script src="XQuestGraphics/EaselJS/game/BombGraphic.js"></script>
-      <script src="XQuestGraphics/EaselJS/game/CrystalGraphic.js"></script>
-      <script src="XQuestGraphics/EaselJS/game/LevelGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/game/PowerCrystalGraphic.js"></script>
-      <script src="XQuestGraphics/EaselJS/hud/HudGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/hud/HudOverlay.js"></script>
-      <script src="XQuestGraphics/EaselJS/hud/HudPauseButton.js"></script>
-      <script src="XQuestGraphics/EaselJS/menus/PauseOverlay.js"></script>
-      <script src="XQuestGraphics/EaselJS/menus/MenuGraphics.js"></script>
-      <script src="XQuestGraphics/EaselJS/menus/MenuButton.js"></script>
-      <script src="XQuestGraphics/EaselJS/menus/XQuestLogoGraphic.js"></script>
-      <script src="XQuestInput/menus/MenuInputKeyboard.js"></script>
-      <script src="XQuestInput/player/PlayerInputGamepad.js"></script>
-      <script src="XQuestInput/player/PlayerInputKeyboard.js"></script>
-      <script src="XQuestInput/player/PlayerInputMouse.js"></script>
-      <script src="XQuestInput/player/PlayerInputTouch.js"></script>
-      <script src="XQuestHost/XQuestHost.js"></script>
-      <script src="XQuestHost/Settings.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Class.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Color.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Disposable.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Drawing.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Events.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Physics.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Point.js"></script>
+      <script type="module" src="common/src/Smart/Smart.Sort.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Animation.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Animation.easeljs.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Animation.easing.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Animation.timing.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Animations.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Interpolate.js"></script>
+      <script type="module" src="common/src/Smart/Animation/Smart.Keyframes.js"></script>
+      <script type="module" src="common/src/extensions/EaselJS.js"></script>
+      <script type="module" src="common/src/extensions/lodash-extensions.js"></script>
+      <script type="module" src="XQuestGame/XQuestGame.js"></script>
+      <script type="module" src="XQuestGame/scenes/BaseScene.js"></script>
+      <script type="module" src="XQuestGame/scenes/ArcadeGame.js"></script>
+      <script type="module" src="XQuestGame/scenes/HostScene.js"></script>
+      <script type="module" src="XQuestGame/scenes/MenuScene.js"></script>
+      <script type="module" src="XQuestGame/characters/BombCrystal.js"></script>
+      <script type="module" src="XQuestGame/characters/Player.js"></script>
+      <script type="module" src="XQuestGame/characters/PowerCrystal.js"></script>
+      <script type="module" src="XQuestGame/characters/enemies/BaseEnemy.js"></script>
+      <script type="module" src="XQuestGame/characters/enemies/Locust.js"></script>
+      <script type="module" src="XQuestGame/characters/enemies/Mantis.js"></script>
+      <script type="module" src="XQuestGame/characters/enemies/Slug.js"></script>
+      <script type="module" src="XQuestGame/components/ActivePowerups.js"></script>
+      <script type="module" src="XQuestGame/components/CrystalFactory.js"></script>
+      <script type="module" src="XQuestGame/components/EnemyFactory.js"></script>
+      <script type="module" src="XQuestGame/components/GameDebugger.js"></script>
+      <script type="module" src="XQuestGame/components/Hud.js"></script>
+      <script type="module" src="XQuestGame/components/LevelFactory.js"></script>
+      <script type="module" src="XQuestGame/components/PowerupFactory.js"></script>
+      <script type="module" src="XQuestGame/components/Projectiles.js"></script>
+      <script type="module" src="XQuestGame/options/Balance.js"></script>
+      <script type="module" src="XQuestGame/menus/BaseMenu.js"></script>
+      <script type="module" src="XQuestGame/menus/CommonMenus.js"></script>
+      <script type="module" src="XQuestGame/menus/GraphicsTestMenu.js"></script>
+      <script type="module" src="XQuestGame/menus/StartMenu.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/EaselJSGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/EaselJSTimer.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/utils/Drawing.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/Graphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/characters/PlayerGraphics.js"></script>
+      <script
+        type="module"
+        src="XQuestGraphics/EaselJS/characters/enemies/BaseEnemyGraphics.js"
+      ></script>
+      <script
+        type="module"
+        src="XQuestGraphics/EaselJS/characters/enemies/LocustGraphics.js"
+      ></script>
+      <script
+        type="module"
+        src="XQuestGraphics/EaselJS/characters/enemies/MantisGraphics.js"
+      ></script>
+      <script
+        type="module"
+        src="XQuestGraphics/EaselJS/characters/enemies/SlugGraphics.js"
+      ></script>
+      <script type="module" src="XQuestGraphics/EaselJS/effects/BulletsGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/effects/ExplosionGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/effects/SpecialEffects.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/effects/TextGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/game/BackgroundGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/game/BombCrystalGraphic.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/game/BombGraphic.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/game/CrystalGraphic.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/game/LevelGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/game/PowerCrystalGraphic.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/hud/HudGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/hud/HudOverlay.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/hud/HudPauseButton.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/menus/PauseOverlay.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/menus/MenuGraphics.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/menus/MenuButton.js"></script>
+      <script type="module" src="XQuestGraphics/EaselJS/menus/XQuestLogoGraphic.js"></script>
+      <script type="module" src="XQuestInput/menus/MenuInputKeyboard.js"></script>
+      <script type="module" src="XQuestInput/player/PlayerInputGamepad.js"></script>
+      <script type="module" src="XQuestInput/player/PlayerInputKeyboard.js"></script>
+      <script type="module" src="XQuestInput/player/PlayerInputMouse.js"></script>
+      <script type="module" src="XQuestInput/player/PlayerInputTouch.js"></script>
+      <script type="module" src="XQuestHost/XQuestHost.js"></script>
+      <script type="module" src="XQuestHost/Settings.js"></script>
     </section>
 
     <section class="startup-script">

@@ -1,4 +1,4 @@
-import { Disposable } from "@/common/src/Smart/Smart.Disposable";
+import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 
 Object.assign(createjs.Graphics.prototype, {
   beginStyle(styles) {

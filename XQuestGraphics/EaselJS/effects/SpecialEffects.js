@@ -1,4 +1,4 @@
-import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate";
+import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
 
 EaselJSGraphics.SpecialEffects = {
   drawElectricLineTo(drawing, lineStart, lineEnd, segments, maxDeviation) {

@@ -1,9 +1,6 @@
-import { Class } from "@/common/src/Smart/Smart.Class";
-import { Disposable } from "@/common/src/Smart/Smart.Disposable";
-import {
-  PlayerInputGamepad,
-  createGamepadInput,
-} from "../XQuestInput/player/PlayerInputGamepad.js";
+import { Class } from "@/common/src/Smart/Smart.Class.js";
+import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
+import { PlayerInputGamepad } from "../XQuestInput/player/PlayerInputGamepad.js";
 import { MenuInputKeyboard } from "../XQuestInput/menus/MenuInputKeyboard.js";
 import { PlayerInputKeyboard, KeyMapper } from "../XQuestInput/player/PlayerInputKeyboard.js";
 import { PlayerInputMouse } from "../XQuestInput/player/PlayerInputMouse.js";
@@ -130,7 +127,7 @@ XQuestGame.XQuestHost = Class(new Disposable(), {
   },
 
   _setupGamepad() {
-    this.gamepadInput = createGamepadInput() || null;
+    this.gamepadInput = PlayerInputGamepad.createGamepadInput() || null;
     if (this.gamepadInput) {
       this.onDispose(() => {
         this.gamepadInput.dispose();

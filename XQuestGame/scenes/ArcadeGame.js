@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Events } from "@/common/src/Smart/Smart.Events.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
-import { Keyframes } from "@/common/src/Smart/Smart.Sort.js";
+import { Keyframes } from "@/common/src/Smart/Animation/Smart.Keyframes.js";
 
 (() => {
   const GameEvents = {
