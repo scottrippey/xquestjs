@@ -44,13 +44,13 @@ export const Animation = Class({
   update(deltaSeconds) {
     this._position += deltaSeconds;
 
-    var thisAnimation = this;
-    var animEvent = this._animEvent;
+    const thisAnimation = this;
+    const animEvent = this._animEvent;
 
     animEvent.position = this._position;
     animEvent.stillRunning = false;
 
-    for (var i = 0; i < this._actions.length; i++) {
+    for (let i = 0; i < this._actions.length; i++) {
       this._actions[i](animEvent, thisAnimation);
 
       if (animEvent._clearCurrentActions) {

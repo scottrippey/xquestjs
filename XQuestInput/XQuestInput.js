@@ -1,1 +1,1 @@
-var XQuestInput = {};
+const XQuestInput = {};

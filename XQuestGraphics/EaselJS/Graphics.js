@@ -1,4 +1,4 @@
-var Graphics;
+let Graphics;
 Balance.onUpdate((mode) => {
   Graphics = {
     merge(newGraphics) {

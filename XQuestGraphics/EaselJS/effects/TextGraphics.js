@@ -51,7 +51,7 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
   },
 
   setText(text, textStyle) {
-    var textStyles = Graphics.textStyles;
+    const textStyles = Graphics.textStyles;
 
     this.text = text;
 
@@ -68,15 +68,15 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
   },
 
   start(gamePoint) {
-    var location = this.gfx.getHudPoint(gamePoint);
+    const location = this.gfx.getHudPoint(gamePoint);
     this.moveTo(location.x, location.y);
     return this;
   },
 
   flyIn(duration, to) {
-    var toLocation = this.gfx.getHudPoint(to || "middle");
+    const toLocation = this.gfx.getHudPoint(to || "middle");
 
-    var txt = this;
+    const txt = this;
     this.animation
       .duration(duration)
       .easeOut()
@@ -90,9 +90,9 @@ EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
   },
 
   flyOut(duration, to) {
-    var toLocation = this.gfx.getHudPoint(to || "bottom");
+    const toLocation = this.gfx.getHudPoint(to || "bottom");
 
-    var txt = this;
+    const txt = this;
     this.animation
       .duration(duration)
       .easeIn()

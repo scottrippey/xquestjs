@@ -14,22 +14,22 @@ EaselJSGraphics.BulletsGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
     this.bullets = [];
   },
   addBullet() {
-    var bullet = new EaselJSGraphics.BulletsGraphics.Bullet();
+    const bullet = new EaselJSGraphics.BulletsGraphics.Bullet();
     this.bullets.push(bullet);
     bullet.onDispose(() => {
-      var index = this.bullets.indexOf(bullet);
+      const index = this.bullets.indexOf(bullet);
       this.bullets.splice(index, 1);
     });
     return bullet;
   },
   drawEffects(drawing) {
-    var G = Graphics.bullets;
+    const G = Graphics.bullets;
 
     drawing.beginPath();
 
-    var i = this.bullets.length;
+    let i = this.bullets.length;
     while (i--) {
-      var bullet = this.bullets[i];
+      const bullet = this.bullets[i];
       drawing.moveTo(bullet.x + G.radius, bullet.y).circle(bullet.x, bullet.y, G.radius);
     }
     drawing.endPath(G.style);
@@ -41,7 +41,7 @@ EaselJSGraphics.BulletsGraphics.Bullet = Smart.Class(new Smart.Disposable(), {
     this.y = y;
   },
   getKickBack(enemy, distance) {
-    var B = Balance.bullets;
+    const B = Balance.bullets;
     return Smart.Point.multiply(this.velocity, B.kickBack);
   },
 });

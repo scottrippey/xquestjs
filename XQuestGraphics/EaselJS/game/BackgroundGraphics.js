@@ -1,6 +1,6 @@
 EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
   BackgroundGraphicsBase_initialize() {
-    var bounds = Balance.level.bounds;
+    const bounds = Balance.level.bounds;
     this._size = {
       width: bounds.x * 2 + bounds.width,
       height: bounds.y * 2 + bounds.height,
@@ -12,9 +12,9 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
   },
 
   _setupBackground() {
-    var g = this.graphics;
-    var v = Graphics.background;
-    var size = this._size;
+    const g = this.graphics;
+    const v = Graphics.background;
+    const size = this._size;
 
     g.clear();
 
@@ -22,24 +22,24 @@ EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
   },
 
   _setupStars() {
-    var g = this.graphics;
-    var v = Graphics.background;
-    var size = this._size;
-    var starColors = v.starColors;
+    const g = this.graphics;
+    const v = Graphics.background;
+    const size = this._size;
+    const starColors = v.starColors;
 
     for (
-      var colorIndex = 0, colorCount = starColors.length;
+      let colorIndex = 0, colorCount = starColors.length;
       colorIndex < colorCount;
       colorIndex++
     ) {
-      var starColor = starColors[colorIndex % colorCount];
+      const starColor = starColors[colorIndex % colorCount];
 
       g.beginStroke(starColor);
 
-      var starCount = Math.floor(v.starCount / colorCount);
+      let starCount = Math.floor(v.starCount / colorCount);
       while (starCount--) {
-        var x = Math.floor(Math.random() * size.width);
-        var y = Math.floor(Math.random() * size.height);
+        const x = Math.floor(Math.random() * size.width);
+        const y = Math.floor(Math.random() * size.height);
         g.moveTo(x, y).lineTo(x + 1, y + 1);
       }
     }

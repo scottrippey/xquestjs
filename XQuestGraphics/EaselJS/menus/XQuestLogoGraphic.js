@@ -22,15 +22,15 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
     this._addX_Q_UEST();
   },
   _addX_Q_UEST() {
-    var X = new EaselJSGraphics.XQuestLogoGraphic.X();
+    const X = new EaselJSGraphics.XQuestLogoGraphic.X();
     this.addChild(X);
 
-    var Q = new EaselJSGraphics.XQuestLogoGraphic.Q();
+    const Q = new EaselJSGraphics.XQuestLogoGraphic.Q();
     this.addChild(Q);
-    var QTail = new EaselJSGraphics.XQuestLogoGraphic.QTail();
+    const QTail = new EaselJSGraphics.XQuestLogoGraphic.QTail();
     this.addChild(QTail);
 
-    var UEST = new EaselJSGraphics.XQuestLogoGraphic.UEST();
+    const UEST = new EaselJSGraphics.XQuestLogoGraphic.UEST();
     this.addChild(UEST);
 
     this.X = X;
@@ -39,7 +39,7 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
     this.UEST = UEST;
 
     // Layout:
-    var left = 0;
+    let left = 0;
 
     left += X.visibleWidth / 2;
     X.moveTo(left, 20);
@@ -55,17 +55,17 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
     UEST.moveTo(left, 70);
     left += UEST.visibleWidth;
 
-    var G = Graphics.xquestLogo;
+    const G = Graphics.xquestLogo;
     this.visibleHeight = G.height;
     this.visibleWidth = left;
   },
 
   showLogo() {
-    var G = Graphics.xquestLogo;
-    var logo = this;
-    var X = this.X;
-    var Q = this.Q;
-    var UEST = this.UEST;
+    const G = Graphics.xquestLogo;
+    const logo = this;
+    const X = this.X;
+    const Q = this.Q;
+    const UEST = this.UEST;
     logo.alpha = 0;
     this.animation = this.gfx
       .addAnimation()
@@ -79,14 +79,14 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
   },
 
   hideLogo() {
-    var G = Graphics.xquestLogo;
-    var logo = this;
-    var X = this.X;
-    var Q = this.Q;
-    var QTail = this.QTail;
-    var UEST = this.UEST;
-    var spinRate = 270;
-    var firstSpin;
+    const G = Graphics.xquestLogo;
+    const logo = this;
+    const X = this.X;
+    const Q = this.Q;
+    const QTail = this.QTail;
+    const UEST = this.UEST;
+    const spinRate = 270;
+    let firstSpin;
     this.animation.cancelAnimation();
     this.animation = this.gfx
       .addAnimation()
@@ -120,8 +120,8 @@ EaselJSGraphics.XQuestLogoGraphic = Smart.Class(new createjs.Container(), {
 
 EaselJSGraphics.XQuestLogoGraphic.X = Smart.Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
-    var G = Graphics.xquestLogo;
-    var radius = G.height / 2;
+    const G = Graphics.xquestLogo;
+    const radius = G.height / 2;
     this.visibleWidth = G.height * 0.7;
 
     drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
@@ -129,10 +129,10 @@ EaselJSGraphics.XQuestLogoGraphic.X = Smart.Class(new EaselJSGraphics.Drawing(),
 });
 EaselJSGraphics.XQuestLogoGraphic.Q = Smart.Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
-    var G = Graphics.xquestLogo;
-    var radius = G.height / 2;
-    var QThickness = G.QThickness;
-    var QTailLength = G.QTailLength;
+    const G = Graphics.xquestLogo;
+    const radius = G.height / 2;
+    const QThickness = G.QThickness;
+    const QTailLength = G.QTailLength;
 
     this.visibleWidth = G.height;
 
@@ -146,10 +146,10 @@ EaselJSGraphics.XQuestLogoGraphic.Q = Smart.Class(new EaselJSGraphics.Drawing(),
 });
 EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
-    var G = Graphics.xquestLogo;
-    var radius = G.height / 2;
-    var QThickness = G.QThickness;
-    var QTailLength = G.QTailLength;
+    const G = Graphics.xquestLogo;
+    const radius = G.height / 2;
+    const QThickness = G.QThickness;
+    const QTailLength = G.QTailLength;
 
     drawing
       .beginPath()
@@ -161,7 +161,7 @@ EaselJSGraphics.XQuestLogoGraphic.QTail = Smart.Class(new EaselJSGraphics.Drawin
 });
 EaselJSGraphics.XQuestLogoGraphic.UEST = Smart.Class(new EaselJSGraphics.Drawing(), {
   drawStatic(drawing) {
-    var G = Graphics.xquestLogo;
+    const G = Graphics.xquestLogo;
 
     this.visibleWidth = G.height * 2;
 

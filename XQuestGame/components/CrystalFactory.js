@@ -14,7 +14,7 @@ XQuestGame.CrystalFactory = Class({
     this._spawnCrystals();
   },
   _spawnCrystals() {
-    var spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
+    let spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
 
     if (this.game.levelConfig.crystalsDisabled) {
       spawnQuantity = 0;
@@ -26,13 +26,13 @@ XQuestGame.CrystalFactory = Class({
     }, this);
     this.crystals = [];
 
-    var radius = Balance.crystals.radius;
+    const radius = Balance.crystals.radius;
 
     this.game.stats.crystalCount = spawnQuantity;
 
     while (spawnQuantity--) {
-      var crystal = this.game.gfx.createCrystalGraphic();
-      var spawnPoint = this.game.gfx.getSafeSpawn(radius);
+      const crystal = this.game.gfx.createCrystalGraphic();
+      const spawnPoint = this.game.gfx.getSafeSpawn(radius);
       crystal.moveTo(spawnPoint.x, spawnPoint.y);
       crystal.location = crystal;
       this.crystals.push(crystal);
@@ -47,14 +47,14 @@ XQuestGame.CrystalFactory = Class({
 
   onAct(tickEvent) {
     // Check for player-collisions:
-    var player = this.game.player;
+    const player = this.game.player;
     this._gatherOnCollision([player], player.radius);
   },
 
   _gatherOnCollision(collisionPoints, maxRadius) {
-    var maxDistance = maxRadius + Balance.crystals.radius;
+    const maxDistance = maxRadius + Balance.crystals.radius;
 
-    var crystalsGathered = 0;
+    let crystalsGathered = 0;
     Physics.detectCollisions(
       this.crystals,
       collisionPoints,
@@ -75,8 +75,8 @@ XQuestGame.CrystalFactory = Class({
   gatherClosestCrystal(location) {
     if (!this.crystals.length) return;
 
-    var crystalIndex = Physics.findClosestPoint(location, this.crystals);
-    var crystal = this.crystals[crystalIndex];
+    const crystalIndex = Physics.findClosestPoint(location, this.crystals);
+    const crystal = this.crystals[crystalIndex];
 
     crystal.gatherCrystal(this.game.gfx, this.game.player.location);
     this.crystals.splice(crystalIndex, 1);

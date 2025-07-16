@@ -1,12 +1,12 @@
 (function init_CommonMenus() {
-  var MenuEvents = XQuestGame.MenuEvents;
+  const MenuEvents = XQuestGame.MenuEvents;
 
   XQuestGame.CommonMenus = {
     PauseMenu: Smart.Class(new XQuestGame.BaseMenu(), {
       initialize: function PauseMenu(menuScene) {
         this.BaseMenu_initialize(menuScene);
 
-        var pauseOverlay = this.menuScene.gfx.createPauseOverlay();
+        const pauseOverlay = this.menuScene.gfx.createPauseOverlay();
         pauseOverlay.showPauseOverlay();
       },
       getRows() {
@@ -93,10 +93,10 @@
         this.menuScene.host.settings.saveSetting("mouseSettings", this.mouseSettings);
       },
       getRows() {
-        var mouseSettings = (this.mouseSettings =
+        let mouseSettings = (this.mouseSettings =
           this.menuScene.host.settings.retrieveSetting("mouseSettings"));
 
-        var sensitivity = this.createMenuButton(
+        const sensitivity = this.createMenuButton(
           () => `Sensitivity: ${mouseSettings.mouseSensitivity}`,
           () => {
             mouseSettings.mouseSensitivity =
@@ -104,7 +104,7 @@
             sensitivity.updateText();
           },
         );
-        var bias = this.createMenuButton(
+        const bias = this.createMenuButton(
           () => `Edge Sensitivity: ${mouseSettings.mouseBiasSensitivity}`,
           () => {
             mouseSettings.mouseBiasSensitivity =
@@ -112,7 +112,7 @@
             bias.updateText();
           },
         );
-        var reset = this.createMenuButton("Reset", () => {
+        const reset = this.createMenuButton("Reset", () => {
           mouseSettings = this.mouseSettings = this.menuScene.host.settings.saveSetting(
             "mouseSettings",
             null,
@@ -122,7 +122,7 @@
           });
         });
 
-        var rows = [
+        const rows = [
           sensitivity,
           bias,
           reset,
@@ -137,10 +137,10 @@
         this.menuScene.host.settings.saveSetting("keyboardSettings", this.keyboardSettings);
       },
       getRows() {
-        var keyboardSettings = (this.keyboardSettings =
+        let keyboardSettings = (this.keyboardSettings =
           this.menuScene.host.settings.retrieveSetting("keyboardSettings"));
 
-        var sensitivity = this.createMenuButton(
+        const sensitivity = this.createMenuButton(
           () => `Sensitivity: ${keyboardSettings.keyboardSensitivity}`,
           () => {
             keyboardSettings.keyboardSensitivity =
@@ -148,7 +148,7 @@
             sensitivity.updateText();
           },
         );
-        var reset = this.createMenuButton("Reset", () => {
+        const reset = this.createMenuButton("Reset", () => {
           keyboardSettings = this.keyboardSettings = this.menuScene.host.settings.saveSetting(
             "keyboardSettings",
             null,
@@ -158,7 +158,7 @@
           });
         });
 
-        var rows = [
+        const rows = [
           sensitivity,
           reset,
           this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
@@ -172,10 +172,10 @@
         this.menuScene.host.settings.saveSetting("touchSettings", this.touchSettings);
       },
       getRows() {
-        var touchSettings = (this.touchSettings =
+        let touchSettings = (this.touchSettings =
           this.menuScene.host.settings.retrieveSetting("touchSettings"));
 
-        var sensitivity = this.createMenuButton(
+        const sensitivity = this.createMenuButton(
           () => `Sensitivity: ${touchSettings.touchSensitivity}`,
           () => {
             touchSettings.touchSensitivity =
@@ -183,7 +183,7 @@
             sensitivity.updateText();
           },
         );
-        var reset = this.createMenuButton("Reset", () => {
+        const reset = this.createMenuButton("Reset", () => {
           touchSettings = this.touchSettings = this.menuScene.host.settings.saveSetting(
             "touchSettings",
             null,
@@ -193,7 +193,7 @@
           });
         });
 
-        var rows = [
+        const rows = [
           sensitivity,
           reset,
           this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
@@ -204,7 +204,7 @@
 
     ConfirmQuitGame: Smart.Class(new XQuestGame.BaseMenu(), {
       getRows() {
-        var rows = [
+        const rows = [
           this.createMenuButton(
             "Quit XQuest",
             this.menuScene.host.quitGame.bind(this.menuScene.host),

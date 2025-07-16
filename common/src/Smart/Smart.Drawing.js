@@ -17,7 +17,7 @@ Smart.Drawing = Smart.Class({
    *
    * Note: None of these methods have return values; we do not want things like "measureText" to appear here.
    */
-  var canvasMethods = [
+  const canvasMethods = [
     "moveTo",
     "lineTo",
     "arc",
@@ -46,7 +46,7 @@ Smart.Drawing = Smart.Class({
    * The following is a list of native canvas properties.
    * We will create chainable setters for each property:
    */
-  var canvasProperties = [
+  const canvasProperties = [
     "strokeStyle",
     "fillStyle",
     "lineWidth",
@@ -57,7 +57,7 @@ Smart.Drawing = Smart.Class({
   ];
   canvasMethods.forEach((methodName) => {
     Smart.Drawing.prototype[methodName] = function _canvas_method_() {
-      var methodArgs = arguments;
+      const methodArgs = arguments;
       this.addCommand((context) => {
         context[methodName].apply(context, methodArgs);
       });
@@ -109,16 +109,16 @@ Smart.Drawing = Smart.Class({
       return this;
     },
     roundRect(x, y, width, height, radius) {
-      var halfPI = Math.PI / 2;
-      var angle_top = halfPI * 3;
-      var angle_right = 0;
-      var angle_bottom = halfPI;
-      var angle_left = Math.PI;
+      const halfPI = Math.PI / 2;
+      const angle_top = halfPI * 3;
+      const angle_right = 0;
+      const angle_bottom = halfPI;
+      const angle_left = Math.PI;
 
-      var arc_left = x + radius;
-      var arc_right = x + width - radius;
-      var arc_top = y + radius;
-      var arc_bottom = y + height - radius;
+      const arc_left = x + radius;
+      const arc_right = x + width - radius;
+      const arc_top = y + radius;
+      const arc_bottom = y + height - radius;
 
       this.arc(arc_right, arc_top, radius, angle_top, angle_right)
         .arc(arc_right, arc_bottom, radius, angle_right, angle_bottom)
@@ -133,15 +133,15 @@ Smart.Drawing = Smart.Class({
       return this;
     },
     star(x, y, radius, sides, pointSize, angle) {
-      var starPolygon = Smart.Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
+      const starPolygon = Smart.Drawing.createStarPolygon(x, y, radius, sides, pointSize, angle);
       this.polygon(starPolygon, false);
       return this;
     },
     polygon(points) {
-      var start = points[0];
+      const start = points[0];
       this.moveTo(start[0], start[1]);
-      for (var i = 1, l = points.length; i < l; i++) {
-        var point = points[i];
+      for (let i = 1, l = points.length; i < l; i++) {
+        const point = points[i];
         this.lineTo(point[0], point[1]);
       }
       return this;
@@ -182,7 +182,7 @@ Smart.Drawing = Smart.Class({
      */
     createStarPolygon(x, y, radius, sides, pointSize, angle) {
       if (typeof x === "object") {
-        var options = x;
+        const options = x;
         x = options.x;
         y = options.y;
         radius = options.radius;
@@ -200,10 +200,10 @@ Smart.Drawing = Smart.Class({
 
       angle /= 180 / Math.PI;
 
-      var a = Math.PI / sides;
+      const a = Math.PI / sides;
 
-      var starPolygon = [];
-      for (var i = 0; i < sides; i++) {
+      const starPolygon = [];
+      for (let i = 0; i < sides; i++) {
         angle += a;
         if (pointSize != 1) {
           starPolygon.push([
@@ -229,22 +229,22 @@ Smart.Drawing = Smart.Class({
      * @returns {Array}
      */
     polygonFromAngles(x, y, radius, angles) {
-      var polygon = [];
-      var ANGLE_ADJUST = 90;
-      var RAD_PER_DEG = Math.PI / -180;
-      for (var i = 0, l = angles.length; i < l; i++) {
-        var angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG;
-        var px = Math.cos(angle) * radius;
-        var py = Math.sin(angle) * radius;
+      const polygon = [];
+      const ANGLE_ADJUST = 90;
+      const RAD_PER_DEG = Math.PI / -180;
+      for (let i = 0, l = angles.length; i < l; i++) {
+        const angle = (angles[i] + ANGLE_ADJUST) * RAD_PER_DEG;
+        const px = Math.cos(angle) * radius;
+        const py = Math.sin(angle) * radius;
         polygon.push([px + x, py + y]);
       }
       return polygon;
     },
 
     createImage(width, height, drawingCallback) {
-      var canvas = this._createCanvas(width, height);
-      var context = canvas.getContext("2d");
-      var drawing = new Smart.DrawingContext(context);
+      const canvas = this._createCanvas(width, height);
+      const context = canvas.getContext("2d");
+      const drawing = new Smart.DrawingContext(context);
 
       drawingCallback(drawing);
 
@@ -252,18 +252,18 @@ Smart.Drawing = Smart.Class({
     },
 
     createPattern(width, height, drawingCallback) {
-      var canvas = this._createCanvas(width, height);
-      var context = canvas.getContext("2d");
-      var drawing = new Smart.DrawingContext(context);
+      const canvas = this._createCanvas(width, height);
+      const context = canvas.getContext("2d");
+      const drawing = new Smart.DrawingContext(context);
 
       drawingCallback(drawing);
 
-      var pattern = context.createPattern(canvas, "repeat");
+      const pattern = context.createPattern(canvas, "repeat");
       return pattern;
     },
 
     _createCanvas(width, height) {
-      var canvas = document.createElement("canvas");
+      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
       return canvas;

@@ -30,22 +30,22 @@ XQuestGame.Player = Class({
   },
 
   _handleInputs(tickEvent, inputState) {
-    var previousState = this.previousState;
+    const previousState = this.previousState;
 
     if (!this.playerActive) return;
 
     this.previousState = inputState;
 
     if (inputState.accelerationX || inputState.accelerationY) {
-      var acceleration = {
+      const acceleration = {
         x: inputState.accelerationX || 0,
         y: inputState.accelerationY || 0,
       };
 
       // Increase the sensitivity when decelerating
-      var neutralizingFactor = 2.0;
-      var isSameDirectionX = this.velocity.x <= 0 === inputState.accelerationX <= 0;
-      var isSameDirectionY = this.velocity.y <= 0 === inputState.accelerationY <= 0;
+      const neutralizingFactor = 2.0;
+      const isSameDirectionX = this.velocity.x <= 0 === inputState.accelerationX <= 0;
+      const isSameDirectionY = this.velocity.y <= 0 === inputState.accelerationY <= 0;
       if (!isSameDirectionX) acceleration.x *= neutralizingFactor;
       if (!isSameDirectionY) acceleration.y *= neutralizingFactor;
 
@@ -71,13 +71,13 @@ XQuestGame.Player = Class({
     }
 
     if (inputState.primaryWeapon && !this.game.levelConfig.shootingDisabled) {
-      var shotsPerSecond;
+      let shotsPerSecond;
       if (this.game.activePowerups.rapidFire) {
         shotsPerSecond = Balance.powerups.rapidFire.shotsPerSecond;
       } else {
         shotsPerSecond = Balance.bullets.shotsPerSecond;
       }
-      var period = 1000 / shotsPerSecond;
+      const period = 1000 / shotsPerSecond;
       if (!this.nextRapidFire) {
         this.nextRapidFire = tickEvent.runTime + period;
       } else if (this.nextRapidFire <= tickEvent.runTime) {
@@ -124,7 +124,7 @@ XQuestGame.Player = Class({
       );
     }
 
-    var wallCollision = this.game.levelGraphics.levelCollision(this.location, this.radius);
+    const wallCollision = this.game.levelGraphics.levelCollision(this.location, this.radius);
     if (wallCollision) {
       if (wallCollision.insideGate) {
         if (wallCollision.insideGateDistance >= this.radius * 2) {
@@ -157,7 +157,7 @@ XQuestGame.Player = Class({
   onAct(tickEvent) {
     if (!this.playerActive) return;
 
-    var killPlayer = false;
+    let killPlayer = false;
     this.game.enemyFactory.killEnemiesOnCollision(
       [this],
       this.radius,

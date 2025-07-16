@@ -1,11 +1,11 @@
 import { Class } from "../../../common/src/Smart/Smart.Class.js";
 import { BaseMenu } from "./BaseMenu.js";
 
-var MenuEvents = XQuestGame.MenuEvents;
+const MenuEvents = XQuestGame.MenuEvents;
 
 XQuestGame.StartMenu = Class(new BaseMenu(), {
   getRows() {
-    var xQuestLogo = this._createLogo();
+    const xQuestLogo = this._createLogo();
     return [
       xQuestLogo,
       this.createMenuButton("Play xQuest", this._startGame.bind(this)),
@@ -13,7 +13,7 @@ XQuestGame.StartMenu = Class(new BaseMenu(), {
     ];
   },
   _createLogo() {
-    var logo = this.menuScene.gfx.createXQuestLogoGraphic();
+    const logo = this.menuScene.gfx.createXQuestLogoGraphic();
 
     logo.setActive = false; // Ensure it's not selectable
 
@@ -33,18 +33,18 @@ XQuestGame.StartMenu = Class(new BaseMenu(), {
     this.layoutRows(this.rows, isBackNavigation);
   },
   layoutRows(rows, isBackNavigation) {
-    var logo = rows[0];
-    var playButton = rows[1];
-    var optionsButton = rows[2];
+    const logo = rows[0];
+    const playButton = rows[1];
+    const optionsButton = rows[2];
 
-    var middle = this.menuScene.gfx.getHudPoint("middle");
+    const middle = this.menuScene.gfx.getHudPoint("middle");
 
-    var logoTop = middle.y - logo.visibleHeight / 2;
+    const logoTop = middle.y - logo.visibleHeight / 2;
     logo.moveTo(middle.x - logo.visibleWidth / 2, logoTop + logo.visibleHeight * 0.3);
     logo.showLogo().easeOut().move(logo, { x: logo.x, y: logoTop });
 
-    var buttonsTop = logoTop + logo.visibleHeight;
-    var buttonDist = (playButton.visibleWidth / 2) * 1.05;
+    const buttonsTop = logoTop + logo.visibleHeight;
+    const buttonDist = (playButton.visibleWidth / 2) * 1.05;
     playButton.moveTo(middle.x - buttonDist, buttonsTop);
     optionsButton.moveTo(middle.x + buttonDist, buttonsTop);
 
@@ -53,14 +53,14 @@ XQuestGame.StartMenu = Class(new BaseMenu(), {
 
   menuLeave(isBackNavigation) {
     if (isBackNavigation) {
-      var rows = this.rows;
-      var logo = rows[0];
-      var playButton = rows[1];
-      var optionsButton = rows[2];
+      const rows = this.rows;
+      const logo = rows[0];
+      const playButton = rows[1];
+      const optionsButton = rows[2];
 
       this.flyOutRows([playButton, optionsButton], isBackNavigation);
 
-      var logoTop = logo.y + logo.visibleHeight * 1.2;
+      const logoTop = logo.y + logo.visibleHeight * 1.2;
       return logo.hideLogo().easeIn().move(logo, { x: logo.x, y: logoTop });
     } else {
       this.flyOutRows(this.rows, isBackNavigation);

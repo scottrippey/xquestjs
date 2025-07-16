@@ -13,7 +13,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
 
   _setupCanvas(canvas) {
     if (!canvas) {
-      var bounds = Balance.level.bounds;
+      const bounds = Balance.level.bounds;
       canvas = this._createCanvas(bounds.visibleWidth, bounds.visibleHeight);
     }
     this.canvas = canvas;
@@ -22,14 +22,14 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
     // Note: create elements manually (parsing isn't "safe" for WinJS)
 
     // Create the container:
-    var container = document.createElement("section");
+    const container = document.createElement("section");
     container.setAttribute("tabindex", "0");
     _.extend(container.style, {
       cursor: "pointer",
     });
 
     // Create the canvas:
-    var canvas = document.createElement("canvas");
+    const canvas = document.createElement("canvas");
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     container.appendChild(canvas);
@@ -42,8 +42,8 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
    * Fills the canvas to fit the entire browser window
    */
   enterFullSize() {
-    var container = this.container;
-    var canvas = this.canvas;
+    const container = this.container;
+    const canvas = this.canvas;
 
     _.extend(container.style, {
       position: "fixed",
@@ -84,10 +84,10 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
     scaleCanvas();
 
     function scaleCanvas() {
-      var containerWidth = container.offsetWidth;
-      var containerHeight = container.offsetHeight;
-      var canvasWidthRatio = canvasWidth / canvasHeight;
-      var containerWidthRatio = containerWidth / containerHeight;
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const canvasWidthRatio = canvasWidth / canvasHeight;
+      const containerWidthRatio = containerWidth / containerHeight;
       if (canvasWidthRatio > containerWidthRatio) {
         canvas.style.width = `${containerWidth}px`;
         canvas.style.height = `${containerWidth / canvasWidthRatio}px`;
@@ -128,7 +128,7 @@ XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
   },
 
   _startHostScene() {
-    var graphics = new EaselJSGraphics(this.canvas);
+    const graphics = new EaselJSGraphics(this.canvas);
     this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
 
     // Setup Inputs:

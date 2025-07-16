@@ -33,7 +33,7 @@ EaselJSGraphics.MenuGraphics.MenuButton = Smart.Class(new createjs.Container(), 
     this.background = new EaselJSGraphics.MenuGraphics.MenuButtonBackground();
     this.addChild(this.background);
 
-    var G = Graphics.menuButton;
+    const G = Graphics.menuButton;
     this.visibleWidth = G.width;
     this.visibleHeight = G.height;
     this.regX = G.width / 2;
@@ -59,8 +59,8 @@ EaselJSGraphics.MenuGraphics.MenuButtonBackground = Smart.Class(new EaselJSGraph
   isActive: false,
   drawEffects(drawing, tickEvent) {
     if (!this.shape || this.nextChange <= tickEvent.time) {
-      var G = Graphics.menuButton;
-      var backgroundShape = (this.shape = new Smart.DrawingQueue());
+      const G = Graphics.menuButton;
+      const backgroundShape = (this.shape = new Smart.DrawingQueue());
       this.nextChange = tickEvent.time + G.backgroundShape.changeFrequency;
 
       backgroundShape.beginPath();

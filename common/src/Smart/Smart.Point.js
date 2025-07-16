@@ -25,13 +25,12 @@ export const Point = {
     );
   },
   distanceTest(pointA, pointB, testDistance) {
-    var dx;
-    var dy;
-    dx = pointA.x - pointB.x;
+    const dx = pointA.x - pointB.x;
+    let dy;
     if (Math.abs(dx) <= testDistance) {
       dy = pointA.y - pointB.y;
       if (Math.abs(dy) <= testDistance) {
-        var delta = { x: dx, y: dy };
+        const delta = { x: dx, y: dy };
         delta.distance = Point.hypotenuse(delta);
         if (delta.distance <= testDistance) return delta;
       }
@@ -39,23 +38,23 @@ export const Point = {
     return null;
   },
   rotate(point, degrees) {
-    var radians = degrees * RadiansPerDegree;
-    var cos = Math.cos(radians);
-    var sin = Math.sin(radians);
-    var rx = point.x * cos - point.y * sin;
-    var ry = point.x * sin + point.y * cos;
+    const radians = degrees * RadiansPerDegree;
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
+    const rx = point.x * cos - point.y * sin;
+    const ry = point.x * sin + point.y * cos;
     point.x = rx;
     point.y = ry;
   },
   fromAngle(degrees, scale) {
-    var radians = degrees * RadiansPerDegree;
+    const radians = degrees * RadiansPerDegree;
     return {
       x: Math.cos(radians) * scale,
       y: Math.sin(radians) * scale,
     };
   },
   scaleVector(vector, scale) {
-    var vectorScale = scale / Point.hypotenuse(vector);
+    const vectorScale = scale / Point.hypotenuse(vector);
     return {
       x: vector.x * vectorScale,
       y: vector.y * vectorScale,

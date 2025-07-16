@@ -18,15 +18,15 @@ XQuestGame.PowerupFactory = Class({
   },
 
   _shouldSpawn(tickEvent) {
-    var B = Balance.powerCrystals;
+    const B = Balance.powerCrystals;
 
     if (this.game.levelConfig.powerCrystalsDisabled) {
       return false;
     }
 
     // TODO: Make this performance-based instead of time-based:
-    var isFirstRun = this.nextSpawn === undefined;
-    var shouldSpawn = !isFirstRun && this.nextSpawn <= tickEvent.runTime;
+    const isFirstRun = this.nextSpawn === undefined;
+    const shouldSpawn = !isFirstRun && this.nextSpawn <= tickEvent.runTime;
     if (isFirstRun || shouldSpawn) {
       this.nextSpawn = tickEvent.runTime + B.spawnRate() * 1000;
     }
@@ -41,7 +41,7 @@ XQuestGame.PowerupFactory = Class({
     // Check for bullet-collisions:
 
     // Check for player-collisions:
-    var player = this.game.player;
+    const player = this.game.player;
     this._gatherOnCollision([player], player.radius);
 
     if (this.bombCrystals.length) {
@@ -49,7 +49,7 @@ XQuestGame.PowerupFactory = Class({
         Physics.sortByLocation(this.bombCrystals);
       }
 
-      var maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
+      const maxDistance = Balance.player.radius + Balance.bombCrystals.radius;
 
       Physics.detectCollisions(
         this.bombCrystals,
@@ -65,15 +65,15 @@ XQuestGame.PowerupFactory = Class({
   },
 
   createPowerCrystal() {
-    var powerCrystal = new XQuestGame.PowerCrystal(this.game);
-    var spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
+    const powerCrystal = new XQuestGame.PowerCrystal(this.game);
+    const spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
     powerCrystal.spawn(spawnInfo);
     this.powerCrystals.push(powerCrystal);
   },
 
   _nextPowerup() {
-    var B = Balance.powerups;
-    var totalFrequency = 0;
+    const B = Balance.powerups;
+    let totalFrequency = 0;
     _.forOwn(
       B,
       function (p, powerupName) {
@@ -82,10 +82,10 @@ XQuestGame.PowerupFactory = Class({
       },
       this,
     );
-    var result;
+    let result;
     if (totalFrequency !== 0) {
       // Choose from the available powerups:
-      var randomPowerupIndex = Math.random() * totalFrequency;
+      let randomPowerupIndex = Math.random() * totalFrequency;
       _.forOwn(
         B,
         function (powerup, powerupName) {
@@ -101,11 +101,11 @@ XQuestGame.PowerupFactory = Class({
     } else {
       // All powerups already gained, so start renewing some:
       result = null;
-      var resultTime = null;
+      let resultTime = null;
       _.forOwn(
         B,
         function (powerup, powerupName) {
-          var activeTime = this.game.activePowerups[powerupName];
+          const activeTime = this.game.activePowerups[powerupName];
 
           if (resultTime === null || activeTime < resultTime) {
             resultTime = activeTime;
@@ -119,7 +119,7 @@ XQuestGame.PowerupFactory = Class({
   },
 
   _gatherOnCollision(collisionPoints, maxRadius) {
-    var maxDistance = maxRadius + Balance.powerCrystals.radius;
+    const maxDistance = maxRadius + Balance.powerCrystals.radius;
 
     Physics.detectCollisions(
       this.powerCrystals,
@@ -128,7 +128,7 @@ XQuestGame.PowerupFactory = Class({
       (powerCrystal, point, crystalIndex, pi, distance) => {
         this.powerCrystals.splice(crystalIndex, 1);
         powerCrystal.gatherPowerCrystal();
-        var powerupName = this._nextPowerup();
+        const powerupName = this._nextPowerup();
         this.game.activePowerups.activate(powerupName);
       },
     );
@@ -137,7 +137,7 @@ XQuestGame.PowerupFactory = Class({
   _onNewLevel() {
     this._clearBombCrystals();
 
-    var bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
+    let bombCrystalQuantity = Balance.bombCrystals.spawnQuantity(this.game);
 
     if (this.game.levelConfig.bombCrystalsDisabled) {
       bombCrystalQuantity = 0;
@@ -149,8 +149,8 @@ XQuestGame.PowerupFactory = Class({
   },
 
   createBombCrystal() {
-    var bombCrystal = new XQuestGame.BombCrystal(this.game);
-    var randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
+    const bombCrystal = new XQuestGame.BombCrystal(this.game);
+    const randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
     bombCrystal.spawnBomb(randomSpawnLocation);
 
     this.bombCrystals.push(bombCrystal);

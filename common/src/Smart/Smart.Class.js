@@ -1,6 +1,6 @@
 export function Class(base, implement) {
   if (!implement) implement = base;
-  var constructor = Object.hasOwn(implement, "initialize") && implement["initialize"];
+  let constructor = Object.hasOwn(implement, "initialize") && implement["initialize"];
   if (!constructor) {
     constructor = function Class() {
       if (this.initialize) this.initialize.apply(this, arguments);
@@ -22,7 +22,7 @@ export function Class(base, implement) {
 }
 
 function extendThis(extend) {
-  for (var key in extend) {
+  for (const key in extend) {
     // Takes the place of checking hasOwnProperty:
     if (this[key] === extend[key]) continue;
     this[key] = extend[key];

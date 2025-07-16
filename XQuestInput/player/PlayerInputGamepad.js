@@ -1,16 +1,16 @@
 (function init_PlayerInputXO() {
   /* Gamepad input for Xbox One */
 
-  var UserSettings = {
+  const UserSettings = {
     analogThreshold: 0.05,
     analogSensitivity: 8,
     analogDownThreshold: 0.6,
     analogUpThreshold: 0.4,
   };
-  var MenuActions = XQuestGame.MenuSceneInputs;
-  var MenuActionsAnalogX = "MenuActionsAnalogX";
-  var MenuActionsAnalogY = "MenuActionsAnalogY";
-  var PlayerActions = {
+  const MenuActions = XQuestGame.MenuSceneInputs;
+  const MenuActionsAnalogX = "MenuActionsAnalogX";
+  const MenuActionsAnalogY = "MenuActionsAnalogY";
+  const PlayerActions = {
     pauseGame: "pauseGame",
     analogX: "analogX",
     analogY: "analogY",
@@ -32,7 +32,7 @@
       this.allGamepads.push(gamepad);
     },
     removeGamepad(gamepadId) {
-      for (var i = 0; i < this.allGamepads.length; i++) {
+      for (let i = 0; i < this.allGamepads.length; i++) {
         if (this.allGamepads[i].gamepadId === gamepadId) {
           this.allGamepads.splice(i, 1);
           return;
@@ -47,14 +47,14 @@
       }
     },
     _onInput_menu(tickEvent, inputState) {
-      var allGamepads = this.allGamepads;
+      const allGamepads = this.allGamepads;
 
-      for (var i = 0; i < allGamepads.length; i++) {
-        var gamepad = allGamepads[i];
+      for (let i = 0; i < allGamepads.length; i++) {
+        const gamepad = allGamepads[i];
 
-        var downQueue = gamepad.getMenuActions();
-        for (var j = 0; j < downQueue.length; j++) {
-          var downKey = downQueue[j];
+        const downQueue = gamepad.getMenuActions();
+        for (let j = 0; j < downQueue.length; j++) {
+          let downKey = downQueue[j];
           inputState[downKey] = true;
 
           if ((downKey = MenuActions.menuInvoke)) {
@@ -64,13 +64,13 @@
       }
     },
     _onInput_player(tickEvent, inputState) {
-      var analogSensitivity = UserSettings.analogSensitivity;
-      var analogThreshold = UserSettings.analogThreshold;
-      var currentGamepad = this.currentGamepad;
+      const analogSensitivity = UserSettings.analogSensitivity;
+      const analogThreshold = UserSettings.analogThreshold;
+      const currentGamepad = this.currentGamepad;
 
       if (!currentGamepad) return;
 
-      var actions = currentGamepad.getPlayerActions();
+      const actions = currentGamepad.getPlayerActions();
       if (actions[PlayerActions.primaryWeapon]) inputState.primaryWeapon = true;
       if (actions[PlayerActions.secondaryWeapon]) inputState.secondaryWeapon = true;
       if (actions[PlayerActions.pauseGame]) {
@@ -82,15 +82,15 @@
         this.isPauseDown = false;
       }
 
-      var analogX = actions[PlayerActions.analogX];
-      var analogY = -actions[PlayerActions.analogY];
+      const analogX = actions[PlayerActions.analogX];
+      const analogY = -actions[PlayerActions.analogY];
       if (Math.abs(analogX) > analogThreshold || Math.abs(analogY) > analogThreshold) {
         inputState.accelerationX += analogX * analogSensitivity;
         inputState.accelerationY += analogY * analogSensitivity;
       }
     },
     _disableAllKeystrokes() {
-      var useCapture = true;
+      const useCapture = true;
       document.addEventListener("keydown", stopEvent, useCapture);
       document.addEventListener("keyup", stopEvent, useCapture);
       document.addEventListener("keypress", stopEvent, useCapture);
@@ -112,7 +112,7 @@
     createGamepadInput,
   });
 
-  var xboxPlayerMap = {
+  const xboxPlayerMap = {
     isMenuPressed: PlayerActions.pauseGame,
     isViewPressed: PlayerActions.pauseGame,
 
@@ -139,7 +139,7 @@
     //rightThumbstickY: PlayerActions.analogY,
     isRightThumbstickPressed: PlayerActions.primaryWeapon,
   };
-  var xboxMenuMap = {
+  const xboxMenuMap = {
     //isMenuPressed: MenuActions.menuInvoke,
     //isViewPressed: MenuActions.menuInvoke,
 
@@ -177,27 +177,27 @@
       return this._mapXboxGamepadActions(this.playerMap);
     },
     getMenuActions() {
-      var currentActionValues = this._mapXboxGamepadActions(this.menuMap);
+      const currentActionValues = this._mapXboxGamepadActions(this.menuMap);
 
-      var previousActionValues = this.previousActions;
+      const previousActionValues = this.previousActions;
       this.previousActions = currentActionValues;
 
-      var menuActions = [];
-      for (var actionName in currentActionValues) {
+      const menuActions = [];
+      for (const actionName in currentActionValues) {
         if (!Object.hasOwn(currentActionValues, actionName)) continue;
-        var previousValue = previousActionValues[actionName];
-        var currentValue = currentActionValues[actionName];
+        const previousValue = previousActionValues[actionName];
+        let currentValue = currentActionValues[actionName];
 
         // Deal with analog inputs:
         if (actionName === MenuActionsAnalogX) {
-          var wasDownX = this.isDownX;
+          const wasDownX = this.isDownX;
           this.isDownX = this._analogToBoolean(Math.abs(currentValue), wasDownX);
           if (!wasDownX && this.isDownX) {
             menuActions.push(currentValue < 0 ? MenuActions.menuLeft : MenuActions.menuRight);
           }
         } else if (actionName === MenuActionsAnalogY) {
           currentValue = -currentValue;
-          var wasDownY = this.isDownY;
+          const wasDownY = this.isDownY;
           this.isDownY = this._analogToBoolean(Math.abs(currentValue), wasDownY);
           if (!wasDownY && this.isDownY) {
             menuActions.push(currentValue < 0 ? MenuActions.menuUp : MenuActions.menuDown);
@@ -211,13 +211,13 @@
       return menuActions;
     },
     _mapXboxGamepadActions(actionsMap) {
-      var currentReading = this.xboxGamepad.getCurrentReading();
-      var gamepadActions = {};
-      for (var gamepadButtonName in actionsMap) {
+      const currentReading = this.xboxGamepad.getCurrentReading();
+      const gamepadActions = {};
+      for (const gamepadButtonName in actionsMap) {
         if (!Object.hasOwn(actionsMap, gamepadButtonName)) continue;
 
-        var actionName = actionsMap[gamepadButtonName];
-        var readingValue = currentReading[gamepadButtonName];
+        const actionName = actionsMap[gamepadButtonName];
+        const readingValue = currentReading[gamepadButtonName];
 
         if (readingValue !== false) {
           gamepadActions[actionName] = readingValue;
@@ -227,7 +227,7 @@
       return gamepadActions;
     },
     _analogToBoolean(analogValue, wasAlreadyDown) {
-      var threshold = wasAlreadyDown
+      const threshold = wasAlreadyDown
         ? UserSettings.analogUpThreshold
         : UserSettings.analogDownThreshold;
       return analogValue >= threshold;
@@ -235,14 +235,14 @@
   });
 
   function createGamepadInput() {
-    var Windows = window.Windows;
-    var Xbox = Windows && Windows.Xbox;
+    const Windows = window.Windows;
+    const Xbox = Windows && Windows.Xbox;
     if (!Xbox) return null;
 
-    var gamepadInput = new XQuestInput.PlayerInputGamepad();
+    const gamepadInput = new XQuestInput.PlayerInputGamepad();
 
     function addXboxGamepad(xboxGamepad) {
-      var gamepad = new XQuestInput.PlayerInputGamepad.XboxGamepadMapper(
+      const gamepad = new XQuestInput.PlayerInputGamepad.XboxGamepadMapper(
         xboxGamepad,
         xboxPlayerMap,
         xboxMenuMap,
@@ -255,11 +255,11 @@
     }
 
     // Add existing gamepads:
-    var Input = Xbox.Input;
+    const Input = Xbox.Input;
 
-    var Gamepad = Input.Gamepad;
-    var gamepads = Gamepad.gamepads;
-    for (var i = 0; i < gamepads.size; i++) {
+    const Gamepad = Input.Gamepad;
+    const gamepads = Gamepad.gamepads;
+    for (let i = 0; i < gamepads.size; i++) {
       addXboxGamepad(gamepads[i]);
     }
 

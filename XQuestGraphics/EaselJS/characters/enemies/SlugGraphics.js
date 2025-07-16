@@ -1,7 +1,7 @@
 Balance.onUpdate((mode) => {
-  var green = "hsl(100, 100%, 50%)";
-  var darkGreen = Smart.Color.darken(green, 30);
-  var black = "black";
+  const green = "hsl(100, 100%, 50%)";
+  const darkGreen = Smart.Color.darken(green, 30);
+  const black = "black";
 
   _.merge(Graphics, {
     enemies: {
@@ -27,17 +27,17 @@ Balance.onUpdate((mode) => {
 
 EaselJSGraphics.SlugGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
-    var G = Graphics.enemies.slug;
+    const G = Graphics.enemies.slug;
     this.visibleRadius = G.radius;
   },
   drawStatic(drawing, tickEvent) {
-    var G = Graphics.enemies.slug;
+    const G = Graphics.enemies.slug;
 
     this.drawCircleCircle(drawing, G.circleCircle);
   },
 
   getExplosionOptions() {
-    var G = Graphics.enemies.slug;
+    const G = Graphics.enemies.slug;
     return G.explosionOptions;
   },
 });

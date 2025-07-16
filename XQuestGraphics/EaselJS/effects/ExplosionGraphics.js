@@ -17,12 +17,12 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
   setup(position, velocity, explosionOptions) {
     this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 
-    var random = () => 1 - Math.random() - Math.random(); // provides a more even spread than just Math.random()
+    const random = () => 1 - Math.random() - Math.random(); // provides a more even spread than just Math.random()
 
     this.particles = new Array(explosionOptions.count);
-    for (var i = 0, l = explosionOptions.count; i < l; i++) {
-      var vx = velocity.x + explosionOptions.speed * random();
-      var vy = velocity.y + explosionOptions.speed * random();
+    for (let i = 0, l = explosionOptions.count; i < l; i++) {
+      const vx = velocity.x + explosionOptions.speed * random();
+      const vy = velocity.y + explosionOptions.speed * random();
 
       this.particles[i] = {
         x: position.x,
@@ -38,14 +38,14 @@ EaselJSGraphics.ExplosionGraphic = Smart.Class(new EaselJSGraphics.Drawing(), {
       .queueDispose(this);
   },
   drawEffects(drawing, tickEvent) {
-    var explosionOptions = this.explosionOptions;
-    var particles = this.particles;
-    var deltaSeconds = tickEvent.deltaSeconds;
-    var levelBounds = Balance.level.bounds;
+    const explosionOptions = this.explosionOptions;
+    const particles = this.particles;
+    const deltaSeconds = tickEvent.deltaSeconds;
+    const levelBounds = Balance.level.bounds;
 
     drawing.beginPath();
-    for (var i = 0, l = particles.length; i < l; i++) {
-      var particle = particles[i];
+    for (let i = 0, l = particles.length; i < l; i++) {
+      const particle = particles[i];
       Smart.Physics.applyVelocity(particle, particle.velocity, deltaSeconds);
       Smart.Physics.applyFrictionToVelocity(
         particle.velocity,

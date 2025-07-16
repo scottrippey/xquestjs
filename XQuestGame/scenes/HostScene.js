@@ -1,5 +1,5 @@
 (() => {
-  var HostSceneEvents = {
+  const HostSceneEvents = {
     onMenuCreated: "onMenuCreated",
     onGameCreated: "onGameCreated",
     onQuitGame: "onQuitGame",
@@ -22,14 +22,14 @@
       _setupBackground() {
         this.gfx.showBackgroundStars(true);
 
-        var middle = this.gfx.getGamePoint("middle");
+        const middle = this.gfx.getGamePoint("middle");
         this.gfx.followPlayer(middle);
       },
       start() {
         this._showStartMenu();
       },
       _showStartMenu() {
-        var menuScene = this.createMenuScene();
+        const menuScene = this.createMenuScene();
 
         this.setChildScene(menuScene);
 
@@ -40,15 +40,15 @@
         menuScene.showStartMenu();
       },
       createMenuScene() {
-        var gfx = this.gfx.createNewGraphics();
-        var menuScene = new XQuestGame.MenuScene(gfx, this.host);
+        const gfx = this.gfx.createNewGraphics();
+        const menuScene = new XQuestGame.MenuScene(gfx, this.host);
         this.fireSceneEvent(HostSceneEvents.onMenuCreated, [menuScene]);
 
         return menuScene;
       },
       _startArcadeGame() {
-        var gfx = this.gfx.createNewGraphics();
-        var arcadeGame = new XQuestGame.ArcadeGame(gfx, this.host);
+        const gfx = this.gfx.createNewGraphics();
+        const arcadeGame = new XQuestGame.ArcadeGame(gfx, this.host);
         this.fireSceneEvent(HostSceneEvents.onGameCreated, [arcadeGame]);
         this.setChildScene(arcadeGame);
 

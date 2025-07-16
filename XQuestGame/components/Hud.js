@@ -28,11 +28,11 @@ XQuestGame.Hud = Class({
     });
   },
   _layout() {
-    var bounds = Balance.level.bounds;
-    var middle = bounds.hudHeight / 2;
-    var spacer = 50;
+    const bounds = Balance.level.bounds;
+    const middle = bounds.hudHeight / 2;
+    const spacer = 50;
 
-    var leftPos = spacer;
+    let leftPos = spacer;
 
     leftPos += this.hudLivesIcon.visibleRadius;
     this.hudLivesIcon.moveTo(leftPos, middle);
@@ -55,7 +55,7 @@ XQuestGame.Hud = Class({
 
     leftPos += spacer;
 
-    var center = bounds.visibleWidth / 2;
+    const center = bounds.visibleWidth / 2;
     this.hudPauseButton.moveTo(
       center - this.hudPauseButton.width / 2,
       middle - this.hudPauseButton.height / 2,
@@ -68,9 +68,9 @@ XQuestGame.Hud = Class({
   },
 
   _onNewLevel() {
-    var levelConfig = this.game.levelConfig;
+    const levelConfig = this.game.levelConfig;
 
-    var faded = 0.3;
+    const faded = 0.3;
 
     this.hudLivesIcon.alpha = this.hudLivesText.alpha = levelConfig.skipLevelOnPlayerDeath
       ? faded

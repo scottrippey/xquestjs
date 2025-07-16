@@ -1,15 +1,15 @@
 EaselJSGraphics.SpecialEffects = {
   drawElectricLineTo(drawing, lineStart, lineEnd, segments, maxDeviation) {
-    var diff = {
+    const diff = {
       x: lineEnd.x - lineStart.x,
       y: lineEnd.y - lineStart.y,
     };
-    var interpolate = Smart.Interpolate.points(lineStart, lineEnd);
+    const interpolate = Smart.Interpolate.points(lineStart, lineEnd);
 
-    for (var i = 1; i <= segments; i++) {
-      var pos = interpolate(i / segments);
-      var dist = Math.min(segments - i, i) / segments;
-      var deviation = dist * maxDeviation * (Math.random() - 0.5);
+    for (let i = 1; i <= segments; i++) {
+      const pos = interpolate(i / segments);
+      const dist = Math.min(segments - i, i) / segments;
+      const deviation = dist * maxDeviation * (Math.random() - 0.5);
       if (diff.y) pos.x += -diff.y * deviation;
       if (diff.x) pos.y += diff.x * deviation;
       drawing.lineTo(pos.x, pos.y);
@@ -17,14 +17,14 @@ EaselJSGraphics.SpecialEffects = {
   },
 
   drawElectricRectangle(drawing, rectangle, electricOptions) {
-    var left = rectangle.x || 0;
-    var top = rectangle.y || 0;
-    var right = left + rectangle.width;
-    var bottom = top + rectangle.height;
-    var segmentsH = electricOptions.segmentsH;
-    var devH = electricOptions.deviationH;
-    var segmentsV = electricOptions.segmentsV;
-    var devV = electricOptions.deviationV;
+    const left = rectangle.x || 0;
+    const top = rectangle.y || 0;
+    const right = left + rectangle.width;
+    const bottom = top + rectangle.height;
+    const segmentsH = electricOptions.segmentsH;
+    const devH = electricOptions.deviationH;
+    const segmentsV = electricOptions.segmentsV;
+    const devV = electricOptions.deviationV;
 
     drawing.moveTo(left, top);
     this.drawElectricLineTo(drawing, { x: left, y: top }, { x: right, y: top }, segmentsH, devH);

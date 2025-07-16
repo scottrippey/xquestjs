@@ -2,7 +2,7 @@
  * This is a wrapper around createjs.Ticker
  * @constructor
  */
-var EaselJSTimer = Smart.Class({
+const EaselJSTimer = Smart.Class({
   addTickHandler(tickHandler) {
     // Configuration:
     createjs.Ticker.useRAF = true;

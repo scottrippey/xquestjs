@@ -4,24 +4,24 @@ import { Physics } from "../../../../common/src/Smart/Smart.Physics.js";
 
 XQuestGame.Locust = Class(new XQuestGame.BaseEnemy(), {
   initialize: function Locust(game) {
-    var B = Balance.enemies.locust;
+    const B = Balance.enemies.locust;
     this.setupBaseEnemyGraphics(game, "Locust", B.radius);
   },
 
   spawn(spawnInfo) {
-    var B = Balance.enemies.locust;
+    const B = Balance.enemies.locust;
     this.location.moveTo(spawnInfo.x, spawnInfo.y);
     this.velocity = Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
     this._changeTurnSpeed();
   },
 
   _changeTurnSpeed() {
-    var B = Balance.enemies.locust;
+    const B = Balance.enemies.locust;
     this.turnSpeed = B.turnSpeed();
   },
 
   onMove(tickEvent) {
-    var rotation = tickEvent.deltaSeconds * this.turnSpeed;
+    const rotation = tickEvent.deltaSeconds * this.turnSpeed;
     Point.rotate(this.velocity, rotation);
 
     Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
@@ -29,7 +29,7 @@ XQuestGame.Locust = Class(new XQuestGame.BaseEnemy(), {
   },
 
   onAct(tickEvent) {
-    var B = Balance.enemies.locust;
+    const B = Balance.enemies.locust;
     if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
       this._changeTurnSpeed();
     }

@@ -45,7 +45,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
   },
   draw(ctx, ignoreCache) {
     // Render if cached:
-    var DisplayObject_handled = this.DisplayObject_draw(ctx, ignoreCache);
+    const DisplayObject_handled = this.DisplayObject_draw(ctx, ignoreCache);
     if (!DisplayObject_handled && this.drawingQueue) {
       this.drawingQueue.draw(ctx);
     }
@@ -61,7 +61,7 @@ EaselJSGraphics.Drawing = Smart.Class(new createjs.DisplayObject(), {
   },
 
   addAnimation() {
-    var anim = new Smart.Animation();
+    const anim = new Smart.Animation();
     if (!this._anim) {
       this._anim = anim;
     } else {

@@ -13,7 +13,7 @@
     onStartGame: "onStartGame",
   };
 
-  var MenuEvents = XQuestGame.MenuEvents;
+  const MenuEvents = XQuestGame.MenuEvents;
 
   XQuestGame.MenuScene = Smart.Class(new XQuestGame.BaseScene().implementSceneEvents(MenuEvents), {
     initialize: function MenuScene(gfx, host) {
@@ -32,11 +32,11 @@
     },
 
     _setupBackButton() {
-      var backButton = this.menuScene.gfx.createMenuButton("Back");
+      const backButton = this.menuScene.gfx.createMenuButton("Back");
       backButton.addButtonEvents({
         invoke: this.goBack.bind(this),
       });
-      var top = this.menuScene.gfx.getHudPoint("top");
+      const top = this.menuScene.gfx.getHudPoint("top");
       backButton.moveTo(top.x, top.y + backButton.visibleHeight);
 
       this.backButton = backButton;
@@ -49,7 +49,7 @@
     },
 
     getDefaultInputState() {
-      var state = {
+      const state = {
         menuMode: true,
       };
       return state;
@@ -88,11 +88,11 @@
     },
 
     showStartMenu() {
-      var startMenu = new XQuestGame.StartMenu(this.menuScene);
+      const startMenu = new XQuestGame.StartMenu(this.menuScene);
       this.addMenu(startMenu);
     },
     showPauseMenu() {
-      var pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
+      const pauseMenu = new XQuestGame.CommonMenus.PauseMenu(this.menuScene);
       this.addMenu(pauseMenu);
     },
   });

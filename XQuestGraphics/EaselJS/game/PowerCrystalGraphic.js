@@ -4,7 +4,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
   },
 
   _setupGraphics() {
-    var G = Graphics.powerCrystals;
+    const G = Graphics.powerCrystals;
     this.graphics
       .clear()
       .beginStyle(G.style)
@@ -24,7 +24,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
   },
 
   gatherPowerCrystal(gfx, playerLocation) {
-    var powerCrystal = this;
+    const powerCrystal = this;
     return gfx.addAnimation(
       new Smart.Animation()
         .duration(Graphics.powerCrystals.gatherDuration)
@@ -42,7 +42,7 @@ EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
   },
 
   clearPowerCrystal(gfx) {
-    var powerCrystal = this;
+    const powerCrystal = this;
     return gfx.addAnimation(
       new Smart.Animation()
         .duration(2)

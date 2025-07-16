@@ -4,7 +4,7 @@ import { Physics } from "../../../common/src/Smart/Smart.Physics.js";
 
 XQuestGame.PowerCrystal = Class({
   initialize: function PowerCrystal(game) {
-    var B = Balance.powerCrystals;
+    const B = Balance.powerCrystals;
     this.game = game;
     this.game.addSceneItem(this);
 
@@ -15,7 +15,7 @@ XQuestGame.PowerCrystal = Class({
   },
 
   spawn(spawnInfo) {
-    var B = Balance.powerCrystals;
+    const B = Balance.powerCrystals;
 
     this.location.moveTo(spawnInfo.x, spawnInfo.y);
     this.velocity = { x: B.speed, y: 0 };
@@ -26,7 +26,7 @@ XQuestGame.PowerCrystal = Class({
   },
 
   onMove(tickEvent) {
-    var powerCrystal = this;
+    const powerCrystal = this;
 
     // Turn:
     Point.rotate(powerCrystal.velocity, powerCrystal.turnSpeed * tickEvent.deltaSeconds);

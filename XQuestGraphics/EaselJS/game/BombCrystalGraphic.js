@@ -3,7 +3,7 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
     this._setupGraphics();
   },
   _setupGraphics() {
-    var G = Graphics.bombCrystals;
+    const G = Graphics.bombCrystals;
 
     this.visibleRadius = G.radius;
 
@@ -28,7 +28,7 @@ EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
   },
 
   gatherBombCrystal(gfx, playerLocation) {
-    var bombCrystal = this;
+    const bombCrystal = this;
     return gfx.addAnimation(
       new Smart.Animation()
         .duration(Graphics.bombCrystals.gatherDuration)

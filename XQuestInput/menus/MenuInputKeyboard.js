@@ -1,5 +1,5 @@
 (() => {
-  var menuKeyMap = {
+  const menuKeyMap = {
     up: XQuestGame.MenuSceneInputs.menuUp,
     down: XQuestGame.MenuSceneInputs.menuDown,
     left: XQuestGame.MenuSceneInputs.menuLeft,
@@ -24,8 +24,8 @@
       this.actionsQueue.push(actionName);
     },
     onInput(tickEvent, inputState) {
-      for (var i = 0, l = this.actionsQueue.length; i < l; i++) {
-        var actionName = this.actionsQueue[i];
+      for (let i = 0, l = this.actionsQueue.length; i < l; i++) {
+        const actionName = this.actionsQueue[i];
         inputState[actionName] = true;
       }
       this.actionsQueue.length = 0;

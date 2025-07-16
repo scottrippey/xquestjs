@@ -41,9 +41,9 @@ EaselJSGraphics.HudGraphics.HudButton = Smart.Class(new createjs.Container(), {
   },
 
   _setupButtonBackground() {
-    var button = Graphics.hudGraphics.button;
+    const button = Graphics.hudGraphics.button;
 
-    var background = new createjs.Shape();
+    const background = new createjs.Shape();
     background.graphics
       .clear()
       .beginStyle(button.style)
@@ -58,35 +58,35 @@ EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(
   new EaselJSGraphics.HudGraphics.HudButton(),
   {
     initialize: function HudPauseButton(gfx) {
-      var pauseButton = Graphics.hudGraphics.pauseButton;
+      const pauseButton = Graphics.hudGraphics.pauseButton;
       this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);
 
       this._setupGraphics();
     },
     _setupGraphics() {
-      var pauseButton = Graphics.hudGraphics.pauseButton;
+      const pauseButton = Graphics.hudGraphics.pauseButton;
 
-      var text = this._createText();
+      const text = this._createText();
       text.textAlign = "right";
       text.moveTo(pauseButton.width / 2, pauseButton.height / 2);
       this.addChild(text);
 
-      var icon = this._createSandwichIcon();
-      var padding = (pauseButton.height - icon.height) / 2;
+      const icon = this._createSandwichIcon();
+      const padding = (pauseButton.height - icon.height) / 2;
       icon.moveTo(pauseButton.width - icon.width - padding, padding);
       this.addChild(icon);
     },
     _createText() {
-      var pauseButton = Graphics.hudGraphics.pauseButton;
-      var pauseText = new EaselJSGraphics.TextGraphic();
+      const pauseButton = Graphics.hudGraphics.pauseButton;
+      const pauseText = new EaselJSGraphics.TextGraphic();
       pauseText.setText("Pause", "hudText");
 
       this.addChild(pauseText);
       return pauseText;
     },
     _createPauseIcon() {
-      var pauseIcon = Graphics.hudGraphics.pauseIcon;
-      var icon = new createjs.Shape();
+      const pauseIcon = Graphics.hudGraphics.pauseIcon;
+      const icon = new createjs.Shape();
       icon.graphics
         .beginStyle(pauseIcon.style)
         .drawRoundRect(0, 0, pauseIcon.rectWidth, pauseIcon.rectHeight, pauseIcon.rectRadius)
@@ -103,10 +103,10 @@ EaselJSGraphics.HudGraphics.HudPauseButton = Smart.Class(
       return icon;
     },
     _createSandwichIcon() {
-      var sandwichIcon = Graphics.hudGraphics.sandwichIcon;
-      var bottomRow = sandwichIcon.iconHeight - sandwichIcon.rectHeight;
-      var middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;
-      var icon = new createjs.Shape();
+      const sandwichIcon = Graphics.hudGraphics.sandwichIcon;
+      const bottomRow = sandwichIcon.iconHeight - sandwichIcon.rectHeight;
+      const middleRow = (sandwichIcon.iconHeight - sandwichIcon.rectHeight) / 2;
+      const icon = new createjs.Shape();
       icon.graphics
         .beginStyle(sandwichIcon.style)
         .drawRoundRect(

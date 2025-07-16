@@ -1,5 +1,5 @@
 (() => {
-  var GameEvents = {
+  const GameEvents = {
     onNewGame: "onNewGame",
     onNewLevel: "onNewLevel",
     onConfigureLevel: "onConfigureLevel",
@@ -73,7 +73,7 @@
     },
 
     debug() {
-      var debug = new XQuestGame.GameDebugger(this.game);
+      const debug = new XQuestGame.GameDebugger(this.game);
       this.debug = () => debug;
       return this.debug();
     },
@@ -92,13 +92,13 @@
       this.game.levelGraphics.closeGate();
       this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 
-      var levelConfig = {};
+      const levelConfig = {};
       this.game.levelConfig = levelConfig;
       this._events.fireEvent(GameEvents.onConfigureLevel, [levelConfig]);
       this._events.fireEvent(GameEvents.onNewLevel);
     },
     _startLevel() {
-      var middleOfGame = this.game.gfx.getGamePoint("middle");
+      const middleOfGame = this.game.gfx.getGamePoint("middle");
       this.game.player.movePlayerTo(middleOfGame.x, middleOfGame.y);
       this.game.player.cancelVelocity();
       this.game.player.showPlayer(true);
@@ -116,7 +116,7 @@
     },
 
     getDefaultInputState() {
-      var state = {
+      const state = {
         primaryWeapon: false,
         secondaryWeapon: false,
         engaged: false,
@@ -190,11 +190,11 @@
       this._events.fireEvent(GameEvents.onNextLevel);
     },
     _animateBackToCenter() {
-      var visibleMiddle = this.game.gfx.getGamePoint("visibleMiddle");
-      var middleOfGame = this.game.gfx.getGamePoint("middle");
+      const visibleMiddle = this.game.gfx.getGamePoint("visibleMiddle");
+      const middleOfGame = this.game.gfx.getGamePoint("middle");
 
       this.followPlayer = false;
-      var animation = new Smart.Animation()
+      const animation = new Smart.Animation()
         .duration(2)
         .ease()
         .tween(Smart.Keyframes.fromPoints([visibleMiddle, middleOfGame]), (p) => {
@@ -226,7 +226,7 @@
     },
     _togglePauseMenu(paused) {
       if (paused) {
-        var pauseMenu = this.host.createMenuScene();
+        const pauseMenu = this.host.createMenuScene();
         pauseMenu.showPauseMenu();
         pauseMenu.onResumeGame(() => {
           this.pauseGame(false);
@@ -245,7 +245,7 @@
         this.fpsText.dispose();
         this.fpsText = null;
       } else {
-        var textStyle = {
+        const textStyle = {
           color: "red",
           fontSize: "40px",
           textAlign: "left",
@@ -254,8 +254,8 @@
         this.fpsText = this.game.gfx.addText("FPS", textStyle);
         this.fpsText.moveTo(0, 0);
         this.fpsText.onTick = function (tickEvent) {
-          var actualFPS = createjs.Ticker.getMeasuredFPS();
-          var potentialFPS = 1000 / createjs.Ticker.getMeasuredTickTime();
+          const actualFPS = createjs.Ticker.getMeasuredFPS();
+          const potentialFPS = 1000 / createjs.Ticker.getMeasuredTickTime();
 
           this.text = `FPS: ${potentialFPS.toFixed(2)} [${actualFPS.toFixed(2)}]`;
         };
@@ -266,7 +266,7 @@
         this.debugStatsText.dispose();
         this.debugStatsText = null;
       } else {
-        var textStyle = {
+        const textStyle = {
           color: "red",
           fontSize: "40px",
           textAlign: "right",
@@ -274,11 +274,11 @@
         };
         this.debugStatsText = this.game.gfx.addText("FPS", textStyle);
 
-        var bounds = Balance.level.bounds;
+        const bounds = Balance.level.bounds;
         this.debugStatsText.moveTo(bounds.visibleWidth, 0);
 
-        var gameItems = this.game.debugStats.gameItems;
-        var allGraphics = this.game.gfx.debugStats.allGraphics;
+        const gameItems = this.game.debugStats.gameItems;
+        const allGraphics = this.game.gfx.debugStats.allGraphics;
         this.debugStatsText.onTick = function (tickEvent) {
           this.text = `Game Items: ${gameItems.length}\nGraphics: ${allGraphics.length}`;
         };

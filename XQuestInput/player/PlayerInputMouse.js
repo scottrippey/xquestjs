@@ -1,7 +1,7 @@
 (function _init_PlayerInputMouse() {
-  var primaryWeapon = "primaryWeapon";
-  var secondaryWeapon = "secondaryWeapon";
-  var mouseMap = {
+  const primaryWeapon = "primaryWeapon";
+  const secondaryWeapon = "secondaryWeapon";
+  const mouseMap = {
     left: primaryWeapon,
     right: secondaryWeapon,
   };
@@ -55,66 +55,66 @@
     },
 
     _onMouseOver(ev) {
-      var currentMouseOver = ev.target;
-      var mouseIsIn = elementContains(this.element, currentMouseOver);
+      const currentMouseOver = ev.target;
+      const mouseIsIn = elementContains(this.element, currentMouseOver);
       if (mouseIsIn) {
         this.mouseState.engaged = true;
       }
     },
     _onMouseOut(ev) {
-      var currentMouseOver = ev.relatedTarget;
-      var mouseIsOut = !elementContains(this.element, currentMouseOver);
+      const currentMouseOver = ev.relatedTarget;
+      const mouseIsOut = !elementContains(this.element, currentMouseOver);
       if (mouseIsOut) {
         this.mouseState.engaged = false;
         this.game.pauseGame(true);
       }
     },
     _onMouseDown(ev) {
-      var button = getMouseButton(ev);
-      var action = this.mouseMap[button];
+      const button = getMouseButton(ev);
+      const action = this.mouseMap[button];
       if (action) {
         this.mouseState[action] = true;
         ev.preventDefault();
       }
     },
     _onMouseUp(ev) {
-      var button = getMouseButton(ev);
-      var action = this.mouseMap[button];
+      const button = getMouseButton(ev);
+      const action = this.mouseMap[button];
       if (action) {
         this.mouseState[action] = false;
       }
     },
 
     _onMouseMove(ev) {
-      var mousePosition = getMousePosition(ev);
-      var previousMousePosition = this.previousMousePosition;
-      var mouseSettings = this.mouseSettings;
+      const mousePosition = getMousePosition(ev);
+      const previousMousePosition = this.previousMousePosition;
+      const mouseSettings = this.mouseSettings;
       this.previousMousePosition = mousePosition;
       if (!previousMousePosition) return;
 
-      var delta = {
+      const delta = {
         x: Math.min(mousePosition.x - previousMousePosition.x, mouseSettings.maxMouseMove),
         y: Math.min(mousePosition.y - previousMousePosition.y, mouseSettings.maxMouseMove),
       };
 
-      var acceleration = this._adjustForSensitivity(delta, mousePosition);
+      const acceleration = this._adjustForSensitivity(delta, mousePosition);
 
       this.mouseState.accelerationX += acceleration.x;
       this.mouseState.accelerationY += acceleration.y;
     },
     _adjustForSensitivity(delta, mousePosition) {
-      var elementSize = this.elementSize;
-      var mouseSettings = this.mouseSettings;
-      var sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier;
-      var biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
-      var screenDeltaX = delta.x / elementSize.width;
-      var screenDeltaY = delta.y / elementSize.height;
-      var distanceFromCenterX = 2 * (mousePosition.x / elementSize.width) - 1;
-      var distanceFromCenterY = 2 * (mousePosition.y / elementSize.height) - 1;
-      var biasX = this._getBias(distanceFromCenterX, delta.x, biasSensitivity);
-      var biasY = this._getBias(distanceFromCenterY, delta.y, biasSensitivity);
+      const elementSize = this.elementSize;
+      const mouseSettings = this.mouseSettings;
+      const sensitivity = mouseSettings.mouseSensitivity * mouseSettings.sensitivityMultiplier;
+      const biasSensitivity = mouseSettings.mouseBiasSensitivity * mouseSettings.biasMultiplier;
+      const screenDeltaX = delta.x / elementSize.width;
+      const screenDeltaY = delta.y / elementSize.height;
+      const distanceFromCenterX = 2 * (mousePosition.x / elementSize.width) - 1;
+      const distanceFromCenterY = 2 * (mousePosition.y / elementSize.height) - 1;
+      const biasX = this._getBias(distanceFromCenterX, delta.x, biasSensitivity);
+      const biasY = this._getBias(distanceFromCenterY, delta.y, biasSensitivity);
 
-      var acceleration = {
+      const acceleration = {
         x: screenDeltaX * sensitivity * biasX,
         y: screenDeltaY * sensitivity * biasY,
       };
@@ -126,7 +126,7 @@
       // This causes the user's mouse to gravitate toward the center of the page,
       // decreasing the likelihood of reaching the edges of the page.
 
-      var isMovingAwayFromCenter =
+      const isMovingAwayFromCenter =
         (distanceFromCenter < 0 && deltaDirection < 0) ||
         (distanceFromCenter > 0 && deltaDirection > 0);
       distanceFromCenter = Math.abs(distanceFromCenter);
@@ -138,7 +138,7 @@
     },
 
     onInput(tickEvent, inputState) {
-      var mouseState = this.mouseState;
+      const mouseState = this.mouseState;
 
       if (mouseState.primaryWeapon) inputState.primaryWeapon = true;
       if (mouseState.secondaryWeapon) inputState.secondaryWeapon = true;
@@ -152,7 +152,7 @@
   });
 
   function addEventListeners(element, events) {
-    for (var eventName in events) {
+    for (const eventName in events) {
       if (!Object.hasOwn(events, eventName)) continue;
       element.addEventListener(eventName, events[eventName]);
     }

@@ -18,9 +18,9 @@ XQuestGame.BaseScene = Smart.Class(new Smart.Disposable(), {
   },
   updateScene(tickEvent) {
     // Iterate right-to-left, because items could get removed
-    var childScene = this.childScene;
+    const childScene = this.childScene;
     if (!childScene) {
-      var inputState = (this.getDefaultInputState && this.getDefaultInputState()) || {};
+      const inputState = (this.getDefaultInputState && this.getDefaultInputState()) || {};
       _.forEachRight(this.phases.input, (gameItem) => {
         gameItem.onInput(tickEvent, inputState);
       });

@@ -21,30 +21,30 @@ XQuestGame.EnemyFactory = Class({
   },
 
   _calculateNextEnemySpawn(runTime) {
-    var spawnRate = Balance.enemies.spawnRate();
-    var spawnRateOverride = this.game.levelConfig.enemySpawnRateOverride;
+    let spawnRate = Balance.enemies.spawnRate();
+    const spawnRateOverride = this.game.levelConfig.enemySpawnRateOverride;
     if (spawnRateOverride) spawnRate = spawnRateOverride();
     this.nextEnemySpawn = runTime + spawnRate * 1000;
   },
 
   spawnNextEnemy() {
-    var enemyPool = this.game.levelConfig.enemyPool;
+    const enemyPool = this.game.levelConfig.enemyPool;
 
-    var randomEnemyIndex;
+    let randomEnemyIndex;
     if (enemyPool.length === 1) {
       randomEnemyIndex = 0;
     } else {
       // Prefer to spawn more difficult enemies:
-      var weightedRandom = 1 - Math.pow(Math.random(), Balance.enemies.spawnDifficulty);
+      const weightedRandom = 1 - Math.pow(Math.random(), Balance.enemies.spawnDifficulty);
       randomEnemyIndex = Math.floor(weightedRandom * enemyPool.length);
     }
 
-    var enemyCtor = enemyPool[randomEnemyIndex];
+    const enemyCtor = enemyPool[randomEnemyIndex];
 
-    var enemy = new enemyCtor(this.game);
+    const enemy = new enemyCtor(this.game);
     this.enemies.push(enemy);
 
-    var spawnInfo = this.getRandomSpawn(enemy.radius);
+    const spawnInfo = this.getRandomSpawn(enemy.radius);
     enemy.spawn(spawnInfo);
     this.game.gfx
       .addAnimation(new Animation().duration(1).easeOut("quint").scale(enemy.location, [0, 1]))
@@ -52,10 +52,10 @@ XQuestGame.EnemyFactory = Class({
   },
 
   getRandomSpawn(enemyRadius) {
-    var bounds = Balance.level.bounds;
-    var spawnSide = Math.floor(Math.random() * 2) ? 1 : 2;
+    const bounds = Balance.level.bounds;
+    const spawnSide = Math.floor(Math.random() * 2) ? 1 : 2;
 
-    var spawnInfo = {
+    const spawnInfo = {
       x: spawnSide === 1 ? bounds.x + enemyRadius : bounds.x + bounds.width - enemyRadius,
       y: bounds.y + bounds.height / 2,
       side: spawnSide,
@@ -65,16 +65,16 @@ XQuestGame.EnemyFactory = Class({
   },
 
   killEnemiesOnCollision(sortedItems, maxItemRadius, collisionCallback) {
-    var enemies = this.enemies;
-    var maxDistance = maxItemRadius + Balance.enemies.maxRadius;
+    const enemies = this.enemies;
+    const maxDistance = maxItemRadius + Balance.enemies.maxRadius;
     Physics.detectCollisions(enemies, sortedItems, maxDistance, (enemy, item, ei, ii, distance) => {
       if (enemy.isDead) return;
 
-      var theseSpecificItemsDidCollide = distance <= enemy.radius + item.radius;
+      const theseSpecificItemsDidCollide = distance <= enemy.radius + item.radius;
       if (theseSpecificItemsDidCollide) {
-        var hitPoints = item.hitPoints || 1;
-        var kickBack = (item.getKickBack && item.getKickBack(enemy, distance)) || null;
-        var stayAlive = enemy.takeDamage(hitPoints, kickBack);
+        const hitPoints = item.hitPoints || 1;
+        const kickBack = (item.getKickBack && item.getKickBack(enemy, distance)) || null;
+        const stayAlive = enemy.takeDamage(hitPoints, kickBack);
         if (!stayAlive) enemy.isDead = true;
 
         if (collisionCallback) collisionCallback(enemy, item, ei, ii, distance);
@@ -82,7 +82,7 @@ XQuestGame.EnemyFactory = Class({
     });
 
     // Remove dead enemies:
-    var i = enemies.length;
+    let i = enemies.length;
     while (i--) {
       if (enemies[i].isDead) {
         this.enemies.splice(i, 1);
@@ -105,8 +105,8 @@ XQuestGame.EnemyFactory = Class({
   },
 
   findClosestEnemy(location) {
-    var enemyLocations = this.enemies.map((enemy) => enemy.location); // Perhaps this could be improved, but it's not mission-critical
-    var enemyIndex = Smart.Physics.findClosestPoint(location, enemyLocations);
+    const enemyLocations = this.enemies.map((enemy) => enemy.location); // Perhaps this could be improved, but it's not mission-critical
+    const enemyIndex = Smart.Physics.findClosestPoint(location, enemyLocations);
 
     return this.enemies[enemyIndex];
   },

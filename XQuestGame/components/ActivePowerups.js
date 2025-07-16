@@ -11,30 +11,30 @@ XQuestGame.ActivePowerups = Class({
     this.activeTimes[powerupName] = "newPowerup";
 
     if (!omitText) {
-      var powerupDisplayName = `${powerupName}!`;
-      var textGfx = this.game.gfx.addText(powerupDisplayName, "powerupActive");
+      const powerupDisplayName = `${powerupName}!`;
+      const textGfx = this.game.gfx.addText(powerupDisplayName, "powerupActive");
       textGfx.start("left").flyIn(1.5, "middle").flyOut(2, "right");
     }
   },
 
   _deactivate(powerupName) {
-    var powerupDisplayName = `${powerupName} inactive`;
-    var textGfx = this.game.gfx.addText(powerupDisplayName, "powerupDeactive");
+    const powerupDisplayName = `${powerupName} inactive`;
+    const textGfx = this.game.gfx.addText(powerupDisplayName, "powerupDeactive");
     return textGfx.start("left").flyIn(1.5, "middle").flyOut(2, "right");
   },
   onAct(tickEvent) {
     this._updateActivePowerups(tickEvent);
   },
   _updateActivePowerups(tickEvent) {
-    var B = Balance.powerups;
-    var updatedValues = {};
-    var deactivating = "deactivating";
+    const B = Balance.powerups;
+    const updatedValues = {};
+    const deactivating = "deactivating";
 
     // Update new and old powerups: (never make changes to an object while iterating)
     _.forOwn(this.activeTimes, (powerupValue, powerupName) => {
       if (powerupValue === "newPowerup") {
         // New
-        var powerupExpires = tickEvent.runTime + B[powerupName].duration * 1000;
+        const powerupExpires = tickEvent.runTime + B[powerupName].duration * 1000;
         updatedValues[powerupName] = powerupExpires;
       } else if (powerupValue === deactivating) {
         // Old

@@ -31,7 +31,7 @@ XQuestGame.XQuestHost.Settings = Class({
     this._watches = {};
   },
   watchSetting(settingName, watchHandler) {
-    var currentValue = this.retrieveSetting(settingName);
+    const currentValue = this.retrieveSetting(settingName);
 
     if (!this._watches[settingName]) {
       this._watches[settingName] = [watchHandler];
@@ -43,7 +43,7 @@ XQuestGame.XQuestHost.Settings = Class({
   },
 
   retrieveSetting(settingName) {
-    var settingValue = localStorage.getItem(settingName);
+    let settingValue = localStorage.getItem(settingName);
     if (settingValue) {
       try {
         settingValue = JSON.parse(settingValue);

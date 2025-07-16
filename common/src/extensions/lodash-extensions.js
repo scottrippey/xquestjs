@@ -1,6 +1,6 @@
 _.mixin({
   eliminate(array, item) {
-    var index = array.indexOf(item);
+    const index = array.indexOf(item);
     if (index !== -1) {
       array.splice(index, 1);
     }
@@ -10,7 +10,7 @@ _.mixin({
 if (!_.forEachRight) {
   _.mixin({
     forEachRight(collection, callback, thisArg) {
-      var length = collection ? collection.length : 0;
+      let length = collection ? collection.length : 0;
       while (length--) {
         if (callback(collection[length], length, collection) === false) {
           break;

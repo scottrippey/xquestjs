@@ -1,7 +1,7 @@
 Balance.onUpdate((gameMode) => {
-  var radius = Balance.enemies.mantis.radius;
-  var red = "hsl(10, 100%, 50%)";
-  var yellow = "hsl(60, 100%, 50%)";
+  const radius = Balance.enemies.mantis.radius;
+  const red = "hsl(10, 100%, 50%)";
+  const yellow = "hsl(60, 100%, 50%)";
   Graphics.merge({
     enemies: {
       mantis: {
@@ -23,11 +23,11 @@ Balance.onUpdate((gameMode) => {
 
 EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
-    var G = Graphics.enemies.mantis;
+    const G = Graphics.enemies.mantis;
 
     this.visibleRadius = G.radius;
 
-    var star1 = Smart.Drawing.createStarPolygon(
+    const star1 = Smart.Drawing.createStarPolygon(
       0,
       0,
       G.star1.radius,
@@ -35,7 +35,7 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
       G.star1.pointSize,
       0,
     );
-    var star2 = Smart.Drawing.createStarPolygon(
+    const star2 = Smart.Drawing.createStarPolygon(
       0,
       0,
       G.star2.radius,
@@ -54,17 +54,20 @@ EaselJSGraphics.MantisGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphi
     this.time = 0;
   },
   drawEffects(drawing, tickEvent) {
-    var G = Graphics.enemies.mantis;
+    const G = Graphics.enemies.mantis;
     this.time += tickEvent.deltaSeconds;
-    var pulse = (Math.sin((this.time * Math.PI * 2) / G.pulse) + 1) / 2;
+    const pulse = (Math.sin((this.time * Math.PI * 2) / G.pulse) + 1) / 2;
 
     this.starColor = this.getStarColor(pulse);
 
     drawing.beginPath().polygon(this.getStar(pulse)).closePath().fillStyle(this.starColor).fill();
   },
   getExplosionOptions() {
-    var G = Graphics.enemies.mantis;
-    var explosionOptions = _.defaults({ style: { fillStyle: this.starColor } }, G.explosionOptions);
+    const G = Graphics.enemies.mantis;
+    const explosionOptions = _.defaults(
+      { style: { fillStyle: this.starColor } },
+      G.explosionOptions,
+    );
     return explosionOptions;
   },
 });

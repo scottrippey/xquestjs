@@ -24,8 +24,8 @@ XQuestGame.BaseMenu = Class(new Events(), {
    * @returns {MenuButton}
    */
   createMenuButton(text, onInvoke) {
-    var isUpdatableText = typeof text === "function";
-    var buttonRow = this.menuScene.gfx.createMenuButton(isUpdatableText ? "" : text);
+    const isUpdatableText = typeof text === "function";
+    const buttonRow = this.menuScene.gfx.createMenuButton(isUpdatableText ? "" : text);
     buttonRow.addButtonEvents({
       invoke: onInvoke,
       hoverEnter: this._setActiveRow.bind(this, buttonRow),
@@ -34,7 +34,7 @@ XQuestGame.BaseMenu = Class(new Events(), {
     buttonRow.invoke = onInvoke;
     if (isUpdatableText) {
       buttonRow.updateText = () => {
-        var updatedText = text();
+        const updatedText = text();
         buttonRow.setText(updatedText);
       };
       buttonRow.updateText();
@@ -53,16 +53,16 @@ XQuestGame.BaseMenu = Class(new Events(), {
    * @protected
    */
   layoutRows(rows, isBackNavigation) {
-    var layoutMargin = 20;
+    const layoutMargin = 20;
 
-    var middle = this.menuScene.gfx.getHudPoint("middle");
-    var stackedRowsHeight = -layoutMargin;
+    const middle = this.menuScene.gfx.getHudPoint("middle");
+    let stackedRowsHeight = -layoutMargin;
     for (let i = 0, l = rows.length; i < l; i++) {
       const row = rows[i];
       stackedRowsHeight += layoutMargin + row.visibleHeight;
     }
 
-    var currentTop = middle.y - stackedRowsHeight / 2;
+    let currentTop = middle.y - stackedRowsHeight / 2;
     for (let i = 0, l = rows.length; i < l; i++) {
       const row = rows[i];
 
@@ -77,19 +77,19 @@ XQuestGame.BaseMenu = Class(new Events(), {
    * @protected
    */
   flyInRows(rows, isBackNavigation, delay) {
-    var animRotation = 30;
-    var animStagger = 0.25;
-    var animDuration = 1;
-    var animDelay = delay || 0;
+    const animRotation = 30;
+    const animStagger = 0.25;
+    const animDuration = 1;
+    const animDelay = delay || 0;
 
-    var fromTop = isBackNavigation;
-    var entrance = this.menuScene.gfx.getHudPoint(fromTop ? "top" : "bottom");
+    const fromTop = isBackNavigation;
+    const entrance = this.menuScene.gfx.getHudPoint(fromTop ? "top" : "bottom");
 
-    for (var i = 0, l = rows.length; i < l; i++) {
-      var row = rows[i];
-      var destination = { x: row.x, y: row.y };
+    for (let i = 0, l = rows.length; i < l; i++) {
+      const row = rows[i];
+      const destination = { x: row.x, y: row.y };
 
-      var safeHeight = row.visibleHeight * (fromTop ? -2 : 2);
+      const safeHeight = row.visibleHeight * (fromTop ? -2 : 2);
 
       row.moveTo(row.x, entrance.y + safeHeight);
       row.rotation = animRotation * (i % 2 === 0 ? 1 : -1);
@@ -112,19 +112,19 @@ XQuestGame.BaseMenu = Class(new Events(), {
    * @protected
    */
   flyOutRows(rows, isBackNavigation) {
-    var animRotation = 30;
-    var animStagger = 0.1;
-    var animDuration = 0.5;
-    var toBottom = isBackNavigation;
+    const animRotation = 30;
+    const animStagger = 0.1;
+    const animDuration = 0.5;
+    const toBottom = isBackNavigation;
 
-    var exit = this.menuScene.gfx.getHudPoint(toBottom ? "bottom" : "top");
+    const exit = this.menuScene.gfx.getHudPoint(toBottom ? "bottom" : "top");
 
-    var lastAnimation;
+    let lastAnimation;
 
-    for (var i = 0, l = rows.length; i < l; i++) {
-      var row = rows[i];
-      var rowHeight = row.visibleHeight;
-      var safeHeight = rowHeight * (toBottom ? 2 : -2);
+    for (let i = 0, l = rows.length; i < l; i++) {
+      const row = rows[i];
+      const rowHeight = row.visibleHeight;
+      const safeHeight = rowHeight * (toBottom ? 2 : -2);
 
       if (row.animation) row.animation.cancelAnimation();
       row.animation = this.menuScene.gfx
@@ -148,15 +148,15 @@ XQuestGame.BaseMenu = Class(new Events(), {
     if (inputState.menuInvoke) this._invokeActiveRow();
   },
   _moveActiveRowIndex(direction) {
-    var activeRowIndex = this.activeRowIndex;
+    let activeRowIndex = this.activeRowIndex;
     while (true) {
       activeRowIndex = activeRowIndex + direction;
       // Cycle top-to-bottom:
       if (activeRowIndex < 0) activeRowIndex += this.rows.length;
       if (activeRowIndex >= this.rows.length) activeRowIndex -= this.rows.length;
 
-      var currentRow = this.rows[activeRowIndex];
-      var isSelectable = currentRow.setActive;
+      const currentRow = this.rows[activeRowIndex];
+      const isSelectable = currentRow.setActive;
       if (isSelectable) {
         break;
       } else if (activeRowIndex === this.activeRowIndex) {
@@ -169,13 +169,13 @@ XQuestGame.BaseMenu = Class(new Events(), {
   },
 
   _setActiveRow(activeRow) {
-    var activeRowIndex = this.rows.indexOf(activeRow);
+    const activeRowIndex = this.rows.indexOf(activeRow);
     this._setActiveRowIndex(activeRowIndex);
   },
   _setActiveRowIndex(activeRowIndex) {
-    var rows = this.rows;
-    for (var i = 0, l = rows.length; i < l; i++) {
-      var row = rows[i];
+    const rows = this.rows;
+    for (let i = 0, l = rows.length; i < l; i++) {
+      const row = rows[i];
       if (row.setActive) {
         row.setActive(i === activeRowIndex);
       }
@@ -186,7 +186,7 @@ XQuestGame.BaseMenu = Class(new Events(), {
     return this.rows[this.activeRowIndex] || null;
   },
   _invokeActiveRow() {
-    var activeRow = this._getActiveRow();
+    const activeRow = this._getActiveRow();
     if (activeRow && activeRow.invoke) activeRow.invoke();
   },
 });

@@ -1,6 +1,6 @@
 (function _init_PlayerInputKeyboard() {
   // Available actions:
-  var playerActions = {
+  const playerActions = {
     accelerateUp: "accelerateUp",
     accelerateDown: "accelerateDown",
     accelerateLeft: "accelerateLeft",
@@ -10,7 +10,7 @@
     pauseGame: "pauseGame",
   };
 
-  var debugActions = {
+  const debugActions = {
     gatherClosestCrystal: "gatherClosestCrystal",
     spawnEnemy: "spawnEnemy",
     killPlayer: "killPlayer",
@@ -26,7 +26,7 @@
     spawnPowerCrystal: "spawnPowerCrystal",
   };
 
-  var keyMap = {
+  const keyMap = {
     escape: playerActions.pauseGame,
     contextMenu: playerActions.pauseGame,
 
@@ -128,10 +128,10 @@
     },
 
     onInput(tickEvent, inputState) {
-      var sensitivity = this.keyboardSettings.keyboardSensitivity;
-      var downActions = this.keyMapper.getDownActions();
+      const sensitivity = this.keyboardSettings.keyboardSensitivity;
+      const downActions = this.keyMapper.getDownActions();
 
-      var activeInputs = 4;
+      let activeInputs = 4;
 
       if (downActions[playerActions.primaryWeapon]) inputState.primaryWeapon = true;
       else activeInputs--;
@@ -235,44 +235,44 @@
       });
     },
     _onKeydown(ev) {
-      var keyName = this._getKeyName(ev);
-      var action = this.keyMap[keyName];
+      const keyName = this._getKeyName(ev);
+      const action = this.keyMap[keyName];
       if (!action) return;
 
       if (!this.skipPreventDefault) ev.preventDefault();
 
-      var downIndex = this.downKeys.indexOf(keyName);
-      var isAlreadyDown = downIndex !== -1;
+      const downIndex = this.downKeys.indexOf(keyName);
+      const isAlreadyDown = downIndex !== -1;
       if (isAlreadyDown) return;
       this.downKeys.push(keyName);
 
-      var downActionCount = (this.downActions[action] || 0) + 1;
+      const downActionCount = (this.downActions[action] || 0) + 1;
       this.downActions[action] = downActionCount;
       if (downActionCount === 1) {
         this.onActionDown(action);
       }
     },
     _onKeyup(ev) {
-      var keyName = this._getKeyName(ev);
-      var action = this.keyMap[keyName];
+      const keyName = this._getKeyName(ev);
+      const action = this.keyMap[keyName];
       if (!action) return;
 
-      var downIndex = this.downKeys.indexOf(keyName);
-      var wasDown = downIndex !== -1;
+      const downIndex = this.downKeys.indexOf(keyName);
+      const wasDown = downIndex !== -1;
       if (!wasDown) return;
       this.downKeys.splice(downIndex, 1);
 
       if (!this.skipPreventDefault) ev.preventDefault();
 
-      var downActionCount = (this.downActions[action] || 1) - 1;
+      const downActionCount = (this.downActions[action] || 1) - 1;
       this.downActions[action] = downActionCount;
     },
     _getKeyName(ev) {
-      var modifiers = "";
+      let modifiers = "";
       if (ev.ctrlKey) modifiers += "ctrl+";
       if (ev.altKey) modifiers += "alt+";
       if (ev.shiftKey) modifiers += "shift+";
-      var key =
+      const key =
         this.codes[ev.keyCode] ||
         (ev.keyIdentifier &&
           ev.keyIdentifier.indexOf("U+") === -1 &&
@@ -309,12 +309,12 @@
 })();
 (() => {
   // The Konami code can be used to start XQuest:
-  var mapper = null;
+  let mapper = null;
   XQuestInput.startKeyCodes = (callback) => {
     if (callback !== false) {
-      var code = "uuddlrlrba";
-      var keyQueue = code.split("");
-      var skipPreventDefault = true;
+      const code = "uuddlrlrba";
+      let keyQueue = code.split("");
+      const skipPreventDefault = true;
       mapper = new XQuestInput.KeyMapper(
         document,
         (key) => {
@@ -333,7 +333,7 @@
         },
         skipPreventDefault,
       );
-      var keyMap = {
+      const keyMap = {
         up: "u",
         down: "d",
         left: "l",

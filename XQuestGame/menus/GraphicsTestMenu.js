@@ -1,11 +1,11 @@
 XQuestGame.CommonMenus.GraphicsTestMenu = Smart.Class(new XQuestGame.BaseMenu(), {
   getRows() {
-    var goBack = this.menuScene.goBack.bind(this.menuScene);
-    var player = this.createMenuButton("Player", goBack);
-    var objects = this.createMenuButton("Objects", goBack);
-    var enemies = this.createMenuButton("Enemies", goBack);
+    const goBack = this.menuScene.goBack.bind(this.menuScene);
+    const player = this.createMenuButton("Player", goBack);
+    const objects = this.createMenuButton("Objects", goBack);
+    const enemies = this.createMenuButton("Enemies", goBack);
 
-    var halfButtonHeight = player.visibleHeight / 2;
+    const halfButtonHeight = player.visibleHeight / 2;
 
     player
       .addChild(this.menuScene.gfx.createPlayerGraphics())

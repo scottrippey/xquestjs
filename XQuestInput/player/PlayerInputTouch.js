@@ -34,12 +34,12 @@
 
     _onTouchStart(ev) {
       ev.preventDefault();
-      var touches = ev.changedTouches;
-      for (var i = 0, l = touches.length; i < l; i++) {
-        var touch = touches[i];
+      const touches = ev.changedTouches;
+      for (let i = 0, l = touches.length; i < l; i++) {
+        const touch = touches[i];
         if (!this.touchState.engaged) {
           this.touchState.engaged = { identifier: touch.identifier };
-          var touchPosition = getTouchPosition(touch);
+          const touchPosition = getTouchPosition(touch);
           this._updateTouchPosition(touchPosition);
         } else if (!this.touchState.primaryWeapon) {
           this.touchState.primaryWeapon = { identifier: touch.identifier };
@@ -50,9 +50,9 @@
     },
     _onTouchEnd(ev) {
       ev.preventDefault();
-      var touches = ev.changedTouches;
-      for (var i = 0, l = touches.length; i < l; i++) {
-        var touch = touches[i];
+      const touches = ev.changedTouches;
+      for (let i = 0, l = touches.length; i < l; i++) {
+        const touch = touches[i];
         if (this.touchState.engaged && this.touchState.engaged.identifier === touch.identifier) {
           this.touchState.engaged = false;
         } else if (
@@ -70,14 +70,14 @@
     },
     _onTouchMove(ev) {
       ev.preventDefault();
-      var touches = ev.changedTouches;
-      for (var i = 0, l = touches.length; i < l; i++) {
-        var touch = touches[i];
+      const touches = ev.changedTouches;
+      for (let i = 0, l = touches.length; i < l; i++) {
+        const touch = touches[i];
         if (this.touchState.engaged && this.touchState.engaged.identifier === touch.identifier) {
-          var touchPosition = getTouchPosition(touch);
-          var delta = this._updateTouchPosition(touchPosition);
+          const touchPosition = getTouchPosition(touch);
+          const delta = this._updateTouchPosition(touchPosition);
           if (!delta) continue;
-          var acceleration = this._adjustForSensitivity(delta, touchPosition, this.elementSize);
+          const acceleration = this._adjustForSensitivity(delta, touchPosition, this.elementSize);
 
           this.touchState.accelerationX += acceleration.x;
           this.touchState.accelerationY += acceleration.y;
@@ -86,7 +86,7 @@
     },
 
     _updateTouchPosition(touchPosition) {
-      var delta = null;
+      let delta = null;
       if (this.previousTouchPosition) {
         delta = {
           x: touchPosition.x - this.previousTouchPosition.x,
@@ -98,9 +98,9 @@
       return delta;
     },
     _adjustForSensitivity(delta, touchPosition, elementSize) {
-      var touchSettings = this.touchSettings;
-      var sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
-      var acceleration = {
+      const touchSettings = this.touchSettings;
+      const sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
+      const acceleration = {
         x: delta.x * sensitivity,
         y: delta.y * sensitivity,
       };
@@ -108,7 +108,7 @@
     },
 
     onInput(tickEvent, inputState) {
-      var touchState = this.touchState;
+      const touchState = this.touchState;
 
       if (touchState.primaryWeapon) inputState.primaryWeapon = true;
       if (touchState.secondaryWeapon) inputState.secondaryWeapon = true;
@@ -122,7 +122,7 @@
   });
 
   function addEventListeners(element, events) {
-    for (var eventName in events) {
+    for (const eventName in events) {
       if (!Object.hasOwn(events, eventName)) continue;
       element.addEventListener(eventName, events[eventName]);
     }

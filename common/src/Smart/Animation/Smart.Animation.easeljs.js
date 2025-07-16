@@ -15,7 +15,7 @@ Object.assign(Animation.prototype, {
    * @returns {Animation} this
    */
   move(target, keyframes) {
-    var interpolate = (position) => {
+    let interpolate = (position) => {
       interpolate =
         Keyframes.fromFunction(keyframes) ||
         Keyframes.fromPoints(keyframes) ||
@@ -23,7 +23,7 @@ Object.assign(Animation.prototype, {
       return interpolate(position);
     };
     return this.frame(function _move_(animEvent) {
-      var p = interpolate(animEvent.position);
+      const p = interpolate(animEvent.position);
       target.x = p.x;
       target.y = p.y;
     });
@@ -36,7 +36,7 @@ Object.assign(Animation.prototype, {
    * @returns {Animation} this
    */
   fade(target, keyframes) {
-    var interpolate = (position) => {
+    let interpolate = (position) => {
       interpolate =
         Keyframes.fromFunction(keyframes) ||
         Keyframes.fromNumbers(keyframes) ||
@@ -56,7 +56,7 @@ Object.assign(Animation.prototype, {
    * @returns {Animation} this
    */
   color(target, keyframes) {
-    var interpolate = (position) => {
+    let interpolate = (position) => {
       interpolate =
         Keyframes.fromFunction(keyframes) ||
         Keyframes.fromColors(keyframes) ||
@@ -76,7 +76,7 @@ Object.assign(Animation.prototype, {
    * @returns {Animation} this
    */
   scale(target, keyframes) {
-    var interpolate = (position) => {
+    let interpolate = (position) => {
       interpolate =
         Keyframes.fromFunction(keyframes) ||
         Keyframes.fromNumbers(keyframes) ||
@@ -95,7 +95,7 @@ Object.assign(Animation.prototype, {
    * @returns {Animation} this
    */
   rotate(target, keyframes) {
-    var interpolate = function (position) {
+    let interpolate = function (position) {
       interpolate =
         Keyframes.fromFunction(keyframes) ||
         Keyframes.fromNumbers(keyframes) ||
@@ -115,7 +115,7 @@ Object.assign(Animation.prototype, {
    * @returns {Animation} this
    */
   tween(keyframes, update) {
-    var interpolate = Keyframes.fromFunction(keyframes) || Keyframes.fromNumbers(keyframes);
+    const interpolate = Keyframes.fromFunction(keyframes) || Keyframes.fromNumbers(keyframes);
 
     return this.frame(function _tween_(animEvent) {
       update(interpolate(animEvent.position));

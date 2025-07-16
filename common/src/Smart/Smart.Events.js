@@ -9,11 +9,11 @@ export const Events = Class({
   },
 
   fireEvent(eventName, eventArgs) {
-    var callbacks = this.$events && this.$events[eventName];
+    const callbacks = this.$events && this.$events[eventName];
     if (!callbacks) return;
     if (!eventArgs) eventArgs = [];
 
-    for (var i = 0, l = callbacks.length; i < l; i++) {
+    for (let i = 0, l = callbacks.length; i < l; i++) {
       callbacks[i].apply(null, eventArgs);
     }
   },

@@ -27,7 +27,7 @@ export const Sort = {
    * @param {String} property
    */
   smoothSortByProperty(array, property) {
-    var compare = function (a, b) {
+    const compare = function (a, b) {
       a = a[property];
       b = b[property];
       return a < b ? -1 : a > b ? 1 : 0;

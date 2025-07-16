@@ -23,12 +23,12 @@ export const Animations = Class({
    */
   update(deltaSeconds) {
     if (!this.animations) return;
-    var i = this.animations.length;
+    let i = this.animations.length;
     while (i--) {
-      var animEvent = this.animations[i].update(deltaSeconds);
+      const animEvent = this.animations[i].update(deltaSeconds);
       if (!animEvent.stillRunning) {
         // Remove the animation, by swapping in the last one:
-        var lastAnimation = this.animations.pop();
+        const lastAnimation = this.animations.pop();
         if (i < this.animations.length) this.animations[i] = lastAnimation;
       }
     }

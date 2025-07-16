@@ -1,6 +1,6 @@
 _.extend(createjs.Graphics.prototype, {
   beginStyle(styles) {
-    var gfx = this;
+    const gfx = this;
     if (styles.fillColor) gfx.beginFill(styles.fillColor);
     if (styles.strokeColor) gfx.beginStroke(styles.strokeColor);
 
@@ -15,20 +15,20 @@ _.extend(createjs.Graphics.prototype, {
     return this;
   },
   endStyle(styles) {
-    var gfx = this;
+    const gfx = this;
     if (styles.fillColor) gfx.endFill();
     if (styles.strokeColor) gfx.endStroke();
 
     return this;
   },
   drawPolygon(points) {
-    var gfx = this;
-    var startX = points[0][0];
-    var startY = points[0][1];
+    const gfx = this;
+    const startX = points[0][0];
+    const startY = points[0][1];
     gfx.moveTo(startX, startY);
-    for (var i = 1, l = points.length; i < l; i++) {
-      var x = points[i][0];
-      var y = points[i][1];
+    for (let i = 1, l = points.length; i < l; i++) {
+      const x = points[i][0];
+      const y = points[i][1];
       gfx.lineTo(x, y);
     }
     gfx.lineTo(startX, startY);

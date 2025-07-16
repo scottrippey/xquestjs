@@ -22,7 +22,7 @@ XQuestGame.BaseEnemy = Smart.Class({
 
   /* @protected */
   shouldChangeDirection(tickEvent, movementInterval) {
-    var isFirstRun = this.nextChange === undefined;
+    const isFirstRun = this.nextChange === undefined;
     if (isFirstRun || this.nextChange <= tickEvent.runTime) {
       this.nextChange = tickEvent.runTime + movementInterval() * 1000;
       return !isFirstRun;

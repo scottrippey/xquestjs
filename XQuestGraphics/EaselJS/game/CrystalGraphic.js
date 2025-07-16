@@ -4,7 +4,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
   },
 
   _setupCrystalGraphic() {
-    var G = Graphics.crystals;
+    const G = Graphics.crystals;
     this.visibleRadius = G.radius;
 
     this.graphics
@@ -22,7 +22,7 @@ EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
   },
 
   gatherCrystal(gfx, playerLocation) {
-    var crystal = this;
+    const crystal = this;
     gfx.addAnimation(
       new Smart.Animation()
         .duration(Graphics.crystals.gatherDuration)

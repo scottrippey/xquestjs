@@ -3,7 +3,7 @@
  * This includes everything from size, speed, timing, and quantity.
  * The values may differ depending on game mode or difficulty settings.
  */
-var Balance = {
+Balance = {
   merge(values) {
     _.merge(Balance, values);
   },
@@ -49,18 +49,18 @@ Balance.merge({
   },
 
   setGameMode(gameMode) {
-    var gameOptions =
+    const gameOptions =
       typeof gameMode === "object" ? gameMode : Balance.gameModeOverrides[gameMode] || {};
 
     Balance.merge({
       level: {
         bounds: (() => {
-          var hudHeight = 40;
-          var padding = 40;
-          var levelWidth = 1200;
-          var levelHeight = 675;
-          var visibleWidth = 800;
-          var visibleHeight = 450;
+          const hudHeight = 40;
+          const padding = 40;
+          const levelWidth = 1200;
+          const levelHeight = 675;
+          let visibleWidth = 800;
+          let visibleHeight = 450;
           if (gameOptions.fullView) {
             visibleWidth = padding + levelWidth + padding;
             visibleHeight = hudHeight + padding + levelHeight + padding;
@@ -101,9 +101,9 @@ Balance.merge({
       crystals: {
         radius: 10,
         spawnQuantity(currentLevel) {
-          var min = gameOptions.hardMode ? 30 : 12;
-          var multiplier = gameOptions.hardMode ? 4 : 2;
-          var max = gameOptions.hardMode ? 80 : 40;
+          const min = gameOptions.hardMode ? 30 : 12;
+          const multiplier = gameOptions.hardMode ? 4 : 2;
+          const max = gameOptions.hardMode ? 80 : 40;
           return Math.min(min + multiplier * currentLevel, max);
         },
       },

@@ -1,10 +1,10 @@
 Balance.onUpdate((mode) => {
-  var outerRadius = Balance.enemies.locust.radius;
-  var outerOffset = 0;
-  var innerRadius = (outerRadius * 6) / 11;
-  var innerOffset = (outerRadius * 3) / 11;
-  var orange = "hsl(40, 100%, 50%)";
-  var red = "hsl(0, 100%, 30%)";
+  const outerRadius = Balance.enemies.locust.radius;
+  const outerOffset = 0;
+  const innerRadius = (outerRadius * 6) / 11;
+  const innerOffset = (outerRadius * 3) / 11;
+  const orange = "hsl(40, 100%, 50%)";
+  const red = "hsl(0, 100%, 30%)";
 
   _.merge(Graphics, {
     enemies: {
@@ -41,15 +41,15 @@ Balance.onUpdate((mode) => {
 
 EaselJSGraphics.LocustGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
   setup() {
-    var G = Graphics.enemies.locust;
+    const G = Graphics.enemies.locust;
     this.visibleRadius = G.visibleRadius;
   },
   drawEffects(drawing) {
-    var G = Graphics.enemies.locust;
+    const G = Graphics.enemies.locust;
     this.drawTriangleTriangle(drawing, G.triangleTriangle);
   },
   getExplosionOptions() {
-    var G = Graphics.enemies.locust;
+    const G = Graphics.enemies.locust;
     return G.explosionOptions;
   },
 });

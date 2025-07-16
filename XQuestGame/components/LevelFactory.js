@@ -7,11 +7,11 @@ XQuestGame.LevelFactory = Class({
     this.game.onConfigureLevel(this._onConfigureLevel.bind(this));
   },
   _onConfigureLevel(levelConfig) {
-    var level = this.game.currentLevel;
+    const level = this.game.currentLevel;
 
     levelConfig.numberOfRegularLevels = level;
 
-    var bonusLevel1 = Balance.bonusLevel1.bonusLevel;
+    const bonusLevel1 = Balance.bonusLevel1.bonusLevel;
     if (level === bonusLevel1) {
       this._setupBonusLevel1(levelConfig);
       return;
@@ -19,7 +19,7 @@ XQuestGame.LevelFactory = Class({
       levelConfig.numberOfRegularLevels--;
     }
 
-    var bonusLevel2 = Balance.bonusLevel2.bonusLevel;
+    const bonusLevel2 = Balance.bonusLevel2.bonusLevel;
     if (level === bonusLevel2) {
       this._setupBonusLevel2(levelConfig);
       return;
@@ -32,12 +32,12 @@ XQuestGame.LevelFactory = Class({
     this._showLevelNumber(levelConfig);
   },
   _setAlternatingEnemyPool(levelConfig) {
-    var enemyLineup = Balance.enemies.roster;
-    var numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2);
-    var isMaxLevel = numberOfAlternateLevels >= enemyLineup.length;
-    var isEvenLevel = levelConfig.numberOfRegularLevels % 2 === 0;
+    const enemyLineup = Balance.enemies.roster;
+    const numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2);
+    const isMaxLevel = numberOfAlternateLevels >= enemyLineup.length;
+    const isEvenLevel = levelConfig.numberOfRegularLevels % 2 === 0;
 
-    var enemyPool;
+    let enemyPool;
     if (isMaxLevel) {
       // Very high levels include all enemies:
       enemyPool = enemyLineup;
@@ -53,9 +53,9 @@ XQuestGame.LevelFactory = Class({
   },
 
   _setupBonusLevel1(levelConfig) {
-    var B = Balance.bonusLevel1;
+    const B = Balance.bonusLevel1;
 
-    var bonusLevelText = this.game.gfx.addText("Bonus Level:\nRapid Fire!", "bonusLevel");
+    const bonusLevelText = this.game.gfx.addText("Bonus Level:\nRapid Fire!", "bonusLevel");
     bonusLevelText.flyIn(2).flyOut(1);
 
     levelConfig.enemyPool = B.bonusEnemyPool;
@@ -71,9 +71,9 @@ XQuestGame.LevelFactory = Class({
     }, this);
   },
   _setupBonusLevel2(levelConfig) {
-    var B = Balance.bonusLevel2;
+    const B = Balance.bonusLevel2;
 
-    var bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", "bonusLevel");
+    const bonusLevelText = this.game.gfx.addText("Bonus Level:\nSmash the enemies!", "bonusLevel");
     bonusLevelText.flyIn(2).flyOut(1);
 
     levelConfig.enemyPool = B.bonusEnemyPool;
@@ -91,9 +91,9 @@ XQuestGame.LevelFactory = Class({
   },
 
   _showLevelNumber(levelConfig) {
-    var level = `Level ${levelConfig.numberOfRegularLevels}`;
+    const level = `Level ${levelConfig.numberOfRegularLevels}`;
 
-    var textGfx = this.game.gfx.addText(level, { textBaseline: "top" });
+    const textGfx = this.game.gfx.addText(level, { textBaseline: "top" });
     textGfx.flyIn(1.5).flyOut(2);
   },
 });

@@ -12,7 +12,7 @@ export const Interpolate = {
    * @returns {interpolate}
    */
   from(from, to) {
-    var fromType = typeof from;
+    const fromType = typeof from;
     if (fromType !== typeof to) return null;
 
     if (fromType === "number") return Interpolate.numbers(from, to);
@@ -32,7 +32,7 @@ export const Interpolate = {
    * @returns {interpolateNumbers}
    */
   numbers(from, to) {
-    var difference = to - from;
+    const difference = to - from;
     /**
      * @callback interpolateNumbers
      * @param {number} pct
@@ -81,18 +81,18 @@ export const Interpolate = {
      * @returns {String}
      */
 
-    var fromHSL = Color.parseHSL(from);
+    const fromHSL = Color.parseHSL(from);
     if (fromHSL) {
-      var toHSL = Color.parseHSL(to);
-      var interpolateHSL = Interpolate.arrays(fromHSL, toHSL);
+      const toHSL = Color.parseHSL(to);
+      const interpolateHSL = Interpolate.arrays(fromHSL, toHSL);
       return function (pct) {
         return Color.toHSL(interpolateHSL(pct));
       };
     }
-    var fromRGB = Color.parseRGB(from);
+    const fromRGB = Color.parseRGB(from);
     if (fromRGB) {
-      var toRGB = Color.parseRGB(to);
-      var interpolateRGB = Interpolate.arrays(fromRGB, toRGB);
+      const toRGB = Color.parseRGB(to);
+      const interpolateRGB = Interpolate.arrays(fromRGB, toRGB);
       return function (pct) {
         return Color.toRGB(interpolateRGB(pct));
       };
@@ -107,9 +107,9 @@ export const Interpolate = {
    * @returns {interpolateArrays}
    */
   arrays(from, to) {
-    var length = Math.min(from.length, to.length);
-    var interpolate = new Array(length);
-    var i = length;
+    const length = Math.min(from.length, to.length);
+    const interpolate = new Array(length);
+    let i = length;
     while (i--) {
       interpolate[i] = Interpolate.from(from[i], to[i]);
     }
@@ -119,8 +119,8 @@ export const Interpolate = {
      * @returns {Number[]}
      */
     return function (pct) {
-      var results = new Array(length);
-      var i = length;
+      const results = new Array(length);
+      let i = length;
       while (i--) {
         results[i] = interpolate[i](pct);
       }
@@ -142,19 +142,19 @@ export const Interpolate = {
      * @returns {*}
      */
 
-    var segments = keyframes.length - 1;
+    const segments = keyframes.length - 1;
     if (segments === 1 && interpolateMethod) return interpolateMethod(keyframes[0], keyframes[1]);
 
-    var lastIndex = -1;
-    var lastInterpolate;
+    let lastIndex = -1;
+    let lastInterpolate;
     return function (pct) {
       // Min / max:
       if (pct <= 0) return keyframes[0];
       else if (pct >= 1) return keyframes[segments + 1];
 
       // Current Index & Next Index:
-      var pctSegments = pct * segments;
-      var index = Math.floor(pctSegments);
+      const pctSegments = pct * segments;
+      const index = Math.floor(pctSegments);
 
       if (!interpolateMethod) return keyframes[index];
 
@@ -164,7 +164,7 @@ export const Interpolate = {
       }
 
       // Interpolate:
-      var subPct = pctSegments - index;
+      const subPct = pctSegments - index;
       return lastInterpolate(subPct);
     };
   },
