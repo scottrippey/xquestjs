@@ -3,11 +3,38 @@ import globals from "globals";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
 import css from "@eslint/css";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
+
+const myGlobals = {
+  _: false,
+  createjs: false,
+  Balance: false,
+  EaselJSGraphics: false,
+  EaselJSTimer: false,
+  Graphics: false,
+  Smart: false,
+  XQuestGame: false,
+  XQuestInput: false,
+};
 
 export default defineConfig([
+  globalIgnores([
+    ///
+    "./common/lib",
+    "./build",
+    "**/Spec-*",
+    "./tsconfig.json",
+    "./package-lock.json",
+    "./package.json",
+  ]),
   { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
-  { files: ["**/*.{js,mjs,cjs}"], languageOptions: { globals: globals.browser } },
+  {
+    files: ["**/*.{js,mjs,cjs}"],
+    languageOptions: { globals: { ...globals.browser, ...myGlobals } },
+    rules: {
+      "no-unused-vars": "off",
+    },
+  },
   { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
   {
     files: ["**/*.jsonc"],
