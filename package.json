@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.ts,.mjs,.cjs . && prettier --check .",
-    "lint:fix": "eslint --ext .js,.ts,.mjs,.cjs . --fix && prettier --write ."
+    "lint:fix": "eslint --ext .js,.ts,.mjs,.cjs . --fix && prettier --check --write ."
   },
   "repository": {
     "type": "git",

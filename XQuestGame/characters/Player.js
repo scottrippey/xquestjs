@@ -56,7 +56,7 @@ XQuestGame.Player = Class({
     this.engaged = inputState.engaged;
 
     if (inputState.primaryWeapon && !this.game.levelConfig.shootingDisabled) {
-      var isFirstDown = previousState.primaryWeapon === false;
+      const isFirstDown = previousState.primaryWeapon === false;
       if (isFirstDown) {
         this.primaryWeaponDownTime = tickEvent.runTime;
 
@@ -67,7 +67,6 @@ XQuestGame.Player = Class({
         } else {
           this.game.projectiles.addBullet();
         }
-      } else {
       }
     }
 
@@ -96,7 +95,7 @@ XQuestGame.Player = Class({
     }
 
     if (inputState.secondaryWeapon) {
-      var isFirstDown = previousState.secondaryWeapon === false;
+      const isFirstDown = previousState.secondaryWeapon === false;
       if (isFirstDown) {
         this.game.projectiles.tryReleasingABomb();
         this.cancelVelocity();

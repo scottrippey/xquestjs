@@ -1,5 +1,5 @@
-import { Class } from "../../../common/src/Smart/Smart.Class.js";
-import { Events } from "../../../common/src/Smart/Smart.Events.js";
+import { Class } from "../../common/src/Smart/Smart.Class";
+import { Events } from "../../common/src/Smart/Smart.Events";
 
 XQuestGame.BaseMenu = Class(new Events(), {
   initialize: function BaseMenu(menuScene) {
@@ -57,14 +57,14 @@ XQuestGame.BaseMenu = Class(new Events(), {
 
     var middle = this.menuScene.gfx.getHudPoint("middle");
     var stackedRowsHeight = -layoutMargin;
-    for (var i = 0, l = rows.length; i < l; i++) {
-      var row = rows[i];
+    for (let i = 0, l = rows.length; i < l; i++) {
+      const row = rows[i];
       stackedRowsHeight += layoutMargin + row.visibleHeight;
     }
 
     var currentTop = middle.y - stackedRowsHeight / 2;
-    for (var i = 0, l = rows.length; i < l; i++) {
-      var row = rows[i];
+    for (let i = 0, l = rows.length; i < l; i++) {
+      const row = rows[i];
 
       row.moveTo(middle.x, currentTop);
 

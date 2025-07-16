@@ -8,13 +8,13 @@ import { defineConfig, globalIgnores } from "eslint/config";
 const myGlobals = {
   _: false,
   createjs: false,
-  Balance: false,
-  EaselJSGraphics: false,
-  EaselJSTimer: false,
-  Graphics: false,
-  Smart: false,
-  XQuestGame: false,
-  XQuestInput: false,
+  Balance: true,
+  EaselJSGraphics: true,
+  EaselJSTimer: true,
+  Graphics: true,
+  Smart: true,
+  XQuestGame: true,
+  XQuestInput: true,
 };
 
 export default defineConfig([
