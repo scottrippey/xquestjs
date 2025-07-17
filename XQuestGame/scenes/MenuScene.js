@@ -17,9 +17,7 @@ export const MenuEvents = {
   onStartGame: "onStartGame",
 };
 
-const MenuSceneEventMap = MenuEvents;
-
-export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuSceneEventMap), {
+export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents), {
   initialize: function MenuScene(gfx, host) {
     this.MenuScene_initialize(gfx, host);
   },

@@ -24,22 +24,22 @@ export const XQuestLogoGraphic = Class(new createjs.Container(), {
     this._addX_Q_UEST();
   },
   _addX_Q_UEST() {
-    const XInst = new X();
-    this.addChild(XInst);
+    const X = new LogoParts.X();
+    this.addChild(X);
 
-    const QInst = new Q();
-    this.addChild(QInst);
+    const Q = new LogoParts.Q();
+    this.addChild(Q);
 
-    const QTailInst = new QTail();
-    this.addChild(QTailInst);
+    const QTail = new LogoParts.QTail();
+    this.addChild(QTail);
 
-    const UESTInst = new UEST();
-    this.addChild(UESTInst);
+    const UEST = new LogoParts.UEST();
+    this.addChild(UEST);
 
-    this.X = XInst;
-    this.Q = QInst;
-    this.QTail = QTailInst;
-    this.UEST = UESTInst;
+    this.X = X;
+    this.Q = Q;
+    this.QTail = QTail;
+    this.UEST = UEST;
 
     // Layout:
     let left = 0;
@@ -120,56 +120,56 @@ export const XQuestLogoGraphic = Class(new createjs.Container(), {
     return this.animation;
   },
 });
-export const X = Class(new Drawing(), {
-  drawStatic(drawing) {
-    const G = Graphics.xquestLogo;
-    const radius = G.height / 2;
-    this.visibleWidth = G.height * 0.7;
 
-    drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
-  },
-});
+const LogoParts = {
+  X: Class(new Drawing(), {
+    drawStatic(drawing) {
+      const G = Graphics.xquestLogo;
+      const radius = G.height / 2;
+      this.visibleWidth = G.height * 0.7;
 
-export const Q = Class(new Drawing(), {
-  drawStatic(drawing) {
-    const G = Graphics.xquestLogo;
-    const radius = G.height / 2;
-    const QThickness = G.QThickness;
-    const QTailLength = G.QTailLength;
+      drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
+    },
+  }),
+  Q: Class(new Drawing(), {
+    drawStatic(drawing) {
+      const G = Graphics.xquestLogo;
+      const radius = G.height / 2;
+      const QThickness = G.QThickness;
+      const QTailLength = G.QTailLength;
 
-    this.visibleWidth = G.height;
+      this.visibleWidth = G.height;
 
-    drawing
-      .beginPath()
-      .circle(0, 0, radius)
-      .endPath({ strokeStyle: G.textColor, lineWidth: QThickness });
+      drawing
+        .beginPath()
+        .circle(0, 0, radius)
+        .endPath({ strokeStyle: G.textColor, lineWidth: QThickness });
 
-    this.rotation = 45;
-  },
-});
+      this.rotation = 45;
+    },
+  }),
+  QTail: Class(new Drawing(), {
+    drawStatic(drawing) {
+      const G = Graphics.xquestLogo;
+      const radius = G.height / 2;
+      const QThickness = G.QThickness;
+      const QTailLength = G.QTailLength;
 
-export const QTail = Class(new Drawing(), {
-  drawStatic(drawing) {
-    const G = Graphics.xquestLogo;
-    const radius = G.height / 2;
-    const QThickness = G.QThickness;
-    const QTailLength = G.QTailLength;
+      drawing
+        .beginPath()
+        .rect(radius + QThickness / 2 - 1, -QThickness / 2, QTailLength, QThickness - 2)
+        .endPath({ fillStyle: G.textColor });
 
-    drawing
-      .beginPath()
-      .rect(radius + QThickness / 2 - 1, -QThickness / 2, QTailLength, QThickness - 2)
-      .endPath({ fillStyle: G.textColor });
+      this.rotation = 45;
+    },
+  }),
+  UEST: Class(new Drawing(), {
+    drawStatic(drawing) {
+      const G = Graphics.xquestLogo;
 
-    this.rotation = 45;
-  },
-});
+      this.visibleWidth = G.height * 2;
 
-export const UEST = Class(new Drawing(), {
-  drawStatic(drawing) {
-    const G = Graphics.xquestLogo;
-
-    this.visibleWidth = G.height * 2;
-
-    drawing.font(`${G.fontSize}px "Segoe UI"`).fillStyle(G.textColor).fillText("uest", 0, 0);
-  },
-});
+      drawing.font(`${G.fontSize}px "Segoe UI"`).fillStyle(G.textColor).fillText("uest", 0, 0);
+    },
+  }),
+};
