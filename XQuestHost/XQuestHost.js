@@ -8,7 +8,7 @@ import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
 import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
 import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { Settings } from "@/XQuestHost/Settings.js";
-import { HostScene } from "XQuestGame/scenes/HostScene";
+import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
 
 export const XQuestHost = Class(new Disposable(), {
   initialize: function XQuestHost(canvas) {

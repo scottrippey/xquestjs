@@ -1,7 +1,7 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "../utils/Drawing.js";
 
-export const BackgroundGraphicsBase = Class(new Drawing(), {
+export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
   BackgroundGraphicsBase_initialize() {
     const bounds = Balance.level.bounds;
     this._size = {
@@ -54,8 +54,8 @@ export const BackgroundGraphicsBase = Class(new Drawing(), {
 export const BackgroundGraphics = Class(new BackgroundGraphicsBase(), {
   initialize: function BackgroundGraphics() {
     if (!this.initialized) {
-      BackgroundGraphics.prototype.initialized = true;
-      BackgroundGraphics.prototype.BackgroundGraphicsBase_initialize();
+      this.initialized = true;
+      this.BackgroundGraphicsBase_initialize();
     }
   },
 });
