@@ -1,7 +1,7 @@
 import { DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
-import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/XQuestGraphics/EaselJS/utils/Drawing.js";
+import { SpecialEffects } from "@/XQuestGraphics/EaselJS/effects/SpecialEffects.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -70,7 +70,7 @@ export const MenuButtonBackground = Class(new Drawing(), {
       this.nextChange = tickEvent.time + G.backgroundShape.changeFrequency;
 
       backgroundShape.beginPath();
-      EaselJSGraphics.SpecialEffects.drawElectricRectangle(backgroundShape, G, G.backgroundShape);
+      SpecialEffects.drawElectricRectangle(backgroundShape, G, G.backgroundShape);
       backgroundShape.endPath(this.isActive ? G.buttonActiveStyle : G.buttonStyle);
     }
     drawing.drawingQueue(this.shape);
