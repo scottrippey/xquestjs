@@ -132,8 +132,8 @@ export const BaseMenu = Class(new Events(), {
         .delay(animStagger * (toBottom ? l - i : i))
         .duration(animDuration)
         .easeOut("quint")
-        .move(row, { x: row.x, y: exit.y + safeHeight })
-        .rotate(animRotation);
+        .move(row, { x: row.x, y: exit.y + safeHeight });
+      // .rotate(animRotation);
       if (isBackNavigation) row.animation.queueDispose(row);
 
       lastAnimation = row.animation;
@@ -187,6 +187,8 @@ export const BaseMenu = Class(new Events(), {
   },
   _invokeActiveRow() {
     const activeRow = this._getActiveRow();
-    if (activeRow && activeRow.invoke) activeRow.invoke();
+    if (activeRow && activeRow.invoke) {
+      activeRow.invoke();
+    }
   },
 });
