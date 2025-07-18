@@ -1,10 +1,8 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
-
 /**
  * This is a wrapper around createjs.Ticker
  * @constructor
  */
-export const EaselJSTimer = Class({
+export class EaselJSTimer {
   addTickHandler(tickHandler) {
     // Configuration:
     createjs.Ticker.useRAF = true;
@@ -16,9 +14,9 @@ export const EaselJSTimer = Class({
 
       tickHandler(tickEvent);
     });
-  },
+  }
 
   dispose() {
     createjs.Ticker.removeAllEventListeners("tick");
-  },
-});
+  }
+}

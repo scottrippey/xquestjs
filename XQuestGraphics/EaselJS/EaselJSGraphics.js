@@ -1,5 +1,4 @@
 import { Point } from "@/common/src/Smart/Smart.Point.js";
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animations } from "@/common/src/Smart/Animation/Smart.Animations.js";
 import { TextGraphic } from "./effects/TextGraphics.js";
 import { PauseOverlay } from "./menus/PauseOverlay.js";
@@ -20,8 +19,8 @@ import { HudPauseButton } from "./hud/HudPauseButton.js";
 import { MenuButton } from "./menus/MenuButton.js";
 import { XQuestLogoGraphic } from "./menus/XQuestLogoGraphic.js";
 
-export const EaselJSGraphics = Class({
-  initialize: function EaselJSGraphics(canvas) {
+export class EaselJSGraphics {
+  constructor(canvas) {
     this.canvas = canvas;
 
     this.debugStats = {
@@ -30,7 +29,7 @@ export const EaselJSGraphics = Class({
 
     this._setupLayers();
     this._setupAnimations();
-  },
+  }
 
   _setupLayers() {
     this.layers = {
@@ -60,7 +59,7 @@ export const EaselJSGraphics = Class({
       stage.autoClear = false;
     });
     this.layers.hud.enableMouseOver();
-  },
+  }
 
   showBackgroundStars(visible) {
     if (visible) {
@@ -73,27 +72,27 @@ export const EaselJSGraphics = Class({
         this.layers.background.removeChild(this.backgroundStars);
       }
     }
-  },
+  }
 
   _setupAnimations() {
     this.animations = new Animations();
-  },
+  }
 
   /** Creates a clone */
   createNewGraphics() {
     return new EaselJSGraphics(this.canvas);
-  },
+  }
 
   onMove(tickEvent) {
     this.animations.update(tickEvent.deltaSeconds);
-  },
+  }
 
   onDraw(tickEvent) {
     this.layers.background.update(tickEvent);
     this.layers.objects.update(tickEvent);
     this.layers.characters.update(tickEvent);
     this.layers.hud.update(tickEvent);
-  },
+  }
 
   followPlayer(playerLocation) {
     const bounds = Balance.level.bounds;
@@ -117,7 +116,7 @@ export const EaselJSGraphics = Class({
     this.layers.background.y = -this._offset.y;
     this.layers.objects.y = -this._offset.y;
     this.layers.characters.y = -this._offset.y;
-  },
+  }
 
   getSafeSpawn(radius) {
     const leftEnemySpawn = this.getGamePoint("left");
@@ -132,7 +131,7 @@ export const EaselJSGraphics = Class({
         !Point.distanceTest(rightEnemySpawn, randomSpot, safeDistance);
     } while (!isSafe);
     return randomSpot;
-  },
+  }
 
   getGamePoint(gamePoint, radius) {
     if (typeof gamePoint !== "string") return gamePoint;
@@ -177,7 +176,7 @@ export const EaselJSGraphics = Class({
       default:
         throw new Error(`Invalid gamePoint: ${gamePoint}`);
     }
-  },
+  }
 
   getHudPoint(hudPoint) {
     if (typeof hudPoint !== "string") return hudPoint;
@@ -195,7 +194,7 @@ export const EaselJSGraphics = Class({
         return { x: bounds.visibleWidth, y: bounds.visibleHeight / 2 };
     }
     return null;
-  },
+  }
 
   createLevelGraphics() {
     const levelGraphics = new LevelGraphics();
@@ -204,13 +203,13 @@ export const EaselJSGraphics = Class({
       this.layers.background.removeChild(levelGraphics);
     });
     return levelGraphics;
-  },
+  }
 
   createPlayerGraphics() {
     const playerGraphics = new PlayerGraphics();
     this.layers.characters.addChild(playerGraphics);
     return playerGraphics;
-  },
+  }
 
   createPlayerHUDIcon() {
     const playerGraphics = new PlayerGraphics();
@@ -219,7 +218,7 @@ export const EaselJSGraphics = Class({
     playerGraphics.visibleRadius *= scale;
     this.layers.hud.addChild(playerGraphics);
     return playerGraphics;
-  },
+  }
 
   createBulletsGraphics() {
     const bulletsGraphics = new BulletsGraphics();
@@ -228,7 +227,7 @@ export const EaselJSGraphics = Class({
       this.layers.objects.removeChild(bulletsGraphics);
     });
     return bulletsGraphics;
-  },
+  }
 
   createEnemyGraphics(enemyName) {
     let enemyGraphics = null;
@@ -252,7 +251,7 @@ export const EaselJSGraphics = Class({
     });
 
     return enemyGraphics;
-  },
+  }
 
   createCrystalGraphic() {
     const crystal = new CrystalGraphic();
@@ -261,7 +260,7 @@ export const EaselJSGraphics = Class({
       this.layers.objects.removeChild(crystal);
     });
     return crystal;
-  },
+  }
 
   createCrystalHUDIcon() {
     const crystal = new CrystalGraphic();
@@ -270,7 +269,7 @@ export const EaselJSGraphics = Class({
     crystal.visibleRadius *= scale;
     this.layers.hud.addChild(crystal);
     return crystal;
-  },
+  }
 
   createPowerCrystalGraphic() {
     const powerCrystal = new PowerCrystalGraphic();
@@ -279,7 +278,7 @@ export const EaselJSGraphics = Class({
       this.layers.characters.removeChild(powerCrystal);
     });
     return powerCrystal;
-  },
+  }
 
   createBombCrystalGraphic() {
     const bombCrystal = new BombCrystalGraphic();
@@ -288,7 +287,7 @@ export const EaselJSGraphics = Class({
       this.layers.objects.removeChild(bombCrystal);
     });
     return bombCrystal;
-  },
+  }
 
   createBombCrystalHUDIcon() {
     const bombCrystal = new BombCrystalGraphic();
@@ -300,7 +299,7 @@ export const EaselJSGraphics = Class({
       this.layers.hud.removeChild(bombCrystal);
     });
     return bombCrystal;
-  },
+  }
 
   createBombGraphic() {
     const bomb = new BombGraphic();
@@ -309,7 +308,7 @@ export const EaselJSGraphics = Class({
       this.layers.objects.removeChild(bomb);
     });
     return bomb;
-  },
+  }
 
   createExplosion(position, velocity, explosionOptions) {
     const explosion = new ExplosionGraphic(position, velocity, explosionOptions);
@@ -318,11 +317,11 @@ export const EaselJSGraphics = Class({
       this.layers.objects.removeChild(explosion);
     });
     return explosion;
-  },
+  }
 
   addAnimation(animation) {
     return this.animations.addAnimation(animation);
-  },
+  }
 
   addText(text, textStyle) {
     const textGfx = new TextGraphic();
@@ -335,11 +334,11 @@ export const EaselJSGraphics = Class({
     });
 
     return textGfx;
-  },
+  }
 
   enableTouchClicks() {
     createjs.Touch.enable(this.layers.hud);
-  },
+  }
 
   createHUDOverlay() {
     const hudOverlay = new HudOverlay();
@@ -348,7 +347,7 @@ export const EaselJSGraphics = Class({
       this.layers.hud.removeChild(hudOverlay);
     });
     return hudOverlay;
-  },
+  }
 
   createPauseButtonHUD() {
     const pauseButton = new HudPauseButton(this);
@@ -357,7 +356,7 @@ export const EaselJSGraphics = Class({
       this.layers.hud.removeChild(pauseButton);
     });
     return pauseButton;
-  },
+  }
 
   createPauseOverlay() {
     const pauseOverlay = new PauseOverlay(this);
@@ -366,7 +365,7 @@ export const EaselJSGraphics = Class({
       this.layers.background.removeChild(pauseOverlay);
     });
     return pauseOverlay;
-  },
+  }
 
   createMenuButton(text) {
     const buttonGfx = new MenuButton(this);
@@ -381,7 +380,7 @@ export const EaselJSGraphics = Class({
       this.layers.hud.removeChild(buttonGfx);
     });
     return buttonGfx;
-  },
+  }
 
   createXQuestLogoGraphic() {
     const introGraphics = new XQuestLogoGraphic(this);
@@ -391,7 +390,7 @@ export const EaselJSGraphics = Class({
     });
 
     return introGraphics;
-  },
-});
+  }
+}
 
 window.EaselJSGraphics = EaselJSGraphics;
