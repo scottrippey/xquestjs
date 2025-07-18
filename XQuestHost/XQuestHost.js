@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { EaselJSTimer } from "@/XQuestGraphics/EaselJS/EaselJSTimer.js";
 import { PlayerInputGamepad } from "@/XQuestInput/player/PlayerInputGamepad.js";
@@ -10,8 +9,9 @@ import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { Settings } from "@/XQuestHost/Settings.js";
 import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
 
-export const XQuestHost = Class(new Disposable(), {
-  initialize: function XQuestHost(canvas) {
+export class XQuestHost extends Disposable {
+  constructor(canvas) {
+    super();
     Balance.setGameMode("arcade");
     this._setupCanvas(canvas);
     this._setupTimer();
@@ -20,15 +20,14 @@ export const XQuestHost = Class(new Disposable(), {
     this._setupGamepad();
 
     this._startHostScene();
-  },
-
+  }
   _setupCanvas(canvas) {
     if (!canvas) {
       const bounds = Balance.level.bounds;
       canvas = this._createCanvas(bounds.visibleWidth, bounds.visibleHeight);
     }
     this.canvas = canvas;
-  },
+  }
   _createCanvas(canvasWidth, canvasHeight) {
     // Note: create elements manually (parsing isn't "safe" for WinJS)
 
@@ -48,7 +47,7 @@ export const XQuestHost = Class(new Disposable(), {
     this.canvas = canvas;
     this.container = container;
     return canvas;
-  },
+  }
   /**
    * Fills the canvas to fit the entire browser window
    */
@@ -86,7 +85,7 @@ export const XQuestHost = Class(new Disposable(), {
     this._contain(container, canvas, canvas.width, canvas.height);
 
     container.focus();
-  },
+  }
   _contain(container, canvas, canvasWidth, canvasHeight) {
     window.addEventListener("resize", scaleCanvas);
     this.onDispose(() => {
@@ -107,15 +106,14 @@ export const XQuestHost = Class(new Disposable(), {
         canvas.style.width = `${containerHeight * canvasWidthRatio}px`;
       }
     }
-  },
-
+  }
   _setupTimer() {
     this.timer = new EaselJSTimer();
     this.timer.addTickHandler(this._tickHandler.bind(this));
     this.onDispose(() => {
       this.timer.dispose();
     });
-  },
+  }
   _tickHandler(tickEvent) {
     // timeAdjust is currrently unused, but can be set in the console for testing purposes
     if (this.timeAdjust) {
@@ -123,12 +121,10 @@ export const XQuestHost = Class(new Disposable(), {
     }
 
     this.hostScene.updateScene(tickEvent);
-  },
-
+  }
   _setupSettings() {
     this.settings = new Settings();
-  },
-
+  }
   _setupGamepad() {
     this.gamepadInput = PlayerInputGamepad.createGamepadInput() || null;
     if (this.gamepadInput) {
@@ -136,8 +132,7 @@ export const XQuestHost = Class(new Disposable(), {
         this.gamepadInput.dispose();
       });
     }
-  },
-
+  }
   _startHostScene() {
     const graphics = new EaselJSGraphics(this.canvas);
     this.hostScene = new HostScene(graphics, this.settings);
@@ -154,13 +149,13 @@ export const XQuestHost = Class(new Disposable(), {
     this.onDispose(() => {
       this.hostScene.dispose();
     });
-  },
+  }
   _addMenuInputs(menuScene) {
     menuScene.addSceneItem(new MenuInputKeyboard(null));
     if (this.gamepadInput) {
       menuScene.addSceneItem(this.gamepadInput);
     }
-  },
+  }
   _addPlayerInputs(arcadeGame) {
     arcadeGame.addSceneItem(new PlayerInputKeyboard(arcadeGame, null, this.settings));
     arcadeGame.addSceneItem(
@@ -173,12 +168,11 @@ export const XQuestHost = Class(new Disposable(), {
       arcadeGame.addSceneItem(this.gamepadInput);
       this.gamepadInput.setGame(arcadeGame);
     }
-  },
-
+  }
   enterFullScreen() {
     requestFullscreen(this.container);
-  },
-});
+  }
+}
 
 function requestFullscreen(elem) {
   (

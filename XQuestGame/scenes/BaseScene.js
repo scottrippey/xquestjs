@@ -65,15 +65,12 @@ export class BaseScene extends Disposable {
    * @param {Record<string,string>} SceneEvents
    */
   static implementEventMethods(SceneEvents) {
-    _.forOwn(
-      SceneEvents,
-      function (eventName, onEventName) {
-        this[onEventName] = function (eventHandler) {
-          this._events.addEvent(eventName, eventHandler);
-        };
-      },
-      this,
-    );
+    const Class = this;
+    _.forOwn(SceneEvents, (eventName, onEventName) => {
+      Class.prototype[onEventName] = function (eventHandler) {
+        this._events.addEvent(eventName, eventHandler);
+      };
+    });
   }
 
   /**

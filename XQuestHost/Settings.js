@@ -1,7 +1,5 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
-
-export const Settings = Class({
-  defaultSettings: {
+export class Settings {
+  defaultSettings = {
     mouseSettings: {
       mouseSensitivity: 5,
       maxMouseSensitivity: 10,
@@ -26,10 +24,8 @@ export const Settings = Class({
     gameSettings: {
       difficulty: 5,
     },
-  },
-  initialize: function Settings() {
-    this._watches = {};
-  },
+  };
+  _watches = {};
   watchSetting(settingName, watchHandler) {
     const currentValue = this.retrieveSetting(settingName);
 
@@ -40,8 +36,7 @@ export const Settings = Class({
     }
 
     watchHandler(currentValue);
-  },
-
+  }
   retrieveSetting(settingName) {
     let settingValue = localStorage.getItem(settingName);
     if (settingValue) {
@@ -56,7 +51,7 @@ export const Settings = Class({
     }
 
     return settingValue;
-  },
+  }
   saveSetting(settingName, settingValue) {
     if (settingValue == null) {
       localStorage.removeItem(settingName);
@@ -72,5 +67,5 @@ export const Settings = Class({
     }
 
     return settingValue;
-  },
-});
+  }
+}
