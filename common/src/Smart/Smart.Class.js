@@ -24,7 +24,7 @@ export function Class(base, implement) {
 function extendThis(extend) {
   for (const key in extend) {
     // Takes the place of checking hasOwnProperty:
-    if (this[key] === extend[key]) continue;
+    if (!Object.hasOwn(extend, key)) continue;
     this[key] = extend[key];
   }
   return this;

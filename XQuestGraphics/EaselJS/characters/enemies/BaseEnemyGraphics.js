@@ -1,5 +1,5 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
-import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
+import { Drawing } from "../../utils/Drawing.js";
 
 export const BaseEnemyGraphics = Class(new Drawing(), {
   drawCircleCircle(drawing, G) {

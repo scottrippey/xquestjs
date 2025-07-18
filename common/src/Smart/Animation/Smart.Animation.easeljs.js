@@ -7,7 +7,7 @@ import { Point } from "../Smart.Point.js";
  * These actions animate certain object properties that are used by EaselJS,
  * such as x, y, alpha, color, scaleX, scaleY, and rotation.
  */
-Object.assign(Animation.prototype, {
+Animation.implement({
   /**
    * Animates the `x` and `y` properties of the target.
    * @param {Point} target
