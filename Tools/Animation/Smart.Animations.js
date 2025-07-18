@@ -1,4 +1,4 @@
-import { Animation } from "./Smart.Animation.js";
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
 
 export class Animations {
   /**

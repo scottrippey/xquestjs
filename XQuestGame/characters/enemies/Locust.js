@@ -1,5 +1,5 @@
-import { Point } from "@/common/src/Smart/Smart.Point.js";
-import { Physics } from "@/common/src/Smart/Smart.Physics.js";
+import { Point } from "@/Tools/Smart.Point.js";
+import { Physics } from "@/Tools/Smart.Physics.js";
 import { BaseEnemy } from "../enemies/BaseEnemy.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 

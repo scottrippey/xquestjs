@@ -1,6 +1,6 @@
 import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
-import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
-import { Point } from "@/common/src/Smart/Smart.Point.js";
+import { Disposable } from "@/Tools/Smart.Disposable.js";
+import { Point } from "@/Tools/Smart.Point.js";
 import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 

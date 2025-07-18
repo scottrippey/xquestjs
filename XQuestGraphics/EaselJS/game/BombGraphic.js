@@ -1,6 +1,6 @@
 import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Point } from "@/common/src/Smart/Smart.Point.js";
+import { Point } from "@/Tools/Smart.Point.js";
 
 export class BombGraphic extends createjs.Shape {
   constructor() {

@@ -1,5 +1,5 @@
-import { Point } from "./Smart.Point.js";
-import { Sort } from "./Smart.Sort.js";
+import { Point } from "@/Tools/Smart.Point.js";
+import { Sort } from "@/Tools/Smart.Sort.js";
 
 export const Physics = {
   applyVelocity(point, velocity, elapsedSeconds) {

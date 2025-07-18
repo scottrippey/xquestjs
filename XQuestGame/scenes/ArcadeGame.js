@@ -1,7 +1,7 @@
 import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Events } from "@/common/src/Smart/Smart.Events.js";
-import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
-import { Keyframes } from "@/common/src/Smart/Animation/Smart.Keyframes.js";
+import { Events } from "@/Tools/Smart.Events.js";
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Keyframes } from "@/Tools/Animation/Smart.Keyframes.js";
 import { BaseScene } from "./BaseScene.js";
 import { Player } from "../characters/Player.js";
 import { EnemyFactory } from "../components/EnemyFactory.js";

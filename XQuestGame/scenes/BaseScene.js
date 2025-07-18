@@ -1,5 +1,5 @@
-import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
-import { Events } from "@/common/src/Smart/Smart.Events.js";
+import { Disposable } from "@/Tools/Smart.Disposable.js";
+import { Events } from "@/Tools/Smart.Events.js";
 
 export class BaseScene extends Disposable {
   debugStats = { sceneItems: [] };

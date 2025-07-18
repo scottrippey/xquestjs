@@ -1,6 +1,6 @@
 import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Physics } from "@/common/src/Smart/Smart.Physics.js";
+import { Physics } from "@/Tools/Smart.Physics.js";
 import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((gameMode) => {

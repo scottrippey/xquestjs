@@ -1,4 +1,4 @@
-import { Interpolate } from "./Smart.Interpolate.js";
+import { Interpolate } from "@/Tools/Animation/Smart.Interpolate.js";
 
 export const Keyframes = {
   fromFunction(keyframes) {

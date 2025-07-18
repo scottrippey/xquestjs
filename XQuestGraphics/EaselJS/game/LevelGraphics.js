@@ -1,8 +1,8 @@
 import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
-import { Physics } from "@/common/src/Smart/Smart.Physics.js";
-import { Point } from "@/common/src/Smart/Smart.Point.js";
+import { Interpolate } from "@/Tools/Animation/Smart.Interpolate.js";
+import { Physics } from "@/Tools/Smart.Physics.js";
+import { Point } from "@/Tools/Smart.Point.js";
 
 export class LevelGraphics extends createjs.Shape {
   gateStart = null;

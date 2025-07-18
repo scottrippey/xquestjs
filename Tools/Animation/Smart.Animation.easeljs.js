@@ -1,6 +1,6 @@
-import { Animation } from "./Smart.Animation.js";
-import { Keyframes } from "./Smart.Keyframes.js";
-import { Point } from "../Smart.Point.js";
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Keyframes } from "@/Tools/Animation/Smart.Keyframes.js";
+import { Point } from "@/Tools/Smart.Point.js";
 
 /**
  * Animation Actions

@@ -1,4 +1,4 @@
-import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
+import { Interpolate } from "@/Tools/Animation/Smart.Interpolate.js";
 
 export const SpecialEffects = {
   drawElectricLineTo(drawing, lineStart, lineEnd, segments, maxDeviation) {

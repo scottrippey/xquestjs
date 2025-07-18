@@ -1,5 +1,5 @@
 import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
-import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
 
 export class BombCrystalGraphic extends createjs.Shape {
   constructor() {

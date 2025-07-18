@@ -1,4 +1,4 @@
-import { Color } from "../Smart.Color.js";
+import { Color } from "@/Tools/Smart.Color.js";
 
 /**
  * Interpolate between numbers, colors, points, and shapes.

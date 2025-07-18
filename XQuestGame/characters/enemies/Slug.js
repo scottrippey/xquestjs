@@ -1,4 +1,4 @@
-import { Point } from "@/common/src/Smart/Smart.Point.js";
+import { Point } from "@/Tools/Smart.Point.js";
 import { BaseEnemy } from "./BaseEnemy.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 

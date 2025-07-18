@@ -1,5 +1,5 @@
-import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
-import { DrawingContext, DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { DrawingContext, DrawingQueue } from "@/Tools/Smart.Drawing.js";
 
 export class EaselJSDrawing extends createjs.DisplayObject {
   /**

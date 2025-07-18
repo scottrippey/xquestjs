@@ -1,7 +1,7 @@
 import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
-import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
+import { Drawing } from "@/Tools/Smart.Drawing.js";
+import { Interpolate } from "@/Tools/Animation/Smart.Interpolate.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 
 Balance.onUpdate((gameMode) => {

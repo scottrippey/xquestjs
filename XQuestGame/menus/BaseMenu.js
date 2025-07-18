@@ -1,4 +1,4 @@
-import { Events } from "@/common/src/Smart/Smart.Events.js";
+import { Events } from "@/Tools/Smart.Events.js";
 
 export class BaseMenu extends Events {
   constructor(menuScene) {

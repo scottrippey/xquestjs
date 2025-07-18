@@ -1,4 +1,4 @@
-import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
+import { Disposable } from "@/Tools/Smart.Disposable.js";
 import { XQuestHost } from "@/XQuestHost/XQuestHost.js";
 
 // Available actions:

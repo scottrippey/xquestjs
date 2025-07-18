@@ -1,4 +1,4 @@
-import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
+import { Disposable } from "@/Tools/Smart.Disposable.js";
 import { EaselJSTimer } from "@/XQuestGraphics/EaselJS/EaselJSTimer.js";
 import { PlayerInputGamepad } from "@/XQuestInput/player/PlayerInputGamepad.js";
 import { MenuInputKeyboard } from "@/XQuestInput/menus/MenuInputKeyboard.js";

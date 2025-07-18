@@ -1,6 +1,6 @@
 import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Point } from "@/common/src/Smart/Smart.Point.js";
-import { Animations } from "@/common/src/Smart/Animation/Smart.Animations.js";
+import { Point } from "@/Tools/Smart.Point.js";
+import { Animations } from "@/Tools/Animation/Smart.Animations.js";
 import { TextGraphic } from "./effects/TextGraphics.js";
 import { PauseOverlay } from "./menus/PauseOverlay.js";
 import { BackgroundGraphics } from "./game/BackgroundGraphics.js";
