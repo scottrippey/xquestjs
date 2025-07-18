@@ -1,3 +1,5 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
+
 export class Hud {
   constructor(game) {
     this.game = game;

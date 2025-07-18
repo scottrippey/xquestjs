@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { GraphicsTestMenu } from "@/XQuestGame/menus/GraphicsTestMenu.js";
 import { BaseMenu } from "./BaseMenu.js";
 import { MenuEvents } from "../scenes/MenuScene.js";

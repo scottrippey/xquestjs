@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { TextGraphic } from "@/XQuestGraphics/EaselJS/effects/TextGraphics.js";
 
 Balance.onUpdate((gameMode) => {

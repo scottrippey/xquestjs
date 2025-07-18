@@ -1,3 +1,5 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
+
 const Graphics = {
   merge(newGraphics) {
     _.merge(Graphics, newGraphics);

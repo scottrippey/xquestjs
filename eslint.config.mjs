@@ -11,11 +11,7 @@ const myGlobals = {
 
   _: false,
   createjs: false,
-  Balance: true,
-  EaselJSGraphics: true,
-  EaselJSTimer: true,
   Graphics: true,
-  XQuestInput: true,
 };
 delete myGlobals.Animation;
 

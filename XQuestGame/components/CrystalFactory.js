@@ -1,4 +1,5 @@
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class CrystalFactory {
   constructor(game) {

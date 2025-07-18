@@ -1,5 +1,6 @@
 import { Color } from "@/common/src/Smart/Smart.Color.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 Balance.onUpdate((mode) => {
   const green = "hsl(100, 100%, 50%)";

@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 
 export class BombGraphic extends createjs.Shape {

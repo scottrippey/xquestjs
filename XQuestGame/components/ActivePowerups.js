@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 export class ActivePowerups {
   constructor(game) {
     this.game = game;

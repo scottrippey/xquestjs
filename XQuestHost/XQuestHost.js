@@ -8,6 +8,7 @@ import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
 import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { Settings } from "@/XQuestHost/Settings.js";
 import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class XQuestHost extends Disposable {
   constructor(canvas) {

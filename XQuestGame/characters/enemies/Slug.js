@@ -1,5 +1,6 @@
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { BaseEnemy } from "./BaseEnemy.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class Slug extends BaseEnemy {
   constructor(game) {

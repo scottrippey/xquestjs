@@ -1,5 +1,6 @@
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class BaseEnemy {
   game = null;

@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";

@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 export class BombCrystal {
   constructor(game) {
     this.game = game;

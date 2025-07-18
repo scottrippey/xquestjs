@@ -1,3 +1,5 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
+
 export class LevelFactory {
   constructor(game) {
     this.game = game;

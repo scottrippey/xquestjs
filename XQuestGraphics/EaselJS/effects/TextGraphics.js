@@ -1,4 +1,5 @@
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

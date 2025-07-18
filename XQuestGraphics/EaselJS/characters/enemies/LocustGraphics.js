@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 

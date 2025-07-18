@@ -3,7 +3,7 @@ import { Animation } from "./Smart.Animation.js";
 /**
  * Animation Tweens
  */
-Object.assign(Animation.prototype, {
+Animation.implement({
   /**
    * Specifies the duration of the animation.
    * Animation will stop after the duration.
