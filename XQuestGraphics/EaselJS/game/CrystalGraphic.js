@@ -1,10 +1,10 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-export const CrystalGraphic = Class(new createjs.Shape(), {
-  initialize: function CrystalGraphic() {
+export class CrystalGraphic extends createjs.Shape {
+  constructor() {
+    super();
     this._setupCrystalGraphic();
-  },
+  }
 
   _setupCrystalGraphic() {
     const G = Graphics.crystals;
@@ -18,11 +18,11 @@ export const CrystalGraphic = Class(new createjs.Shape(), {
     this.rotation = 360 * Math.random();
 
     this.spinRate = G.spinRate;
-  },
+  }
 
   onTick(tickEvent) {
     this.rotation += this.spinRate * tickEvent.deltaSeconds;
-  },
+  }
 
   gatherCrystal(gfx, playerLocation) {
     const crystal = this;
@@ -46,5 +46,5 @@ export const CrystalGraphic = Class(new createjs.Shape(), {
 
         .queueDispose(crystal),
     );
-  },
-});
+  }
+}

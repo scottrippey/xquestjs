@@ -1,10 +1,10 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-export const BombCrystalGraphic = Class(new createjs.Shape(), {
-  initialize: function BombCrystalGraphic() {
+export class BombCrystalGraphic extends createjs.Shape {
+  constructor() {
+    super();
     this._setupGraphics();
-  },
+  }
   _setupGraphics() {
     const G = Graphics.bombCrystals;
 
@@ -24,12 +24,10 @@ export const BombCrystalGraphic = Class(new createjs.Shape(), {
     this.rotation = 360 * Math.random();
 
     this.spinRate = G.spinRate;
-  },
-
+  }
   onTick(tickEvent) {
     this.rotation += this.spinRate * tickEvent.deltaSeconds;
-  },
-
+  }
   gatherBombCrystal(gfx, playerLocation) {
     const bombCrystal = this;
     return gfx.addAnimation(
@@ -46,5 +44,5 @@ export const BombCrystalGraphic = Class(new createjs.Shape(), {
 
         .queueDispose(bombCrystal),
     );
-  },
-});
+  }
+}

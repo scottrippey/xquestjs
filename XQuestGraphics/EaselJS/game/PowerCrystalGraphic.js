@@ -1,10 +1,10 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-export const PowerCrystalGraphic = Class(new createjs.Shape(), {
-  initialize: function PowerCrystalGraphic() {
+export class PowerCrystalGraphic extends createjs.Shape {
+  constructor() {
+    super();
     this._setupGraphics();
-  },
+  }
 
   _setupGraphics() {
     const G = Graphics.powerCrystals;
@@ -20,11 +20,11 @@ export const PowerCrystalGraphic = Class(new createjs.Shape(), {
     this.rotation = 360 * Math.random();
 
     this.spinRate = G.spinRate;
-  },
+  }
 
   onTick(tickEvent) {
     this.rotation += this.spinRate * tickEvent.deltaSeconds;
-  },
+  }
 
   gatherPowerCrystal(gfx, playerLocation) {
     const powerCrystal = this;
@@ -42,7 +42,7 @@ export const PowerCrystalGraphic = Class(new createjs.Shape(), {
 
         .queueDispose(powerCrystal),
     );
-  },
+  }
 
   clearPowerCrystal(gfx) {
     const powerCrystal = this;
@@ -54,5 +54,5 @@ export const PowerCrystalGraphic = Class(new createjs.Shape(), {
 
         .queueDispose(powerCrystal),
     );
-  },
-});
+  }
+}
