@@ -3,8 +3,11 @@ import { Class } from "../Smart.Class.js";
 /**
  * Animation Core
  */
-export const Animation = Class({
-  initialize: function Animation() {
+export class Animation {
+  static implement(methods) {
+    Object.assign(Animation.prototype, methods);
+  }
+  constructor() {
     this._actions = [];
     this._position = 0;
 
@@ -34,7 +37,7 @@ export const Animation = Class({
       },
       _stopUpdate: false,
     };
-  },
+  }
 
   /**
    * Updates the animation with the elapsed time.
@@ -69,7 +72,7 @@ export const Animation = Class({
     }
 
     return animEvent;
-  },
+  }
 
   /**
    * Adds an action to the animation queue.
@@ -79,7 +82,7 @@ export const Animation = Class({
   frame(frameCallback) {
     this._actions.push(frameCallback);
     return this;
-  },
+  }
 
   /**
    * Waits for the current animations to complete, before continuing the chain.
@@ -96,12 +99,12 @@ export const Animation = Class({
         animEvent.clearCurrentActions();
       }
     });
-  },
+  }
 
   /**
    * Cancels the animation queue
    */
   cancelAnimation() {
     this._actions.length = 0;
-  },
-});
+  }
+}

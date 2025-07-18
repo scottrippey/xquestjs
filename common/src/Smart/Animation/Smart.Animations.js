@@ -1,7 +1,7 @@
 import { Class } from "../Smart.Class.js";
 import { Animation } from "./Smart.Animation.js";
 
-export const Animations = Class({
+export class Animations {
   /**
    * Adds or creates an animation to the list.
    *
@@ -13,7 +13,7 @@ export const Animations = Class({
     if (!this.animations) this.animations = [animation];
     else this.animations.push(animation);
     return animation;
-  },
+  }
 
   /**
    * Updates all animations in the list.
@@ -32,5 +32,5 @@ export const Animations = Class({
         if (i < this.animations.length) this.animations[i] = lastAnimation;
       }
     }
-  },
-});
+  }
+}

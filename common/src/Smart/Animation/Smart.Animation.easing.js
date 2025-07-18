@@ -3,7 +3,7 @@ import { Animation } from "./Smart.Animation.js";
 /**
  * Animation Easing functions
  */
-Object.assign(Animation.prototype, {
+Animation.implement({
   defaultEasing: "quart",
 
   /**
