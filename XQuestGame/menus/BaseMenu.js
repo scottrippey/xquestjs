@@ -1,21 +1,22 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Events } from "@/common/src/Smart/Smart.Events.js";
 
-export const BaseMenu = Class(new Events(), {
-  initialize: function BaseMenu(menuScene) {
+export class BaseMenu extends Events {
+  constructor(menuScene) {
+    super();
     if (menuScene) this.BaseMenu_initialize(menuScene);
-  },
+  }
   BaseMenu_initialize(menuScene) {
     this.menuScene = menuScene;
     this.activeRowIndex = -1;
     this.rows = this.getRows();
     this._moveActiveRowIndex(1);
-  },
+  }
 
   /** @protected @mustOverride */
   getRows() {
     return [];
-  },
+  }
 
   /**
    *
@@ -40,13 +41,13 @@ export const BaseMenu = Class(new Events(), {
       buttonRow.updateText();
     }
     return buttonRow;
-  },
+  }
 
   menuEnter(isBackNavigation) {
     if (this.onMenuEnter) this.onMenuEnter(isBackNavigation);
     this.layoutRows(this.rows, isBackNavigation);
     this.flyInRows(this.rows, isBackNavigation);
-  },
+  }
 
   /**
    * @overridable
@@ -70,7 +71,7 @@ export const BaseMenu = Class(new Events(), {
 
       currentTop += row.visibleHeight + layoutMargin;
     }
-  },
+  }
 
   /**
    * @overridable
@@ -101,12 +102,12 @@ export const BaseMenu = Class(new Events(), {
         .move(row, destination)
         .rotate(row, 0);
     }
-  },
+  }
 
   menuLeave(isBackNavigation) {
     if (this.onMenuLeave) this.onMenuLeave(isBackNavigation);
     return this.flyOutRows(this.rows, isBackNavigation);
-  },
+  }
   /**
    * @overridable
    * @protected
@@ -138,14 +139,14 @@ export const BaseMenu = Class(new Events(), {
       lastAnimation = row.animation;
     }
     return lastAnimation;
-  },
+  }
 
   menuInput(inputState) {
     if (inputState.menuUp || inputState.menuLeft) this._moveActiveRowIndex(-1);
     else if (inputState.menuDown || inputState.menuRight) this._moveActiveRowIndex(1);
 
     if (inputState.menuInvoke) this._invokeActiveRow();
-  },
+  }
   _moveActiveRowIndex(direction) {
     let activeRowIndex = this.activeRowIndex;
     while (true) {
@@ -165,12 +166,12 @@ export const BaseMenu = Class(new Events(), {
     }
 
     this._setActiveRowIndex(activeRowIndex);
-  },
+  }
 
   _setActiveRow(activeRow) {
     const activeRowIndex = this.rows.indexOf(activeRow);
     this._setActiveRowIndex(activeRowIndex);
-  },
+  }
   _setActiveRowIndex(activeRowIndex) {
     const rows = this.rows;
     for (let i = 0, l = rows.length; i < l; i++) {
@@ -180,14 +181,14 @@ export const BaseMenu = Class(new Events(), {
       }
     }
     this.activeRowIndex = activeRowIndex;
-  },
+  }
   _getActiveRow() {
     return this.rows[this.activeRowIndex] || null;
-  },
+  }
   _invokeActiveRow() {
     const activeRow = this._getActiveRow();
     if (activeRow && activeRow.invoke) {
       activeRow.invoke();
     }
-  },
-});
+  }
+}

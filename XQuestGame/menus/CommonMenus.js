@@ -5,30 +5,30 @@ import { MenuEvents } from "../scenes/MenuScene.js";
 
 export const CommonMenus = {
   GraphicsTestMenu,
-  PauseMenu: Class(new BaseMenu(), {
-    initialize: function PauseMenu(menuScene) {
-      this.BaseMenu_initialize(menuScene);
 
+  PauseMenu: class PauseMenu extends BaseMenu {
+    constructor(menuScene) {
+      super(menuScene);
       const pauseOverlay = this.menuScene.gfx.createPauseOverlay();
       pauseOverlay.showPauseOverlay();
-    },
+    }
     getRows() {
       return [
         this.createMenuButton("Resume Game", this._onResumeGame.bind(this)),
         this.createMenuButton("Game Options", this._showGameOptions.bind(this)),
       ];
-    },
+    }
     _onResumeGame() {
       this.menuScene.exitMenu().queue(() => {
         this.menuScene.fireSceneEvent(MenuEvents.onResumeGame);
       });
-    },
+    }
     _showGameOptions() {
       this.menuScene.addMenu(new CommonMenus.GameOptions(this.menuScene));
-    },
-  }),
+    }
+  },
 
-  GameOptions: Class(new BaseMenu(), {
+  GameOptions: class GameOptions extends BaseMenu {
     getRows() {
       return [
         this.createMenuButton("Input Settings", this._showInputSettings.bind(this)),
@@ -37,22 +37,22 @@ export const CommonMenus = {
         this.createMenuButton("Quit XQuest", this._showQuitConfirm.bind(this)),
         this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
       ];
-    },
+    }
     _showInputSettings() {
       this.menuScene.addMenu(new CommonMenus.InputSettings(this.menuScene));
-    },
+    }
     _showGraphicsTest() {
       this.menuScene.addMenu(new CommonMenus.GraphicsTestMenu(this.menuScene));
-    },
+    }
     _showDifficultyMenu() {
       this.menuScene.addMenu(new CommonMenus.DifficultySettings(this.menuScene));
-    },
+    }
     _showQuitConfirm() {
       this.menuScene.addMenu(new CommonMenus.ConfirmQuitGame(this.menuScene));
-    },
-  }),
+    }
+  },
 
-  InputSettings: Class(new BaseMenu(), {
+  InputSettings: class InputSettings extends BaseMenu {
     getRows() {
       return [
         this.createMenuButton("Mouse", this._showMouseSensitivity.bind(this)),
@@ -60,19 +60,19 @@ export const CommonMenus = {
         this.createMenuButton("Touch", this._showTouchSensitivity.bind(this)),
         this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
       ];
-    },
+    }
     _showMouseSensitivity() {
       this.menuScene.addMenu(new CommonMenus.MouseSettings(this.menuScene));
-    },
+    }
     _showKeyboardSensitivity() {
       this.menuScene.addMenu(new CommonMenus.KeyboardSettings(this.menuScene));
-    },
+    }
     _showTouchSensitivity() {
       this.menuScene.addMenu(new CommonMenus.TouchSettings(this.menuScene));
-    },
-  }),
+    }
+  },
 
-  DifficultySettings: Class(new BaseMenu(), {
+  DifficultySettings: class DifficultySettings extends BaseMenu {
     getRows() {
       return [
         this.createMenuButton("Easy", () => {
@@ -88,13 +88,13 @@ export const CommonMenus = {
           this.menuScene.goBack();
         }),
       ];
-    },
-  }),
+    }
+  },
 
-  MouseSettings: Class(new BaseMenu(), {
+  MouseSettings: class MouseSettings extends BaseMenu {
     onMenuLeave() {
       this.menuScene.host.settings.saveSetting("mouseSettings", this.mouseSettings);
-    },
+    }
     getRows() {
       let mouseSettings = (this.mouseSettings =
         this.menuScene.host.settings.retrieveSetting("mouseSettings"));
@@ -132,13 +132,13 @@ export const CommonMenus = {
         this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
       ];
       return rows;
-    },
-  }),
+    }
+  },
 
-  KeyboardSettings: Class(new BaseMenu(), {
+  KeyboardSettings: class KeyboardSettings extends BaseMenu {
     onMenuLeave() {
       this.menuScene.host.settings.saveSetting("keyboardSettings", this.keyboardSettings);
-    },
+    }
     getRows() {
       let keyboardSettings = (this.keyboardSettings =
         this.menuScene.host.settings.retrieveSetting("keyboardSettings"));
@@ -167,13 +167,13 @@ export const CommonMenus = {
         this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
       ];
       return rows;
-    },
-  }),
+    }
+  },
 
-  TouchSettings: Class(new BaseMenu(), {
+  TouchSettings: class TouchSettings extends BaseMenu {
     onMenuLeave() {
       this.menuScene.host.settings.saveSetting("touchSettings", this.touchSettings);
-    },
+    }
     getRows() {
       let touchSettings = (this.touchSettings =
         this.menuScene.host.settings.retrieveSetting("touchSettings"));
@@ -202,19 +202,16 @@ export const CommonMenus = {
         this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
       ];
       return rows;
-    },
-  }),
+    }
+  },
 
-  ConfirmQuitGame: Class(new BaseMenu(), {
+  ConfirmQuitGame: class ConfirmQuitGame extends BaseMenu {
     getRows() {
       const rows = [
-        this.createMenuButton(
-          "Quit XQuest",
-          this.menuScene.host.quitGame.bind(this.menuScene.host),
-        ),
-        this.createMenuButton("Back", this.menuScene.goBack.bind(this.menuScene)),
+        this.createMenuButton("Quit XQuest", () => this.menuScene.host.quitGame()),
+        this.createMenuButton("Back", () => this.menuScene.goBack()),
       ];
       return rows;
-    },
-  }),
+    }
+  },
 };

@@ -3,7 +3,10 @@ import { BaseMenu } from "./BaseMenu.js";
 import { CommonMenus } from "./CommonMenus.js";
 import { MenuEvents } from "../scenes/MenuScene.js";
 
-export const StartMenu = Class(new BaseMenu(), {
+export class StartMenu extends BaseMenu {
+  constructor(menuScene) {
+    super(menuScene);
+  }
   getRows() {
     const xQuestLogo = this._createLogo();
     return [
@@ -11,7 +14,7 @@ export const StartMenu = Class(new BaseMenu(), {
       this.createMenuButton("Play xQuest", this._startGame.bind(this)),
       this.createMenuButton("Game Options", this._showGameOptions.bind(this)),
     ];
-  },
+  }
   _createLogo() {
     const logo = this.menuScene.gfx.createXQuestLogoGraphic();
 
@@ -19,19 +22,19 @@ export const StartMenu = Class(new BaseMenu(), {
 
     this.logo = logo;
     return logo;
-  },
+  }
   _startGame() {
     this.menuScene.exitMenu().queue(() => {
       this.menuScene.fireSceneEvent(MenuEvents.onStartGame);
     });
-  },
+  }
   _showGameOptions() {
     this.menuScene.addMenu(new CommonMenus.GameOptions(this.menuScene));
-  },
+  }
 
   menuEnter(isBackNavigation) {
     this.layoutRows(this.rows, isBackNavigation);
-  },
+  }
   layoutRows(rows, isBackNavigation) {
     const logo = rows[0];
     const playButton = rows[1];
@@ -49,7 +52,7 @@ export const StartMenu = Class(new BaseMenu(), {
     optionsButton.moveTo(middle.x + buttonDist, buttonsTop);
 
     this.flyInRows([playButton, optionsButton], false, 1);
-  },
+  }
 
   menuLeave(isBackNavigation) {
     if (isBackNavigation) {
@@ -65,5 +68,5 @@ export const StartMenu = Class(new BaseMenu(), {
     } else {
       this.flyOutRows(this.rows, isBackNavigation);
     }
-  },
-});
+  }
+}

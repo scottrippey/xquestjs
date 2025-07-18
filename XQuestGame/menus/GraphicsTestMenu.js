@@ -1,7 +1,10 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { BaseMenu } from "./BaseMenu.js";
 
-export const GraphicsTestMenu = Class(new BaseMenu(), {
+export class GraphicsTestMenu extends BaseMenu {
+  constructor(menuScene) {
+    super(menuScene);
+  }
   getRows() {
     const goBack = this.menuScene.goBack.bind(this.menuScene);
     const player = this.createMenuButton("Player", goBack);
@@ -35,5 +38,5 @@ export const GraphicsTestMenu = Class(new BaseMenu(), {
       .moveTo(-halfButtonHeight, halfButtonHeight);
 
     return [player, objects, enemies];
-  },
-});
+  }
+}
