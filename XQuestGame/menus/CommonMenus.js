@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { GraphicsTestMenu } from "@/XQuestGame/menus/GraphicsTestMenu.js";
 import { BaseMenu } from "./BaseMenu.js";
 import { MenuEvents } from "../scenes/MenuScene.js";

@@ -1,5 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
-
 export class ActivePowerups {
   constructor(game) {
     this.game = game;

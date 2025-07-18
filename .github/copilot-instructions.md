@@ -1,4 +1,5 @@
 # When refactoring
+
 Do not change any logic
 Do not remove any implementation details
 Do not remove comments

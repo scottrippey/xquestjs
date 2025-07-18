@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { BaseMenu } from "./BaseMenu.js";
 
 export class GraphicsTestMenu extends BaseMenu {

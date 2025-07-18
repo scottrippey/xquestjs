@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { PowerCrystal } from "../characters/PowerCrystal.js";
 import { BombCrystal } from "../characters/BombCrystal.js";

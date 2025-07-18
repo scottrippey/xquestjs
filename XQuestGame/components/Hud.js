@@ -1,5 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
-
 export class Hud {
   constructor(game) {
     this.game = game;

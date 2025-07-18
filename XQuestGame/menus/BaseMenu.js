@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Events } from "@/common/src/Smart/Smart.Events.js";
 
 export class BaseMenu extends Events {
