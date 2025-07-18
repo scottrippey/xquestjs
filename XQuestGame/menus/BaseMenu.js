@@ -133,7 +133,6 @@ export const BaseMenu = Class(new Events(), {
         .duration(animDuration)
         .easeOut("quint")
         .move(row, { x: row.x, y: exit.y + safeHeight });
-      // .rotate(animRotation);
       if (isBackNavigation) row.animation.queueDispose(row);
 
       lastAnimation = row.animation;
