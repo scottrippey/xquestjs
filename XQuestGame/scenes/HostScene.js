@@ -1,3 +1,4 @@
+import { Events } from "common/src/Smart/Smart.Events";
 import { BaseScene } from "./BaseScene.js";
 import { MenuScene } from "./MenuScene.js";
 import { ArcadeGame } from "./ArcadeGame.js";
@@ -64,3 +65,4 @@ export class HostScene extends BaseScene {
     this.fireSceneEvent(HostSceneEvents.onQuitGame);
   }
 }
+HostScene.implementEventMethods(HostSceneEvents);

@@ -94,3 +94,5 @@ export class MenuScene extends BaseScene {
     this.addMenu(pauseMenu);
   }
 }
+
+MenuScene.implementEventMethods(MenuEvents);

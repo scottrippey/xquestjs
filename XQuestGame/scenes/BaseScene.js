@@ -62,9 +62,9 @@ export class BaseScene extends Disposable {
    * instead of
    *  game.addEvent('GamePaused', function(paused) { ... });
    *
-   * @param {Object.<method,{string} event>} SceneEvents
+   * @param {Record<string,string>} SceneEvents
    */
-  implementSceneEvents(SceneEvents) {
+  static implementEventMethods(SceneEvents) {
     _.forOwn(
       SceneEvents,
       function (eventName, onEventName) {
@@ -74,7 +74,6 @@ export class BaseScene extends Disposable {
       },
       this,
     );
-    return this;
   }
 
   /**

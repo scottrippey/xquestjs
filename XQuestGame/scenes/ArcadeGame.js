@@ -300,9 +300,4 @@ export class ArcadeGame extends BaseScene {
   }
 }
 
-// Add event handler functions to ArcadeGame, so that we don't use addEvent / fireEvent directly
-_.forOwn(GameEvents, (eventName, onEventName) => {
-  ArcadeGame.prototype[onEventName] = function (eventHandler) {
-    this._events.addEvent(eventName, eventHandler);
-  };
-});
+ArcadeGame.implementEventMethods(GameEvents);
