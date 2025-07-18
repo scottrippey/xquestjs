@@ -48,7 +48,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const TextGraphic = Class(new Drawing(), {
+export const TextGraphic = Class(new createjs.Text(), {
   setGfx(gfx) {
     this.gfx = gfx;
     this.animation = gfx.addAnimation(new Animation());
