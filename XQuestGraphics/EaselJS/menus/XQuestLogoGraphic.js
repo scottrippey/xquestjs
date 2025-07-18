@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "../utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
@@ -16,13 +15,12 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const XQuestLogoGraphic = Class(new createjs.Container(), {
-  Container_initialize: createjs.Container.prototype.initialize,
-  initialize: function XQuestLogoGraphic(gfx) {
-    this.Container_initialize();
+export class XQuestLogoGraphic extends createjs.Container {
+  constructor(gfx) {
+    super();
     this.gfx = gfx;
     this._addX_Q_UEST();
-  },
+  }
   _addX_Q_UEST() {
     const X = new LogoParts.X();
     this.addChild(X);
@@ -61,7 +59,7 @@ export const XQuestLogoGraphic = Class(new createjs.Container(), {
     const G = Graphics.xquestLogo;
     this.visibleHeight = G.height;
     this.visibleWidth = left;
-  },
+  }
 
   showLogo() {
     const G = Graphics.xquestLogo;
@@ -79,7 +77,7 @@ export const XQuestLogoGraphic = Class(new createjs.Container(), {
       .restorePosition();
 
     return this.animation;
-  },
+  }
 
   hideLogo() {
     const G = Graphics.xquestLogo;
@@ -118,20 +116,20 @@ export const XQuestLogoGraphic = Class(new createjs.Container(), {
       .fade(logo, 0)
       .restorePosition();
     return this.animation;
-  },
-});
+  }
+}
 
 const LogoParts = {
-  X: Class(new Drawing(), {
+  X: class extends Drawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
       const radius = G.height / 2;
       this.visibleWidth = G.height * 0.7;
 
       drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
-    },
-  }),
-  Q: Class(new Drawing(), {
+    }
+  },
+  Q: class extends Drawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
       const radius = G.height / 2;
@@ -146,9 +144,9 @@ const LogoParts = {
         .endPath({ strokeStyle: G.textColor, lineWidth: QThickness });
 
       this.rotation = 45;
-    },
-  }),
-  QTail: Class(new Drawing(), {
+    }
+  },
+  QTail: class extends Drawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
       const radius = G.height / 2;
@@ -161,15 +159,15 @@ const LogoParts = {
         .endPath({ fillStyle: G.textColor });
 
       this.rotation = 45;
-    },
-  }),
-  UEST: Class(new Drawing(), {
+    }
+  },
+  UEST: class extends Drawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
 
       this.visibleWidth = G.height * 2;
 
       drawing.font(`${G.fontSize}px "Segoe UI"`).fillStyle(G.textColor).fillText("uest", 0, 0);
-    },
-  }),
+    }
+  },
 };

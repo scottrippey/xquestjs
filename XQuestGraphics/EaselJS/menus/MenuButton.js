@@ -1,5 +1,4 @@
 import { DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/XQuestGraphics/EaselJS/utils/Drawing.js";
 import { SpecialEffects } from "@/XQuestGraphics/EaselJS/effects/SpecialEffects.js";
 
@@ -29,10 +28,10 @@ Balance.onUpdate((gameMode) => {
     },
   });
 });
-export const MenuButton = Class(new createjs.Container(), {
-  Container_initialize: createjs.Container.prototype.initialize,
-  initialize: function MenuButton(gfx) {
-    this.Container_initialize();
+
+export class MenuButton extends createjs.Container {
+  constructor(gfx) {
+    super();
     this.gfx = gfx;
 
     this.background = new MenuButtonBackground();
@@ -43,7 +42,7 @@ export const MenuButton = Class(new createjs.Container(), {
     this.visibleHeight = G.height;
     this.regX = G.width / 2;
     this.regY = G.height / 2;
-  },
+  }
   setText(text) {
     if (this.textGfx) {
       this.textGfx.text = text;
@@ -53,16 +52,16 @@ export const MenuButton = Class(new createjs.Container(), {
     this.addChild(this.textGfx);
 
     this.textGfx.moveTo(this.visibleWidth / 2, this.visibleHeight / 2);
-  },
+  }
   setActive(isActive) {
     if (this.isActive === isActive) return;
     this.isActive = isActive;
     this.background.isActive = isActive;
-  },
-});
+  }
+}
 
-export const MenuButtonBackground = Class(new Drawing(), {
-  isActive: false,
+class MenuButtonBackground extends Drawing {
+  isActive = false;
   drawEffects(drawing, tickEvent) {
     if (!this.shape || this.nextChange <= tickEvent.time) {
       const G = Graphics.menuButton;
@@ -74,5 +73,5 @@ export const MenuButtonBackground = Class(new Drawing(), {
       backgroundShape.endPath(this.isActive ? G.buttonActiveStyle : G.buttonStyle);
     }
     drawing.drawingQueue(this.shape);
-  },
-});
+  }
+}
