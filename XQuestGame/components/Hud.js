@@ -1,13 +1,13 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-export const Hud = Class({
-  initialize: function Hud(game) {
+export class Hud {
+  constructor(game) {
     this.game = game;
     this._setupGraphics();
     this._layout();
 
     this.game.onNewLevel(this._onNewLevel.bind(this));
-  },
+  }
   _setupGraphics() {
     this.game.gfx.enableTouchClicks();
 
@@ -26,7 +26,7 @@ export const Hud = Class({
     this.hudPauseButton.addEventListener("click", () => {
       this.game.pauseGame();
     });
-  },
+  }
   _layout() {
     const bounds = Balance.level.bounds;
     const middle = bounds.hudHeight / 2;
@@ -60,12 +60,12 @@ export const Hud = Class({
       center - this.hudPauseButton.width / 2,
       middle - this.hudPauseButton.height / 2,
     );
-  },
+  }
   onAct(tickEvent) {
     this.hudLivesText.text = ` x ${this.game.stats.lives}`;
     this.hudCrystalsText.text = ` x ${this.game.stats.crystalCount}`;
     this.hudBombsText.text = ` x ${this.game.stats.bombs}`;
-  },
+  }
 
   _onNewLevel() {
     const levelConfig = this.game.levelConfig;
@@ -79,5 +79,5 @@ export const Hud = Class({
       ? faded
       : 1;
     this.hudBombsIcon.alpha = this.hudBombsText.alpha = levelConfig.bombsDisabled ? faded : 1;
-  },
-});
+  }
+}

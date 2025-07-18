@@ -3,21 +3,21 @@ import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { PowerCrystal } from "../characters/PowerCrystal.js";
 import { BombCrystal } from "../characters/BombCrystal.js";
 
-export const PowerupFactory = Class({
-  initialize: function PowerupFactory(game) {
+export class PowerupFactory {
+  constructor(game) {
     this.game = game;
     this.game.addSceneItem(this);
     this.powerCrystals = [];
     this.bombCrystals = [];
 
     this.game.onNewLevel(this._onNewLevel.bind(this));
-  },
+  }
 
   onMove(tickEvent) {
     if (this._shouldSpawn(tickEvent)) {
       this.createPowerCrystal();
     }
-  },
+  }
 
   _shouldSpawn(tickEvent) {
     const B = Balance.powerCrystals;
@@ -33,7 +33,7 @@ export const PowerupFactory = Class({
       this.nextSpawn = tickEvent.runTime + B.spawnRate() * 1000;
     }
     return shouldSpawn;
-  },
+  }
 
   onAct(tickEvent) {
     if (this.powerCrystals.length >= 2) {
@@ -64,14 +64,14 @@ export const PowerupFactory = Class({
         },
       );
     }
-  },
+  }
 
   createPowerCrystal() {
     const powerCrystal = new PowerCrystal(this.game);
     const spawnInfo = this.game.enemyFactory.getRandomSpawn(powerCrystal.radius);
     powerCrystal.spawn(spawnInfo);
     this.powerCrystals.push(powerCrystal);
-  },
+  }
 
   _nextPowerup() {
     const B = Balance.powerups;
@@ -118,7 +118,7 @@ export const PowerupFactory = Class({
       );
     }
     return result;
-  },
+  }
 
   _gatherOnCollision(collisionPoints, maxRadius) {
     const maxDistance = maxRadius + Balance.powerCrystals.radius;
@@ -134,7 +134,7 @@ export const PowerupFactory = Class({
         this.game.activePowerups.activate(powerupName);
       },
     );
-  },
+  }
 
   _onNewLevel() {
     this._clearBombCrystals();
@@ -148,14 +148,14 @@ export const PowerupFactory = Class({
     while (bombCrystalQuantity--) {
       this.createBombCrystal();
     }
-  },
+  }
 
   createBombCrystal() {
     const bombCrystal = new BombCrystal(this.game);
     const randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
     bombCrystal.spawnBomb(randomSpawnLocation);
     this.bombCrystals.push(bombCrystal);
-  },
+  }
 
   clearAllPowerCrystals() {
     _.forEach(
@@ -166,7 +166,7 @@ export const PowerupFactory = Class({
       this,
     );
     this.powerCrystals.length = 0;
-  },
+  }
 
   _clearBombCrystals() {
     _.forEach(
@@ -177,5 +177,5 @@ export const PowerupFactory = Class({
       this,
     );
     this.bombCrystals.length = 0;
-  },
-});
+  }
+}

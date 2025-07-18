@@ -1,18 +1,18 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 
-export const CrystalFactory = Class({
-  initialize: function CrystalFactory(game) {
+export class CrystalFactory {
+  constructor(game) {
     this.game = game;
     this.game.addSceneItem(this);
     this.crystals = [];
 
     this.game.onNewLevel(this._onNewLevel.bind(this));
-  },
+  }
 
   _onNewLevel() {
     this._spawnCrystals();
-  },
+  }
   _spawnCrystals() {
     let spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
 
@@ -43,13 +43,13 @@ export const CrystalFactory = Class({
     if (this.crystals.length === 0) {
       this.game.crystalsGathered(0, 0);
     }
-  },
+  }
 
   onAct(tickEvent) {
     // Check for player-collisions:
     const player = this.game.player;
     this._gatherOnCollision([player], player.radius);
-  },
+  }
 
   _gatherOnCollision(collisionPoints, maxRadius) {
     const maxDistance = maxRadius + Balance.crystals.radius;
@@ -70,7 +70,7 @@ export const CrystalFactory = Class({
       this.game.crystalsGathered(this.crystals.length, crystalsGathered);
       this.game.stats.crystalCount -= crystalsGathered;
     }
-  },
+  }
 
   gatherClosestCrystal(location) {
     if (!this.crystals.length) return;
@@ -84,5 +84,5 @@ export const CrystalFactory = Class({
     this.game.crystalsGathered(this.crystals.length, 1);
 
     this.game.stats.crystalCount -= 1;
-  },
-});
+  }
+}

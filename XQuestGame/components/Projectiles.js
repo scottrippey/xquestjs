@@ -2,22 +2,22 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 
-export const Projectiles = Class({
-  initialize: function Projectiles(game) {
+export class Projectiles {
+  constructor(game) {
     this.game = game;
     this.game.addSceneItem(this);
 
     this.bulletsGraphics = this.game.gfx.createBulletsGraphics();
     this.bomb = null;
-  },
+  }
   onMove(tickEvent) {
     this._moveBullets(tickEvent);
-  },
+  }
 
   onAct(tickEvent) {
     this._bulletsKillEnemies();
     this._bombsKillEnemies();
-  },
+  }
 
   addTripleShot(powerup) {
     const angle = powerup.angle;
@@ -25,7 +25,7 @@ export const Projectiles = Class({
     this.addBullet();
     this.addBullet(angle);
     this.addBullet(-angle);
-  },
+  }
   addSprayShot(tickEvent) {
     const B = Balance.powerups.sprayShot;
     const shots = B.shots;
@@ -38,7 +38,7 @@ export const Projectiles = Class({
     for (let i = 0; i < shots; i++) {
       this.addBullet(angleOffset + i * angle, speed);
     }
-  },
+  }
   addBullet(angle, speed) {
     const B = Balance.bullets;
     const player = this.game.player;
@@ -79,7 +79,7 @@ export const Projectiles = Class({
     }
     bulletGfx.location = bulletGfx;
     bulletGfx.radius = B.radius;
-  },
+  }
   _moveBullets(tickEvent) {
     const bounds = Balance.level.bounds;
     const bullets = this.bulletsGraphics.bullets;
@@ -95,7 +95,7 @@ export const Projectiles = Class({
         bullets.splice(i, 1);
       }
     }
-  },
+  }
   _bulletsKillEnemies() {
     const bullets = this.bulletsGraphics.bullets;
     if (bullets.length) {
@@ -119,7 +119,7 @@ export const Projectiles = Class({
         }
       }
     }
-  },
+  }
   clearBullets() {
     this.game.gfx
       .addAnimation()
@@ -129,7 +129,7 @@ export const Projectiles = Class({
         this.bulletsGraphics.alpha = 1;
         this.bulletsGraphics.bullets.length = 0;
       });
-  },
+  }
 
   tryReleasingABomb() {
     const canBomb =
@@ -141,7 +141,7 @@ export const Projectiles = Class({
     }
 
     return canBomb;
-  },
+  }
   _createBomb() {
     const player = this.game.player;
     const bomb = this.game.gfx.createBombGraphic();
@@ -152,10 +152,10 @@ export const Projectiles = Class({
 
     bomb.location.moveTo(player.location.x, player.location.y);
     return bomb;
-  },
+  }
   _bombsKillEnemies() {
     if (this.bomb) {
       this.game.enemyFactory.killEnemiesOnCollision([this.bomb], this.bomb.radius);
     }
-  },
-});
+  }
+}

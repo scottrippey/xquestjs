@@ -1,11 +1,11 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-export const ActivePowerups = Class({
-  initialize: function ActivePowerups(game) {
+export class ActivePowerups {
+  constructor(game) {
     this.game = game;
     this.game.addSceneItem(this);
     this.activeTimes = {};
-  },
+  }
   activate(powerupName, omitText) {
     this[powerupName] = true;
     this.activeTimes[powerupName] = "newPowerup";
@@ -15,16 +15,16 @@ export const ActivePowerups = Class({
       const textGfx = this.game.gfx.addText(powerupDisplayName, "powerupActive");
       textGfx.start("left").flyIn(1.5, "middle").flyOut(2, "right");
     }
-  },
+  }
 
   _deactivate(powerupName) {
     const powerupDisplayName = `${powerupName} inactive`;
     const textGfx = this.game.gfx.addText(powerupDisplayName, "powerupDeactive");
     return textGfx.start("left").flyIn(1.5, "middle").flyOut(2, "right");
-  },
+  }
   onAct(tickEvent) {
     this._updateActivePowerups(tickEvent);
-  },
+  }
   _updateActivePowerups(tickEvent) {
     const B = Balance.powerups;
     const updatedValues = {};
@@ -56,5 +56,5 @@ export const ActivePowerups = Class({
       },
       this,
     );
-  },
-});
+  }
+}

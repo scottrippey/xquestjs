@@ -24,16 +24,16 @@ const GameEvents = {
   onGamePaused: "onGamePaused",
 };
 
-export const ArcadeGame = Class(new BaseScene(), {
-  player: null,
-  levelGraphics: null,
-  activePowerups: null,
-  scenePaused: false,
-  stats: null,
-  powerCrystals: null,
+export class ArcadeGame extends BaseScene {
+  player = null;
+  levelGraphics = null;
+  activePowerups = null;
+  scenePaused = false;
+  stats = null;
+  powerCrystals = null;
 
-  initialize: function ArcadeGame(graphics, host) {
-    this.BaseScene_initialize();
+  constructor(graphics, host) {
+    super();
     this.gfx = graphics;
     this.host = host;
     this.addSceneItem(this);
@@ -53,44 +53,44 @@ export const ArcadeGame = Class(new BaseScene(), {
     this._setupProjectiles();
     this._setupHUD();
     this._setupActivePowerups();
-  },
+  }
   _setupLevelGraphics() {
     this.levelGraphics = this.game.gfx.createLevelGraphics();
-  },
+  }
   _setupPlayer() {
     this.player = new Player(this.game);
     this.game.addSceneItem(this.player);
-  },
+  }
   _setupEnemyFactory() {
     this.enemyFactory = new EnemyFactory(this.game);
     this.addSceneItem(this.enemyFactory);
-  },
+  }
   _setupLevelFactory() {
     this.levelFactory = new LevelFactory(this.game);
     this.addSceneItem(this.levelFactory);
-  },
+  }
   _setupCrystals() {
     this.crystalFactory = new CrystalFactory(this.game);
-  },
+  }
   _setupPowerCrystals() {
     this.powerCrystals = new PowerupFactory(this.game);
-  },
+  }
   _setupProjectiles() {
     this.projectiles = new Projectiles(this.game);
-  },
+  }
   _setupHUD() {
     this.hud = new Hud(this.game);
     this.addSceneItem(this.hud);
-  },
+  }
   _setupActivePowerups() {
     this.activePowerups = new ActivePowerups(this.game);
-  },
+  }
 
   debug() {
     const debug = new GameDebugger(this.game);
     this.debug = () => debug;
     return this.debug();
-  },
+  }
 
   startArcadeGame() {
     this.currentLevel = 1;
@@ -101,7 +101,7 @@ export const ArcadeGame = Class(new BaseScene(), {
 
     this._arrangeNewLevel();
     this._startLevel();
-  },
+  }
   _arrangeNewLevel() {
     this.game.levelGraphics.closeGate();
     this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
@@ -110,7 +110,7 @@ export const ArcadeGame = Class(new BaseScene(), {
     this.game.levelConfig = levelConfig;
     this._events.fireEvent(GameEvents.onConfigureLevel, [levelConfig]);
     this._events.fireEvent(GameEvents.onNewLevel);
-  },
+  }
   _startLevel() {
     const middleOfGame = this.game.gfx.getGamePoint("middle");
     this.game.player.movePlayerTo(middleOfGame.x, middleOfGame.y);
@@ -120,14 +120,14 @@ export const ArcadeGame = Class(new BaseScene(), {
     this.followPlayer = true;
     this.game.gfx.followPlayer(this.game.player.location);
     this.host.gfx.followPlayer(this.game.player.location);
-  },
+  }
 
   onAct(tickEvent) {
     if (this.followPlayer) {
       this.game.gfx.followPlayer(this.game.player.location);
       this.host.gfx.followPlayer(this.game.player.location);
     }
-  },
+  }
 
   getDefaultInputState() {
     const state = {
@@ -138,7 +138,7 @@ export const ArcadeGame = Class(new BaseScene(), {
       accelerationY: 0,
     };
     return state;
-  },
+  }
 
   killPlayer() {
     this.game.player.killPlayer();
@@ -155,13 +155,13 @@ export const ArcadeGame = Class(new BaseScene(), {
     } else {
       this._loseALife();
     }
-  },
+  }
   _loseALife() {
     this.game.stats.lives--;
     this._animateBackToCenter().queue(() => {
       this._startLevel();
     });
-  },
+  }
   _gameOver() {
     // bew wew wew wew wew
     this._animateBackToCenter();
@@ -184,7 +184,7 @@ export const ArcadeGame = Class(new BaseScene(), {
 				})
 				*/
     );
-  },
+  }
 
   levelUp() {
     this.game.player.showPlayer(false);
@@ -202,7 +202,7 @@ export const ArcadeGame = Class(new BaseScene(), {
     });
 
     this._events.fireEvent(GameEvents.onNextLevel);
-  },
+  }
   _animateBackToCenter() {
     const visibleMiddle = this.game.gfx.getGamePoint("visibleMiddle");
     const middleOfGame = this.game.gfx.getGamePoint("middle");
@@ -217,14 +217,14 @@ export const ArcadeGame = Class(new BaseScene(), {
       });
     this.game.gfx.addAnimation(animation);
     return animation;
-  },
+  }
 
   crystalsGathered(remainingCrystals, gatheredCrystals) {
     if (remainingCrystals === 0) {
       this.game.levelGraphics.openGate();
       this._events.fireEvent(GameEvents.onAllCrystalsGathered);
     }
-  },
+  }
 
   pauseGame(paused) {
     if (paused === undefined) paused = !this.scenePaused;
@@ -237,7 +237,7 @@ export const ArcadeGame = Class(new BaseScene(), {
     this._events.fireEvent(GameEvents.onGamePaused, [this.scenePaused]);
 
     this._togglePauseMenu(this.scenePaused);
-  },
+  }
   _togglePauseMenu(paused) {
     if (paused) {
       const pauseMenu = this.host.createMenuScene();
@@ -252,7 +252,7 @@ export const ArcadeGame = Class(new BaseScene(), {
       this.pauseMenu && this.pauseMenu.dispose();
       this.setChildScene(null);
     }
-  },
+  }
 
   toggleFPS() {
     if (this.fpsText) {
@@ -274,7 +274,7 @@ export const ArcadeGame = Class(new BaseScene(), {
         this.text = `FPS: ${potentialFPS.toFixed(2)} [${actualFPS.toFixed(2)}]`;
       };
     }
-  },
+  }
   toggleDebugStats() {
     if (this.debugStatsText) {
       this.debugStatsText.dispose();
@@ -297,8 +297,8 @@ export const ArcadeGame = Class(new BaseScene(), {
         this.text = `Game Items: ${gameItems.length}\nGraphics: ${allGraphics.length}`;
       };
     }
-  },
-});
+  }
+}
 
 // Add event handler functions to ArcadeGame, so that we don't use addEvent / fireEvent directly
 _.forOwn(GameEvents, (eventName, onEventName) => {

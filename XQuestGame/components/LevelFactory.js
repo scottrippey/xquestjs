@@ -1,11 +1,11 @@
 import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-export const LevelFactory = Class({
-  initialize: function LevelFactory(game) {
+export class LevelFactory {
+  constructor(game) {
     this.game = game;
 
     this.game.onConfigureLevel(this._onConfigureLevel.bind(this));
-  },
+  }
   _onConfigureLevel(levelConfig) {
     const level = this.game.currentLevel;
 
@@ -30,7 +30,7 @@ export const LevelFactory = Class({
     // Set up regular level:
     this._setAlternatingEnemyPool(levelConfig);
     this._showLevelNumber(levelConfig);
-  },
+  }
   _setAlternatingEnemyPool(levelConfig) {
     const enemyLineup = Balance.enemies.roster;
     const numberOfAlternateLevels = Math.floor(levelConfig.numberOfRegularLevels / 2);
@@ -50,7 +50,7 @@ export const LevelFactory = Class({
     }
 
     levelConfig.enemyPool = enemyPool;
-  },
+  }
 
   _setupBonusLevel1(levelConfig) {
     const B = Balance.bonusLevel1;
@@ -69,7 +69,7 @@ export const LevelFactory = Class({
     B.bonusPowerups.forEach(function (powerup) {
       this.game.activePowerups.activate(powerup, true);
     }, this);
-  },
+  }
   _setupBonusLevel2(levelConfig) {
     const B = Balance.bonusLevel2;
 
@@ -88,12 +88,12 @@ export const LevelFactory = Class({
     B.bonusPowerups.forEach(function (powerup) {
       this.game.activePowerups.activate(powerup, true);
     }, this);
-  },
+  }
 
   _showLevelNumber(levelConfig) {
     const level = `Level ${levelConfig.numberOfRegularLevels}`;
 
     const textGfx = this.game.gfx.addText(level, { textBaseline: "top" });
     textGfx.flyIn(1.5).flyOut(2);
-  },
-});
+  }
+}

@@ -2,11 +2,11 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-export const EnemyFactory = Class({
-  initialize: function EnemyFactory(game) {
+export class EnemyFactory {
+  constructor(game) {
     this.game = game;
     this.enemies = [];
-  },
+  }
 
   onAct(tickEvent) {
     if (this.nextEnemySpawn == null) {
@@ -18,14 +18,14 @@ export const EnemyFactory = Class({
     if (this.enemies.length >= 2) {
       Physics.sortByLocation(this.enemies);
     }
-  },
+  }
 
   _calculateNextEnemySpawn(runTime) {
     let spawnRate = Balance.enemies.spawnRate();
     const spawnRateOverride = this.game.levelConfig.enemySpawnRateOverride;
     if (spawnRateOverride) spawnRate = spawnRateOverride();
     this.nextEnemySpawn = runTime + spawnRate * 1000;
-  },
+  }
 
   spawnNextEnemy() {
     const enemyPool = this.game.levelConfig.enemyPool;
@@ -49,7 +49,7 @@ export const EnemyFactory = Class({
     this.game.gfx
       .addAnimation(new Animation().duration(1).easeOut("quint").scale(enemy.location, [0, 1]))
       .update(0);
-  },
+  }
 
   getRandomSpawn(enemyRadius) {
     const bounds = Balance.level.bounds;
@@ -62,7 +62,7 @@ export const EnemyFactory = Class({
     };
 
     return spawnInfo;
-  },
+  }
 
   killEnemiesOnCollision(sortedItems, maxItemRadius, collisionCallback) {
     const enemies = this.enemies;
@@ -88,26 +88,26 @@ export const EnemyFactory = Class({
         this.enemies.splice(i, 1);
       }
     }
-  },
+  }
 
   killAllEnemies() {
     this.enemies.forEach((enemy) => {
       enemy.takeDamage(Number.POSITIVE_INFINITY, null);
     }, this);
     this.enemies.length = 0;
-  },
+  }
 
   clearAllEnemies() {
     this.enemies.forEach((enemy) => {
       enemy.clearEnemy();
     });
     this.enemies.length = 0;
-  },
+  }
 
   findClosestEnemy(location) {
     const enemyLocations = this.enemies.map((enemy) => enemy.location); // Perhaps this could be improved, but it's not mission-critical
     const enemyIndex = Physics.findClosestPoint(location, enemyLocations);
 
     return this.enemies[enemyIndex];
-  },
-});
+  }
+}
