@@ -1,8 +1,8 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "../utils/Drawing.js";
 
-export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
-  BackgroundGraphicsBase_initialize() {
+export class BackgroundGraphics extends createjs.Shape {
+  constructor() {
+    super();
     const bounds = Balance.level.bounds;
     this._size = {
       width: bounds.x * 2 + bounds.width,
@@ -12,8 +12,7 @@ export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
     this._setupStars();
 
     this.cache(0, 0, this._size.width, this._size.height);
-  },
-
+  }
   _setupBackground() {
     const g = this.graphics;
     const v = Graphics.background;
@@ -22,8 +21,7 @@ export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
     g.clear();
 
     g.beginFill(v.backgroundColor).drawRect(0, 0, size.width, size.height);
-  },
-
+  }
   _setupStars() {
     const g = this.graphics;
     const v = Graphics.background;
@@ -48,14 +46,5 @@ export const BackgroundGraphicsBase = Class(new createjs.Shape(), {
     }
 
     g.endStroke();
-  },
-});
-
-export const BackgroundGraphics = Class(new BackgroundGraphicsBase(), {
-  initialize: function BackgroundGraphics() {
-    if (!this.initialized) {
-      this.initialized = true;
-      this.BackgroundGraphicsBase_initialize();
-    }
-  },
-});
+  }
+}

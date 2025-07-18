@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { TextGraphic } from "@/XQuestGraphics/EaselJS/effects/TextGraphics.js";
 
 Balance.onUpdate((gameMode) => {
@@ -32,16 +31,14 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const HudButton = Class(new createjs.Container(), {
-  Container_initialize: createjs.Container.prototype.initialize,
-
-  HudButton_initialize(gfx, width, height) {
+export class HudButton extends createjs.Container {
+  constructor(gfx, width, height) {
+    super();
     this.gfx = gfx;
-    this.Container_initialize();
     this.width = width;
     this.height = height;
     this._setupButtonBackground();
-  },
+  }
 
   _setupButtonBackground() {
     const button = Graphics.hudGraphics.button;
@@ -54,16 +51,16 @@ export const HudButton = Class(new createjs.Container(), {
       .endStyle(button.style);
 
     this.addChild(background);
-  },
-});
+  }
+}
 
-export const HudPauseButton = Class(new HudButton(), {
-  initialize: function HudPauseButton(gfx) {
+export class HudPauseButton extends HudButton {
+  constructor(gfx) {
     const pauseButton = Graphics.hudGraphics.pauseButton;
-    this.HudButton_initialize(gfx, pauseButton.width, pauseButton.height);
+    super(gfx, pauseButton.width, pauseButton.height);
 
     this._setupGraphics();
-  },
+  }
   _setupGraphics() {
     const pauseButton = Graphics.hudGraphics.pauseButton;
 
@@ -76,7 +73,7 @@ export const HudPauseButton = Class(new HudButton(), {
     const padding = (pauseButton.height - icon.height) / 2;
     icon.moveTo(pauseButton.width - icon.width - padding, padding);
     this.addChild(icon);
-  },
+  }
   _createText() {
     const pauseButton = Graphics.hudGraphics.pauseButton;
     const pauseText = new TextGraphic();
@@ -84,7 +81,7 @@ export const HudPauseButton = Class(new HudButton(), {
 
     this.addChild(pauseText);
     return pauseText;
-  },
+  }
   _createPauseIcon() {
     const pauseIcon = Graphics.hudGraphics.pauseIcon;
     const icon = new createjs.Shape();
@@ -102,7 +99,7 @@ export const HudPauseButton = Class(new HudButton(), {
 
     this.addChild(icon);
     return icon;
-  },
+  }
   _createSandwichIcon() {
     const sandwichIcon = Graphics.hudGraphics.sandwichIcon;
     const bottomRow = sandwichIcon.iconHeight - sandwichIcon.rectHeight;
@@ -131,5 +128,5 @@ export const HudPauseButton = Class(new HudButton(), {
 
     this.addChild(icon);
     return icon;
-  },
-});
+  }
+}

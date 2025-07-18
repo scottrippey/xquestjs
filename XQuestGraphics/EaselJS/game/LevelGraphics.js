@@ -1,17 +1,15 @@
 import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 
-export const LevelGraphics = Class(new createjs.Shape(), {
-  gateStart: null,
-  gateEnd: null,
-  gateOpen: false,
-
-  initialize: function LevelGraphics() {
+export class LevelGraphics extends createjs.Shape {
+  gateStart = null;
+  gateEnd = null;
+  gateOpen = false;
+  constructor() {
+    super();
     this.nextChange = 0;
-  },
-
+  }
   setGateWidth(gateWidth) {
     const bounds = Balance.level.bounds;
     this.gateStart = {
@@ -23,16 +21,13 @@ export const LevelGraphics = Class(new createjs.Shape(), {
       y: bounds.y,
     };
     this.gateOpen = false;
-  },
-
+  }
   openGate() {
     this.gateOpen = true;
-  },
-
+  }
   closeGate() {
     this.gateOpen = false;
-  },
-
+  }
   onTick(tickEvent) {
     if (this.nextChange <= tickEvent.time) {
       const G = Graphics.level;
@@ -41,8 +36,7 @@ export const LevelGraphics = Class(new createjs.Shape(), {
       this._drawWalls();
       this._drawGate();
     }
-  },
-
+  }
   _drawWalls() {
     const g = this.graphics;
     const level = Graphics.level;
@@ -77,7 +71,7 @@ export const LevelGraphics = Class(new createjs.Shape(), {
       .arc(arcCorners.left, arcCorners.top, level.cornerRadius, angles.left, angles.top)
       .lineTo(gateStart.x, gateStart.y)
       .endStroke();
-  },
+  }
 
   _drawGate() {
     if (this.gateOpen) return;
@@ -88,7 +82,7 @@ export const LevelGraphics = Class(new createjs.Shape(), {
     const gateEnd = this.gateEnd;
 
     this._drawElectricLine(g, gate, gateStart, gateEnd);
-  },
+  }
 
   _drawElectricLine(graphics, gate, gateStart, gateEnd) {
     const segments = gate.segments;
@@ -111,7 +105,7 @@ export const LevelGraphics = Class(new createjs.Shape(), {
       graphics.lineTo(pos.x, pos.y);
     }
     graphics.endStroke();
-  },
+  }
 
   /**
    * Detects if the location is outside the level's bounds, or if it's inside the gate.
@@ -142,5 +136,5 @@ export const LevelGraphics = Class(new createjs.Shape(), {
     }
 
     return wall;
-  },
-});
+  }
+}

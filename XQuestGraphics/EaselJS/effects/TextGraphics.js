@@ -1,6 +1,4 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
-import { Drawing } from "../utils/Drawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -48,12 +46,12 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const TextGraphic = Class(new createjs.Text(), {
+export class TextGraphic extends createjs.Text {
   setGfx(gfx) {
     this.gfx = gfx;
     this.animation = gfx.addAnimation(new Animation());
     this.start("top");
-  },
+  }
 
   setText(text, textStyle) {
     const textStyles = Graphics.textStyles;
@@ -70,13 +68,13 @@ export const TextGraphic = Class(new createjs.Text(), {
 
     this.textAlign = textStyle.textAlign;
     this.textBaseline = textStyle.textBaseline;
-  },
+  }
 
   start(gamePoint) {
     const location = this.gfx.getHudPoint(gamePoint);
     this.moveTo(location.x, location.y);
     return this;
-  },
+  }
 
   flyIn(duration, to) {
     const toLocation = this.gfx.getHudPoint(to || "middle");
@@ -92,7 +90,7 @@ export const TextGraphic = Class(new createjs.Text(), {
       .update(0);
 
     return this;
-  },
+  }
 
   flyOut(duration, to) {
     const toLocation = this.gfx.getHudPoint(to || "bottom");
@@ -107,16 +105,16 @@ export const TextGraphic = Class(new createjs.Text(), {
       .queueDispose(txt);
 
     return this;
-  },
+  }
 
   queue(callback) {
     this.animation.queue(callback);
     return this;
-  },
+  }
 
   delay(duration) {
     this.animation.delay(duration);
 
     return this;
-  },
-});
+  }
+}

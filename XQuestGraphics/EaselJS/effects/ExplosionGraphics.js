@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Drawing } from "../utils/Drawing.js";
 
@@ -17,7 +16,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const ExplosionGraphic = Class(new Drawing(), {
+export class ExplosionGraphic extends Drawing {
   setup(position, velocity, explosionOptions) {
     this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 
@@ -40,7 +39,7 @@ export const ExplosionGraphic = Class(new Drawing(), {
       .easeOut()
       .fade(this, 0)
       .queueDispose(this);
-  },
+  }
   drawEffects(drawing, tickEvent) {
     const explosionOptions = this.explosionOptions;
     const particles = this.particles;
@@ -59,5 +58,5 @@ export const ExplosionGraphic = Class(new Drawing(), {
         .circle(particle.x, particle.y, explosionOptions.radius);
     }
     drawing.endPath(explosionOptions.style);
-  },
-});
+  }
+}

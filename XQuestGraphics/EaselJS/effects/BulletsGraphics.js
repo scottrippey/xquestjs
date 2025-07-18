@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Drawing } from "../utils/Drawing.js";
@@ -14,10 +13,10 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const BulletsGraphics = Class(new Drawing(), {
+export class BulletsGraphics extends Drawing {
   setup() {
     this.bullets = [];
-  },
+  }
   addBullet() {
     const bullet = new Bullet();
     this.bullets.push(bullet);
@@ -26,7 +25,7 @@ export const BulletsGraphics = Class(new Drawing(), {
       this.bullets.splice(index, 1);
     });
     return bullet;
-  },
+  }
   drawEffects(drawing) {
     const G = Graphics.bullets;
 
@@ -38,16 +37,16 @@ export const BulletsGraphics = Class(new Drawing(), {
       drawing.moveTo(bullet.x + G.radius, bullet.y).circle(bullet.x, bullet.y, G.radius);
     }
     drawing.endPath(G.style);
-  },
-});
+  }
+}
 
-export const Bullet = Class(new Disposable(), {
+export class Bullet extends Disposable {
   moveTo(x, y) {
     this.x = x;
     this.y = y;
-  },
+  }
   getKickBack(enemy, distance) {
     const B = Balance.bullets;
     return Point.multiply(this.velocity, B.kickBack);
-  },
-});
+  }
+}
