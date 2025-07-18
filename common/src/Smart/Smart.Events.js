@@ -1,12 +1,12 @@
 import { Class } from "./Smart.Class.js";
 
-export const Events = Class({
+export class Events {
   addEvent(eventName, callback) {
     if (!this.$events) this.$events = {};
     if (!this.$events[eventName]) this.$events[eventName] = [];
 
     this.$events[eventName].push(callback);
-  },
+  }
 
   fireEvent(eventName, eventArgs) {
     const callbacks = this.$events && this.$events[eventName];
@@ -16,7 +16,7 @@ export const Events = Class({
     for (let i = 0, l = callbacks.length; i < l; i++) {
       callbacks[i].apply(null, eventArgs);
     }
-  },
+  }
 
   implementEvents(events) {
     _.forOwn(
@@ -29,5 +29,5 @@ export const Events = Class({
       this,
     );
     return this;
-  },
-});
+  }
+}
