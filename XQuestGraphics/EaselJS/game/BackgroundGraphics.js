@@ -1,5 +1,3 @@
-import { Drawing } from "../utils/Drawing.js";
-
 export class BackgroundGraphics extends createjs.Shape {
   constructor() {
     super();

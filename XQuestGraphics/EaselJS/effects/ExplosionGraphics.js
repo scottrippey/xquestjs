@@ -1,5 +1,5 @@
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
-import { Drawing } from "../utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -16,8 +16,9 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export class ExplosionGraphic extends Drawing {
-  setup(position, velocity, explosionOptions) {
+export class ExplosionGraphic extends EaselJSDrawing {
+  constructor(position, velocity, explosionOptions) {
+    super();
     this.explosionOptions = _.defaults(explosionOptions, Graphics.explosionOptions);
 
     const random = () => 1 - Math.random() - Math.random(); // provides a more even spread than just Math.random()

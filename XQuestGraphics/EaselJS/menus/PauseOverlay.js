@@ -1,4 +1,4 @@
-import { Drawing } from "../utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -11,8 +11,9 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export class PauseOverlay extends Drawing {
-  setup(gfx) {
+export class PauseOverlay extends EaselJSDrawing {
+  constructor(gfx) {
+    super();
     this.gfx = gfx;
   }
   drawStatic(drawing) {

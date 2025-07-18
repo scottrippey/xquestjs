@@ -29,7 +29,8 @@ Balance.onUpdate((mode) => {
 });
 
 export class SlugGraphics extends BaseEnemyGraphics {
-  setup() {
+  constructor() {
+    super();
     const G = Graphics.enemies.slug;
     this.visibleRadius = G.radius;
   }

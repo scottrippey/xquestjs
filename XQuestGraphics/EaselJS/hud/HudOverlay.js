@@ -1,4 +1,4 @@
-import { Drawing } from "@/XQuestGraphics/EaselJS/utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((mode) => {
   _.merge(Graphics, {
@@ -10,7 +10,7 @@ Balance.onUpdate((mode) => {
   });
 });
 
-export class HudOverlay extends Drawing {
+export class HudOverlay extends EaselJSDrawing {
   drawEffects(drawing) {
     const G = Graphics.hudGraphics;
     const bounds = Balance.level.bounds;

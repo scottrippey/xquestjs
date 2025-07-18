@@ -1,6 +1,6 @@
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
-import { Drawing } from "../utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -13,8 +13,9 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export class BulletsGraphics extends Drawing {
-  setup() {
+export class BulletsGraphics extends EaselJSDrawing {
+  constructor() {
+    super();
     this.bullets = [];
   }
   addBullet() {

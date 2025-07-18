@@ -1,6 +1,6 @@
-import { Drawing } from "../utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
-export class PlayerGraphics extends Drawing {
+export class PlayerGraphics extends EaselJSDrawing {
   drawStatic(drawing) {
     const G = Graphics.player;
     this.visibleRadius = G.radius;

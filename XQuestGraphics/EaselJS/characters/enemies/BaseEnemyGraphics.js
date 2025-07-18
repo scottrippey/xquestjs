@@ -1,6 +1,6 @@
-import { Drawing } from "../../utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
-export class BaseEnemyGraphics extends Drawing {
+export class BaseEnemyGraphics extends EaselJSDrawing {
   drawCircleCircle(drawing, G) {
     const outerRadius = G.outerRadius;
     const outerStyle = G.outerStyle;

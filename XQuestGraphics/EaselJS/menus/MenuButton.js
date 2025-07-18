@@ -1,5 +1,5 @@
 import { DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
-import { Drawing } from "@/XQuestGraphics/EaselJS/utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 import { SpecialEffects } from "@/XQuestGraphics/EaselJS/effects/SpecialEffects.js";
 
 Balance.onUpdate((gameMode) => {
@@ -60,7 +60,7 @@ export class MenuButton extends createjs.Container {
   }
 }
 
-class MenuButtonBackground extends Drawing {
+class MenuButtonBackground extends EaselJSDrawing {
   isActive = false;
   drawEffects(drawing, tickEvent) {
     if (!this.shape || this.nextChange <= tickEvent.time) {

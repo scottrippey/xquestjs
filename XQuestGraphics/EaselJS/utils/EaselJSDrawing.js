@@ -1,22 +1,13 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 import { DrawingContext, DrawingQueue } from "@/common/src/Smart/Smart.Drawing.js";
 
-export const Drawing = Class(new createjs.DisplayObject(), {
-  /**
-   * When overridden, allows you to perform initialization tasks.
-   * Constructor arguments will be passed.
-   * @function
-   * @param {*...} args
-   */
-  setup: null,
-
+export class EaselJSDrawing extends createjs.DisplayObject {
   /**
    * When overridden, creates a DrawingQueue to create a static drawing.
    * @function
    * @param {DrawingQueue} drawing
    */
-  drawStatic: null,
+  drawStatic(drawing) {}
 
   /**
    * When overridden, this is called each tick, with a DrawingContext and a tickEvent.
@@ -24,32 +15,24 @@ export const Drawing = Class(new createjs.DisplayObject(), {
    * @param {DrawingContext} drawing
    * @param {TickEvent} tickEvent
    */
-  drawEffects: null,
+  drawEffects(drawing, tickEvent) {}
 
-  DisplayObject_initialize: createjs.DisplayObject.prototype.initialize,
-  DisplayObject_draw: createjs.DisplayObject.prototype.draw,
-  sharedDrawingContext: new DrawingContext(null),
-  initialize: function Drawing(args_) {
-    this.Drawing_initialize.apply(this, arguments);
-  },
-  Drawing_initialize(args_) {
-    this.DisplayObject_initialize();
+  drawingContext = new DrawingContext(null);
 
-    if (this.setup) {
-      this.setup.apply(this, arguments);
-    }
-
+  constructor() {
+    super();
     if (this.drawStatic) {
       this.drawingQueue = new DrawingQueue();
       this.drawStatic(this.drawingQueue);
     }
-  },
+  }
+
   onTick(tickEvent) {
     this.tickEvent = tickEvent;
-  },
+  }
   draw(ctx, ignoreCache) {
     // Render if cached:
-    const DisplayObject_handled = this.DisplayObject_draw(ctx, ignoreCache);
+    const DisplayObject_handled = super.draw(ctx, ignoreCache);
     if (!DisplayObject_handled && this.drawingQueue) {
       this.drawingQueue.draw(ctx);
     }
@@ -57,12 +40,12 @@ export const Drawing = Class(new createjs.DisplayObject(), {
       this._anim.update(this.tickEvent.deltaSeconds);
     }
     if (this.drawEffects && !ignoreCache && this.tickEvent) {
-      this.sharedDrawingContext.setContext(ctx);
-      this.drawEffects(this.sharedDrawingContext, this.tickEvent);
+      this.drawingContext.setContext(ctx);
+      this.drawEffects(this.drawingContext, this.tickEvent);
     }
 
     return true;
-  },
+  }
 
   addAnimation() {
     const anim = new Animation();
@@ -73,5 +56,5 @@ export const Drawing = Class(new createjs.DisplayObject(), {
       throw "Multiple animations not yet supported";
     }
     return anim;
-  },
-});
+  }
+}

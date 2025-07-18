@@ -1,4 +1,4 @@
-import { Drawing } from "../utils/Drawing.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({
@@ -120,7 +120,7 @@ export class XQuestLogoGraphic extends createjs.Container {
 }
 
 const LogoParts = {
-  X: class extends Drawing {
+  X: class extends EaselJSDrawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
       const radius = G.height / 2;
@@ -129,7 +129,7 @@ const LogoParts = {
       drawing.beginPath().star(0, 0, radius, 4, 0.8, 45).endPath({ fillStyle: G.xColor });
     }
   },
-  Q: class extends Drawing {
+  Q: class extends EaselJSDrawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
       const radius = G.height / 2;
@@ -146,7 +146,7 @@ const LogoParts = {
       this.rotation = 45;
     }
   },
-  QTail: class extends Drawing {
+  QTail: class extends EaselJSDrawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
       const radius = G.height / 2;
@@ -161,7 +161,7 @@ const LogoParts = {
       this.rotation = 45;
     }
   },
-  UEST: class extends Drawing {
+  UEST: class extends EaselJSDrawing {
     drawStatic(drawing) {
       const G = Graphics.xquestLogo;
 

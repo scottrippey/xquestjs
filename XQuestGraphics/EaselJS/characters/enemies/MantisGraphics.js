@@ -26,7 +26,8 @@ Balance.onUpdate((gameMode) => {
 });
 
 export class MantisGraphics extends BaseEnemyGraphics {
-  setup() {
+  constructor() {
+    super();
     const G = Graphics.enemies.mantis;
 
     this.visibleRadius = G.radius;

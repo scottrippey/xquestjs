@@ -33,7 +33,8 @@ Balance.onUpdate((mode) => {
 });
 
 export class LocustGraphics extends BaseEnemyGraphics {
-  setup() {
+  constructor() {
+    super();
     const G = Graphics.enemies.locust;
     this.visibleRadius = G.visibleRadius;
   }
