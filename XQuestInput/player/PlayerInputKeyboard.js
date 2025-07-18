@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { XQuestHost } from "@/XQuestHost/XQuestHost.js";
 
@@ -64,8 +63,8 @@ const keyMap = {
   0: debugActions.spawnPowerCrystal,
 };
 
-export const PlayerInputKeyboard = Class({
-  initialize: function PlayerInputKeyboard(game, element, settings) {
+export class PlayerInputKeyboard {
+  constructor(game, element, settings) {
     this.game = game;
 
     settings.watchSetting("keyboardSettings", (keyboardSettings) => {
@@ -79,10 +78,10 @@ export const PlayerInputKeyboard = Class({
     this.keyMapper.disableContextMenu();
 
     this.setKeyMap(keyMap);
-  },
+  }
   setKeyMap(keyMap) {
     this.keyMapper.setKeyMap(keyMap);
-  },
+  }
   _onActionDown(action) {
     switch (action) {
       case playerActions.pauseGame:
@@ -128,7 +127,7 @@ export const PlayerInputKeyboard = Class({
         this.game.debug().addBomb();
         break;
     }
-  },
+  }
 
   onInput(tickEvent, inputState) {
     const sensitivity = this.keyboardSettings.keyboardSensitivity;
@@ -151,13 +150,13 @@ export const PlayerInputKeyboard = Class({
     else activeInputs--;
 
     if (activeInputs >= 1) inputState.engaged = true;
-  },
-});
+  }
+}
 
-export const KeyMapper = Class(new Disposable(), {
-  element: null,
-  onActionDown: null,
-  codes: {
+export class KeyMapper extends Disposable {
+  element = null;
+  onActionDown = null;
+  codes = {
     8: "backspace",
     9: "tab",
     13: "enter",
@@ -211,22 +210,22 @@ export const KeyMapper = Class(new Disposable(), {
     202: "gamepaddpaddown",
     203: "gamepaddpadleft",
     204: "gamepaddpadright",
-  },
-  keyMap: null,
-  downKeys: null,
-  downActions: null,
+  };
+  keyMap = null;
+  downKeys = null;
+  downActions = null;
 
-  initialize: function KeyMapper(element, onActionDown, skipPreventDefault) {
+  constructor(element, onActionDown, skipPreventDefault) {
+    super();
     this.element = element;
     this.onActionDown = onActionDown;
-    this.codes = _.clone(this.codes);
     this.downKeys = [];
     this.downActions = {};
 
     this.skipPreventDefault = skipPreventDefault || false;
 
     this._setupEvents();
-  },
+  }
   _setupEvents() {
     this._onKeydown = this._onKeydown.bind(this);
     this._onKeyup = this._onKeyup.bind(this);
@@ -236,7 +235,7 @@ export const KeyMapper = Class(new Disposable(), {
       this.element.removeEventListener("keydown", this._onKeydown);
       this.element.removeEventListener("keyup", this._onKeyup);
     });
-  },
+  }
   _onKeydown(ev) {
     const keyName = this._getKeyName(ev);
     const action = this.keyMap[keyName];
@@ -254,7 +253,7 @@ export const KeyMapper = Class(new Disposable(), {
     if (downActionCount === 1) {
       this.onActionDown(action);
     }
-  },
+  }
   _onKeyup(ev) {
     const keyName = this._getKeyName(ev);
     const action = this.keyMap[keyName];
@@ -269,7 +268,7 @@ export const KeyMapper = Class(new Disposable(), {
 
     const downActionCount = (this.downActions[action] || 1) - 1;
     this.downActions[action] = downActionCount;
-  },
+  }
   _getKeyName(ev) {
     let modifiers = "";
     if (ev.ctrlKey) modifiers += "ctrl+";
@@ -285,15 +284,15 @@ export const KeyMapper = Class(new Disposable(), {
       "unknown";
 
     return modifiers + key;
-  },
+  }
 
   getDownActions() {
     return this.downActions;
-  },
+  }
 
   setKeyMap(keyMap) {
     this.keyMap = keyMap;
-  },
+  }
 
   disableContextMenu(disabled) {
     if (disabled === undefined) disabled = true;
@@ -303,8 +302,8 @@ export const KeyMapper = Class(new Disposable(), {
     } else {
       window.removeEventListener("contextmenu", preventDefault);
     }
-  },
-});
+  }
+}
 
 function preventDefault(ev) {
   ev.preventDefault();

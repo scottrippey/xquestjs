@@ -1,5 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
-
 const primaryWeapon = "primaryWeapon";
 const secondaryWeapon = "secondaryWeapon";
 const mouseMap = {
@@ -7,13 +5,13 @@ const mouseMap = {
   right: secondaryWeapon,
 };
 
-export const PlayerInputMouse = Class({
-  element: null,
-  elementSize: null,
-  mouseState: null,
-  previousMousePosition: null,
+export class PlayerInputMouse {
+  element = null;
+  elementSize = null;
+  mouseState = null;
+  previousMousePosition = null;
 
-  initialize: function PlayerInputMouse(game, element, settings) {
+  constructor(game, element, settings) {
     this.game = game;
     this.element = element;
     this.mouseMap = mouseMap;
@@ -39,26 +37,26 @@ export const PlayerInputMouse = Class({
     this._onGamePaused(false);
 
     this._resetMouseState();
-  },
+  }
   _resetMouseState() {
     this.mouseState = { engaged: true, accelerationX: 0, accelerationY: 0 };
-  },
+  }
   _onWindowResize() {
     this.elementSize = getElementSize(this.element);
     this.previousMousePosition = null;
-  },
+  }
   _onGamePaused(paused) {
     this.element.style.cursor = paused ? "pointer" : "none";
     this.previousMousePosition = null;
     this._resetMouseState();
-  },
+  }
   _onMouseOver(ev) {
     const currentMouseOver = ev.target;
     const mouseIsIn = elementContains(this.element, currentMouseOver);
     if (mouseIsIn) {
       this.mouseState.engaged = true;
     }
-  },
+  }
   _onMouseOut(ev) {
     const currentMouseOver = ev.relatedTarget;
     const mouseIsOut = !elementContains(this.element, currentMouseOver);
@@ -66,7 +64,7 @@ export const PlayerInputMouse = Class({
       this.mouseState.engaged = false;
       this.game.pauseGame(true);
     }
-  },
+  }
   _onMouseDown(ev) {
     const button = getMouseButton(ev);
     const action = this.mouseMap[button];
@@ -74,14 +72,14 @@ export const PlayerInputMouse = Class({
       this.mouseState[action] = true;
       ev.preventDefault();
     }
-  },
+  }
   _onMouseUp(ev) {
     const button = getMouseButton(ev);
     const action = this.mouseMap[button];
     if (action) {
       this.mouseState[action] = false;
     }
-  },
+  }
   _onMouseMove(ev) {
     const mousePosition = getMousePosition(ev);
     const previousMousePosition = this.previousMousePosition;
@@ -95,7 +93,7 @@ export const PlayerInputMouse = Class({
     const acceleration = this._adjustForSensitivity(delta, mousePosition);
     this.mouseState.accelerationX += acceleration.x;
     this.mouseState.accelerationY += acceleration.y;
-  },
+  }
   _adjustForSensitivity(delta, mousePosition) {
     const elementSize = this.elementSize;
     const mouseSettings = this.mouseSettings;
@@ -112,7 +110,7 @@ export const PlayerInputMouse = Class({
       y: screenDeltaY * sensitivity * biasY,
     };
     return acceleration;
-  },
+  }
   _getBias(distanceFromCenter, deltaDirection, sensitivity) {
     // "Bias" is used to increase outward sensitivity, and decrease inward sensitivity.
     // This causes the user's mouse to gravitate toward the center of the page,
@@ -126,7 +124,7 @@ export const PlayerInputMouse = Class({
     } else {
       return 1 - distanceFromCenter + distanceFromCenter / sensitivity;
     }
-  },
+  }
   onInput(tickEvent, inputState) {
     const mouseState = this.mouseState;
     if (mouseState.primaryWeapon) inputState.primaryWeapon = true;
@@ -136,8 +134,8 @@ export const PlayerInputMouse = Class({
     if (mouseState.engaged) inputState.engaged = true;
     mouseState.accelerationX = 0;
     mouseState.accelerationY = 0;
-  },
-});
+  }
+}
 
 function addEventListeners(element, events) {
   for (const eventName in events) {

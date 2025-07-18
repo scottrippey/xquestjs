@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { MenuSceneInputs } from "@/XQuestGame/scenes/MenuScene.js";
 
@@ -21,19 +20,20 @@ const PlayerActions = {
   secondaryWeapon: "secondaryWeapon",
 };
 
-export const PlayerInputGamepad = Class(new Disposable(), {
-  initialize: function PlayerInputGamepad() {
+export class PlayerInputGamepad extends Disposable {
+  constructor() {
+    super();
     this.allGamepads = [];
 
     this._disableAllKeystrokes();
-  },
+  }
   setGame(game) {
     this.game = game || null;
-  },
+  }
   addGamepad(gamepadId, gamepad) {
     gamepad.gamepadId = gamepadId;
     this.allGamepads.push(gamepad);
-  },
+  }
   removeGamepad(gamepadId) {
     for (let i = 0; i < this.allGamepads.length; i++) {
       if (this.allGamepads[i].gamepadId === gamepadId) {
@@ -41,14 +41,14 @@ export const PlayerInputGamepad = Class(new Disposable(), {
         return;
       }
     }
-  },
+  }
   onInput(tickEvent, inputState) {
     if (inputState.menuMode) {
       this._onInput_menu(tickEvent, inputState);
     } else {
       this._onInput_player(tickEvent, inputState);
     }
-  },
+  }
   _onInput_menu(tickEvent, inputState) {
     const allGamepads = this.allGamepads;
 
@@ -65,7 +65,7 @@ export const PlayerInputGamepad = Class(new Disposable(), {
         }
       }
     }
-  },
+  }
   _onInput_player(tickEvent, inputState) {
     const analogSensitivity = UserSettings.analogSensitivity;
     const analogThreshold = UserSettings.analogThreshold;
@@ -91,7 +91,7 @@ export const PlayerInputGamepad = Class(new Disposable(), {
       inputState.accelerationX += analogX * analogSensitivity;
       inputState.accelerationY += analogY * analogSensitivity;
     }
-  },
+  }
   _disableAllKeystrokes() {
     const useCapture = true;
     document.addEventListener("keydown", stopEvent, useCapture);
@@ -107,13 +107,13 @@ export const PlayerInputGamepad = Class(new Disposable(), {
       ev.preventDefault();
       ev.stopPropagation();
     }
-  },
-}).extend({
+  }
+
   /**
    * (returns null if not supported)
    */
-  createGamepadInput,
-});
+  static createGamepadInput = createGamepadInput;
+}
 
 const xboxPlayerMap = {
   isMenuPressed: PlayerActions.pauseGame,
@@ -170,16 +170,16 @@ const xboxMenuMap = {
   //isRightThumbstickPressed:
 };
 
-export const XboxGamepadMapper = Class({
-  initialize: function XboxGamepadMapper(xboxGamepad, playerMap, menuMap) {
+export class XboxGamepadMapper {
+  constructor(xboxGamepad, playerMap, menuMap) {
     this.xboxGamepad = xboxGamepad;
     this.playerMap = playerMap;
     this.menuMap = menuMap;
     this.previousActions = {};
-  },
+  }
   getPlayerActions() {
     return this._mapXboxGamepadActions(this.playerMap);
-  },
+  }
   getMenuActions() {
     const currentActionValues = this._mapXboxGamepadActions(this.menuMap);
 
@@ -213,7 +213,7 @@ export const XboxGamepadMapper = Class({
       }
     }
     return menuActions;
-  },
+  }
   _mapXboxGamepadActions(actionsMap) {
     const currentReading = this.xboxGamepad.getCurrentReading();
     const gamepadActions = {};
@@ -229,14 +229,14 @@ export const XboxGamepadMapper = Class({
     }
 
     return gamepadActions;
-  },
+  }
   _analogToBoolean(analogValue, wasAlreadyDown) {
     const threshold = wasAlreadyDown
       ? UserSettings.analogUpThreshold
       : UserSettings.analogDownThreshold;
     return analogValue >= threshold;
-  },
-});
+  }
+}
 
 function createGamepadInput() {
   const Windows = window.Windows;

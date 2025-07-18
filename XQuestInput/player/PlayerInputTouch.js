@@ -1,12 +1,10 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
+export class PlayerInputTouch {
+  element = null;
+  elementSize = null;
+  touches = null;
+  touchState = null;
 
-export const PlayerInputTouch = Class({
-  element: null,
-  elementSize: null,
-  touches: null,
-  touchState: null,
-
-  initialize: function PlayerInputTouch(game, element, settings) {
+  constructor(game, element, settings) {
     this.game = game;
     this.element = element;
     this.touchState = {};
@@ -27,11 +25,11 @@ export const PlayerInputTouch = Class({
       resize: this._onWindowResize.bind(this),
     });
     this._onWindowResize();
-  },
+  }
 
   _onWindowResize() {
     this.elementSize = getElementSize(this.element);
-  },
+  }
 
   _onTouchStart(ev) {
     ev.preventDefault();
@@ -48,7 +46,7 @@ export const PlayerInputTouch = Class({
         this.touchState.secondaryWeapon = { identifier: touch.identifier };
       }
     }
-  },
+  }
   _onTouchEnd(ev) {
     ev.preventDefault();
     const touches = ev.changedTouches;
@@ -68,7 +66,7 @@ export const PlayerInputTouch = Class({
         this.touchState.secondaryWeapon = false;
       }
     }
-  },
+  }
   _onTouchMove(ev) {
     ev.preventDefault();
     const touches = ev.changedTouches;
@@ -84,7 +82,7 @@ export const PlayerInputTouch = Class({
         this.touchState.accelerationY += acceleration.y;
       }
     }
-  },
+  }
 
   _updateTouchPosition(touchPosition) {
     let delta = null;
@@ -97,7 +95,7 @@ export const PlayerInputTouch = Class({
     this.previousTouchPosition = touchPosition;
 
     return delta;
-  },
+  }
   _adjustForSensitivity(delta, touchPosition, elementSize) {
     const touchSettings = this.touchSettings;
     const sensitivity = touchSettings.touchSensitivity * touchSettings.touchSensitivityMultiplier;
@@ -106,7 +104,7 @@ export const PlayerInputTouch = Class({
       y: delta.y * sensitivity,
     };
     return acceleration;
-  },
+  }
 
   onInput(tickEvent, inputState) {
     const touchState = this.touchState;
@@ -119,8 +117,8 @@ export const PlayerInputTouch = Class({
 
     touchState.accelerationX = 0;
     touchState.accelerationY = 0;
-  },
-});
+  }
+}
 
 function addEventListeners(element, events) {
   for (const eventName in events) {
