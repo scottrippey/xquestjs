@@ -1,25 +1,16 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { Events } from "@/common/src/Smart/Smart.Events.js";
 
-export const BaseScene = Class(new Disposable(), {
-  initialize: function BaseScene() {},
-  BaseScene_initialize() {
-    this.debugStats = { sceneItems: [] };
-    this._setupEvents();
-    this._setupPhases();
-  },
-  _setupEvents() {
-    this._events = new Events();
-  },
-  _setupPhases() {
-    this.phases = {
-      input: [],
-      move: [],
-      act: [],
-      draw: [],
-    };
-  },
+export class BaseScene extends Disposable {
+  debugStats = { sceneItems: [] };
+  _events = new Events();
+  phases = {
+    input: [],
+    move: [],
+    act: [],
+    draw: [],
+  };
+
   updateScene(tickEvent) {
     // Iterate right-to-left, because items could get removed
     const childScene = this.childScene;
@@ -42,7 +33,7 @@ export const BaseScene = Class(new Disposable(), {
     if (childScene) {
       childScene.updateScene(tickEvent);
     }
-  },
+  }
   addSceneItem(sceneItem) {
     // Determine which methods the sceneItem implements,
     // and add them to the appropriate phase:
@@ -52,7 +43,7 @@ export const BaseScene = Class(new Disposable(), {
     if (sceneItem.onDraw) this.phases.draw.push(sceneItem);
 
     this.debugStats.sceneItems.push(sceneItem);
-  },
+  }
   removeSceneItem(sceneItem) {
     if (sceneItem.onInput) _.eliminate(this.phases.input, sceneItem);
     if (sceneItem.onMove) _.eliminate(this.phases.move, sceneItem);
@@ -60,7 +51,7 @@ export const BaseScene = Class(new Disposable(), {
     if (sceneItem.onDraw) _.eliminate(this.phases.draw, sceneItem);
 
     _.eliminate(this.debugStats.sceneItems, sceneItem);
-  },
+  }
 
   /**
    * Creates utility methods for adding event handlers.
@@ -84,7 +75,7 @@ export const BaseScene = Class(new Disposable(), {
       this,
     );
     return this;
-  },
+  }
 
   /**
    * @protected
@@ -93,7 +84,7 @@ export const BaseScene = Class(new Disposable(), {
    */
   fireSceneEvent(eventName, args) {
     this._events.fireEvent(eventName, args);
-  },
+  }
 
   /** @protected */
   setChildScene(childScene) {
@@ -103,5 +94,5 @@ export const BaseScene = Class(new Disposable(), {
         this.childScene = null;
       });
     }
-  },
-});
+  }
+}

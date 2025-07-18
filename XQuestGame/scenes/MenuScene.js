@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { BaseScene } from "./BaseScene.js";
 import { StartMenu } from "../menus/StartMenu.js";
 import { CommonMenus } from "../menus/CommonMenus.js";
@@ -17,12 +16,9 @@ export const MenuEvents = {
   onStartGame: "onStartGame",
 };
 
-export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents), {
-  initialize: function MenuScene(gfx, host) {
-    this.MenuScene_initialize(gfx, host);
-  },
-  MenuScene_initialize(gfx, host) {
-    this.BaseScene_initialize();
+export class MenuScene extends BaseScene {
+  constructor(gfx, host) {
+    super();
 
     this.gfx = gfx;
     this.host = host;
@@ -31,7 +27,7 @@ export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents),
     this.addSceneItem(this.gfx);
 
     this.menuStack = [];
-  },
+  }
 
   _setupBackButton() {
     const backButton = this.menuScene.gfx.createMenuButton("Back");
@@ -43,19 +39,19 @@ export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents),
 
     this.backButton = backButton;
     this.backButton.visible = false;
-  },
+  }
   _updateBackButton() {
     if (!this.backButton) return;
 
     this.backButton.visible = this.menuStack.length >= 2;
-  },
+  }
 
   getDefaultInputState() {
     const state = {
       menuMode: true,
     };
     return state;
-  },
+  }
 
   addMenu(menu) {
     if (this.currentMenu) this.currentMenu.menuLeave(false);
@@ -65,7 +61,7 @@ export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents),
 
     this._updateBackButton();
     this.currentMenu.menuEnter(false);
-  },
+  }
   goBack() {
     if (this.menuStack.length <= 1) return;
 
@@ -75,11 +71,11 @@ export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents),
     this.currentMenu.menuEnter(true);
 
     this._updateBackButton();
-  },
+  }
   exitMenu() {
     this.menuStack.length = 0;
     return this.currentMenu.menuLeave(true);
-  },
+  }
 
   onMove(tickEvent, inputState) {
     this.currentMenu.menuInput(inputState);
@@ -87,14 +83,14 @@ export const MenuScene = Class(new BaseScene().implementSceneEvents(MenuEvents),
     if (inputState.menuBack && this.menuStack.length >= 2) {
       this.goBack();
     }
-  },
+  }
 
   showStartMenu() {
     const startMenu = new StartMenu(this.menuScene);
     this.addMenu(startMenu);
-  },
+  }
   showPauseMenu() {
     const pauseMenu = new CommonMenus.PauseMenu(this.menuScene);
     this.addMenu(pauseMenu);
-  },
-});
+  }
+}

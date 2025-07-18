@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { BaseScene } from "./BaseScene.js";
 import { MenuScene } from "./MenuScene.js";
 import { ArcadeGame } from "./ArcadeGame.js";
@@ -9,9 +8,9 @@ const HostSceneEvents = {
   onQuitGame: "onQuitGame",
 };
 
-export const HostScene = Class(new BaseScene().implementSceneEvents(HostSceneEvents), {
-  initialize: function HostScene(gfx, settings) {
-    this.BaseScene_initialize();
+export class HostScene extends BaseScene {
+  constructor(gfx, settings) {
+    super();
 
     this.gfx = gfx;
     this.addSceneItem(gfx);
@@ -20,16 +19,16 @@ export const HostScene = Class(new BaseScene().implementSceneEvents(HostSceneEve
     this.host = this; // For consistency
 
     this._setupBackground();
-  },
+  }
   _setupBackground() {
     this.gfx.showBackgroundStars(true);
 
     const middle = this.gfx.getGamePoint("middle");
     this.gfx.followPlayer(middle);
-  },
+  }
   start() {
     this._showStartMenu();
-  },
+  }
   _showStartMenu() {
     const menuScene = this.createMenuScene();
 
@@ -40,14 +39,14 @@ export const HostScene = Class(new BaseScene().implementSceneEvents(HostSceneEve
       this._startArcadeGame();
     });
     menuScene.showStartMenu();
-  },
+  }
   createMenuScene() {
     const gfx = this.gfx.createNewGraphics();
     const menuScene = new MenuScene(gfx, this.host);
     this.fireSceneEvent(HostSceneEvents.onMenuCreated, [menuScene]);
 
     return menuScene;
-  },
+  }
   _startArcadeGame() {
     const gfx = this.gfx.createNewGraphics();
     const arcadeGame = new ArcadeGame(gfx, this.host);
@@ -60,8 +59,8 @@ export const HostScene = Class(new BaseScene().implementSceneEvents(HostSceneEve
     });
 
     arcadeGame.startArcadeGame();
-  },
+  }
   quitGame() {
     this.fireSceneEvent(HostSceneEvents.onQuitGame);
-  },
-});
+  }
+}
