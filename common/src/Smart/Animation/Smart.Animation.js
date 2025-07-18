@@ -1,5 +1,3 @@
-import { Class } from "../Smart.Class.js";
-
 /**
  * Animation Core
  */

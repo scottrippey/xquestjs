@@ -1,33 +1,32 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-export const Player = Class({
-  location: null,
-  radius: null,
+export class Player {
+  location = null;
+  radius = null;
 
-  initialize: function Player(game) {
+  constructor(game) {
     this.game = game;
     this.velocity = { x: 0, y: 0 };
     this.engaged = false;
     this.previousState = {};
 
     this._setupPlayerGraphics();
-  },
+  }
   _setupPlayerGraphics() {
     this.playerGraphics = this.game.gfx.createPlayerGraphics();
     this.location = this.playerGraphics;
     this.radius = Balance.player.radius;
-  },
+  }
 
   movePlayerTo(x, y) {
     this.playerGraphics.moveTo(x, y);
-  },
+  }
   cancelVelocity() {
     this.velocity.x = 0;
     this.velocity.y = 0;
-  },
+  }
 
   _handleInputs(tickEvent, inputState) {
     const previousState = this.previousState;
@@ -101,12 +100,12 @@ export const Player = Class({
         this.cancelVelocity();
       }
     }
-  },
+  }
 
   onMove(tickEvent, inputState) {
     this._handleInputs(tickEvent, inputState);
     this._movePlayer(tickEvent);
-  },
+  }
   _movePlayer(tickEvent) {
     Physics.applyVelocity(this.playerGraphics, this.velocity, tickEvent.deltaSeconds);
 
@@ -152,7 +151,7 @@ export const Player = Class({
         }
       }
     }
-  },
+  }
 
   onAct(tickEvent) {
     if (!this.playerActive) return;
@@ -169,12 +168,12 @@ export const Player = Class({
     );
 
     if (killPlayer) this.game.killPlayer();
-  },
+  }
 
   killPlayer() {
     this.playerActive = false;
     this.playerGraphics.killPlayerGraphics(this.game.gfx, this.velocity);
-  },
+  }
 
   showPlayer(show) {
     this.playerActive = show;
@@ -194,9 +193,9 @@ export const Player = Class({
           }),
       );
     }
-  },
+  }
 
   getKickBack(enemy, distance) {
     return Point.multiply(this.velocity, Balance.player.kickBack);
-  },
-});
+  }
+}

@@ -1,9 +1,8 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 
-export const PowerCrystal = Class({
-  initialize: function PowerCrystal(game) {
+export class PowerCrystal {
+  constructor(game) {
     const B = Balance.powerCrystals;
     this.game = game;
     this.game.addSceneItem(this);
@@ -12,7 +11,7 @@ export const PowerCrystal = Class({
     this.radius = B.radius;
 
     this.turnSpeed = B.turnSpeed();
-  },
+  }
 
   spawn(spawnInfo) {
     const B = Balance.powerCrystals;
@@ -23,7 +22,7 @@ export const PowerCrystal = Class({
     if (spawnInfo.side === 2) {
       this.velocity.x *= -1;
     }
-  },
+  }
 
   onMove(tickEvent) {
     const powerCrystal = this;
@@ -38,17 +37,17 @@ export const PowerCrystal = Class({
       powerCrystal.velocity,
       Balance.level.bounds,
     );
-  },
+  }
 
   gatherPowerCrystal() {
     this.location.gatherPowerCrystal(this.game.gfx, this.game.player.location).queue(() => {
       this.game.removeSceneItem(this);
     });
-  },
+  }
 
   clearPowerCrystal() {
     this.location.clearPowerCrystal(this.game.gfx).queue(() => {
       this.game.removeSceneItem(this);
     });
-  },
-});
+  }
+}

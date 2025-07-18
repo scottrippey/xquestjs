@@ -1,4 +1,3 @@
-import { Class } from "../Smart.Class.js";
 import { Animation } from "./Smart.Animation.js";
 
 export class Animations {

@@ -2,12 +2,12 @@ import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 
-export const BaseEnemy = Class({
-  game: null,
-  enemyGraphics: null,
-  location: null,
-  radius: null,
-  velocity: null,
+export class BaseEnemy {
+  game = null;
+  enemyGraphics = null;
+  location = null;
+  radius = null;
+  velocity = null;
 
   /* @protected */
   setupBaseEnemyGraphics(game, enemyName, radius) {
@@ -16,13 +16,13 @@ export const BaseEnemy = Class({
     this.enemyGraphics = this.game.gfx.createEnemyGraphics(enemyName);
     this.location = this.enemyGraphics;
     this.radius = radius;
-  },
+  }
 
   /* @protected */
   applyVelocityAndBounce(tickEvent) {
     Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
     Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
-  },
+  }
 
   /* @protected */
   shouldChangeDirection(tickEvent, movementInterval) {
@@ -32,7 +32,7 @@ export const BaseEnemy = Class({
       return !isFirstRun;
     }
     return false;
-  },
+  }
 
   /** @public @overridable */
   takeDamage(hitPoints, kickBack) {
@@ -47,7 +47,7 @@ export const BaseEnemy = Class({
       this.enemyGraphics.killEnemy(this.game.gfx, this.velocity);
       this.game.removeSceneItem(this);
     }
-  },
+  }
 
   /* @public */
   clearEnemy() {
@@ -56,11 +56,10 @@ export const BaseEnemy = Class({
         .duration(2)
         .easeIn()
         .scale(this.enemyGraphics, 0)
-
         .queue(() => {
           this.enemyGraphics.dispose();
           this.game.removeSceneItem(this);
         }),
     );
-  },
-});
+  }
+}
