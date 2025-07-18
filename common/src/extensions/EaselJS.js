@@ -1,6 +1,6 @@
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 
-Object.assign(createjs.Graphics.prototype, {
+assignProperties(createjs.Graphics.prototype, {
   beginStyle(styles) {
     const gfx = this;
     if (styles.fillColor) gfx.beginFill(styles.fillColor);
@@ -39,8 +39,8 @@ Object.assign(createjs.Graphics.prototype, {
   },
 });
 
-Object.assign(createjs.DisplayObject.prototype, Disposable.prototype);
-Object.assign(createjs.DisplayObject.prototype, {
+assignProperties(createjs.DisplayObject.prototype, Disposable.prototype);
+assignProperties(createjs.DisplayObject.prototype, {
   moveTo(x, y) {
     this.x = x;
     this.y = y;
@@ -55,3 +55,10 @@ Object.assign(createjs.DisplayObject.prototype, {
     this.visible = force;
   },
 });
+
+/**
+ * Same as Object.assign but includes non-enumerable properties
+ */
+function assignProperties(ClassSuper, ClassSub) {
+  Object.defineProperties(ClassSuper, Object.getOwnPropertyDescriptors(ClassSub));
+}
