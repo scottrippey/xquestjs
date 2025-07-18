@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Color } from "@/common/src/Smart/Smart.Color.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 
@@ -29,19 +28,17 @@ Balance.onUpdate((mode) => {
   });
 });
 
-export const SlugGraphics = Class(new BaseEnemyGraphics(), {
+export class SlugGraphics extends BaseEnemyGraphics {
   setup() {
     const G = Graphics.enemies.slug;
     this.visibleRadius = G.radius;
-  },
+  }
   drawStatic(drawing, tickEvent) {
     const G = Graphics.enemies.slug;
-
     this.drawCircleCircle(drawing, G.circleCircle);
-  },
-
+  }
   getExplosionOptions() {
     const G = Graphics.enemies.slug;
     return G.explosionOptions;
-  },
-});
+  }
+}

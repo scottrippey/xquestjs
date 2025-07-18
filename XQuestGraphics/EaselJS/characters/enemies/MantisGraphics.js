@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 import { Interpolate } from "@/common/src/Smart/Animation/Smart.Interpolate.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
@@ -26,7 +25,7 @@ Balance.onUpdate((gameMode) => {
   });
 });
 
-export const MantisGraphics = Class(new BaseEnemyGraphics(), {
+export class MantisGraphics extends BaseEnemyGraphics {
   setup() {
     const G = Graphics.enemies.mantis;
 
@@ -57,7 +56,7 @@ export const MantisGraphics = Class(new BaseEnemyGraphics(), {
     this.star2 = star2;
 
     this.time = 0;
-  },
+  }
   drawEffects(drawing, tickEvent) {
     const G = Graphics.enemies.mantis;
     this.time += tickEvent.deltaSeconds;
@@ -66,7 +65,7 @@ export const MantisGraphics = Class(new BaseEnemyGraphics(), {
     this.starColor = this.getStarColor(pulse);
 
     drawing.beginPath().polygon(this.getStar(pulse)).closePath().fillStyle(this.starColor).fill();
-  },
+  }
   getExplosionOptions() {
     const G = Graphics.enemies.mantis;
     const explosionOptions = _.defaults(
@@ -74,5 +73,5 @@ export const MantisGraphics = Class(new BaseEnemyGraphics(), {
       G.explosionOptions,
     );
     return explosionOptions;
-  },
-});
+  }
+}

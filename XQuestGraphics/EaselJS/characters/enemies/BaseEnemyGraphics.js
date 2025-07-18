@@ -1,7 +1,6 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "../../utils/Drawing.js";
 
-export const BaseEnemyGraphics = Class(new Drawing(), {
+export class BaseEnemyGraphics extends Drawing {
   drawCircleCircle(drawing, G) {
     const outerRadius = G.outerRadius;
     const outerStyle = G.outerStyle;
@@ -16,7 +15,7 @@ export const BaseEnemyGraphics = Class(new Drawing(), {
       .beginPath()
       .circle(0, 0, innerRadius)
       .endPath(innerStyle);
-  },
+  }
   drawTriangleTriangle(drawing, G) {
     const outerTriangle = G.outerTriangle;
     const outerStyle = G.outerStyle;
@@ -33,12 +32,12 @@ export const BaseEnemyGraphics = Class(new Drawing(), {
       .polygon(innerTriangle)
       .closePath()
       .endPath(innerStyle);
-  },
+  }
   killEnemy(gfx, velocity) {
     const enemyGraphics = this;
     enemyGraphics.dispose();
 
     const explosionOptions = this.getExplosionOptions();
     gfx.createExplosion(enemyGraphics, velocity, explosionOptions);
-  },
-});
+  }
+}

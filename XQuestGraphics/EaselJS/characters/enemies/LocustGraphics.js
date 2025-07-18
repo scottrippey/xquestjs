@@ -1,4 +1,3 @@
-import { Class } from "@/common/src/Smart/Smart.Class.js";
 import { Drawing } from "@/common/src/Smart/Smart.Drawing.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 
@@ -33,17 +32,17 @@ Balance.onUpdate((mode) => {
   });
 });
 
-export const LocustGraphics = Class(new BaseEnemyGraphics(), {
+export class LocustGraphics extends BaseEnemyGraphics {
   setup() {
     const G = Graphics.enemies.locust;
     this.visibleRadius = G.visibleRadius;
-  },
+  }
   drawEffects(drawing) {
     const G = Graphics.enemies.locust;
     this.drawTriangleTriangle(drawing, G.triangleTriangle);
-  },
+  }
   getExplosionOptions() {
     const G = Graphics.enemies.locust;
     return G.explosionOptions;
-  },
-});
+  }
+}
