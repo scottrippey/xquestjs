@@ -367,10 +367,12 @@
     <section class="startup-script">
       <script type="module">
         import { XQuestHost } from "@/XQuestHost/XQuestHost.js";
+
         document.body.classList.remove("page-loading");
         document.body.classList.add("page-loaded");
 
-        const xquest = (window.xquest = new XQuestHost());
+        const xquest = new XQuestHost();
+        window.xquest = xquest;
         const container = xquest.container;
 
         document.getElementById("inlineGame").appendChild(container);
