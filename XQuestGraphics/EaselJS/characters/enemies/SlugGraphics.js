@@ -1,3 +1,4 @@
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Color } from "@/common/src/Smart/Smart.Color.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";

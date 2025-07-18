@@ -11,7 +11,6 @@ const myGlobals = {
 
   _: false,
   createjs: false,
-  Graphics: true,
 };
 delete myGlobals.Animation;
 

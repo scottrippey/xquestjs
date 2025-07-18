@@ -1,3 +1,4 @@
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Animation } from "@/common/src/Smart/Animation/Smart.Animation.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 

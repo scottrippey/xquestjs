@@ -1,3 +1,4 @@
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 export class PlayerGraphics extends EaselJSDrawing {

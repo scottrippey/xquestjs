@@ -1,3 +1,4 @@
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Disposable } from "@/common/src/Smart/Smart.Disposable.js";
 import { Point } from "@/common/src/Smart/Smart.Point.js";
 import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
