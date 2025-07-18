@@ -1,3 +1,4 @@
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { Physics } from "@/common/src/Smart/Smart.Physics.js";
 import { PowerCrystal } from "../characters/PowerCrystal.js";
 import { BombCrystal } from "../characters/BombCrystal.js";
