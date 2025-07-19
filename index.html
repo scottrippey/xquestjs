@@ -3,61 +3,8 @@
   <head>
     <title>XQuest - an HTML5 Space Shooter that is free and open-source!</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-
+    <link rel="stylesheet" href="index.css" />
     <style>
-      .page-loading .show-after-load {
-        display: none;
-      }
-      .page-loaded .hide-after-load {
-        display: none;
-      }
-    </style>
-    <style>
-      body {
-        background: hsl(0, 0%, 10%);
-        color: hsl(0, 0%, 90%);
-
-        font-size: 100%;
-        line-height: 1.5;
-        font-family:
-          "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Segoe, Arial,
-          sans-serif;
-
-        cursor: default;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-weight: normal;
-      }
-      strong {
-        color: hsl(0, 0%, 95%);
-      }
-
-      button {
-        overflow: visible;
-        display: inline-block;
-        margin: 0;
-        padding: 0.2em 0.5em;
-
-        font-size: 1.5em;
-        border: 1px solid white;
-        border-radius: 5px;
-
-        background-color: hsl(0, 0%, 90%);
-        color: hsl(0, 0%, 0%);
-
-        cursor: pointer;
-      }
-
-      fieldset {
-        border: none;
-        margin-bottom: 2em;
-      }
-
       #inlineGame canvas {
         width: 100%;
       }
@@ -308,15 +255,6 @@
             xquest.enterFullScreen();
           }
         }
-
-        // Capture first key, so we can load a developer menu:
-        document.body.addEventListener("keydown", function keydownHandler(ev) {
-          document.body.removeEventListener("keydown", keydownHandler);
-
-          var key = (ev.key || String.fromCharCode(ev.keyCode || ev.which)).toLowerCase();
-          if (key === "d") {
-          }
-        });
       </script>
     </section>
   </body>
