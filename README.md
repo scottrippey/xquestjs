@@ -84,3 +84,7 @@ However, for a better developer workflow, follow these instructions:
 
 For more info, see the [GitHub repo](https://github.com/scottrippey/xquestjs).
 
+
+This game was inspired by the classic game [XQuest](http://www.swallowtail.org/xquest/), written by Mark "Atomjack" Mackey.  
+Apparently, *it* was a remake of a game called *Crystal Quest* for Mac.  
+Either way, it's an addictive, fun game!
