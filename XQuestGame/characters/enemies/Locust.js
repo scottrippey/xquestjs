@@ -1,6 +1,6 @@
-import { Point } from "@/Tools/Smart.Point.js";
-import { Physics } from "@/Tools/Smart.Physics.js";
 import { BaseEnemy } from "../enemies/BaseEnemy.js";
+import { Physics } from "@/Tools/Smart.Physics.js";
+import { Point } from "@/Tools/Smart.Point.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class Locust extends BaseEnemy {

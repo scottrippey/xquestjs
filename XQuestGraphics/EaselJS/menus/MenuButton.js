@@ -1,8 +1,8 @@
-import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
-import { Balance } from "@/XQuestGame/options/Balance.js";
 import { DrawingQueue } from "@/Tools/Smart.Drawing.js";
-import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 import { SpecialEffects } from "@/XQuestGraphics/EaselJS/effects/SpecialEffects.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

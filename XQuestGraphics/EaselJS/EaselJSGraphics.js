@@ -1,24 +1,24 @@
-import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Point } from "@/Tools/Smart.Point.js";
-import { Animations } from "@/Tools/Animation/Smart.Animations.js";
-import { TextGraphic } from "./effects/TextGraphics.js";
-import { PauseOverlay } from "./menus/PauseOverlay.js";
-import { BackgroundGraphics } from "./game/BackgroundGraphics.js";
-import { LevelGraphics } from "./game/LevelGraphics.js";
-import { PlayerGraphics } from "./characters/PlayerGraphics.js";
-import { BulletsGraphics } from "./effects/BulletsGraphics.js";
-import { SlugGraphics } from "./characters/enemies/SlugGraphics.js";
 import { LocustGraphics } from "./characters/enemies/LocustGraphics.js";
 import { MantisGraphics } from "./characters/enemies/MantisGraphics.js";
-import { CrystalGraphic } from "./game/CrystalGraphic.js";
-import { PowerCrystalGraphic } from "./game/PowerCrystalGraphic.js";
+import { SlugGraphics } from "./characters/enemies/SlugGraphics.js";
+import { PlayerGraphics } from "./characters/PlayerGraphics.js";
+import { BulletsGraphics } from "./effects/BulletsGraphics.js";
+import { ExplosionGraphic } from "./effects/ExplosionGraphics.js";
+import { TextGraphic } from "./effects/TextGraphics.js";
+import { BackgroundGraphics } from "./game/BackgroundGraphics.js";
 import { BombCrystalGraphic } from "./game/BombCrystalGraphic.js";
 import { BombGraphic } from "./game/BombGraphic.js";
-import { ExplosionGraphic } from "./effects/ExplosionGraphics.js";
+import { CrystalGraphic } from "./game/CrystalGraphic.js";
+import { LevelGraphics } from "./game/LevelGraphics.js";
+import { PowerCrystalGraphic } from "./game/PowerCrystalGraphic.js";
 import { HudOverlay } from "./hud/HudOverlay.js";
 import { HudPauseButton } from "./hud/HudPauseButton.js";
 import { MenuButton } from "./menus/MenuButton.js";
+import { PauseOverlay } from "./menus/PauseOverlay.js";
 import { XQuestLogoGraphic } from "./menus/XQuestLogoGraphic.js";
+import { Animations } from "@/Tools/Animation/Smart.Animations.js";
+import { Point } from "@/Tools/Smart.Point.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class EaselJSGraphics {
   constructor(canvas) {

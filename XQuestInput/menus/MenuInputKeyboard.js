@@ -1,5 +1,5 @@
-import { KeyMapper } from "../player/PlayerInputKeyboard.js";
 import { MenuSceneInputs } from "../../XQuestGame/scenes/MenuScene.js";
+import { KeyMapper } from "../player/PlayerInputKeyboard.js";
 
 const menuKeyMap = {
   up: MenuSceneInputs.menuUp,

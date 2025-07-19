@@ -1,8 +1,8 @@
-import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
-import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Drawing } from "@/Tools/Smart.Drawing.js";
-import { Interpolate } from "@/Tools/Animation/Smart.Interpolate.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
+import { Interpolate } from "@/Tools/Animation/Smart.Interpolate.js";
+import { Drawing } from "@/Tools/Smart.Drawing.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
 Balance.onUpdate((gameMode) => {
   const radius = Balance.enemies.mantis.radius;

@@ -1,6 +1,6 @@
-import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 import { TextGraphic } from "@/XQuestGraphics/EaselJS/effects/TextGraphics.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
 Balance.onUpdate((gameMode) => {
   Graphics.merge({

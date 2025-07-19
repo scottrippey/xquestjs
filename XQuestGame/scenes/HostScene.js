@@ -1,6 +1,6 @@
+import { ArcadeGame } from "./ArcadeGame.js";
 import { BaseScene } from "./BaseScene.js";
 import { MenuScene } from "./MenuScene.js";
-import { ArcadeGame } from "./ArcadeGame.js";
 
 const HostSceneEvents = {
   onMenuCreated: "onMenuCreated",

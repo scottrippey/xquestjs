@@ -1,17 +1,17 @@
-import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Events } from "@/Tools/Smart.Events.js";
-import { Animation } from "@/Tools/Animation/Smart.Animation.js";
-import { Keyframes } from "@/Tools/Animation/Smart.Keyframes.js";
-import { BaseScene } from "./BaseScene.js";
 import { Player } from "../characters/Player.js";
-import { EnemyFactory } from "../components/EnemyFactory.js";
-import { LevelFactory } from "../components/LevelFactory.js";
+import { ActivePowerups } from "../components/ActivePowerups.js";
 import { CrystalFactory } from "../components/CrystalFactory.js";
+import { EnemyFactory } from "../components/EnemyFactory.js";
+import { GameDebugger } from "../components/GameDebugger.js";
+import { Hud } from "../components/Hud.js";
+import { LevelFactory } from "../components/LevelFactory.js";
 import { PowerupFactory } from "../components/PowerupFactory.js";
 import { Projectiles } from "../components/Projectiles.js";
-import { Hud } from "../components/Hud.js";
-import { ActivePowerups } from "../components/ActivePowerups.js";
-import { GameDebugger } from "../components/GameDebugger.js";
+import { BaseScene } from "./BaseScene.js";
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Keyframes } from "@/Tools/Animation/Smart.Keyframes.js";
+import { Events } from "@/Tools/Smart.Events.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
 const GameEvents = {
   onNewGame: "onNewGame",

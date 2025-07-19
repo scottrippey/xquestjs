@@ -1,5 +1,5 @@
-import { Point } from "@/Tools/Smart.Point.js";
 import { BaseEnemy } from "../enemies/BaseEnemy.js";
+import { Point } from "@/Tools/Smart.Point.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class Mantis extends BaseEnemy {

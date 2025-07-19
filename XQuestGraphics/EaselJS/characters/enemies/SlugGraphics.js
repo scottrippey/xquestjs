@@ -1,7 +1,7 @@
-import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
-import { Color } from "@/Tools/Smart.Color.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
+import { Color } from "@/Tools/Smart.Color.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
 Balance.onUpdate((mode) => {
   const green = "hsl(100, 100%, 50%)";

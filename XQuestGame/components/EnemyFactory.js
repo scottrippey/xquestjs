@@ -1,5 +1,5 @@
-import { Physics } from "@/Tools/Smart.Physics.js";
 import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Physics } from "@/Tools/Smart.Physics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class EnemyFactory {

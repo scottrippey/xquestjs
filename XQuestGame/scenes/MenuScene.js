@@ -1,6 +1,6 @@
-import { BaseScene } from "./BaseScene.js";
-import { StartMenu } from "../menus/StartMenu.js";
 import { CommonMenus } from "../menus/CommonMenus.js";
+import { StartMenu } from "../menus/StartMenu.js";
+import { BaseScene } from "./BaseScene.js";
 
 export const MenuSceneInputs = {
   menuUp: "menuUp",

@@ -1,5 +1,5 @@
-import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
 export class BackgroundGraphics extends createjs.Shape {
   constructor() {

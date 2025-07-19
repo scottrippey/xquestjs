@@ -1,15 +1,15 @@
 import "./side-effects.js";
 import { Disposable } from "@/Tools/Smart.Disposable.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
+import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { EaselJSTimer } from "@/XQuestGraphics/EaselJS/EaselJSTimer.js";
-import { PlayerInputGamepad } from "@/XQuestInput/player/PlayerInputGamepad.js";
+import { Settings } from "@/XQuestHost/Settings.js";
 import { MenuInputKeyboard } from "@/XQuestInput/menus/MenuInputKeyboard.js";
-import { PlayerInputKeyboard, KeyMapper } from "@/XQuestInput/player/PlayerInputKeyboard.js";
+import { PlayerInputGamepad } from "@/XQuestInput/player/PlayerInputGamepad.js";
+import { PlayerInputKeyboard } from "@/XQuestInput/player/PlayerInputKeyboard.js";
 import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
 import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
-import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
-import { Settings } from "@/XQuestHost/Settings.js";
-import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
-import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class XQuestHost extends Disposable {
   constructor(canvas) {

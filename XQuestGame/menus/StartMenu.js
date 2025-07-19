@@ -1,6 +1,6 @@
+import { MenuEvents } from "../scenes/MenuScene.js";
 import { BaseMenu } from "./BaseMenu.js";
 import { CommonMenus } from "./CommonMenus.js";
-import { MenuEvents } from "../scenes/MenuScene.js";
 
 export class StartMenu extends BaseMenu {
   constructor(menuScene) {

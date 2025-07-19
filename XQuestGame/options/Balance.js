@@ -1,6 +1,6 @@
-import { Slug } from "../characters/enemies/Slug.js";
 import { Locust } from "../characters/enemies/Locust.js";
 import { Mantis } from "../characters/enemies/Mantis.js";
+import { Slug } from "../characters/enemies/Slug.js";
 
 /**
  * `Balance` defines all the variables that affect game play.

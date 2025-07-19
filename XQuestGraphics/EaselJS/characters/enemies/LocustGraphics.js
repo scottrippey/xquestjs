@@ -1,7 +1,7 @@
-import { Balance } from "@/XQuestGame/options/Balance.js";
-import { Drawing } from "@/Tools/Smart.Drawing.js";
-import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
+import { Drawing } from "@/Tools/Smart.Drawing.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
 Balance.onUpdate((mode) => {
   const outerRadius = Balance.enemies.locust.radius;
