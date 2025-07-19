@@ -1,7 +1,10 @@
+import { describe,it, expect } from "vitest";
+import { Interpolate } from "./Smart.Interpolate.js";
+
 describe("Smart.Interpolate", function () {
   describe("Smart.Interpolate.numbers", function () {
-    var interpolateNumbers = Smart.Interpolate.numbers;
-    var interpolate = interpolateNumbers(100, 200);
+    const interpolateNumbers = Interpolate.numbers;
+    const interpolate = interpolateNumbers(100, 200);
 
     it("should return a function that accepts 1 parameter", function () {
       expect(typeof interpolate).toBe("function");
@@ -12,14 +15,14 @@ describe("Smart.Interpolate", function () {
       expect([0.0, 0.25, 0.5, 0.75, 1.0].map(interpolate)).toEqual([100, 125, 150, 175, 200]);
     });
 
-    var interpolateNeg = interpolateNumbers(-200, -100);
+    const interpolateNeg = interpolateNumbers(-200, -100);
     it("should interpolate between negative values", function () {
       expect([0.0, 0.25, 0.5, 0.75, 1.0].map(interpolateNeg)).toEqual([
         -200, -175, -150, -125, -100,
       ]);
     });
 
-    var interpolateDown = interpolateNumbers(200, 100);
+    const interpolateDown = interpolateNumbers(200, 100);
     it("should interpolate from high to low", function () {
       expect([0.0, 0.25, 0.5, 0.75, 1.0].map(interpolateDown)).toEqual([200, 175, 150, 125, 100]);
     });
@@ -29,8 +32,8 @@ describe("Smart.Interpolate", function () {
     });
   });
   describe("Smart.Interpolate.colors", function () {
-    var interpolateColors = Smart.Interpolate.colors;
-    var interpolate = interpolateColors("rgb(100, 110, 120)", "rgb(200, 210, 220)");
+    const interpolateColors = Interpolate.colors;
+    const interpolate = interpolateColors("rgb(100, 110, 120)", "rgb(200, 210, 220)");
 
     it("should interpolate between colors", function () {
       expect([0, 0.25, 0.5, 0.75, 1].map(interpolate)).toEqual([
@@ -41,7 +44,7 @@ describe("Smart.Interpolate", function () {
         "rgb(200,210,220)",
       ]);
     });
-    var interpolateCap = interpolateColors("rgb(100,100,100)", "rgb(200,200,200)");
+    const interpolateCap = interpolateColors("rgb(100,100,100)", "rgb(200,200,200)");
     it("should validate and cap values", function () {
       expect([-2, -1, -0.25, -0.1, 1.1, 1.5, 2].map(interpolateCap)).toEqual([
         "rgb(0,0,0)",
@@ -54,7 +57,7 @@ describe("Smart.Interpolate", function () {
       ]);
     });
 
-    var interpolateAlpha = interpolateColors("rgba(0,0,0,0.1)", "rgba(0,0,0,0.2)");
+    const interpolateAlpha = interpolateColors("rgba(0,0,0,0.1)", "rgba(0,0,0,0.2)");
     it("should interpolate alphas", function () {
       expect([-1, -0.1, 0, 0.1, 0.5, 0.9, 1, 2].map(interpolateAlpha)).toEqual([
         "rgba(0,0,0,0.00)",
@@ -68,7 +71,7 @@ describe("Smart.Interpolate", function () {
       ]);
     });
 
-    var interpolateHSL = interpolateColors("hsl(10, 20%, 30%)", "hsl(20, 30%, 40%)");
+    const interpolateHSL = interpolateColors("hsl(10, 20%, 30%)", "hsl(20, 30%, 40%)");
     it("should interpolate and cap hsl values too", function () {
       expect([-100, -2, -1, -0.1, 0, 0.1, 0.5, 0.9, 1, 1.1, 2, 100].map(interpolateHSL)).toEqual([
         "hsl(90,0%,0%)",
@@ -85,7 +88,7 @@ describe("Smart.Interpolate", function () {
         "hsl(290,100%,100%)",
       ]);
     });
-    var interpolateHSLA = interpolateColors("hsla(0,0%,0%,0.1)", "hsla(0,0%,0%,0.2)");
+    const interpolateHSLA = interpolateColors("hsla(0,0%,0%,0.1)", "hsla(0,0%,0%,0.2)");
     it("should interpolate hsla", function () {
       expect([-100, -1, 0, 0.5, 1, 2, 100].map(interpolateHSLA)).toEqual([
         "hsla(0,0%,0%,0.00)",

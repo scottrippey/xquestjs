@@ -1,6 +1,9 @@
-describe("Smart.Color", function () {
+import { describe,it, expect } from "vitest";
+import { Color } from "./Smart.Color.js";
+
+describe("Color", function () {
   describe("parseRGB", function () {
-    var parseRGB = Smart.Color.parseRGB;
+    const parseRGB = Color.parseRGB;
 
     it("should parse hex codes", function () {
       expect(parseRGB("#000000")).toEqual([0, 0, 0]);
@@ -36,7 +39,7 @@ describe("Smart.Color", function () {
     });
   });
   describe("toRGB", function () {
-    var toRGB = Smart.Color.toRGB;
+    const toRGB = Color.toRGB;
     it("should return rgb and rgba colors", function () {
       expect(toRGB([255, 255, 255])).toBe("rgb(255,255,255)");
       expect(toRGB([0, 0, 0])).toBe("rgb(0,0,0)");
@@ -59,7 +62,7 @@ describe("Smart.Color", function () {
     });
   });
   describe("parseHSL", function () {
-    var parseHSL = Smart.Color.parseHSL;
+    const parseHSL = Color.parseHSL;
     it("should parse hsl and hsla colors", function () {
       expect(parseHSL("hsl(0, 0%, 0%)")).toEqual([0, 0, 0]);
       expect(parseHSL(" hsl ( 0 , 0 % , 0 % ) ")).toEqual([0, 0, 0]);
@@ -82,7 +85,7 @@ describe("Smart.Color", function () {
     });
   });
   describe("toHSL", function () {
-    var toHSL = Smart.Color.toHSL;
+    const toHSL = Color.toHSL;
     it("should output hsl and hsla colors", function () {
       expect(toHSL([0, 0, 0])).toBe("hsl(0,0%,0%)");
       expect(toHSL([359, 100, 100])).toBe("hsl(359,100%,100%)");

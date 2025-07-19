@@ -17,9 +17,8 @@ delete myGlobals.Animation;
 export default defineConfig([
   globalIgnores([
     ///
-    "./common/lib",
+    "./lib/*",
     "./build",
-    "**/Spec-*",
     "./tsconfig.json",
     "./package-lock.json",
     "./package.json",
