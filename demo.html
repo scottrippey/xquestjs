@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>XQuest - an HTML5 Space Shooter that is free and open-source!</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet" href="index.css" />
+    <style></style>
+  </head>
+  <body class="page-loading">
+    <h1>XQuest JS</h1>
+
+    <section class="play-game">
+      <span class="hide-after-load"> Loading game scripts... </span>
+      <div id="inlineGame"></div>
+    </section>
+
+    <section class="all-the-scripts">
+      <script type="importmap">
+        {
+          "imports": {
+            "@/": "./"
+          }
+        }
+      </script>
+
+      <script src="lib/lodash.2.2.1.js"></script>
+      <script src="lib/easeljs-0.6.1.min.js"></script>
+      <script src="lib/smoothsort.js"></script>
+    </section>
+
+    <section class="startup-script">
+      <script type="module">
+        import { XQuestHost } from "@/XQuestHost/XQuestHost.js";
+
+        document.body.classList.remove("page-loading");
+        document.body.classList.add("page-loaded");
+
+        const xquest = new XQuestHost();
+        window.xquest = xquest;
+        const container = xquest.container;
+
+        document.getElementById("inlineGame").appendChild(container);
+        xquest.onDispose(() => {
+          container.parentNode.removeChild(container);
+        });
+
+        // Once you interact with the canvas, let's go fullscreen:
+        const immediateFullScreen = true;
+        if (immediateFullScreen) {
+          container.addEventListener("mousedown", enterFullSize);
+          container.addEventListener("focus", enterFullSize);
+
+          function enterFullSize(ev) {
+            container.removeEventListener("mousedown", enterFullSize);
+            container.removeEventListener("focus", enterFullSize);
+
+            xquest.enterFullSize();
+            xquest.enterFullScreen();
+          }
+        }
+      </script>
+    </section>
+  </body>
+</html>
