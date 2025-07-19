@@ -71,13 +71,14 @@ Visit [scottrippey.github.io/xquestjs](http://scottrippey.github.io/xquestjs/) a
 
 ## Development
 
-### Scripts and Libraries
-- Main entry: `XQuestHost/XQuestHost.js`
+This project is all native HTML and JavaScript.
+No build steps are necessary; you can simply open `index.html` in your browser.
+However, for a better developer workflow, follow these instructions:
 
-### Contributing
 1. Clone the repo
-2. Open `index.html` in your browser
-3. Start hacking!
+2. Run `npm install` to install dependencies
+3. Run `npm run dev` to start a live-reloading server and open the page
+4. Start hacking!
 
 ---
 
