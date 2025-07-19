@@ -1,10 +1,10 @@
+import css from "@eslint/css";
 import js from "@eslint/js";
-import globals from "globals";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
-import css from "@eslint/css";
-import eslintPluginImport from "eslint-plugin-import";
 import { defineConfig, globalIgnores } from "eslint/config";
+import eslintPluginImport from "eslint-plugin-import";
+import globals from "globals";
 
 const myGlobals = {
   ...globals.browser,
@@ -42,6 +42,13 @@ export default defineConfig([
               action: "enforce",
             },
           ],
+        },
+      ],
+      "import/order": [
+        "error",
+        {
+          named: true,
+          alphabetize: { order: "asc", caseInsensitive: true },
         },
       ],
     },
