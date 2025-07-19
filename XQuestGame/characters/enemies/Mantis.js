@@ -1,27 +1,32 @@
-XQuestGame.Mantis = Smart.Class(new XQuestGame.BaseEnemy(), {
-	initialize: function Mantis(game) {
-		var B = Balance.enemies.mantis;
-		this.setupBaseEnemyGraphics(game, 'Mantis', B.radius);
-	},
+import { BaseEnemy } from "../enemies/BaseEnemy.js";
+import { Point } from "@/Tools/Smart.Point.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
-	spawn(spawnInfo) {
-		this.location.moveTo(spawnInfo.x, spawnInfo.y);
-		this._changeDirection();
-	},
+export class Mantis extends BaseEnemy {
+  constructor(game) {
+    super();
+    const B = Balance.enemies.mantis;
+    this.setupBaseEnemyGraphics(game, "Mantis", B.radius);
+  }
 
-	onMove(tickEvent) {
-		this.applyVelocityAndBounce(tickEvent);
-	},
+  spawn(spawnInfo) {
+    this.location.moveTo(spawnInfo.x, spawnInfo.y);
+    this._changeDirection();
+  }
 
-	onAct(tickEvent) {
-		var B = Balance.enemies.mantis;
-		if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
-			this._changeDirection();
-		}
-	},
+  onMove(tickEvent) {
+    this.applyVelocityAndBounce(tickEvent);
+  }
 
-	_changeDirection() {
-		var B = Balance.enemies.mantis;
-		this.velocity = Smart.Point.fromAngle(Math.random() * 360, B.speed);
-	}
-});
+  onAct(tickEvent) {
+    const B = Balance.enemies.mantis;
+    if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
+      this._changeDirection();
+    }
+  }
+
+  _changeDirection() {
+    const B = Balance.enemies.mantis;
+    this.velocity = Point.fromAngle(Math.random() * 360, B.speed);
+  }
+}

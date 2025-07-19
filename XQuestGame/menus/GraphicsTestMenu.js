@@ -1,26 +1,41 @@
-XQuestGame.CommonMenus.GraphicsTestMenu = Smart.Class(new XQuestGame.BaseMenu(), {
-	getRows() {
-		var goBack = this.menuScene.goBack.bind(this.menuScene);
-		var player = this.createMenuButton("Player", goBack);
-		var objects = this.createMenuButton("Objects", goBack);
-		var enemies = this.createMenuButton("Enemies", goBack);
+import { BaseMenu } from "./BaseMenu.js";
 
-		var halfButtonHeight = player.visibleHeight / 2;
+export class GraphicsTestMenu extends BaseMenu {
+  constructor(menuScene) {
+    super(menuScene);
+  }
+  getRows() {
+    const goBack = this.menuScene.goBack.bind(this.menuScene);
+    const player = this.createMenuButton("Player", goBack);
+    const objects = this.createMenuButton("Objects", goBack);
+    const enemies = this.createMenuButton("Enemies", goBack);
 
-		player.addChild(this.menuScene.gfx.createPlayerGraphics()).moveTo(-halfButtonHeight, halfButtonHeight);
+    const halfButtonHeight = player.visibleHeight / 2;
 
-		objects.addChild(this.menuScene.gfx.createCrystalGraphic()).moveTo(-halfButtonHeight * 3, halfButtonHeight);
-		objects.addChild(this.menuScene.gfx.createPowerCrystalGraphic()).moveTo(-halfButtonHeight * 2, halfButtonHeight);
-		objects.addChild(this.menuScene.gfx.createBombCrystalGraphic()).moveTo(-halfButtonHeight, halfButtonHeight);
+    player
+      .addChild(this.menuScene.gfx.createPlayerGraphics())
+      .moveTo(-halfButtonHeight, halfButtonHeight);
 
-		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Slug")).moveTo(-halfButtonHeight * 3, halfButtonHeight);
-		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Locust")).moveTo(-halfButtonHeight * 2, halfButtonHeight);
-		enemies.addChild(this.menuScene.gfx.createEnemyGraphics("Mantis")).moveTo(-halfButtonHeight, halfButtonHeight);
+    objects
+      .addChild(this.menuScene.gfx.createCrystalGraphic())
+      .moveTo(-halfButtonHeight * 3, halfButtonHeight);
+    objects
+      .addChild(this.menuScene.gfx.createPowerCrystalGraphic())
+      .moveTo(-halfButtonHeight * 2, halfButtonHeight);
+    objects
+      .addChild(this.menuScene.gfx.createBombCrystalGraphic())
+      .moveTo(-halfButtonHeight, halfButtonHeight);
 
-		return [
-			player,
-			objects,
-			enemies
-		];
-	}
-});
+    enemies
+      .addChild(this.menuScene.gfx.createEnemyGraphics("Slug"))
+      .moveTo(-halfButtonHeight * 3, halfButtonHeight);
+    enemies
+      .addChild(this.menuScene.gfx.createEnemyGraphics("Locust"))
+      .moveTo(-halfButtonHeight * 2, halfButtonHeight);
+    enemies
+      .addChild(this.menuScene.gfx.createEnemyGraphics("Mantis"))
+      .moveTo(-halfButtonHeight, halfButtonHeight);
+
+    return [player, objects, enemies];
+  }
+}

@@ -1,44 +1,47 @@
-Balance.onUpdate(mode => {
-	var green = 'hsl(100, 100%, 50%)';
-	var darkGreen = Smart.Color.darken(green, 30);
-	var black = 'black';
+import { BaseEnemyGraphics } from "./BaseEnemyGraphics.js";
+import { Color } from "@/Tools/Smart.Color.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
-	_.merge(Graphics, {
-		enemies: {
-			slug: {
-				radius: Balance.enemies.slug.radius + 1,
-				circleCircle: {
-					outerRadius: Balance.enemies.slug.radius + 1,
-					outerStyle: { fillStyle: darkGreen },
-					innerRadius: Balance.enemies.slug.radius * 0.7,
-					innerStyle: { fillStyle: green, strokeStyle: black }
-				},
-				explosionOptions: {
-					count: 20,
-					speed: 300,
-					style: {
-						fillStyle: 'hsl(100, 100%, 50%)'
-					}
-				}
-			}
-		}
-	});
+Balance.onUpdate((mode) => {
+  const green = "hsl(100, 100%, 50%)";
+  const darkGreen = Color.darken(green, 30);
+  const black = "black";
+
+  _.merge(Graphics, {
+    enemies: {
+      slug: {
+        radius: Balance.enemies.slug.radius + 1,
+        circleCircle: {
+          outerRadius: Balance.enemies.slug.radius + 1,
+          outerStyle: { fillStyle: darkGreen },
+          innerRadius: Balance.enemies.slug.radius * 0.7,
+          innerStyle: { fillStyle: green, strokeStyle: black },
+        },
+        explosionOptions: {
+          count: 20,
+          speed: 300,
+          style: {
+            fillStyle: "hsl(100, 100%, 50%)",
+          },
+        },
+      },
+    },
+  });
 });
 
-EaselJSGraphics.SlugGraphics = Smart.Class(new EaselJSGraphics.BaseEnemyGraphics(), {
-	setup() {
-		var G = Graphics.enemies.slug;
-		this.visibleRadius = G.radius;
-	},
-	drawStatic(drawing, tickEvent) {
-		var G = Graphics.enemies.slug;
-
-		this.drawCircleCircle(drawing, G.circleCircle);
-	},
-
-	getExplosionOptions() {
-		var G = Graphics.enemies.slug;
-		return G.explosionOptions;
-	}
-});
-
+export class SlugGraphics extends BaseEnemyGraphics {
+  constructor() {
+    super();
+    const G = Graphics.enemies.slug;
+    this.visibleRadius = G.radius;
+  }
+  drawStatic(drawing, tickEvent) {
+    const G = Graphics.enemies.slug;
+    this.drawCircleCircle(drawing, G.circleCircle);
+  }
+  getExplosionOptions() {
+    const G = Graphics.enemies.slug;
+    return G.explosionOptions;
+  }
+}

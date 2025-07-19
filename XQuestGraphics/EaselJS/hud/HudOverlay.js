@@ -1,20 +1,25 @@
-Balance.onUpdate(mode => {
-	_.merge(Graphics, {
-		hudGraphics: {
-			backgroundStyle: {
-				fillStyle: 'hsla(0, 100%, 100%, 0.1)'
-			}
-		}
-	});
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
+
+Balance.onUpdate((mode) => {
+  _.merge(Graphics, {
+    hudGraphics: {
+      backgroundStyle: {
+        fillStyle: "hsla(0, 100%, 100%, 0.1)",
+      },
+    },
+  });
 });
 
-EaselJSGraphics.HudGraphics.HudOverlay = Smart.Class(new EaselJSGraphics.Drawing(), {
-	drawEffects(drawing) {
-		var G = Graphics.hudGraphics;
-		var bounds = Balance.level.bounds;
+export class HudOverlay extends EaselJSDrawing {
+  drawEffects(drawing) {
+    const G = Graphics.hudGraphics;
+    const bounds = Balance.level.bounds;
 
-		drawing.beginPath()
-			.rect(0, 0, bounds.visibleWidth, bounds.hudHeight)
-			.endPath(G.backgroundStyle);
-	}
-});
+    drawing
+      .beginPath()
+      .rect(0, 0, bounds.visibleWidth, bounds.hudHeight)
+      .endPath(G.backgroundStyle);
+  }
+}

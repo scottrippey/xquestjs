@@ -1,47 +1,51 @@
-EaselJSGraphics.CrystalGraphic = Smart.Class(new createjs.Shape(), {
-	initialize: function CrystalGraphic() {
-		this._setupCrystalGraphic();
-	},
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
-	_setupCrystalGraphic() {
-		var G = Graphics.crystals;
-		this.visibleRadius = G.radius;
+export class CrystalGraphic extends createjs.Shape {
+  constructor() {
+    super();
+    this._setupCrystalGraphic();
+  }
 
-		this.graphics
-			.clear()
-			.beginStyle(G.style)
-			.drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
-			.endStyle(G.style);
-		this.rotation = 360 * Math.random();
+  _setupCrystalGraphic() {
+    const G = Graphics.crystals;
+    this.visibleRadius = G.radius;
 
-		this.spinRate = G.spinRate;
-	},
+    this.graphics
+      .clear()
+      .beginStyle(G.style)
+      .drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
+      .endStyle(G.style);
+    this.rotation = 360 * Math.random();
 
-	onTick(tickEvent) {
-		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
-	},
+    this.spinRate = G.spinRate;
+  }
 
-	gatherCrystal(gfx, playerLocation) {
-		var crystal = this;
-		gfx.addAnimation(new Smart.Animation()
-			.duration(Graphics.crystals.gatherDuration)
+  onTick(tickEvent) {
+    this.rotation += this.spinRate * tickEvent.deltaSeconds;
+  }
 
-			.savePosition()
-			.easeIn('quint')
-			.move(crystal, playerLocation)
+  gatherCrystal(gfx, playerLocation) {
+    const crystal = this;
+    gfx.addAnimation(
+      new Animation()
+        .duration(Graphics.crystals.gatherDuration)
 
-			.restorePosition()
-			.scale(crystal, [0.9, 0.3])
+        .savePosition()
+        .easeIn("quint")
+        .move(crystal, playerLocation)
 
+        .restorePosition()
+        .scale(crystal, [0.9, 0.3])
 
-			.restorePosition()
-			.easeOut('quint')
+        .restorePosition()
+        .easeOut("quint")
 
-			.tween([ crystal.spinRate, Graphics.crystals.spinRateGathered ], s => {
-				crystal.spinRate = s;
-			})
+        .tween([crystal.spinRate, Graphics.crystals.spinRateGathered], (s) => {
+          crystal.spinRate = s;
+        })
 
-			.queueDispose(crystal)
-		);
-	}
-});
+        .queueDispose(crystal),
+    );
+  }
+}

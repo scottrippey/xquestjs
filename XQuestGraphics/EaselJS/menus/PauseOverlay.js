@@ -1,24 +1,30 @@
-Balance.onUpdate(gameMode => {
-	Graphics.merge({
-		pauseOverlay: {
-			style: {
-				fillStyle: 'hsla(0, 0%, 0%, 0.8)'
-			},
-			fadeInDuration: 1
-		}
-	});
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
+
+Balance.onUpdate((gameMode) => {
+  Graphics.merge({
+    pauseOverlay: {
+      style: {
+        fillStyle: "hsla(0, 0%, 0%, 0.8)",
+      },
+      fadeInDuration: 1,
+    },
+  });
 });
-EaselJSGraphics.PauseOverlay = Smart.Class(new EaselJSGraphics.Drawing(), {
-	setup(gfx) {
-		this.gfx = gfx;
-	},
-	drawStatic(drawing) {
-		var bounds = Balance.level.bounds;
-		var G = Graphics.pauseOverlay;
-		drawing.beginPath().rect(0, 0, bounds.visibleWidth, bounds.visibleHeight).endPath(G.style);
-	},
-	showPauseOverlay() {
-		var G = Graphics.pauseOverlay;
-		this.gfx.addAnimation().duration(G.fadeInDuration).easeOut().fade(this, [0, 1]);
-	}
-});
+
+export class PauseOverlay extends EaselJSDrawing {
+  constructor(gfx) {
+    super();
+    this.gfx = gfx;
+  }
+  drawStatic(drawing) {
+    const bounds = Balance.level.bounds;
+    const G = Graphics.pauseOverlay;
+    drawing.beginPath().rect(0, 0, bounds.visibleWidth, bounds.visibleHeight).endPath(G.style);
+  }
+  showPauseOverlay() {
+    const G = Graphics.pauseOverlay;
+    this.gfx.addAnimation().duration(G.fadeInDuration).easeOut().fade(this, [0, 1]);
+  }
+}

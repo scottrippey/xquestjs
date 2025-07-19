@@ -1,55 +1,51 @@
-EaselJSGraphics.BackgroundGraphicsBase = Smart.Class(new createjs.Shape(), {
-	BackgroundGraphicsBase_initialize() {
-		var bounds = Balance.level.bounds;
-		this._size = {
-			width: bounds.x * 2 + bounds.width,
-			height: bounds.y * 2 + bounds.height
-		};
-		this._setupBackground();
-		this._setupStars();
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
-		this.cache(0, 0, this._size.width, this._size.height);
-	},
+export class BackgroundGraphics extends createjs.Shape {
+  constructor() {
+    super();
+    const bounds = Balance.level.bounds;
+    this._size = {
+      width: bounds.x * 2 + bounds.width,
+      height: bounds.y * 2 + bounds.height,
+    };
+    this._setupBackground();
+    this._setupStars();
 
-	_setupBackground() {
-		var g = this.graphics;
-		var v = Graphics.background;
-		var size = this._size;
+    this.cache(0, 0, this._size.width, this._size.height);
+  }
+  _setupBackground() {
+    const g = this.graphics;
+    const v = Graphics.background;
+    const size = this._size;
 
-		g.clear();
+    g.clear();
 
-		g.beginFill(v.backgroundColor)
-			.drawRect(0, 0, size.width, size.height);
-	},
+    g.beginFill(v.backgroundColor).drawRect(0, 0, size.width, size.height);
+  }
+  _setupStars() {
+    const g = this.graphics;
+    const v = Graphics.background;
+    const size = this._size;
+    const starColors = v.starColors;
 
-	_setupStars() {
-		var g = this.graphics;
-		var v = Graphics.background;
-		var size = this._size;
-		var starColors = v.starColors;
+    for (
+      let colorIndex = 0, colorCount = starColors.length;
+      colorIndex < colorCount;
+      colorIndex++
+    ) {
+      const starColor = starColors[colorIndex % colorCount];
 
-		for (var colorIndex = 0, colorCount = starColors.length; colorIndex < colorCount; colorIndex++) {
-			var starColor = starColors[colorIndex % colorCount];
+      g.beginStroke(starColor);
 
-			g.beginStroke(starColor);
+      let starCount = Math.floor(v.starCount / colorCount);
+      while (starCount--) {
+        const x = Math.floor(Math.random() * size.width);
+        const y = Math.floor(Math.random() * size.height);
+        g.moveTo(x, y).lineTo(x + 1, y + 1);
+      }
+    }
 
-			var starCount = Math.floor(v.starCount / colorCount);
-			while (starCount--) {
-				var x = Math.floor(Math.random() * size.width);
-				var y = Math.floor(Math.random() * size.height);
-				g.moveTo(x, y).lineTo(x + 1, y + 1);
-			}
-		}
-
-		g.endStroke();
-	}
-});
-EaselJSGraphics.BackgroundGraphics = Smart.Class(new EaselJSGraphics.BackgroundGraphicsBase(), {
-	initialize: function BackgroundGraphics() {
-		if (!this.initialized) {
-			// Using a prototype ensures the stars will be the same between the menu and game
-			EaselJSGraphics.BackgroundGraphics.prototype.initialized = true;
-			EaselJSGraphics.BackgroundGraphics.prototype.BackgroundGraphicsBase_initialize();
-		}
-	}
-});
+    g.endStroke();
+  }
+}

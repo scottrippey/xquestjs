@@ -1,178 +1,186 @@
-XQuestGame.XQuestHost = Smart.Class(new Smart.Disposable(), {
-	initialize: function XQuestHost(canvas) {
-		Balance.setGameMode('arcade');
+import "./side-effects.js";
+import { Disposable } from "@/Tools/Smart.Disposable.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
+import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
+import { EaselJSTimer } from "@/XQuestGraphics/EaselJS/EaselJSTimer.js";
+import { Settings } from "@/XQuestHost/Settings.js";
+import { MenuInputKeyboard } from "@/XQuestInput/menus/MenuInputKeyboard.js";
+import { PlayerInputGamepad } from "@/XQuestInput/player/PlayerInputGamepad.js";
+import { PlayerInputKeyboard } from "@/XQuestInput/player/PlayerInputKeyboard.js";
+import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
+import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
 
-		this._setupCanvas(canvas);
-		this._setupTimer();
-		this._setupSettings();
+export class XQuestHost extends Disposable {
+  constructor(canvas) {
+    super();
+    Balance.setGameMode("arcade");
+    this._setupCanvas(canvas);
+    this._setupTimer();
+    this._setupSettings();
 
-		this._setupGamepad();
+    this._setupGamepad();
 
-		this._startHostScene();
-	},
+    this._startHostScene();
+  }
+  _setupCanvas(canvas) {
+    if (!canvas) {
+      const bounds = Balance.level.bounds;
+      canvas = this._createCanvas(bounds.visibleWidth, bounds.visibleHeight);
+    }
+    this.canvas = canvas;
+  }
+  _createCanvas(canvasWidth, canvasHeight) {
+    // Note: create elements manually (parsing isn't "safe" for WinJS)
 
-	_setupCanvas(canvas) {
-		if (!canvas) {
-			var bounds = Balance.level.bounds;
-			canvas = this._createCanvas(bounds.visibleWidth, bounds.visibleHeight);
-		}
-		this.canvas = canvas;
-	},
-	_createCanvas(canvasWidth, canvasHeight) {
-		// Note: create elements manually (parsing isn't "safe" for WinJS)
+    // Create the container:
+    const container = document.createElement("section");
+    container.setAttribute("tabindex", "0");
+    Object.assign(container.style, {
+      cursor: "pointer",
+    });
 
-		// Create the container:
-		var container = document.createElement('section');
-		container.setAttribute('tabindex', '0');
-		_.extend(container.style, {
-			cursor: 'pointer'
-		});
+    // Create the canvas:
+    const canvas = document.createElement("canvas");
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    container.appendChild(canvas);
 
-		// Create the canvas:
-		var canvas = document.createElement('canvas');
-		canvas.width = canvasWidth;
-		canvas.height = canvasHeight;
-		container.appendChild(canvas);
+    this.canvas = canvas;
+    this.container = container;
+    return canvas;
+  }
+  /**
+   * Fills the canvas to fit the entire browser window
+   */
+  enterFullSize() {
+    const container = this.container;
+    const canvas = this.canvas;
 
-		this.canvas = canvas;
-		this.container = container;
-		return canvas;
-	},
-	/**
-	 * Fills the canvas to fit the entire browser window
-	 */
-	enterFullSize() {
-		var container = this.container;
-		var canvas = this.canvas;
+    Object.assign(container.style, {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      backgroundColor: "hsl(0, 0%, 5%)",
+      outline: "none",
+    });
+    Object.assign(canvas.style, {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      margin: "auto",
+    });
 
-		_.extend(container.style, {
-			position: 'fixed',
-			top: 0,
-			left: 0,
-			bottom: 0,
-			right: 0,
-			backgroundColor: 'hsl(0, 0%, 5%)',
-			outline: 'none'
-		});
-		_.extend(canvas.style, {
-			position: 'absolute',
-			top: 0,
-			left: 0,
-			bottom: 0,
-			right: 0,
-			margin: 'auto'
-		});
+    // Append container to body:
+    document.body.appendChild(container);
+    document.body.style.overflow = "hidden";
+    this.onDispose(() => {
+      document.body.removeChild(container);
+      document.body.style.overflow = null;
+    });
 
-		// Append container to body:
-		document.body.appendChild(container);
-		document.body.style.overflow = "hidden";
-		this.onDispose(() => {
-			document.body.removeChild(container);
-			document.body.style.overflow = null;
-		});
+    // Setup the letterboxing effect:
+    this._contain(container, canvas, canvas.width, canvas.height);
 
-		// Setup the letterboxing effect:
-		this._contain(container, canvas, canvas.width, canvas.height);
+    container.focus();
+  }
+  _contain(container, canvas, canvasWidth, canvasHeight) {
+    window.addEventListener("resize", scaleCanvas);
+    this.onDispose(() => {
+      window.removeEventListener("resize", scaleCanvas);
+    });
+    scaleCanvas();
 
-		container.focus();
-	},
-	_contain(container, canvas, canvasWidth, canvasHeight) {
-		window.addEventListener('resize', scaleCanvas);
-		this.onDispose(() => {
-			window.removeEventListener('resize', scaleCanvas);
-		});
-		scaleCanvas();
+    function scaleCanvas() {
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const canvasWidthRatio = canvasWidth / canvasHeight;
+      const containerWidthRatio = containerWidth / containerHeight;
+      if (canvasWidthRatio > containerWidthRatio) {
+        canvas.style.width = `${containerWidth}px`;
+        canvas.style.height = `${containerWidth / canvasWidthRatio}px`;
+      } else {
+        canvas.style.height = `${containerHeight}px`;
+        canvas.style.width = `${containerHeight * canvasWidthRatio}px`;
+      }
+    }
+  }
+  _setupTimer() {
+    this.timer = new EaselJSTimer();
+    this.timer.addTickHandler(this._tickHandler.bind(this));
+    this.onDispose(() => {
+      this.timer.dispose();
+    });
+  }
+  _tickHandler(tickEvent) {
+    // timeAdjust is currrently unused, but can be set in the console for testing purposes
+    if (this.timeAdjust) {
+      tickEvent.deltaSeconds *= this.timeAdjust;
+    }
 
-		function scaleCanvas() {
-			var containerWidth = container.offsetWidth;
-			var containerHeight = container.offsetHeight;
-			var canvasWidthRatio = (canvasWidth / canvasHeight);
-			var containerWidthRatio = (containerWidth / containerHeight);
-			if (canvasWidthRatio > containerWidthRatio) {
-				canvas.style.width = `${containerWidth}px`;
-				canvas.style.height = `${containerWidth / canvasWidthRatio}px`;
-			} else {
-				canvas.style.height = `${containerHeight}px`;
-				canvas.style.width = `${containerHeight * canvasWidthRatio}px`;
-			}
-		}
-	},
+    this.hostScene.updateScene(tickEvent);
+  }
+  _setupSettings() {
+    this.settings = new Settings();
+  }
+  _setupGamepad() {
+    this.gamepadInput = PlayerInputGamepad.createGamepadInput() || null;
+    if (this.gamepadInput) {
+      this.onDispose(() => {
+        this.gamepadInput.dispose();
+      });
+    }
+  }
+  _startHostScene() {
+    const graphics = new EaselJSGraphics(this.canvas);
+    this.hostScene = new HostScene(graphics, this.settings);
 
-	_setupTimer() {
-		this.timer = new EaselJSTimer();
-		this.timer.addTickHandler(this._tickHandler.bind(this));
-		this.onDispose(() => {
-			this.timer.dispose();
-		});
-	},
-	_tickHandler(tickEvent) {
-		// timeAdjust is currrently unused, but can be set in the console for testing purposes
-		if (this.timeAdjust) {
-			tickEvent.deltaSeconds *= this.timeAdjust;
-		}
+    // Setup Inputs:
+    this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
+    this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
+    this.hostScene.onQuitGame(() => {
+      this.dispose();
+    });
 
-		this.hostScene.updateScene(tickEvent);
-	},
+    this.hostScene.start();
 
-	_setupSettings() {
-		this.settings = new XQuestGame.XQuestHost.Settings();
-	},
-
-	_setupGamepad() {
-		this.gamepadInput = XQuestInput.PlayerInputGamepad.createGamepadInput() || null;
-		if (this.gamepadInput) {
-			this.onDispose(() => {
-				this.gamepadInput.dispose();
-			});
-		}
-	},
-
-	_startHostScene() {
-		var graphics = new EaselJSGraphics(this.canvas);
-		this.hostScene = new XQuestGame.HostScene(graphics, this.settings);
-
-		// Setup Inputs:
-		this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
-		this.hostScene.onGameCreated(this._addPlayerInputs.bind(this));
-		this.hostScene.onQuitGame(() => {
-			this.dispose();
-		});
-
-
-		this.hostScene.start();
-
-		this.onDispose(() => {
-			this.hostScene.dispose();
-		});
-
-	},
-	_addMenuInputs(menuScene) {
-		menuScene.addSceneItem(new XQuestInput.MenuInputKeyboard(null));
-		if (this.gamepadInput) {
-			menuScene.addSceneItem(this.gamepadInput);
-		}
-	},
-	_addPlayerInputs(arcadeGame) {
-		arcadeGame.addSceneItem(new XQuestInput.PlayerInputKeyboard(arcadeGame, null, this.settings));
-		arcadeGame.addSceneItem(new XQuestInput.PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings));
-		arcadeGame.addSceneItem(new XQuestInput.PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings));
-		if (this.gamepadInput) {
-			arcadeGame.addSceneItem(this.gamepadInput);
-			this.gamepadInput.setGame(arcadeGame);
-		}
-	},
-
-	enterFullScreen() {
-		requestFullscreen(this.container);
-	}
-
-});
+    this.onDispose(() => {
+      this.hostScene.dispose();
+    });
+  }
+  _addMenuInputs(menuScene) {
+    menuScene.addSceneItem(new MenuInputKeyboard(null));
+    if (this.gamepadInput) {
+      menuScene.addSceneItem(this.gamepadInput);
+    }
+  }
+  _addPlayerInputs(arcadeGame) {
+    arcadeGame.addSceneItem(new PlayerInputKeyboard(arcadeGame, null, this.settings));
+    arcadeGame.addSceneItem(
+      new PlayerInputMouse(arcadeGame, this.canvas.parentNode, this.settings),
+    );
+    arcadeGame.addSceneItem(
+      new PlayerInputTouch(arcadeGame, this.canvas.parentNode, this.settings),
+    );
+    if (this.gamepadInput) {
+      arcadeGame.addSceneItem(this.gamepadInput);
+      this.gamepadInput.setGame(arcadeGame);
+    }
+  }
+  enterFullScreen() {
+    requestFullscreen(this.container);
+  }
+}
 
 function requestFullscreen(elem) {
-	(
-		elem.requestFullscreen
-		|| elem.webkitRequestFullscreen
-		|| elem.mozRequestFullScreen
-		|| elem.msRequestFullscreen
-	).call(elem);
+  (
+    elem.requestFullscreen ||
+    elem.webkitRequestFullscreen ||
+    elem.mozRequestFullScreen ||
+    elem.msRequestFullscreen
+  ).call(elem);
 }

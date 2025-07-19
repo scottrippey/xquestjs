@@ -1,28 +1,29 @@
-EaselJSGraphics.PlayerGraphics = Smart.Class(new EaselJSGraphics.Drawing(), {
-	drawStatic(drawing) {
-		var G = Graphics.player;
-		this.visibleRadius = G.radius;
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
+import { EaselJSDrawing } from "@/XQuestGraphics/EaselJS/utils/EaselJSDrawing.js";
 
-		drawing.beginPath()
-			.circle(0, 0, G.radius)
-			.endPath(G.outerStrokeStyle);
+export class PlayerGraphics extends EaselJSDrawing {
+  drawStatic(drawing) {
+    const G = Graphics.player;
+    this.visibleRadius = G.radius;
 
-		drawing.beginPath()
-			.star(0, 0, G.innerRadius, G.innerStarPoints, G.innerStarSize, 0)
-			.endPath(G.innerStyle);
+    drawing.beginPath().circle(0, 0, G.radius).endPath(G.outerStrokeStyle);
 
-	},
-	drawEffects(drawing, tickEvent) {
-		var G = Graphics.player;
+    drawing
+      .beginPath()
+      .star(0, 0, G.innerRadius, G.innerStarPoints, G.innerStarSize, 0)
+      .endPath(G.innerStyle);
+  }
+  drawEffects(drawing, tickEvent) {
+    const G = Graphics.player;
 
-		this.rotation += (G.spinRate * tickEvent.deltaSeconds);
-	},
-	killPlayerGraphics(gfx, velocity) {
-		var G = Graphics.player;
-		this.toggleVisible(false);
-		gfx.createExplosion(this, velocity, G.explosionOptions);
-	},
-	restorePlayerGraphics() {
-		this.toggleVisible(true);
-	}
-});
+    this.rotation += G.spinRate * tickEvent.deltaSeconds;
+  }
+  killPlayerGraphics(gfx, velocity) {
+    const G = Graphics.player;
+    this.toggleVisible(false);
+    gfx.createExplosion(this, velocity, G.explosionOptions);
+  }
+  restorePlayerGraphics() {
+    this.toggleVisible(true);
+  }
+}

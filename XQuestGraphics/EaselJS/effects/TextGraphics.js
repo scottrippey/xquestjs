@@ -1,121 +1,122 @@
-Balance.onUpdate(gameMode => {
-	Graphics.merge({
-		textStyles: {
-			default: {
-				fontWeight: 'normal',
-				fontSize: '48px',
-				fontFamily: '"Segoe UI"',
-				color: 'white',
-				textAlign: 'center',
-				textBaseline: 'middle'
-			},
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
-			powerupActive: {
-				fontSize: '30px',
-				color: 'hsl(120, 100%, 80%)',
-				textBaseline: 'bottom'
-			},
+Balance.onUpdate((gameMode) => {
+  Graphics.merge({
+    textStyles: {
+      default: {
+        fontWeight: "normal",
+        fontSize: "48px",
+        fontFamily: '"Segoe UI"',
+        color: "white",
+        textAlign: "center",
+        textBaseline: "middle",
+      },
 
-			powerupDeactive: {
-				fontSize: '24px',
-				color: 'hsl(0, 100%, 80%)',
-				textBaseline: 'bottom'
-			},
+      powerupActive: {
+        fontSize: "30px",
+        color: "hsl(120, 100%, 80%)",
+        textBaseline: "bottom",
+      },
 
-			bonusLevel: {
-				fontSize: '40px',
-				color: 'hsl(60, 100%, 80%)'
-			},
+      powerupDeactive: {
+        fontSize: "24px",
+        color: "hsl(0, 100%, 80%)",
+        textBaseline: "bottom",
+      },
 
-			hudText: {
-				fontSize: '12px',
-				color: 'white',
-				textBaseline: 'middle',
-				textAlign: 'left'
-			},
+      bonusLevel: {
+        fontSize: "40px",
+        color: "hsl(60, 100%, 80%)",
+      },
 
-			menuButton: {
-				fontSize: '40px',
-				color: 'white',
-				textBaseline: 'middle',
-				textAlign: 'center'
-			}
-		}
-	});
+      hudText: {
+        fontSize: "12px",
+        color: "white",
+        textBaseline: "middle",
+        textAlign: "left",
+      },
+
+      menuButton: {
+        fontSize: "40px",
+        color: "white",
+        textBaseline: "middle",
+        textAlign: "center",
+      },
+    },
+  });
 });
-EaselJSGraphics.TextGraphic = Smart.Class(new createjs.Text(), {
-	setGfx(gfx) {
-		this.gfx = gfx;
-		this.animation = gfx.addAnimation(new Smart.Animation());
-		this.start('top');
-	},
 
-	setText(text, textStyle) {
+export class TextGraphic extends createjs.Text {
+  setGfx(gfx) {
+    this.gfx = gfx;
+    this.animation = gfx.addAnimation(new Animation());
+    this.start("top");
+  }
 
-		var textStyles = Graphics.textStyles;
+  setText(text, textStyle) {
+    const textStyles = Graphics.textStyles;
 
-		this.text = text;
+    this.text = text;
 
-		if (typeof textStyle === 'string') {
-			textStyle = textStyles[textStyle];
-		}
+    if (typeof textStyle === "string") {
+      textStyle = textStyles[textStyle];
+    }
 
-		textStyle = textStyle ? _.defaults({}, textStyle, textStyles.default) : textStyles.default;
-		this.font = [ textStyle.fontWeight, textStyle.fontSize, textStyle.fontFamily ].join(" ");
-		this.color = textStyle.color;
+    textStyle = textStyle ? _.defaults({}, textStyle, textStyles.default) : textStyles.default;
+    this.font = [textStyle.fontWeight, textStyle.fontSize, textStyle.fontFamily].join(" ");
+    this.color = textStyle.color;
 
-		this.textAlign = textStyle.textAlign;
-		this.textBaseline = textStyle.textBaseline;
-	},
+    this.textAlign = textStyle.textAlign;
+    this.textBaseline = textStyle.textBaseline;
+  }
 
-	start(gamePoint) {
-		var location = this.gfx.getHudPoint(gamePoint);
-		this.moveTo(location.x, location.y);
-		return this;
-	},
+  start(gamePoint) {
+    const location = this.gfx.getHudPoint(gamePoint);
+    this.moveTo(location.x, location.y);
+    return this;
+  }
 
-	flyIn(duration, to) {
-		var toLocation = this.gfx.getHudPoint(to || 'middle');
+  flyIn(duration, to) {
+    const toLocation = this.gfx.getHudPoint(to || "middle");
 
-		var txt = this;
-		this.animation
-			.duration(duration)
-			.easeOut()
-			.fade(txt, [0, 1])
-			.move(txt, toLocation)
-			.rotate(txt, [30, 0])
-			.queue()
-			.update(0)
-		;
+    const txt = this;
+    this.animation
+      .duration(duration)
+      .easeOut()
+      .fade(txt, [0, 1])
+      .move(txt, toLocation)
+      .rotate(txt, [30, 0])
+      .queue()
+      .update(0);
 
-		return this;
-	},
+    return this;
+  }
 
-	flyOut(duration, to) {
-		var toLocation = this.gfx.getHudPoint(to || 'bottom');
+  flyOut(duration, to) {
+    const toLocation = this.gfx.getHudPoint(to || "bottom");
 
-		var txt = this;
-		this.animation
-			.duration(duration)
-			.easeIn()
-			.fade(txt, [1, 0])
-			.move(txt, toLocation)
-			.rotate(txt, [0, 30])
-			.queueDispose(txt)
-		;
+    const txt = this;
+    this.animation
+      .duration(duration)
+      .easeIn()
+      .fade(txt, [1, 0])
+      .move(txt, toLocation)
+      .rotate(txt, [0, 30])
+      .queueDispose(txt);
 
-		return this;
-	},
+    return this;
+  }
 
-	queue(callback) {
-		this.animation.queue(callback);
-		return this;
-	},
+  queue(callback) {
+    this.animation.queue(callback);
+    return this;
+  }
 
-	delay(duration) {
-		this.animation.delay(duration);
+  delay(duration) {
+    this.animation.delay(duration);
 
-		return this;
-	}
-
-});
+    return this;
+  }
+}

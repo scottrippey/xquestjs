@@ -1,47 +1,49 @@
-EaselJSGraphics.BombCrystalGraphic = Smart.Class(new createjs.Shape(), {
-	initialize: function BombCrystalGraphic() {
-		this._setupGraphics();
-	},
-	_setupGraphics() {
-		var G = Graphics.bombCrystals;
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
-		this.visibleRadius = G.radius;
+export class BombCrystalGraphic extends createjs.Shape {
+  constructor() {
+    super();
+    this._setupGraphics();
+  }
+  _setupGraphics() {
+    const G = Graphics.bombCrystals;
 
-		this.graphics
-			.clear()
-			.beginStyle(G.style)
-			.drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
-			.closePath()
-			.endStyle(G.style)
+    this.visibleRadius = G.radius;
 
-			.beginStyle(G.styleInner)
-			.drawPolyStar(0, 0, G.radiusInner, G.sides, G.pointSize, 0)
-			.closePath()
-			.endStyle(G.styleInner)
-		;
-		this.rotation = 360 * Math.random();
+    this.graphics
+      .clear()
+      .beginStyle(G.style)
+      .drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
+      .closePath()
+      .endStyle(G.style)
 
-		this.spinRate = G.spinRate;
-	},
+      .beginStyle(G.styleInner)
+      .drawPolyStar(0, 0, G.radiusInner, G.sides, G.pointSize, 0)
+      .closePath()
+      .endStyle(G.styleInner);
+    this.rotation = 360 * Math.random();
 
-	onTick(tickEvent) {
-		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
-	},
+    this.spinRate = G.spinRate;
+  }
+  onTick(tickEvent) {
+    this.rotation += this.spinRate * tickEvent.deltaSeconds;
+  }
+  gatherBombCrystal(gfx, playerLocation) {
+    const bombCrystal = this;
+    return gfx.addAnimation(
+      new Animation()
+        .duration(Graphics.bombCrystals.gatherDuration)
+        .savePosition()
 
-	gatherBombCrystal(gfx, playerLocation) {
-		var bombCrystal = this;
-		return gfx.addAnimation(new Smart.Animation()
-			.duration(Graphics.bombCrystals.gatherDuration)
-			.savePosition()
+        .easeOut("quint")
+        .move(bombCrystal, playerLocation)
 
-			.easeOut('quint')
-			.move(bombCrystal, playerLocation)
+        .restorePosition()
+        .easeOut("quint")
+        .scale(bombCrystal, [1, 2, 2.5, 2, 1, 0])
 
-			.restorePosition()
-			.easeOut('quint')
-			.scale(bombCrystal, [1, 2, 2.5, 2, 1, 0])
-
-			.queueDispose(bombCrystal)
-		);
-	}
-});
+        .queueDispose(bombCrystal),
+    );
+  }
+}

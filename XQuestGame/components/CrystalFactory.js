@@ -1,83 +1,88 @@
-XQuestGame.CrystalFactory = Smart.Class({
-	initialize: function CrystalFactory(game) {
-		this.game = game;
-		this.game.addSceneItem(this);
-		this.crystals = [];
+import { Physics } from "@/Tools/Smart.Physics.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
-		this.game.onNewLevel(this._onNewLevel.bind(this));
-	},
+export class CrystalFactory {
+  constructor(game) {
+    this.game = game;
+    this.game.addSceneItem(this);
+    this.crystals = [];
 
-	_onNewLevel() {
-		this._spawnCrystals();
-	},
-	_spawnCrystals() {
-		var spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
+    this.game.onNewLevel(this._onNewLevel.bind(this));
+  }
 
-		if (this.game.levelConfig.crystalsDisabled) {
-			spawnQuantity = 0;
-		}
+  _onNewLevel() {
+    this._spawnCrystals();
+  }
+  _spawnCrystals() {
+    let spawnQuantity = Balance.crystals.spawnQuantity(this.game.levelConfig.numberOfRegularLevels);
 
-		// Clean up:
-		this.crystals.forEach(crystal => {
-			crystal.dispose();
-		}, this);
-		this.crystals = [];
+    if (this.game.levelConfig.crystalsDisabled) {
+      spawnQuantity = 0;
+    }
 
-		var radius = Balance.crystals.radius;
+    // Clean up:
+    this.crystals.forEach((crystal) => {
+      crystal.dispose();
+    }, this);
+    this.crystals = [];
 
-		this.game.stats.crystalCount = spawnQuantity;
+    const radius = Balance.crystals.radius;
 
-		while (spawnQuantity--) {
-			var crystal = this.game.gfx.createCrystalGraphic();
-			var spawnPoint = this.game.gfx.getSafeSpawn(radius);
-			crystal.moveTo(spawnPoint.x, spawnPoint.y);
-			crystal.location = crystal;
-			this.crystals.push(crystal);
-		}
+    this.game.stats.crystalCount = spawnQuantity;
 
-		Smart.Physics.sortByLocation(this.crystals);
+    while (spawnQuantity--) {
+      const crystal = this.game.gfx.createCrystalGraphic();
+      const spawnPoint = this.game.gfx.getSafeSpawn(radius);
+      crystal.moveTo(spawnPoint.x, spawnPoint.y);
+      crystal.location = crystal;
+      this.crystals.push(crystal);
+    }
 
+    Physics.sortByLocation(this.crystals);
 
-		if (this.crystals.length === 0) {
-			this.game.crystalsGathered(0, 0);
-		}
-	},
+    if (this.crystals.length === 0) {
+      this.game.crystalsGathered(0, 0);
+    }
+  }
 
-	onAct(tickEvent) {
+  onAct(tickEvent) {
+    // Check for player-collisions:
+    const player = this.game.player;
+    this._gatherOnCollision([player], player.radius);
+  }
 
-		// Check for player-collisions:
-		var player = this.game.player;
-		this._gatherOnCollision([ player ], player.radius);
-	},
+  _gatherOnCollision(collisionPoints, maxRadius) {
+    const maxDistance = maxRadius + Balance.crystals.radius;
 
-	_gatherOnCollision(collisionPoints, maxRadius) {
+    let crystalsGathered = 0;
+    Physics.detectCollisions(
+      this.crystals,
+      collisionPoints,
+      maxDistance,
+      (crystal, point, crystalIndex, pi, distance) => {
+        crystal.gatherCrystal(this.game.gfx, this.game.player.location);
+        this.crystals.splice(crystalIndex, 1);
+        crystalsGathered++;
+      },
+    );
 
-		var maxDistance = maxRadius + Balance.crystals.radius;
+    if (crystalsGathered) {
+      this.game.crystalsGathered(this.crystals.length, crystalsGathered);
+      this.game.stats.crystalCount -= crystalsGathered;
+    }
+  }
 
-		var crystalsGathered = 0;
-		Smart.Physics.detectCollisions(this.crystals, collisionPoints, maxDistance, (crystal, point, crystalIndex, pi, distance) => {
-			crystal.gatherCrystal(this.game.gfx, this.game.player.location);
-			this.crystals.splice(crystalIndex, 1);
-			crystalsGathered++;
-		});
+  gatherClosestCrystal(location) {
+    if (!this.crystals.length) return;
 
-		if (crystalsGathered) {
-			this.game.crystalsGathered(this.crystals.length, crystalsGathered);
-			this.game.stats.crystalCount -= crystalsGathered;
-		}
-	},
+    const crystalIndex = Physics.findClosestPoint(location, this.crystals);
+    const crystal = this.crystals[crystalIndex];
 
-	gatherClosestCrystal(location) {
-		if (!this.crystals.length) return;
+    crystal.gatherCrystal(this.game.gfx, this.game.player.location);
+    this.crystals.splice(crystalIndex, 1);
 
-		var crystalIndex = Smart.Physics.findClosestPoint(location, this.crystals);
-		var crystal = this.crystals[crystalIndex];
+    this.game.crystalsGathered(this.crystals.length, 1);
 
-		crystal.gatherCrystal(this.game.gfx, this.game.player.location);
-		this.crystals.splice(crystalIndex, 1);
-
-		this.game.crystalsGathered(this.crystals.length, 1);
-
-		this.game.stats.crystalCount -= 1;
-	}
-});
+    this.game.stats.crystalCount -= 1;
+  }
+}

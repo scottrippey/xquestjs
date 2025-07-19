@@ -1,55 +1,59 @@
-EaselJSGraphics.PowerCrystalGraphic = Smart.Class(new createjs.Shape(), {
-	initialize: function PowerCrystalGraphic() {
-		this._setupGraphics();
-	},
+import { Animation } from "@/Tools/Animation/Smart.Animation.js";
+import { Graphics } from "@/XQuestGraphics/EaselJS/Graphics.js";
 
-	_setupGraphics() {
-		var G = Graphics.powerCrystals;
-		this.graphics
-			.clear()
-			.beginStyle(G.style)
-			.drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
-			.endStyle(G.style)
+export class PowerCrystalGraphic extends createjs.Shape {
+  constructor() {
+    super();
+    this._setupGraphics();
+  }
 
-			.beginStyle(G.styleInner)
-			.drawPolyStar(0, 0, G.radiusInner, G.sides, G.pointSize, 0)
-			.endStyle(G.styleInner)
-		;
-		this.rotation = 360 * Math.random();
+  _setupGraphics() {
+    const G = Graphics.powerCrystals;
+    this.graphics
+      .clear()
+      .beginStyle(G.style)
+      .drawPolyStar(0, 0, G.radius, G.sides, G.pointSize, 0)
+      .endStyle(G.style)
 
-		this.spinRate = G.spinRate;
-	},
+      .beginStyle(G.styleInner)
+      .drawPolyStar(0, 0, G.radiusInner, G.sides, G.pointSize, 0)
+      .endStyle(G.styleInner);
+    this.rotation = 360 * Math.random();
 
-	onTick(tickEvent) {
-		this.rotation += (this.spinRate * tickEvent.deltaSeconds);
-	},
+    this.spinRate = G.spinRate;
+  }
 
-	gatherPowerCrystal(gfx, playerLocation) {
-		var powerCrystal = this;
-		return gfx.addAnimation(new Smart.Animation()
-			.duration(Graphics.powerCrystals.gatherDuration)
-			.savePosition()
+  onTick(tickEvent) {
+    this.rotation += this.spinRate * tickEvent.deltaSeconds;
+  }
 
-			.easeOut('quint')
-			.move(powerCrystal, playerLocation)
+  gatherPowerCrystal(gfx, playerLocation) {
+    const powerCrystal = this;
+    return gfx.addAnimation(
+      new Animation()
+        .duration(Graphics.powerCrystals.gatherDuration)
+        .savePosition()
 
-			.restorePosition()
-			.easeOut('quint')
-			.scale(powerCrystal, [1, 2, 2.5, 2, 1, 0])
+        .easeOut("quint")
+        .move(powerCrystal, playerLocation)
 
-			.queueDispose(powerCrystal)
-		);
-	},
+        .restorePosition()
+        .easeOut("quint")
+        .scale(powerCrystal, [1, 2, 2.5, 2, 1, 0])
 
+        .queueDispose(powerCrystal),
+    );
+  }
 
-	clearPowerCrystal(gfx) {
-		var powerCrystal = this;
-		return gfx.addAnimation(new Smart.Animation()
-			.duration(2).easeIn()
-			.scale(powerCrystal, 0)
+  clearPowerCrystal(gfx) {
+    const powerCrystal = this;
+    return gfx.addAnimation(
+      new Animation()
+        .duration(2)
+        .easeIn()
+        .scale(powerCrystal, 0)
 
-			.queueDispose(powerCrystal)
-		);
-
-	}
-});
+        .queueDispose(powerCrystal),
+    );
+  }
+}

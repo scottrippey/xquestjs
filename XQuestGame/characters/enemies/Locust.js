@@ -1,35 +1,41 @@
-XQuestGame.Locust = Smart.Class(new XQuestGame.BaseEnemy(), {
-	initialize: function Locust(game) {
-		var B = Balance.enemies.locust;
-		this.setupBaseEnemyGraphics(game, 'Locust', B.radius);
-	},
+import { BaseEnemy } from "../enemies/BaseEnemy.js";
+import { Physics } from "@/Tools/Smart.Physics.js";
+import { Point } from "@/Tools/Smart.Point.js";
+import { Balance } from "@/XQuestGame/options/Balance.js";
 
-	spawn(spawnInfo) {
-		var B = Balance.enemies.locust;
-		this.location.moveTo(spawnInfo.x, spawnInfo.y);
-		this.velocity = Smart.Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
-		this._changeTurnSpeed();
-	},
+export class Locust extends BaseEnemy {
+  constructor(game) {
+    super();
+    const B = Balance.enemies.locust;
+    this.setupBaseEnemyGraphics(game, "Locust", B.radius);
+  }
 
-	_changeTurnSpeed() {
-		var B = Balance.enemies.locust;
-		this.turnSpeed = B.turnSpeed();
-	},
+  spawn(spawnInfo) {
+    const B = Balance.enemies.locust;
+    this.location.moveTo(spawnInfo.x, spawnInfo.y);
+    this.velocity = Point.fromAngle((spawnInfo.side === 2 ? 180 : 0) + _.random(-20, 20), B.speed);
+    this._changeTurnSpeed();
+  }
 
-	onMove(tickEvent) {
-		var rotation = tickEvent.deltaSeconds * this.turnSpeed;
-		Smart.Point.rotate(this.velocity, rotation);
+  _changeTurnSpeed() {
+    const B = Balance.enemies.locust;
+    this.turnSpeed = B.turnSpeed();
+  }
 
-		Smart.Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-		Smart.Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
-	},
+  onMove(tickEvent) {
+    const rotation = tickEvent.deltaSeconds * this.turnSpeed;
+    Point.rotate(this.velocity, rotation);
 
-	onAct(tickEvent) {
-		var B = Balance.enemies.locust;
-		if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
-			this._changeTurnSpeed();
-		}
+    Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
+    Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+  }
 
-		this.enemyGraphics.rotation = Smart.Point.angleFromVector(this.velocity);
-	}
-});
+  onAct(tickEvent) {
+    const B = Balance.enemies.locust;
+    if (this.shouldChangeDirection(tickEvent, B.movementInterval)) {
+      this._changeTurnSpeed();
+    }
+
+    this.enemyGraphics.rotation = Point.angleFromVector(this.velocity);
+  }
+}
