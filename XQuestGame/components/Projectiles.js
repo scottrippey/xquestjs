@@ -81,7 +81,7 @@ export class Projectiles {
     bulletGfx.radius = B.radius;
   }
   _moveBullets(tickEvent) {
-    const bounds = this.game.levelConfig.bounds;
+    const bounds = this.game.bounds;
     const bullets = this.bulletsGraphics.bullets;
     let i = bullets.length;
     while (i--) {

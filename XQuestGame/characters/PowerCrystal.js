@@ -36,7 +36,7 @@ export class PowerCrystal {
       powerCrystal.location,
       powerCrystal.radius,
       powerCrystal.velocity,
-      this.game.levelConfig.bounds,
+      this.game.bounds,
     );
   }
 

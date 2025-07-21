@@ -63,11 +63,14 @@ Balance.merge({
           const padding = 40;
           const levelWidth = 1200;
           const levelHeight = 675;
+          const totalWidth = padding + levelWidth + padding;
+          const totalHeight = hudHeight + padding + levelHeight + padding;
           let visibleWidth = 800;
           let visibleHeight = 450;
+
           if (gameOptions.fullView) {
-            visibleWidth = padding + levelWidth + padding;
-            visibleHeight = hudHeight + padding + levelHeight + padding;
+            visibleWidth = totalWidth;
+            visibleHeight = totalHeight;
           }
           return {
             hudHeight,
@@ -78,8 +81,8 @@ Balance.merge({
             visibleHeight,
             width: levelWidth,
             height: levelHeight,
-            totalWidth: padding + levelWidth + padding,
-            totalHeight: hudHeight + padding + levelHeight + padding,
+            totalWidth,
+            totalHeight,
           };
         })(),
         gateWidth: gameOptions.easyMode ? 300 : 200,

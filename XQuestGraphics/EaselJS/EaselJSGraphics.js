@@ -95,19 +95,13 @@ export class EaselJSGraphics {
     this.layers.hud.update(tickEvent);
   }
 
-  followPlayer(playerLocation) {
-    const bounds = Balance.level.bounds;
-
-    if (!this._maxOffset) {
-      this._maxOffset = {
-        x: bounds.totalWidth - bounds.visibleWidth,
-        y: bounds.totalHeight - bounds.visibleHeight,
-      };
-    }
+  followPlayer(playerLocation, bounds = Balance.level.bounds) {
+    const maxOffsetX = bounds.totalWidth - bounds.visibleWidth;
+    const maxOffsetY = bounds.totalHeight - bounds.visibleHeight;
 
     this._offset = {
-      x: Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth / 2), this._maxOffset.x),
-      y: Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight / 2), this._maxOffset.y),
+      x: Math.min(Math.max(0, playerLocation.x - bounds.visibleWidth / 2), maxOffsetX),
+      y: Math.min(Math.max(0, playerLocation.y - bounds.visibleHeight / 2), maxOffsetY),
     };
 
     this.layers.background.x = -this._offset.x;

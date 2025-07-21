@@ -11,9 +11,11 @@ export class LevelGraphics extends createjs.Shape {
   constructor() {
     super();
     this.nextChange = 0;
+    this.setGateWidth();
   }
-  setGateWidth(gateWidth) {
+  setGateWidth() {
     const bounds = Balance.level.bounds;
+    const gateWidth = Balance.level.gateWidth;
     this.gateStart = {
       x: bounds.x + (bounds.width - gateWidth) / 2,
       y: bounds.y,

@@ -28,7 +28,7 @@ export class Hud {
     });
   }
   _layout() {
-    const bounds = this.game.levelConfig.bounds;
+    const bounds = this.game.bounds;
     const middle = bounds.hudHeight / 2;
     const spacer = 50;
 

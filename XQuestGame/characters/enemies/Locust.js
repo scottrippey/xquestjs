@@ -30,7 +30,7 @@ export class Locust extends BaseEnemy {
     Point.rotate(this.velocity, rotation);
 
     Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-    Physics.bounceOffWalls(this.location, this.radius, this.velocity, this.game.levelConfig.bounds);
+    Physics.bounceOffWalls(this.location, this.radius, this.velocity, this.game.bounds);
   }
 
   onAct(tickEvent) {

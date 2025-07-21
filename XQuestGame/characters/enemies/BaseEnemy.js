@@ -21,7 +21,7 @@ export class BaseEnemy {
   /* @protected */
   applyVelocityAndBounce(tickEvent) {
     Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-    Physics.bounceOffWalls(this.location, this.radius, this.velocity, this.game.levelConfig.bounds);
+    Physics.bounceOffWalls(this.location, this.radius, this.velocity, this.game.bounds);
   }
 
   /* @protected */
