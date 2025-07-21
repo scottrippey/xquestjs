@@ -153,7 +153,7 @@ export class PowerupFactory {
   createBombCrystal() {
     const bombCrystal = new BombCrystal(this.game);
     const randomSpawnLocation = this.game.gfx.getSafeSpawn(bombCrystal.radius);
-    bombCrystal.spawnBomb(randomSpawnLocation);
+    bombCrystal.spawn(randomSpawnLocation);
     this.bombCrystals.push(bombCrystal);
   }
 

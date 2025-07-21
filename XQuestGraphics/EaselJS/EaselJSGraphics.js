@@ -379,7 +379,7 @@ export class EaselJSGraphics {
 
   createXQuestLogoGraphic() {
     const introGraphics = new XQuestLogoGraphic(this);
-    this.layers.hud.addChild(introGraphics);
+    this.layers.objects.addChild(introGraphics);
     introGraphics.onDispose(() => {
       this.layers.hud.removeChild(introGraphics);
     });

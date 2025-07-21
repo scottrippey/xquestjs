@@ -5,7 +5,7 @@ export class BombCrystal {
     this.location = this.game.gfx.createBombCrystalGraphic();
     this.radius = Balance.bombCrystals.radius;
   }
-  spawnBomb(location) {
+  spawn(location) {
     this.location.moveTo(location.x, location.y);
   }
   gatherBombCrystal() {

@@ -1,6 +1,8 @@
 import { HostScene } from "./HostScene.js";
+import { BombCrystal } from "@/XQuestGame/characters/BombCrystal.js";
 import { allEnemies } from "@/XQuestGame/characters/enemies/index.js";
-import { Locust } from "@/XQuestGame/characters/enemies/Locust.js";
+import { Player } from "@/XQuestGame/characters/Player.js";
+import { PowerCrystal } from "@/XQuestGame/characters/PowerCrystal.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class DemoScene extends HostScene {
@@ -37,21 +39,36 @@ export class DemoScene extends HostScene {
     });
   }
   _createComponent(component) {
+    // Check for any known enemy names:
+    const Spawnable = [
+      ///
+      ...allEnemies,
+      PowerCrystal,
+      BombCrystal,
+      Player,
+    ].find((C) => C.name === component);
+    if (Spawnable) {
+      this._addLevelGraphics();
+      const instance = new Spawnable(this.game);
+      instance.spawn?.({ x: 0, y: 0, side: 2 });
+      this._addToMiddle(instance);
+      this._follow(instance.location);
+      return;
+    }
+
     if (component === "Logo") {
       const logo = this.gfx.createXQuestLogoGraphic();
       this._addToMiddle(logo);
-      return logo;
-    } else if (allEnemies.some((E) => E.name === component)) {
-      const Enemy = allEnemies.find((E) => E.name === component);
-      this._addLevelGraphics();
-      const enemy = new Enemy(this.game);
-      enemy.spawn({ x: 0, y: 0, side: 2 });
-      this._addToMiddle(enemy);
-      this._follow(enemy.location);
-      return enemy;
-    } else {
-      throw new Error(`Unknown component: "${component}"`);
+      return;
     }
+    if (component === "PowerCrystal") {
+      const p = new PowerCrystal(this.game);
+      p.spawn({ x: 0, y: 0, side: 2 });
+      this._addToMiddle(p);
+      return;
+    }
+
+    throw new Error(`Unknown component: "${component}"`);
   }
 
   _addLevelGraphics() {
