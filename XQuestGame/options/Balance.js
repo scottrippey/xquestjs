@@ -1,6 +1,7 @@
 import { Locust } from "../characters/enemies/Locust.js";
 import { Mantis } from "../characters/enemies/Mantis.js";
 import { Slug } from "../characters/enemies/Slug.js";
+import { allEnemies } from "@/XQuestGame/characters/enemies/index.js";
 
 /**
  * `Balance` defines all the variables that affect game play.
@@ -166,7 +167,7 @@ Balance.merge({
         safeSpawnDistance: 13 * 10,
         spawnRate: gameOptions.enemySpawnRate || Balance.randomBetween(1, 2),
         spawnDifficulty: 1.5, // Causes more difficult enemies to spawn more frequently
-        roster: gameOptions.enemyRoster || [Slug, Locust, Mantis],
+        roster: gameOptions.enemyRoster || allEnemies,
         slug: {
           radius: 13,
           speed: gameOptions.easyMode ? 60 : 80,

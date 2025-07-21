@@ -1,4 +1,5 @@
 import { HostScene } from "./HostScene.js";
+import { allEnemies } from "@/XQuestGame/characters/enemies/index.js";
 import { Locust } from "@/XQuestGame/characters/enemies/Locust.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
 
@@ -40,13 +41,14 @@ export class DemoScene extends HostScene {
       const logo = this.gfx.createXQuestLogoGraphic();
       this._addToMiddle(logo);
       return logo;
-    } else if (component === "Locust") {
+    } else if (allEnemies.some((E) => E.name === component)) {
+      const Enemy = allEnemies.find((E) => E.name === component);
       this._addLevelGraphics();
-      const locust = new Locust(this.game);
-      locust.spawn({ x: 0, y: 0, side: 2 });
-      this._addToMiddle(locust);
-      this._follow(locust.location);
-      return locust;
+      const enemy = new Enemy(this.game);
+      enemy.spawn({ x: 0, y: 0, side: 2 });
+      this._addToMiddle(enemy);
+      this._follow(enemy.location);
+      return enemy;
     } else {
       throw new Error(`Unknown component: "${component}"`);
     }
