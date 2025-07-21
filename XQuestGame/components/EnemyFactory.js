@@ -52,7 +52,7 @@ export class EnemyFactory {
   }
 
   getRandomSpawn(enemyRadius) {
-    const bounds = Balance.level.bounds;
+    const bounds = this.game.levelConfig.bounds;
     const spawnSide = Math.floor(Math.random() * 2) ? 1 : 2;
 
     const spawnInfo = {

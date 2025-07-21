@@ -4,9 +4,8 @@ import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class Slug extends BaseEnemy {
   constructor(game) {
-    super();
     const B = Balance.enemies.slug;
-    this.setupBaseEnemyGraphics(game, "Slug", B.radius);
+    super(game, "Slug", B.radius);
   }
 
   spawn(spawnInfo) {

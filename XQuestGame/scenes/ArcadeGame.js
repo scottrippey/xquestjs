@@ -31,6 +31,7 @@ export class ArcadeGame extends BaseScene {
   scenePaused = false;
   stats = null;
   powerCrystals = null;
+  levelConfig = null;
 
   constructor(graphics, host) {
     super();
@@ -106,9 +107,11 @@ export class ArcadeGame extends BaseScene {
     this.game.levelGraphics.closeGate();
     this.game.levelGraphics.setGateWidth(Balance.level.gateWidth);
 
-    const levelConfig = {};
-    this.game.levelConfig = levelConfig;
-    this._events.fireEvent(GameEvents.onConfigureLevel, [levelConfig]);
+    this.game.levelConfig = {
+      bounds: Balance.level.bounds,
+    };
+
+    this._events.fireEvent(GameEvents.onConfigureLevel, [this.game.levelConfig]);
     this._events.fireEvent(GameEvents.onNewLevel);
   }
   _startLevel() {
@@ -288,7 +291,7 @@ export class ArcadeGame extends BaseScene {
       };
       this.debugStatsText = this.game.gfx.addText("FPS", textStyle);
 
-      const bounds = Balance.level.bounds;
+      const bounds = this.game.levelConfig.bounds;
       this.debugStatsText.moveTo(bounds.visibleWidth, 0);
 
       const gameItems = this.game.debugStats.gameItems;

@@ -5,11 +5,14 @@ import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class Locust extends BaseEnemy {
   constructor(game) {
-    super();
     const B = Balance.enemies.locust;
-    this.setupBaseEnemyGraphics(game, "Locust", B.radius);
+    super(game, "Locust", B.radius);
   }
 
+  /**
+   *
+   * @param {{ x: number, y: number, side: number }} spawnInfo
+   */
   spawn(spawnInfo) {
     const B = Balance.enemies.locust;
     this.location.moveTo(spawnInfo.x, spawnInfo.y);
@@ -27,7 +30,7 @@ export class Locust extends BaseEnemy {
     Point.rotate(this.velocity, rotation);
 
     Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-    Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+    Physics.bounceOffWalls(this.location, this.radius, this.velocity, this.game.levelConfig.bounds);
   }
 
   onAct(tickEvent) {

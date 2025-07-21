@@ -10,7 +10,7 @@ export class BaseEnemy {
   velocity = null;
 
   /* @protected */
-  setupBaseEnemyGraphics(game, enemyName, radius) {
+  constructor(game, enemyName, radius) {
     this.game = game;
     this.game.addSceneItem(this);
     this.enemyGraphics = this.game.gfx.createEnemyGraphics(enemyName);
@@ -21,7 +21,7 @@ export class BaseEnemy {
   /* @protected */
   applyVelocityAndBounce(tickEvent) {
     Physics.applyVelocity(this.location, this.velocity, tickEvent.deltaSeconds);
-    Physics.bounceOffWalls(this.location, this.radius, this.velocity, Balance.level.bounds);
+    Physics.bounceOffWalls(this.location, this.radius, this.velocity, this.game.levelConfig.bounds);
   }
 
   /* @protected */

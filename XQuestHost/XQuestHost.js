@@ -13,7 +13,7 @@ import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
 import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
 
 export class XQuestHost extends Disposable {
-  constructor({ canvas = null, scene = null }) {
+  constructor({ canvas = null, scene = null } = {}) {
     super();
     Balance.setGameMode("arcade");
     this._setupCanvas(canvas);

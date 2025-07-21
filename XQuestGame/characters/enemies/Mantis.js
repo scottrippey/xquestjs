@@ -4,9 +4,8 @@ import { Balance } from "@/XQuestGame/options/Balance.js";
 
 export class Mantis extends BaseEnemy {
   constructor(game) {
-    super();
     const B = Balance.enemies.mantis;
-    this.setupBaseEnemyGraphics(game, "Mantis", B.radius);
+    super(game, "Mantis", B.radius);
   }
 
   spawn(spawnInfo) {
