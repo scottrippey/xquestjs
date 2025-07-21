@@ -1,6 +1,7 @@
 import "./side-effects.js";
 import { Disposable } from "@/Tools/Smart.Disposable.js";
 import { Balance } from "@/XQuestGame/options/Balance.js";
+import { DemoScene } from "@/XQuestGame/scenes/DemoScene.js";
 import { HostScene } from "@/XQuestGame/scenes/HostScene.js";
 import { EaselJSGraphics } from "@/XQuestGraphics/EaselJS/EaselJSGraphics.js";
 import { EaselJSTimer } from "@/XQuestGraphics/EaselJS/EaselJSTimer.js";
@@ -12,16 +13,21 @@ import { PlayerInputMouse } from "@/XQuestInput/player/PlayerInputMouse.js";
 import { PlayerInputTouch } from "@/XQuestInput/player/PlayerInputTouch.js";
 
 export class XQuestHost extends Disposable {
-  constructor(canvas) {
+  constructor({ canvas = null, scene = null }) {
     super();
     Balance.setGameMode("arcade");
     this._setupCanvas(canvas);
+    this._setupGraphics();
     this._setupTimer();
     this._setupSettings();
 
     this._setupGamepad();
 
-    this._startHostScene();
+    if (scene) {
+      this._startScene(scene);
+    } else {
+      this._startHostScene();
+    }
   }
   _setupCanvas(canvas) {
     if (!canvas) {
@@ -29,6 +35,9 @@ export class XQuestHost extends Disposable {
       canvas = this._createCanvas(bounds.visibleWidth, bounds.visibleHeight);
     }
     this.canvas = canvas;
+  }
+  _setupGraphics() {
+    this.graphics = new EaselJSGraphics(this.canvas);
   }
   _createCanvas(canvasWidth, canvasHeight) {
     // Note: create elements manually (parsing isn't "safe" for WinJS)
@@ -136,8 +145,7 @@ export class XQuestHost extends Disposable {
     }
   }
   _startHostScene() {
-    const graphics = new EaselJSGraphics(this.canvas);
-    this.hostScene = new HostScene(graphics, this.settings);
+    this.hostScene = new HostScene(this.graphics, this.settings);
 
     // Setup Inputs:
     this.hostScene.onMenuCreated(this._addMenuInputs.bind(this));
@@ -151,6 +159,23 @@ export class XQuestHost extends Disposable {
     this.onDispose(() => {
       this.hostScene.dispose();
     });
+  }
+  _startScene(scene) {
+    switch (scene.name) {
+      case "DemoScene":
+        this._startDemoScene(scene.component);
+        break;
+      default:
+        throw new Error(`Unknown scene name: "${scene.name}"`);
+    }
+  }
+  _startDemoScene(component) {
+    const scene = new DemoScene(this.graphics, this.settings, component);
+    scene.start();
+    this.onDispose(() => {
+      scene.dispose();
+    });
+    this.hostScene = scene;
   }
   _addMenuInputs(menuScene) {
     menuScene.addSceneItem(new MenuInputKeyboard(null));

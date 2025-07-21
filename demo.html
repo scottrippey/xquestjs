@@ -14,6 +14,11 @@
       <div id="inlineGame"></div>
     </section>
 
+    <section class="demos">
+      <canvas width="700" height="400" data-component="Logo"></canvas>
+      <canvas width="200" height="200" data-component="Locust"></canvas>
+    </section>
+
     <section class="all-the-scripts">
       <script type="importmap">
         {
@@ -35,28 +40,17 @@
         document.body.classList.remove("page-loading");
         document.body.classList.add("page-loaded");
 
-        const xquest = new XQuestHost();
-        window.xquest = xquest;
-        const container = xquest.container;
-
-        document.getElementById("inlineGame").appendChild(container);
-        xquest.onDispose(() => {
-          container.parentNode.removeChild(container);
-        });
-
-        // Once you interact with the canvas, let's go fullscreen:
-        const immediateFullScreen = true;
-        if (immediateFullScreen) {
-          container.addEventListener("mousedown", enterFullSize);
-          container.addEventListener("focus", enterFullSize);
-
-          function enterFullSize(ev) {
-            container.removeEventListener("mousedown", enterFullSize);
-            container.removeEventListener("focus", enterFullSize);
-
-            xquest.enterFullSize();
-            xquest.enterFullScreen();
-          }
+        const canvases = document.querySelectorAll("canvas");
+        for (const canvas of canvases) {
+          const component = canvas.dataset.component;
+          const xquest = new XQuestHost({
+            canvas,
+            scene: {
+              name: "DemoScene",
+              component,
+            },
+          });
+          canvas.xquest = xquest;
         }
       </script>
     </section>
