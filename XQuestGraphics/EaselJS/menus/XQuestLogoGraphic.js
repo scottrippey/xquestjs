@@ -21,9 +21,7 @@ export class XQuestLogoGraphic extends createjs.Container {
   constructor(gfx) {
     super();
     this.gfx = gfx;
-    this._addX_Q_UEST();
-  }
-  _addX_Q_UEST() {
+
     const X = new LogoParts.X();
     this.addChild(X);
 
@@ -40,6 +38,13 @@ export class XQuestLogoGraphic extends createjs.Container {
     this.Q = Q;
     this.QTail = QTail;
     this.UEST = UEST;
+  }
+  _layoutLogo() {
+    const { X, Q, QTail, UEST } = this;
+    // Reset:
+    QTail.alpha = 1;
+    UEST.alpha = 1;
+    X.rotation = 0;
 
     // Layout:
     let left = 0;
@@ -64,11 +69,9 @@ export class XQuestLogoGraphic extends createjs.Container {
   }
 
   showLogo() {
+    this._layoutLogo();
     const G = Graphics.xquestLogo;
     const logo = this;
-    const X = this.X;
-    const Q = this.Q;
-    const UEST = this.UEST;
     logo.alpha = 0;
     this.animation = this.gfx
       .addAnimation()
@@ -84,10 +87,7 @@ export class XQuestLogoGraphic extends createjs.Container {
   hideLogo() {
     const G = Graphics.xquestLogo;
     const logo = this;
-    const X = this.X;
-    const Q = this.Q;
-    const QTail = this.QTail;
-    const UEST = this.UEST;
+    const { X, Q, QTail, UEST } = this;
     const spinRate = 270;
     let firstSpin;
     this.animation.cancelAnimation();

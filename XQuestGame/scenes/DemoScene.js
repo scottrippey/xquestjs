@@ -59,7 +59,12 @@ export class DemoScene extends HostScene {
     if (component === "Logo") {
       const logo = this.gfx.createXQuestLogoGraphic();
       this.addSceneItem(logo);
-      logo.moveTo(250, 280);
+      const showHide = () => {
+        logo.showLogo().queue(() => logo.hideLogo().queue(showHide));
+      };
+      showHide();
+
+      logo.moveTo(280, 290);
       return;
     }
 
