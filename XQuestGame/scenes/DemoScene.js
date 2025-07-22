@@ -58,13 +58,8 @@ export class DemoScene extends HostScene {
 
     if (component === "Logo") {
       const logo = this.gfx.createXQuestLogoGraphic();
-      this._addToMiddle(logo);
-      return;
-    }
-    if (component === "PowerCrystal") {
-      const p = new PowerCrystal(this.game);
-      p.spawn({ x: 0, y: 0, side: 2 });
-      this._addToMiddle(p);
+      this.addSceneItem(logo);
+      logo.moveTo(250, 280);
       return;
     }
 

@@ -12,7 +12,7 @@
   </head>
   <body class="page-loading">
     <h1>XQuest JS</h1>
-    <section class="quick-info">
+    <section id="intro">
       <h2>
         A Space Shooter game that is
         <a href="https://github.com/scottrippey/xquestjs">open-source</a>.
@@ -24,12 +24,12 @@
       </p>
     </section>
 
-    <section class="play-game">
+    <section id="main-game">
       <span class="hide-after-load"> Loading game assets... </span>
       <div id="inlineGame"></div>
     </section>
 
-    <section class="instructions">
+    <section id="instructions">
       <h2>How to Play</h2>
       <ul>
         <li>Move your player around the field, but don't touch the walls</li>
@@ -71,7 +71,8 @@
         <li>Enter releases a bomb</li>
       </ul>
     </section>
-    <section class="to-do-list">
+
+    <section id="to-do-list">
       <h2>To Do List</h2>
 
       <h3>To make the game awesome</h3>
@@ -211,7 +212,11 @@
       </pre>
     </section>
 
-    <section class="all-the-scripts">
+    <section id="development">
+      Open the <a href="demo.html">demo.html</a> page to see some active samples.
+    </section>
+
+    <section id="all-the-scripts">
       <script type="importmap">
         {
           "imports": {
@@ -225,7 +230,7 @@
       <script src="lib/smoothsort.js"></script>
     </section>
 
-    <section class="startup-script">
+    <section id="startup-script">
       <script type="module">
         import { XQuestHost } from "@/XQuestHost/XQuestHost.js";
 
